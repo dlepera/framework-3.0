@@ -2,7 +2,7 @@
  * @Autor	: Diego Lepera
  * @E-mail	: d_lepera@hotmail.com
  * @Projeto	: FrameworkDL
- * @Data	: 16/01/2015 15:32:02
+ * @Data	: 19/12/2014 17:46:27
  */
 
 @import '../../_help/compatibilidade.scss';
@@ -11,14 +11,22 @@
 @import '../_help/configuracoes.scss';
 
 /* -----------------------------------------------------------------------------
- * Links em geral
+ *  Conteudo
  * -------------------------------------------------------------------------- */
-a{
+section.dl3{
+    /* Visual */
+    background-color: $c-cont-fundo;
+    
     /* Texto */
-    color: $c-html-links;
-}
-
-a:hover{
-    /* Texto */
-    color: $c-html-links-h;
+    color: $c-cont-txt;
+    
+    a{
+        /* Texto */
+        color: $c-cont-links;
+    }
+    
+    a:hover{
+        /* Texto */
+        color: $c-cont-links-h;
+    }
 }
