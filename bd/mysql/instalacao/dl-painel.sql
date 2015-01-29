@@ -172,17 +172,3 @@ CREATE TABLE IF NOT EXISTS dl_painel_usuarios_recuperacoes(
     CONSTRAINT CK_recuperacao_status CHECK( recuperacao_status IN('E', 'C', 'R', 'X') ),
     CONSTRAINT FK_recuperacao_usuario FOREIGN KEY(recuperacao_usuario) REFERENCES dl_painel_usuarios(usuario_id) ON DELETE CASCADE
 ) ENGINE=INNODB;
-
--- Permissionamento do usuários
-CREATE TABLE IF NOT EXISTS dl_painel_usuarios_permissoes(
-    permissao_usuario INT NOT NULL,
-    permissao_modulo INT NOT NULL,
-    permissao_ver BIT NOT NULL DEFAULT 0,
-    permissao_inserir BIT NOT NULL DEFAULT 0,
-    permissao_editar BIT NOT NULL DEFAULT 0,
-    permissao_remover BIT NOT NULL DEFAULT 0,
-    permissao_total BIT NOT NULL DEFAULT 0,
-    PRIMARY KEY(permissao_usuario, permissao_modulo),
-    CONSTRAINT FK_permissao_usuario FOREIGN KEY(permissao_usuario) REFERENCES dl_painel_usuarios(usuario_id) ON DELETE CASCADE,
-    CONSTRAINT FK_permissao_modulo FOREIGN KEY(permissao_modulo) REFERENCES dl_painel_modulos(modulo_id) ON DELETE CASCADE
-) ENGINE=INNODB;
