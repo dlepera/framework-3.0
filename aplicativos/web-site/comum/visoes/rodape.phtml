@@ -10,7 +10,35 @@
 ?>
 
         <footer class="dl3">
-            <?= \DL3::$ap_titulo .' &copy; '. date('Y'); ?>
+            <p class="copyright"><?= \DL3::$ap_titulo .' &copy; '. date('Y'); ?></p>
+
+            <ul class="dados-contato sem-marcadores">
+                <?php foreach( $params['dados-contato'] as $dc ): ?>
+                <li class="item-contato">
+                    <?php if( empty($dc['tipo_dado_icone']) ):
+                        echo "<b>{$dc['tipo_dado_descr']}:</b> ";
+                    else: ?>
+                    <img src=".<?= $dc['tipo_dado_icone']; ?>" alt="<?= $dc['tipo_dado_descr']; ?>" class="icone-contato"/>
+                    <?php endif;
+
+                    echo $dc['dado_contato_descr']; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+
+            <ul class="redes-sociais sem-marcadores">
+                <?php foreach( $params['redes-sociais'] as $rs ): ?>
+                <li class="item-contato">
+                    <?php if( empty($rs['tipo_dado_icone']) ):
+                        echo "<b>{$rs['tipo_dado_descr']}:</b> ";
+                    else: ?>
+                    <img src=".<?= $rs['tipo_dado_icone']; ?>" alt="<?= $rs['tipo_dado_descr']; ?>" class="icone-contato"/>
+                    <?php endif;
+
+                    echo $rs['dado_contato_descr']; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
         </footer>
 
     </div>

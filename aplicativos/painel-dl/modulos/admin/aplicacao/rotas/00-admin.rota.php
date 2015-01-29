@@ -46,6 +46,11 @@ $rotas['^grupos-de-usuarios/excluir-grupo$'] = array(
     'acao'      =>  'remover'
 );
 
+$rotas['^grupos-de-usuarios/carregar-select$'] = array(
+    'controle'  =>  'GrupoUsuario',
+    'acao'      =>  'carregarselect'
+);
+
 
 
 /**

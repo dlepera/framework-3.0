@@ -111,11 +111,12 @@ abstract class Principal{
      * Selecionar dados para carregar um campo select
      * -------------------------------------------------------------------------
      *
+     * @param string $f - filtro a ser aplicado
      * @param bool $e - Define se o resultado da consulta será escrito
      *  ou retornado pela função
      */
-    public function _carregarselect($e=true){
-
+    public function _carregarselect($f=null,$e=true){
+        $this->modelo->_carregarselect($f,$e);
     } // Fim do método _carregarselect
 
 

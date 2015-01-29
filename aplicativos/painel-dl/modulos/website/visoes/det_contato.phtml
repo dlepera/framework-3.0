@@ -23,25 +23,30 @@ $le  = $params['log-email'];
     </h2>
 
     <h2><?= TXT_TITULO_CONTATO; ?></h2>
-
+    
     <p>
         <b><?= TXT_LABEL_NOME; ?>:</b>
         <?= $mod->nome; ?>
-        <br/>
+    </p>
 
+    <p>
         <b><?= TXT_LABEL_EMAIL; ?>:</b>
         <a href="mailto:<?= $mod->email; ?>;"><?= $mod->email; ?></a>
-        <br/>
+    </p>
 
+    <p>
         <b><?= TXT_LABEL_TELEFONE; ?>:</b>
-        <?= $mod->telefone; ?><br/>
+        <?= $mod->telefone; ?>
+    </p>
 
-        <?php if( !is_null($params['assunto']) ): ?>
-        <b><?= TXT_LABEL_ASSUNTO; ?></b>
-        <?= $params['assunto']; ?>
-        <br/>
-        <?php endif; ?>
+    <?php if( !is_null($params['assunto-descr']) ): ?>
+    <p style="color: <?= $params['assunto-cor']; ?>">
+        <b><?= TXT_LABEL_ASSUNTO; ?>:</b>
+        <?= $params['assunto-descr']; ?>
+    </p>
+    <?php endif; ?>
 
+    <p>
         <b><?= TXT_LABEL_MENSAGEM; ?>:</b><br/>
         <?= nl2br($mod->mensagem); ?>
     </p>

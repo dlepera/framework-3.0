@@ -17,7 +17,18 @@ class WebSite extends \Geral\Controle\Principal{
         $mga = new \Home\Modelo\GoogleAnalytics();
         $mga->_selecionar_ativa();
 
+        # Informações para contato
+        $mdc = new \Contato\Modelo\DadoContato();
+
+        # Listar as redes sociais
+        $lrs = $mdc->_listar('tipo_dado_rede_social = 1', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
+
+        # Listar dados para contato
+        $ldc = $mdc->_listar('tipo_dado_rede_social = 0', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
+
         # Parâmetros
         $this->visao->_adparam('ga-codigo-ua', $mga->codigo_ua);
+        $this->visao->_adparam('dados-contato', $ldc);
+        $this->visao->_adparam('redes-sociais', $lrs);
     } // Fim do método __construct
 } // Fim do Controle WebSite

@@ -74,7 +74,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo');" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone a-inserir a-select">
                     <?= TXT_LINK_NOVO_IDIOMA; ?>
                 </a>
                 <?php endif; ?>
@@ -93,7 +93,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-tema?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo');" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone a-inserir a-select">
                     <?= TXT_LINK_NOVO_TEMA; ?>
                 </a>
                 <?php endif; ?>
@@ -136,7 +136,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo');" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone a-inserir a-select">
                     <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
                 </a>
                 <?php endif; ?>
@@ -190,3 +190,11 @@ $mod = $params['modelo'];
         </p>
     </form>
 </section>
+
+<script>
+    //<![CDATA[
+    function CarregarGU(){
+
+    } // Fim function CarregarGU()
+    //]]>
+</script>

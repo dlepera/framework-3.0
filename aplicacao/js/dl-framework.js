@@ -127,17 +127,15 @@ function CarregarHTML(controle, id_html){
  * Carregar um formulário
  * 
  * @param {string} form - caminho para o FORM a ser carregado
- * @param {string} controle - controle a ser executado pelo formulário
  * @param {string} id_html - ID a ser atribuído ao HTML
  * @param {function} func_depois - função a ser executada após o submit do formulário
  * @returns {jQuery|CarregarForm.$form|CarregarHTML.$html}
  */
-function CarregarForm(form, controle, id_html, func_depois){
+function CarregarForm(form, id_html, func_depois){
     var $form = CarregarHTML(form, id_html);
     
     // Alterar algumas propriedades do formulário
     $form.find('form')._dlformulario({
-        controle    : controle,
         depois      : function(){
             $form.find('form').trigger('reset');
             if( typeof func_depois === 'function' ) func_depois();
@@ -152,9 +150,19 @@ function CarregarForm(form, controle, id_html, func_depois){
     return $form;
 } // Fim function CarregarForm(form, id_html)
 
-function CarregarSelect($select, controle){
+
+
+/**
+ * Carregar informações para popular <select>
+ * -----------------------------------------------------------------------------
+ * 
+ * @param {jQuery} $s - instância jQuery do select a ser populado
+ * @param {type} c - controle a ser executado para obter os dados
+ * @returns {void}
+ */
+function CarregarSelect($s, c){
     $.ajax({
-        url     : controle,
+        url     : c,
         dataType: 'json',
         success : function(json){
             var qtde = json.length;
@@ -162,10 +170,10 @@ function CarregarSelect($select, controle){
             if( qtde > 0 ){
                 // Remover todos as opções do select
                 // com excessão do primeiro
-                $select.find('option:not(:first-child)').remove();
+                $s.find('option:not(:first-child)').remove();
 
                 for(var i=0; i < qtde; i++)
-                    $(document.createElement('option')).val(json[i].ID).text(json[i].LABEL).appendTo($select);
+                    $(document.createElement('option')).val(json[i].VALOR).text(json[i].TEXTO).appendTo($s);
             } // Fim if( qtde > 0 )
         } // Fim success
     });

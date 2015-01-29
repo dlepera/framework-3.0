@@ -361,7 +361,8 @@ abstract class Principal{
     } // Fim do método _criar_update
 
     /**
-     * Carregar um 'select' com ID e LABEL
+     * Carregar um 'select' com VALOR e TEXTO
+     * -------------------------------------------------------------------------
      *
      * @param string $filtro - filtro a ser aplicado na query
      * @param boolen $escrever - define se o resultado será escrito no formato json ou retornado

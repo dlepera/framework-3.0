@@ -60,6 +60,14 @@ class ContatoSite extends \Geral\Controle\PainelDL{
         $this->_carregarhtml('det_contato');
         $this->visao->titulo = TXT_TITULO_DETALHES_CONTATO;
 
+        # Assunto do contato
+        if( !is_null($this->modelo->assunto) ):
+            $ma = new \WebSite\Modelo\AssuntoContato($this->modelo->assunto);
+
+            $this->visao->_adparam('assunto-descr', $ma->descr);
+            $this->visao->_adparam('assunto-cor', $ma->cor);
+        endif;
+
         # Parâmetro
         $this->visao->_adparam('modelo', $this->modelo);
         $this->visao->_adparam('log-email', new \Geral\Modelo\LogEmail($this->modelo->bd_tabela, $id));

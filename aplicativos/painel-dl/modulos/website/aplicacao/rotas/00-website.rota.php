@@ -102,6 +102,11 @@ $rotas['^tipos-de-dados/salvar$'] = array(
     'acao'      =>  'salvar'
 );
 
+$rotas['^tipos-de-dados/carregar-select$'] = array(
+    'controle'  =>  'TipoDadoContato',
+    'acao'      =>  'carregarselect'
+);
+
 
 
 /**

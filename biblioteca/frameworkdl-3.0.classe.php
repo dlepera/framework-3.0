@@ -89,10 +89,10 @@ class FrameworkDL3{
     # Configurações da aplicação
     private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = array(), $ap_timezone = 'America/Sao_Paulo';
     public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8',
-            $ap_base_html = '/', $ap_versao_jquery = '2.1.1';
+            $ap_base_html = '/', $ap_versao_jquery = '2.1.1', $ap_favicon = 'favicon.ico';
 
     # Diretórios usados para montar as páginas HTML
-    public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/';
+    public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/', $dir_imgs = 'aplicacao/imgs/';
 
     # Configurações do banco de dados
     private $bd_ativar = false, $bd_driver = 'mysql', $bd_host = 'localhost', $bd_porta = 3306,

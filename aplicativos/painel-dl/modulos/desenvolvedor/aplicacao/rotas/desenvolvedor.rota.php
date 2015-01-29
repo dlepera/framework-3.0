@@ -88,6 +88,11 @@ $rotas['^temas/desinstalar-tema$'] = array(
     'acao'      =>  'remover'
 );
 
+$rotas['^temas/carregar-select$'] = array(
+    'controle'  =>  'Tema',
+    'acao'      =>  'carregarselect'
+);
+
 
 
 /**
@@ -120,4 +125,9 @@ $rotas['^idiomas/salvar$'] = array(
 $rotas['^idiomas/remover-idioma$'] = array(
     'controle'  =>  'Idioma',
     'acao'      =>  'remover'
+);
+
+$rotas['^idiomas/carregar-select$'] = array(
+    'controle'  =>  'Idioma',
+    'acao'      =>  'carregarselect'
 );
