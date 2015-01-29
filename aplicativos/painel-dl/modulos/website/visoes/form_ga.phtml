@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="mail-usuario"><?= TXT_LABEL_USUARIO; ?>:</label><br/>
+                <input type="email" name="usuario" id="mail-usuario" value="<?= $mod->usuario; ?>" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-senha"><?= TXT_LABEL_SENHA; ?>:</label><br/>
+                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" required/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="perfil-id"><?= TXT_LABEL_PERFIL; ?>:</label><br/>
+                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="codigo-ua"><?= TXT_LABEL_CODIGO_UA; ?>:</label><br/>
+                <input type="text" name="codigo_ua" id="codigo-ua" value="<?= $mod->codigo_ua; ?>"/>
+            </p>
+        </fieldset>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_ATIVAR; ?></label><br/>
+            <input type="checkbox" name="ativar" id="chk-ativar" class="s-ou-n" value="1"<?= $mod->ativar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <label for="chk-ativar"></label>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

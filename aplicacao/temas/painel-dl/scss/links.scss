@@ -1,0 +1,190 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 16/01/2015 15:32:02
+ */
+
+@import '../../_help/compatibilidade.scss';
+@import '../../_help/configuracoes.scss';
+@import '../_help/cores.scss';
+@import '../_help/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ * Links em geral
+ * -> Cores
+ * -------------------------------------------------------------------------- */
+a{
+    /* Texto */
+    color: $c-html-links;
+}
+
+a:hover{
+    /* Texto */
+    color: $c-html-links-h;
+}
+
+/* -----------------------------------------------------------------------------
+ * Links em geral
+ * -> Visual e comportamento
+ * -------------------------------------------------------------------------- */
+a{
+    /* Texto */
+    text-decoration: none;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ * Links com icone
+ * -> Visual e comportamento
+ * -------------------------------------------------------------------------- */
+.com-icone{
+    /* Posicionamento */
+    position: relative;
+    
+    /* Visual */
+    display: inline-block;
+}
+
+.com-icone:before{
+    $ti: 1.4em; /* tamanho do icone */
+    
+    /* Texto */
+    font-family : 'icones';
+    font-size   : 1.2em;
+    line-height : $ti;
+    text-align  : center;
+    text-indent : 0; 
+    
+    /* Alinhamento */
+    vertical-align: middle;
+    
+    /* Visual */
+    display         : inline-block; 
+    border          : 1px solid;
+    border-radius   : 50%;
+    background      : #FFF;
+    
+    /* Tamanho */
+    width   : $ti;
+    height  : $ti;
+    
+    /* Margens */
+    margin-right: .3em;
+    
+    /* Posicionamento */
+    position: relative;
+    left    : 0;
+}
+
+
+
+/* Link: Inserir */
+.a-inserir{
+    /* Texto */
+    color: green !important;
+}
+
+.a-inserir:before{
+    @extend .a-inserir;
+    
+    /* Texto */
+    content: '+';
+    
+    /* Visual */
+    border-color: green;
+}
+
+/* Link: Detalhes */
+.a-detalhes{
+    /* Texto */
+    color: purple;
+}
+
+.a-detalhes:before{
+    @extend .a-detalhes;
+    
+    /* Texto */
+    content: 'o';
+}
+
+/* Link: Editar */
+.a-editar{
+    /* Texto */
+    color: orange;
+}
+
+.a-editar:before{
+    @extend .a-editar;
+    
+    /* Texto */
+    content: 'e';
+    
+    /* Visual */
+    border-color: orange;
+}
+
+/* Link: Remover */
+.a-remover{
+    /* Texto */
+    color: red;
+}
+
+.a-remover:before{
+    @extend .a-remover;
+    
+    /* Texto */
+    content: '-';
+    
+    /* Visual */
+    border-color: red;
+}
+
+/* Link: E-mail */
+.a-email{
+    /* Texto */
+    color: #aabbff;
+}
+
+.a-email:before{
+    @extend .a-email;
+    
+    /* Texto */
+    content: 'M';
+    
+    /* Visual */
+    border-color: #aabbff;
+}
+
+/* Link: Bloquear */
+.a-bloquear{
+    /* Texto */
+    color: #900;
+}
+
+.a-bloquear:before{
+    @extend .a-bloquear;
+    
+    /* Texto */
+    content: 'k';
+    
+    /* Visual */
+    border-color: #900;
+}
+
+/* Link: Desbloquear */
+.a-desbloquear{
+    /* Texto */
+    color: green;
+}
+
+.a-desbloquear:before{
+    @extend .a-desbloquear;
+    
+    /* Texto */
+    content: 'K';
+    
+    /* Visual */
+    border-color: green;
+}

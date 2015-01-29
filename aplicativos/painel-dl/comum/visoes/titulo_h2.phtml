@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 08/01/2015 16:24:44
+ */
+
+if( !$params['incluindo'] ): ?>
+<h2 class="sub-h2">
+    <?php if( !empty($params['dt-inc']) ):
+        printf(MSG_REGISTRO_CRIADO, $params['u-inc'], $params['dt-inc']);
+        echo '<br/>';
+    endif;
+
+    if( !empty($params['dt-alt']) ):
+        printf(MSG_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']);
+    endif; ?>
+</h2>
+<?php endif;

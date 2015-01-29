@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <input type="hidden" name="id" value="<?= $params['id']; ?>"/>
+
+        <p class="form-p-campo">
+            <label for="txt-senha-nova"><?= TXT_LABEL_SENHA_NOVA; ?>:</label><br/>
+            <input type="password" name="senha_nova" id="txt-senha-nova" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="txt-senha-conf"><?= TXT_LABEL_SENHA_CONF; ?>:</label><br/>
+            <input type="password" name="senha_nova_conf" id="txt-senha-conf" required/>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

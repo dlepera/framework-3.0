@@ -1,0 +1,189 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <h2><?= TXT_TITULO_MODULO; ?></h2>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_MODULO; ?></legend>
+
+            <?php if( $params['modulos-pai'] != false ): ?>
+            <p class="form-p-campo">
+                <label for="sel-pai"><?= TXT_LABEL_MODULO_PAI; ?>:</label><br/>
+                <select name="pai" id="sel-pai">
+                    <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
+
+                    <?php foreach( $params['modulos-pai'] as $o ): ?>
+                    <option value="<?= $o['VALOR']; ?>"<?= $mod->pai == $o['VALOR'] ? ' SELECTED' : ''; ?>>
+                        <?= $o['TEXTO']; ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </p>
+            <?php endif; ?>
+
+            <p class="form-p-campo">
+                <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-descr"><?= TXT_LABEL_DESCRICAO; ?>:</label><br/>
+                <textarea name="descr" id="txt-descr"><?= $mod->descr; ?></textarea>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_MENU; ?></legend>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_MENU; ?></label><br/>
+                <span class="form-dica"><?= TXT_DICA_MODULO_MENU; ?></span>
+                <input type="checkbox" name="menu" id="chk-menu" class="s-ou-n" value="1"<?= $mod->menu == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <label for="chk-menu"></label>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-link"><?= TXT_LABEL_LINK; ?>:</label><br/>
+                <input type="text" name="link" id="txt-link" value="<?= $mod->link; ?>" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="num-ordem"><?= TXT_LABEL_ORDEM; ?>:</label><br/>
+                <input type="number" name="ordem" id="num-ordem" value="<?= $mod->ordem; ?>" required/>
+            </p>
+        </fieldset>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <label for="chk-publicar"></label>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+
+    <h2><?= TXT_TITULO_CONFIGURACOES_AVANCADAS; ?></h2>
+
+    <?php if( $params['mostrar-funcs?'] ): ?>
+    <form id="form-funcs" method="post" action="desenvolvedor/modulos/inserir-funcionalidade">
+        <input type="hidden" name="func_modulo" value="<?= $mod->id; ?>"/>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="txt-descr"><?= TXT_LABEL_DESCRICAO; ?>:</label><br/>
+                <input type="text" name="descr" id="txt-descr" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-classe"><?= TXT_LABEL_CLASSE; ?>:</label><br/>
+                <input type="text" name="classe" id="txt-classe" value="<?= "{$params['modulo-pai']}\Controle\\". preg_replace('~[\s\-]~', '', ucwords(\Funcoes::_removeracentuacao(preg_replace('~s(\s+|$)~', '', $mod->nome)))); ?>" required/>
+            </p>
+
+            <ul id="metodos" class="sub-itens sem-marcadores">
+                <li class="item">
+                    <input type="text" name="metodos[]" placeholder="<?= TXT_LABEL_METODO; ?>" required/>
+                <li>
+            </ul>
+
+            <a href="javascript:;" onclick="NovoMetodo();" class="com-icone a-inserir">
+                <?= TXT_LINK_NOVO_METODO; ?>
+            </a>
+        </fieldset>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+
+    <form id="form-remover-func" method="post" action="desenvolvedor/modulos/apagar-funcionalidade">
+        <table class="lista">
+            <thead>
+                <tr>
+                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-descr"><?= TXT_TABELA_TITULO_DESCR; ?></th>
+                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if( !count($params['funcs']) )
+                    echo '<tr class="sem-registros"><td colspan="3">',MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+
+                foreach( $params['funcs'] as $l ): ?>
+                <tr>
+                    <td headers="th-id" class="td-id">
+                        <input type="checkbox" name="id[]" value="<?= $l['VALOR']; ?>"/>
+                    </td>
+                    <td headers="th-descr"><?= $l['TEXTO']; ?></td>
+                    <td headers="th-opcoes" class="td-opcoes">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $rf.submit();" class="com-icone a-remover">
+                            <?= TXT_LINK_REMOVER;?>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </form>
+    <?php endif; ?>
+</section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        $('#form-funcs')._dlformulario({
+            depois: function(){ window.location.reload(); },
+            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+        });
+
+        $rf = $('#form-remover-func')._dlformulario({
+            depois: function(){
+                $('table.lista :checked').parents('tr').remove();
+            },
+            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+        });
+
+        $('#sel-pai').on('change', function(){
+            var $forms = $('#form-funcs, #form-remover-func');
+
+            $(this).val() != '' ? $forms.show('fast') : $forms.hide('fast');
+        });
+    });
+
+    function NovoMetodo(){
+        $(document.createElement('li')).addClass('item').html(
+            '<input type="text" name="metodos[]" placeholder="<?= TXT_LABEL_METODO; ?>" required/>'
+                + '<a href="javascript:;" onclick="$(this).parent().remove();">x</a>'
+        ).appendTo($('#metodos'));
+    } // Fim function NovoMetodo
+    //]]>
+</script>

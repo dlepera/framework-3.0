@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="foto_album" value="<?= $mod->foto_album; ?>"/>
+
+        <figure class="mostrar-imagem">
+            <img src="..<?= $mod->imagem; ?>" alt=""/>
+        </figure>
+        
+        <p class="form-p-campo">
+            <label for="txt-titulo"><?= TXT_LABEL_TITULO; ?>:</label><br/>
+            <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>"/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+            <textarea name="descr" id="txt-descr"><?= $mod->descr; ?></textarea>
+        </p>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_CAPA; ?></label><br/>
+            <span class="form-dica"><?= MSG_DICA_ALBUMFOTO_CAPA; ?></span>
+            <input type="checkbox" name="capa" id="chk-capa" class="s-ou-n" value="1"<?= $mod->capa ? ' CHECKED' : ''; ?>/>
+            <label for="chk-capa"></label>
+        </p>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <label for="chk-publicar"></label>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

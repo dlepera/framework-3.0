@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 05/01/2015 16:57:41
+ */
+
+# Parâmetros passados para a página
+$params = $this->_obterparams();
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?= "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
+    <meta charset="<?= \DL3::$ap_charset; ?>">
+
+    <!-- Setar a base do HTML -->
+    <base href="<?= \DL3::$ap_base_html; ?>"/>
+
+    <!-- Tamanho do dispositivo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Aplicar o tema da página -->
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/padrao.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/links.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/topo.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/menu.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/conteudo.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/listas.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/formularios.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/rodape.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/painel.css"/>
+</head>
+<body>
+    <div id="grid-layout">
+        <header class="dl3">
+            <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
+
+            <ul class="menu-usuario sem-marcadores">
+                <li class="menu-item">
+                    <a href="javascript:;" class="a-usuario">
+                        <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
+                    </a>
+
+                    <ul class="sub-menu sem-marcadores">
+                        <?php if( $params['perm-usr-conta?'] ): ?>
+                        <li class="sm-item">
+                            <a href="admin/usuarios/minha-conta" class="a-conta">
+                                <?= TXT_LINK_MINHA_CONTA; ?>
+                            </a>
+                        </li>
+                        <?php endif;
+
+                        if( $params['perm-usr-senha?'] ): ?>
+                        <li class="sm-item">
+                            <a href="admin/usuarios/alterar-minha-senha" class="a-senha">
+                                <?= TXT_LINK_ALTERAR_MINHA_SENHA; ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+
+                        <li class="sm-item">
+                            <a href="javascript:;" onclick="$logout.submit();" class="a-logout">
+                                <?= TXT_LINK_LOGOUT; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+
+        <nav class="dl3">
+            <ul class="menu-principal sem-marcadores">
+                <li class="menu-item">
+                    <a href="" class="a-home">
+                        <?= TXT_LINK_HOME; ?>
+                    </a>
+                </li>
+
+                <?php foreach( $params['menu-modulos'] as $mm ):
+                    # Obter os sub-módulos
+                    $sm_k = array_keys(
+                            preg_grep(
+                                "~^{$mm['modulo_id']}$~",
+                                array_column($params['menu-submodulos'], 'modulo_pai')
+                            ));
+                    if( count($sm_k) > 0 ): ?>
+                    <li class="menu-item">
+                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="a-modulo">
+                            <?= $mm['modulo_nome']; ?>
+                        </a>
+
+                        <ul class="sub-menu sem-marcadores">
+                            <?php foreach( $sm_k as $k ):
+                                $sm = $params['menu-submodulos'][$k]; ?>
+                            <li class="sm-item">
+                                <a href="<?= $sm['modulo_link']; ?>" class="a-submodulo">
+                                    <?= $sm['modulo_nome']; ?>
+                                </a>
+
+                                <?php if( !empty($sm['modulo_descr']) ): ?>
+                                <span class="sm-descr">
+                                    <?= nl2br($sm['modulo_descr']); ?>
+                                </span>
+                                <?php endif; ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <?php endif;
+                endforeach; ?>
+            </ul>
+        </nav>
+

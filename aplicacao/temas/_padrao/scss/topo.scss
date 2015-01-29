@@ -1,0 +1,60 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 19/12/2014 16:15:20
+ */
+
+@import '../../_help/compatibilidade.scss';
+@import '../../_help/configuracoes.scss';
+@import '../_help/cores.scss';
+@import '../_help/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ * Topo
+ * -------------------------------------------------------------------------- */
+header.dl3{
+    /* Visual */
+    background-color: $c-topo-fundo;
+    
+    /* Texto */
+    color: $c-topo-txt;
+    
+    > .logotipo{
+        /* Texto */
+        color: $c-topo-logo;
+    }
+    
+    > .menu-usuario{
+        /* Visual */
+        background-color: $c-mnus-fundo;
+        
+        /* Texto */
+        color: $c-mnus-txt;
+        
+        a{
+            /* Texto */
+            color: $c-mnus-links;
+        }
+        
+        a:hover{
+            /* Texto */
+            color: $c-mnus-links-h;
+        }
+        
+        > .sub-menu{
+            /* Visual */
+            background-color: $c-mnus-sub-fundo;
+            
+            a{
+                /* Texto */
+                color: $c-mnus-sub-links;
+            }
+            
+            a:hover{
+                /* Texto */
+                color: $c-mnus-sub-links-h;
+            }
+        }
+    }
+}

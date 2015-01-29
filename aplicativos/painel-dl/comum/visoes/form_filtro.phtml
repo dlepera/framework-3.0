@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 23:32:01
+ */
+
+?>
+
+<form id="form-filtro" method="get" class="form-filtro">
+    <input type="search" name="t" value="<?= $params['get-t']; ?>" placeholder="<?= TXT_DICA_FORM_FILTRO; ?>"/>
+
+    <?php
+    $qc = count($params['campos']);
+
+    if( $qc == 1 ): ?>
+    <input type="hidden" name="c" value="<?= $params['campos'][0]['valor']; ?>"/>
+    <input type="hidden" name="o" value="<?= $params['campos'][0]['valor']; ?>"/>
+    <?php elseif( $qc > 1 ):?>
+    <select name="c">
+        <option value=""><?= TXT_OPCAO_NO_CAMPO; ?></option>
+
+        <?php foreach( $params['campos'] as $o ): ?>
+        <option value="<?= $o['valor']; ?>"<?= $params['get-c'] == $o['valor'] ? ' SELECTED' : ''; ?>>
+            <?= $o['texto']; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
+
+    <select name="o">
+        <option value=""><?= TXT_OPCAO_ORDENAR_POR; ?></option>
+
+        <?php foreach( $params['campos'] as $o ): ?>
+        <option value="<?= $o['valor']; ?>"<?= $params['get-o'] == $o['valor'] ? ' SELECTED' : ''; ?>>
+            <?= $o['texto']; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
+    <?php endif; ?>
+
+    <?php if( $params['filtro?'] ): ?>
+    <a href="javascript:;" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
+        <?= TXT_LINK_LIMPAR_FILTRO; ?>
+    </a>
+    <?php endif; ?>
+
+    <button type="submit" class="btn-filtrar"><?= TXT_BOTAO_FILTRAR; ?></button>
+</form>

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 14/01/2015 10:13:48
+ */
+
+?>
+
+<script>
+    //<![CDATA[
+    window.onload = function(){
+        $sf = $('#form-<?= $params['form-id']; ?>')._dlformulario({
+            <?php if( $params['incluindo'] ): ?>
+            depois: function(){
+                window.location = '<?= $params['url-depois']; ?>';
+            },
+            <?php endif; ?>
+            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+        });
+    };
+    //]]>
+</script>

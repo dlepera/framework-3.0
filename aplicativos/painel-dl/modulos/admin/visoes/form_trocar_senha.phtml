@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 10/01/2015 11:14:18
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <p class="form-p-campo">
+            <label for="senha-atual"><?= TXT_LABEL_SENHA_ATUAL; ?>:</label><br/>
+            <input type="password" name="senha_atual" id="senha-atual" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="senha-nova"><?= TXT_LABEL_SENHA_NOVA; ?>:</label><br/>
+            <input type="password" name="senha_nova" id="senha-nova" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="senha-nova-conf"><?= TXT_LABEL_SENHA_NOVA_CONF; ?>:</label><br/>
+            <input type="password" name="senha_nova_conf" id="senha-nova-conf" required/>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 16:51:21
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <!-- Inserir um novo registro -->
+    <?php if( $params['perm-inserir?'] ): ?>
+    <a href="admin/usuarios/novo" class="com-icone a-inserir"><?= TXT_LINK_NOVO_USUARIO; ?></a>
+    <?php endif; ?>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
+
+    <form id="form-editar-lista" method="post" action="admin/usuarios/excluir-usuarios">
+        <!-- Exibir a lista com os registros selecionados -->
+        <table class="lista">
+            <thead>
+                <tr>
+                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-grupo" class="v-desk"><?= TXT_TABELA_TITULO_GRUPO; ?></th>
+                    <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
+                    <th id="th-email" class="v-desk"><?= TXT_TABELA_TITULO_EMAIL; ?></th>
+                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if( !count($params['lista']) )
+                    echo '<tr class="sem-registros"><td colspan="5">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+
+                foreach( $params['lista'] as $l ): ?>
+                <tr>
+                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['usuario_id']; ?>"/></td>
+                    <td headers="th-grupo" class="v-desk"><?= $l['grupo_usuario_descr']; ?></td>
+                    <td headers="th-nome"><?= $l['usuario_info_nome']; ?></td>
+                    <td headers="th-email" class="v-desk"><?= $l['usuario_info_email']; ?></td>
+                    <td headers="th-opcoes" class="td-opcoes">
+                        <?php if( $params['perm-bloquear?'] ):
+                            if( $l['usuario_conf_bloq'] == 0 ): ?>
+                            <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/bloquear-usuarios', null, function(){ window.location.reload(); });" class="com-icone a-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
+                                <?= TXT_LINK_BLOQUEAR; ?>
+                            </a>
+                            <?php else: ?>
+                            <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/desbloquear-usuarios', null, function(){ window.location.reload(); });" class="com-icone a-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
+                                <?= TXT_LINK_DESBLOQUEAR; ?>
+                            </a>
+                            <?php endif;
+                        endif; ?>
+
+                        <?php if( $params['perm-editar?'] ): ?>
+                        <a href="admin/usuarios/editar/<?= $l['usuario_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                            <?= TXT_LINK_EDITAR; ?>
+                        </a>
+                        <?php endif;
+
+                        if( $params['perm-remover?'] ): ?>
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+
+            <tfoot>
+                <?php if( count($params['lista']) ): ?>
+                <tr class="com-marcados">
+                    <td colspan="5">
+                        <?php if( $params['perm-remover?'] ): ?>
+                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                        <?php endif;
+
+                        if( $params['perm-bloquear?'] ): ?>
+                        <a href="javascript:;" onclick="$el.executar('admin/usuarios/bloquear-usuarios');" class="com-icone a-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                            <?= TXT_LINK_BLOQUEAR; ?>
+                        </a>
+
+                        <a href="javascript:;" onclick="$el.executar('admin/usuarios/desbloquear-usuarios');" class="com-icone a-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                            <?= TXT_LINK_DESBLOQUEAR; ?>
+                        </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endif; ?>
+            </tfoot>
+        </table>
+    </form>
+
+    <div id="paginacao"></div>
+</section>

@@ -1,0 +1,217 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 19/12/2014 17:41:35
+ */
+
+@import '../../_help/compatibilidade.scss';
+@import '../../_help/configuracoes.scss';
+@import '../_help/cores.scss';
+@import '../_help/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ *  Menu principal
+ *  -> Cores
+ * -------------------------------------------------------------------------- */
+nav.dl3{
+    /* Visual */
+    background-color: $c-mnnv-fundo;
+    
+    /* Texto */
+    color: $c-mnnv-txt;
+    
+    > .menu-principal{
+        a{
+            /* Texto */
+            color: $c-mnnv-links;
+        }
+        
+        .menu-item:hover a,
+        a:hover{
+            /* Texto */
+            color: $c-mnnv-links-h;
+        }
+    }
+    
+    .sub-menu{
+        /* Visual */
+        background-color: $c-mnnv-sub-fundo;
+        
+        /* Texto */
+        color: $c-mnnv-sub-txt;
+        
+        a{
+            /* Texto */
+            color: $c-mnnv-sub-links;
+        }
+        
+        a:hover{
+            /* Texto */
+            color: $c-mnnv-sub-links-h;
+        }
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Menu principal
+ *  -> Visual e comportamento
+ * -------------------------------------------------------------------------- */
+nav.dl3{
+    /* Posicionamento */
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    z-index : 1;
+    
+    /* Tamanho */
+    width   : 100%;
+    height  : $cf-mnnv-altura;
+    
+    /* Visual */
+    box-shadow: $sombra-padrao;
+    
+    a{
+        /* Visual */
+        display: inline-block;
+        
+        /* Tamanho */
+        width   : 100%;
+        height  : 100%;
+    }
+    
+    a:hover{
+        /* Texto */
+        text-decoration: none;
+    }
+    
+    /* Menu principal */
+    > .menu-principal{
+        /* Flex */
+        @include _flex-box();
+        
+        /* Tamanho */
+        max-width   : $grid-layout;
+        height      : 100%;
+        
+        /* Margens */
+        margin: auto;
+        
+        /* Itens do sub-menu */
+        > .menu-item{
+            /* Flex */
+            @include _flex(auto);
+            
+            /* Margens */
+            margin: 0 1%;
+            
+            > a{
+                /* Texto */
+                text-align  : center;
+                line-height : $cf-mnnv-altura;
+            }
+        }
+        
+        /* Ajustar as margens */
+        > .menu-item:first-child{  margin-left: 0; }
+        > .menu-item:last-child{ margin-right: 0; }
+        
+        > .menu-item:hover{
+            /* Visual */
+            background: #FFF;
+            
+            > .sub-menu{
+                /* Flex */
+                @include _flex-box();
+            }
+        }
+    }
+    
+    /* Submenu */
+    .sub-menu{
+        /* Visual */
+        display         : none;
+        border-bottom   : $borda-suave;
+        
+        /* Flex */
+        @include _flex-flow(row wrap);
+        
+        /* Tamanho */
+        width: 100%;
+        
+        /* Posicionamento */
+        position: absolute;
+        top     : 100%;
+        left    : 0;
+        
+        /* Margens */
+        padding: 0.75em 5em;
+        
+        > .sm-item{
+            > a{
+                /* Texto */
+                font-size: 1.15em;
+            }
+            
+            > .sm-descr{
+                /* Margens */
+                margin-top: .45em;
+                
+                /* Visual */
+                display: inline-block;
+            }
+        }
+    }
+    
+    /* Link: Home */
+    .a-home:before{
+        /* Texto */
+        content     : 'h';
+        font-family : 'icones';
+        font-size   : 1.5em;
+        
+        /* Alinhamento */
+        vertical-align: middle;
+    }
+}
+
+
+
+/* Desktops */
+@media screen and (min-width:$tela-tablet + 1px){
+    nav.dl3{
+        /* Submenu */
+        .sub-menu{
+             > .sm-item{
+                /* Flex */
+                @include _flex(1 33%);
+
+                /* Margens */
+                padding-right   : 2.5em;
+                margin          : 1em 0;
+             }
+        }
+    }
+}
+
+
+
+/* Smartphones e desktops */
+@media screen and (max-width:$tela-tablet){
+    nav.dl3{
+        /* Submenu */
+        .sub-menu{
+            > .sm-item{
+               /* Flex */
+               @include _flex(1 100%);
+            }
+
+            > .sm-item:not(last-child){
+                /* Margens */
+                margin-bottom: 2em;
+            }
+        }
+    }
+}

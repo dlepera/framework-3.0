@@ -1,0 +1,126 @@
+@charset 'utf-8';
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 26/03/2014 20:11:30
+ */
+
+/* --------------------------------------------------------------------------------------------------------------------------
+ * Fade-in / Fade-out
+ * ----------------------------------------------------------------------------------------------------------------------- */
+@-webkit-keyframes fadein {
+    from {
+        /* Aparência */
+        opacity: 0;
+    }
+    
+    to {
+        /* Aparência */
+        opacity: 100;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        /* Aparência */
+        opacity: 100;
+    }
+    
+    to {
+        /* Aparência */
+        opacity: 0;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------
+ * Para baixo / Para cima
+ * ----------------------------------------------------------------------------------------------------------------------- */
+@-webkit-keyframes para-baixo{
+    from {
+        /* Posicionamento */
+        margin-top: -100%;
+    }
+    
+    to {
+        /* Posicionamento */
+        margin-top: 0;
+    }
+}
+
+@-webkit-keyframes para-cima{
+    from {
+        /* Posicionamento */
+        margin-top: 0;
+    }
+    
+    to {
+        /* Posicionamento */
+        margin-top: -100%;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------
+ * Para a direita / Para a esquerda
+ * ----------------------------------------------------------------------------------------------------------------------- */
+@-webkit-keyframes para-direita{
+    from {
+        /* Posicionamento */
+        left: -100%;
+    }
+    
+    to {
+        /* Posicionamento */
+        left: 0;
+    }
+}
+
+@-webkit-keyframes para-esquerda{
+    from {
+        /* Posicionamento */
+        left: 0;
+    }
+    
+    to {
+        /* Posicionamento */
+        left: -100%;
+    }
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------
+ * Para a direita passando / Para a esquerda passando
+ * ----------------------------------------------------------------------------------------------------------------------- */
+@-webkit-keyframes para-direita-passando{
+    0%{
+        /* Posicionamento */
+        left: -100%;
+    }
+    
+    66%{
+        /* Posicionamento */
+        left: 10%;
+    }
+    
+    100%{
+        /* Posicionamento */
+        left: 0;
+    }
+}
+
+@-webkit-keyframes para-esquerda-passando{
+    0%{
+        /* Posicionamento */
+        right: 0;
+    }
+    
+    66%{
+        /* Posicionamento */
+        right: 10%;
+    }
+    
+    100%{
+        /* Posicionamento */
+        right: 0%;
+    }
+}

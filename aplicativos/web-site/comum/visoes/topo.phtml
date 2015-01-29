@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 05/01/2015 16:57:41
+ */
+
+# Parâmetros passados para a página
+$params = $this->_obterparams();
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?= "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
+    <meta charset="<?= \DL3::$ap_charset; ?>">
+
+    <!-- Setar a base do HTML -->
+    <base href="<?= \DL3::$ap_base_html; ?>"/>
+
+    <!-- Tamanho do dispositivo -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="grid-layout">
+        <header class="dl3">
+            <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
+        </header>
+
+        <nav class="dl3">
+            <ul class="menu-principal sem-marcadores">
+                <li class="menu-item">
+                    <a href="" class="a-home">
+                        <?= TXT_LINK_HOME; ?>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="sobre" class="a-sobre">
+                        <?= TXT_LINK_SOBRE; ?>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="contato" class="a-contato">
+                        <?= TXT_LINK_CONTATO; ?>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+

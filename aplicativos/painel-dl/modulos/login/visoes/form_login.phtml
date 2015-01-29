@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <p class="form-p-campo">
+            <label for="txt-login"><?= TXT_LABEL_LOGIN; ?>:</label><br/>
+            <input type="text" name="login" id="txt-login" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="txt-senha"><?= TXT_LABEL_SENHA; ?>:</label><br/>
+            <input type="password" name="senha" id="txt-senha" required/>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-entrar"><?= TXT_BOTAO_ENTRAR; ?></button>
+
+            <a href="login/esqueci-minha-senha" class="com-icone a-esqueci-senha">
+                <?= TXT_LINK_ESQUECI_MINHA_SENHA; ?>
+            </a>
+        </p>
+    </form>
+</section>

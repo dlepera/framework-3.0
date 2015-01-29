@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 14/01/2015 10:44:51
+ */
+
+?>
+
+<script>
+    //<![CDATA[
+    window.onload = function(){
+        $el = $('#form-editar-lista')._dlformulario({
+            cktodos : [true, 'thead :checkbox', 'tbody :checkbox'],
+            depois  : function(){
+                // Remover o item da lista
+                $el.find('tbody :checked').parents('tr').remove();
+            }
+        });
+
+        $pg = $('#paginacao')._dlpaginacao({
+            pgtotal     : <?= $params['total-pg']; ?>,
+            mostrar     : 5,
+            aparencia   : { tema: '<?= \DL3::$plugin_paginacao_tema; ?>', estilo: 'paginacao' }
+        });
+    };
+    //]]>
+</script>

@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 05/01/2015 15:34:08
+ */
+
+?>
+
+<section class="dl3">
+    <h1><?= \DL3::$ap_titulo; ?></h1>
+
+    <div class="widgets">
+        <div class="widget hm-contatos">
+            <h2><?= TXT_RELATORIO_TITULO_CONTATOS; ?></h2>
+            <?= $params['rel-contatos']; ?>
+
+            <p class="conteudo">
+                <a href="website/contatos-recebidos" class="com-icone a-detalhes">
+                    <?= TXT_LINK_TODOS_CONTATOS; ?>
+                </a>
+            </p>
+        </div>
+
+        <div class="widget hm-analytics">
+            <h2><?= TXT_RELATORIO_TITULO_ACESSOS_MENSAIS; ?></h2>
+
+            <ul id="ga" class="conteudo sem-marcadores">
+                <li class="ga-valor atras-2">
+                    <h3><?= MSG_MES; ?></h3>
+                    <div class="visitas"></div>
+                </li>
+
+                <li class="ga-valor atras-1">
+                    <h3><?= MSG_MES; ?></h3>
+                    <div class="visitas"></div>
+                </li>
+
+                <li class="ga-valor atual">
+                    <h3><?= MSG_MES; ?></h3>
+                    <div class="visitas"></div>
+                </li>
+            </ul>
+
+            <p class="conteudo">
+                <a href="website/google-analytics" class="com-icone a-detalhes">
+                    <?= TXT_LINK_CONFIGURACOES_GOOGLE_ANALYTICS; ?>
+                </a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        // Acessos mensais
+        // Mês atual
+        GoogleAnalytics('<?= date('Y-m-01'); ?>', '<?= date('Y-m-t'); ?>', 'month', null, $('#ga > .atual'));
+
+        // Mês passado
+        GoogleAnalytics('<?= date('Y-m-01', strtotime('-1 month')); ?>', '<?= date('Y-m-t', strtotime('-1 month')); ?>', 'month', null, $('#ga > .atras-1'));
+
+        // 2 meses atrás
+        GoogleAnalytics('<?= date('Y-m-01', strtotime('-2 month')); ?>', '<?= date('Y-m-t', strtotime('-2 month')); ?>', 'month', null, $('#ga > .atras-2'));
+    });
+
+    function GoogleAnalytics(dt_inicio, dt_fim, dimensao, metricas, $objeto){
+        $.ajax({
+            url     : 'home/google-analytics/acessos/'+ dt_inicio +'/'+ dt_fim +'/'+ dimensao,
+            dataType: 'json',
+            success : function(json){
+                $objeto.find('h3').html($objeto.find('h3').html() +' '+ json[0].dimensao);
+                $objeto.find('.visitas').html(json[0].visitas);
+            },
+            beforeSend: function(){
+                $(document.createElement('img')).css({
+                    /* Tamanho */
+                    width: 'auto',
+                    height: '20px'
+                }).attr({ src: '../<?= \DL3::$dir_temas . 'painel-dl/css/imagens/loading-min.gif'; ?>' }).appendTo($objeto.find('> .visitas'));
+            }
+        });
+    }
+    //]]>
+</script>

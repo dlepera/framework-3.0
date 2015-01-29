@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_SERVIDOR; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="txt-titulo"><?= TXT_LABEL_TITULO; ?>:</label><br/>
+                <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-host"><?= TXT_LABEL_HOST; ?>:</label><br/>
+                <input type="text" name="host" id="txt-host" value="<?= $mod->host; ?>" required/>
+                : <input type="number" name="porta" value="<?= $mod->porta; ?>" required/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_AUTENTICACAO; ?></legend>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_REQUER_AUTENT; ?></label><br/>
+                <input type="checkbox" name="autent" id="chk-autent" class="s-ou-n" value="1"<?= $mod->autent ? ' CHECKED' : ''; ?>/>
+                <label for="chk-autent"></label>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="sel-cripto"><?= TXT_LABEL_TIPO_CRIPTO; ?>:</label><br/>
+                <select name="cripto" id="sel-cripto">
+                    <option value=""><?= TXT_OPCAO_NENHUMA; ?></option>
+                    <option value="tls"<?= $mod->cripto == 'tls' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_TLS; ?></option>
+                    <option value="ssl"<?= $mod->cripto == 'ssl' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_SSL; ?></option>
+                </select>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-conta"><?= TXT_LABEL_CONTA; ?>:</label><br/>
+                <input type="text" name="conta" id="txt-conta" value="<?= $mod->conta; ?>"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-senha"><?= TXT_LABEL_SENHA; ?>:</label><br/>
+                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>"/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="de-nome"><?= TXT_LABEL_DE_NOME; ?>:</label><br/>
+                <input type="text" name="de_nome" id="de-nome" value="<?= $mod->de_nome; ?>"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="de-email"><?= TXT_LABEL_DE_EMAIL; ?>:</label><br/>
+                <input type="email" name="de_email" id="de-email" value="<?= $mod->de_email; ?>"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="responder-para"><?= TXT_LABEL_RESPONDER_PARA; ?>:</label><br/>
+                <input type="email" name="responder_para" id="responder-para" value="<?= $mod->responder_para; ?>"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_HTML; ?></label><br/>
+                <span class="form-dica"><?= MSG_DICA_EMAIL_HTML; ?></span><br/>
+                <input type="checkbox" name="html" id="chk-html" class="s-ou-n" value="1"<?= $mod->html || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <label for="chk-html"></label>
+            </p>
+        </fieldset>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_PRINCIPAL; ?></label><br/>
+            <span class="form-dica"><?= MSG_DICA_EMAIL_PRINCIPAL; ?></span><br/>
+            <input type="checkbox" name="principal" id="chk-principal" class="s-ou-n" value="1"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
+            <label for="chk-principal"></label>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+
+            <?php if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
+            <a href="javascript:;" onclick="$sf.executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone a-email">
+                <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
+            </a>
+            <?php endif; ?>
+        </p>
+    </form>
+</section>

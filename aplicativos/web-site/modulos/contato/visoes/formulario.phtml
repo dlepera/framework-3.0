@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 05/01/2015 17:31:20
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <form id="form-contato" action="contato/enviar" method="post">
+        <p class="form-p-campo">
+            <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+            <input type="text" name="nome" id="txt-nome" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="mail-email"><?= TXT_LABEL_EMAIL; ?>:</label><br/>
+            <input type="email" name="email" id="mail-email" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="tel-telefone"><?= TXT_LABEL_FONE; ?>:</label><br/>
+            <input type="tel" name="telefone" id="tel-fone"/>
+        </p>
+
+        <?php if( $params['mostrar-assunto?'] && count($params['assuntos']) > 0 ): ?>
+        <p class="form-p-campo">
+            <label for="sel-assunto"><?= TXT_LABEL_ASSUNTO; ?>:</label><br/>
+            <select name="assunto" id="sel-assunto" required>
+                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
+
+                <?php foreach( $params['assuntos'] as $o ): ?>
+                <option value="<?= $o['VALOR']; ?>"><?= $o['TEXTO']; ?></option>
+                <?php endforeach; ?>
+            </select>
+        </p>
+        <?php endif; ?>
+
+        <p class="form-p-campo">
+            <label for="ta-mensagem"><?= TXT_LABEL_MENSAGEM; ?>:</label><br/>
+            <textarea name="mensagem" id="ta-mensagem" required></textarea>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-enviar"><?= TXT_BOTAO_ENVIAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

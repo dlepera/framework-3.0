@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 16:51:21
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <!-- Inserir um novo registro -->
+    <a href="" class="com-icone a-inserir"><?= TXT_LINK_INSERIR; ?></a>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
+
+    <form id="form-editar-lista" method="post" action="">
+        <!-- Exibir a lista com os registros selecionados -->
+        <table class="lista">
+            <thead>
+                <tr>
+                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+
+                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if( !count($params['lista']) )
+                    echo '<tr class="sem-registros"><td colspan="">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+
+                foreach( $params['lista'] as $l ): ?>
+                <tr>
+                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
+
+                    <td headers="th-opcoes" class="td-opcoes">
+                        <a href="" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                            <?= TXT_LINK_EDITAR; ?>
+                        </a>
+
+                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+
+            <tfoot>
+                <?php if( count($params['lista']) ): ?>
+                <tr class="com-marcados">
+                    <td colspan="">
+                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                    </td>
+                </tr>
+                <?php endif; ?>
+            </tfoot>
+        </table>
+    </form>
+
+    <div id="paginacao"></div>
+</section>

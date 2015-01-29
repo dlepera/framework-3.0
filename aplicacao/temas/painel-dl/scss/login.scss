@@ -1,0 +1,61 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 21/01/2015 16:29:02
+ */
+
+@import '../../_help/compatibilidade.scss';
+@import '../../_help/configuracoes.scss';
+@import '../_help/cores.scss';
+@import '../_help/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ *  Conteudo
+ * -------------------------------------------------------------------------- */
+section.dl3{
+    /* Flex */
+    @include _flex(100%);
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Formulario de login
+ * -------------------------------------------------------------------------- */
+#form-login{
+    input{
+        /* Tamanho */
+        width: 100%;
+    }
+}
+
+
+
+/* Desktop */
+@media screen and (min-width:$tela-tablet + 1px){
+    #grid-layout{
+        /* Tamanho */
+        width: 30%;
+    }
+}
+
+
+
+/* Tablets */
+@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+    #grid-layout{
+        /* Tamanho */
+        width: 50%;
+    }
+}
+
+
+
+/* Smartphones */
+@media screen and (max-width:$tela-smart){
+    #grid-layout{
+        /* Tamanho */
+        width: 80%;
+    }
+}

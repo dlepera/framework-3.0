@@ -1,0 +1,514 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 19/01/2015 20:00:51
+ */
+
+@import '../../_help/compatibilidade.scss';
+@import '../../_help/configuracoes.scss';
+@import '../_help/cores.scss';
+@import '../_help/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ *  Sobre-tela
+ * -------------------------------------------------------------------------- */
+.sobre-tela{
+    /* Tamanho */
+    width   : 100%;
+    height  : 100%;
+    
+    /* Posicionamento */
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    z-index : 2;
+    
+    /* Visual */
+    display     : block;
+    background  : rgba(0,0,0,.5);
+    
+    > section.dl3{
+        /* Posicionamento */
+        position: absolute;
+        top     : 50%;
+        left    : 50%;
+        
+        /* Visual */
+        overflow-y: auto;
+            
+        /* Transformar */
+        @include _transform(translateY(-50%) translateX(-50%));
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Carregando
+ * -------------------------------------------------------------------------- */
+.carregando{
+    /* Visual */
+    background      : rgba(0,0,0,.6);
+    border-radius   : 8px;
+    
+    /* Texto */
+    color       : #FFF;
+    text-align  : center;
+    font-size   : 1.5em;
+    
+    /* Posicionamento */
+    position: fixed;
+    bottom  : 1em;
+    left    : 1em;
+    
+    /* Margens */
+    padding: .5em 5em;
+}
+
+.carregando:after{
+    /* Texto */
+    content:  url('imagens/loading-pontos.gif');
+    
+    /* Visual */
+    display: block;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Mostrar fotos
+ * -------------------------------------------------------------------------- */
+.mostrar-fotos{
+    /* Flex */
+    @include _flex-box();
+    @include _flex-flow(row wrap);
+    
+    > .album-foto{
+        /* Margens */
+        margin: 1em;
+        
+        > img{
+            /* Tamanho */
+            width       : auto;
+            max-height  : 80%;
+            
+            /* Visual */
+            border  : $borda-suave;
+            display : inline-block;
+            
+            /* Margens */
+            padding : .35em;
+            margin  : auto;
+        }
+        
+        > figcaption{
+            /* Margens */
+            padding: .35em 0;
+            
+            .foto-links{
+                > .com-icone{
+                    /* Texto */
+                    color       : transparent;
+                    white-space : nowrap;
+
+                    /* Tamanho */
+                    width: 2em;
+                }
+                
+                > .com-icone:not(:last-child){
+                    /* Margens */
+                    margin-right: .75em;
+                }
+                
+                > .foto-capa{
+                    /* Visual */
+                    display         : inline-block;
+                    background      : orange;
+                    border-radius   : 8px;
+                    
+                    /* Texto */
+                    color       : #FFF;
+                    line-height : 2em;
+                    
+                    /* Margens */
+                    padding     : 0 .5em;
+                    margin-right: 1em;
+                }
+            }
+        }
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Mostrar imagem unica
+ * -------------------------------------------------------------------------- */
+.mostrar-imagem{
+    > img{
+        /* Visual */
+        border      : $borda-suave;
+        background  : #FFF;
+        display     : block;
+
+        /* Margens */
+        padding : .35em;
+        margin  : auto;
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Mostrar previa de cores
+ * -------------------------------------------------------------------------- */
+.mostrar-cor{
+    /* Visual */
+    border-radius: 50%;
+    
+    /* Margens */
+    margin: 0 .35em;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Mensagem explicativa
+ * -------------------------------------------------------------------------- */
+.msg-atencao{
+    /* Visual */
+    background  : #ffffdc;
+    border      : 1px solid darken(yellow, 5%);
+    
+    /* Margens */
+    padding: .5em 1em;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Exibicao de log de registros no formulario
+ * -------------------------------------------------------------------------- */
+.sub-h2{
+    /* Texto */
+    color       : #AAA;
+    text-align  : left !important;
+    line-height : initial; 
+    font-size   : 1em;
+    font-weight : normal;
+    
+    /* Visual */
+    border      : none;
+    background  : none;
+    
+    /* Margens */
+    padding     : 0;
+    margin-top  : 0;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Widtgets
+ * -------------------------------------------------------------------------- */
+.widgets{
+    /* Flex */
+    @include _flex-box();
+    @include _flex-flow(row wrap);
+    
+    > .widget{
+        /* Visual */
+        border: 1px solid lighten($c-mnnv-fundo,45%);
+        
+        /* Margens */
+        padding         : 3.5em .5em .5em .5em;
+        margin-top      : 1em;
+        margin-bottom   : 1em;
+        
+        /* Posicionamento */
+        position: relative;
+        
+        > h2{
+            /* Posicionamento */
+            position: absolute;
+            top     : 0;
+            left    : 0;
+            
+            /* Tamanho */
+            width: 100%;
+            
+            /* Visual */
+            background: lighten($c-mnnv-fundo,50%);
+            
+            /* Texto */
+            color       : lighten($c-mnnv-fundo,10%);
+            font-weight : normal;
+            line-height : 2.2em;
+            font-size   : 1.1em;
+            text-indent : .7em; 
+            
+            /* margens */
+            margin  : 0;
+            padding : 0;
+        }
+        
+        > .conteudo{
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+    
+    .hm-analytics{
+        > ul{
+            /* Flex */
+            @include _flex-box();
+
+            > .ga-valor{
+                /* Flex */
+                @include _flex(33.3%);
+                
+                /* Texto */
+                text-align: center;
+                font-size : 1.2em;
+                
+                > h3{
+                    /* Texto */
+                    color       : orange;
+                    font-variant: small-caps;
+                    font-weight : normal;
+                }
+                
+                > .visitas{
+                    /* Texto */
+                    color       : #888;
+                    font-size   : 2em;
+                }
+            }
+        }
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Sub-itens
+ * -------------------------------------------------------------------------- */
+.sub-itens{
+    > .item{
+        /* Margens */
+        margin-bottom: .5em;
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Configuracao de funcionalidades por grupos
+ * -------------------------------------------------------------------------- */
+.grp-funcs{
+    .grp-modulo{
+        $c-grp-txt: #900;
+        
+        > .grp-nm-modulo{
+            /* Posicionamento 
+            position: relative;*/
+            
+            /* Texto */
+            color       : $c-grp-txt;
+            font-weight : bold;
+        }
+        
+        > .grp-nm-modulo:after{
+            /* Triangulo */
+            @include _triangulo-baixo($c-grp-txt, 5px, 5px);
+            
+            /* Texto */
+            content: '';
+            
+            /* Alinhamento */
+            vertical-align: middle;
+            
+            /* Visual */
+            display: inline-block;
+            
+            /* Margens */
+            margin-left: 1em;
+            
+            /* Posicionamento 
+            position: absolute;
+            top     : 50%;
+            
+            /* Transformar 
+            @include _transform(translateY(-50%));*/
+        }
+        
+        > .grp-nm-submodulo{
+            /* Visual */
+            border-bottom: $borda-suave;
+            
+            /* Texto */
+            line-height : 2em;
+            font-style  : italic;
+            font-weight : bold;
+        }
+    }
+    
+    .grp-submodulo{
+        /* Flex */
+        @include _flex-box();
+        @include _flex-flow(row wrap);
+        
+        /* Margens */
+        padding: 0 1em;
+        
+        /* Visual */
+        background: #efefef;
+    }
+}
+
+
+
+/* Desktops */
+@media screen and (min-width:$tela-tablet + 1px){
+    .sobre-tela{
+        > section.dl3{
+            /* Tamanho */
+            width   : 80%;
+            height  : 80%;
+        }
+    }
+    
+    .mostrar-fotos{
+        > .album-foto{
+            /* Flex */
+            @include _flex(calc(25% - 1.5em));
+        }
+        
+        /* Ajustar as margens */
+        > .album-foto:nth-child(4n+1){
+            /* Margens */
+            margin-left: 0;
+        }
+        
+        > .album-foto:nth-child(4n+4){
+            /* Margens */
+            margin-right: 0;
+        }
+    }
+    
+    .mostrar-imagem{
+        /* Tamanho */
+        width: 50%;
+        
+        /* Posicionamento */
+        position: absolute;
+        right   : 0;
+    }
+    
+    .widgets{
+        > .widget{
+            /* Flex */
+            @include _flex(1);
+        }
+        
+        > .widget:nth-child(odd){
+            /* Margens */
+            margin-right: 1.5em;
+        }
+        
+        > .widget:nth-child(even){
+            /* Margens */
+            margin-left: 1.5em;
+        }
+    }
+    
+    .grp-funcs{
+        .grp-submodulo{
+            > .grp-func{
+                /* Flex */
+                @include _flex(33.3%);
+            }
+        }
+    }
+}
+
+
+
+/* Tablets e smartphones */
+@media screen and (max-width:$tela-tablet){
+    .sobre-tela{
+        > section.dl3{
+            /* Tamanho */
+            width   : 90%;
+            height  : 90%;
+        }
+    }
+    
+    .widgets{
+        > .widget{
+            /* Flex */
+            @include _flex(100%);
+            
+            /* Margens */
+            margin-left : 0;
+            margin-right: 0;
+        }
+    }
+}
+
+
+
+/* Tablets */
+@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+    .mostrar-fotos{
+        .album-foto{
+            /* Flex */
+            @include _flex(calc(50% - 1.5em));
+        }
+        
+        /* Ajustar as margens */
+        > .album-foto:nth-child(2n+1){
+            /* Margens */
+            margin-left: 0;
+        }
+        
+        > .album-foto:nth-child(2n+2){
+            /* Margens */
+            margin-right: 0;
+        }
+    }
+    
+    .grp-funcs{
+        .grp-submodulo{
+            > .grp-func{
+                /* Flex */
+                @include _flex(50%);
+            }
+        }
+    }
+}
+
+
+
+/* Smartphones */
+@media screen and (max-width:$tela-smart){
+    .mostrar-fotos{
+        .album-foto{
+            /* Flex */
+            @include _flex(100%);
+            
+            /* Margens */
+            margin: inherit 0;
+        }
+    }
+    
+    .grp-funcs{
+        .grp-submodulo{
+            > .grp-func{
+                /* Flex */
+                @include _flex(100%);
+            }
+        }
+    }
+}

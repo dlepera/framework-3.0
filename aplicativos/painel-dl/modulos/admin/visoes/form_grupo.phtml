@@ -1,0 +1,151 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_GRUPO; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+            </p>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <label for="chk-publicar"></label>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
+
+            <ul class="grp-funcs sem-marcadores">
+                <?php
+                    foreach( $params['menu-modulos'] as $mm ):
+                        $sm_k = array_keys(preg_grep(
+                                "~^{$mm['modulo_id']}$~",
+                                array_column($params['sub-modulos'], 'modulo_pai')
+                        ));
+
+                        if( count($sm_k) > 0 ): ?>
+                        <li class="grp-modulo">
+                            <p class="grp-nm-modulo"><?= $mm['modulo_nome']; ?></p>
+
+                            <?php foreach( $sm_k as $k1 ):
+                                $sm     = $params['sub-modulos'][$k1];
+                                $fc_k   = array_keys(preg_grep(
+                                    "~^{$sm['modulo_id']}$~",
+                                    array_column($params['funcs'], 'func_modulo')
+                                ));
+
+                                if( count($fc_k) > 0 ): ?>
+                                <p class="grp-nm-submodulo"><?= $sm['modulo_nome']; ?><p>
+
+                                <ul class="grp-submodulo sem-marcadores">
+                                    <?php foreach( $fc_k as $k2 ):
+                                        $fc = $params['funcs'][$k2]; ?>
+                                        <li class="grp-func">
+                                            <input type="checkbox" name="funcs[]" id="func-mod-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"
+                                                <?= in_array($fc['func_modulo_id'], $mod->funcs) ? ' CHECKED' : ''; ?>/>
+                                            <label for="func-mod-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php endif;
+                            endforeach; ?>
+                        </li>
+                        <?php endif;
+                    endforeach;
+                ?>
+            </ul>
+        </fieldset>
+
+        <!-- fieldset>
+            <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
+
+            <?php foreach( $params['menu-modulos'] as $m ):
+                # Obter os sub-módulos
+                $sm_k = array_keys(
+                        preg_grep(
+                            "~^{$m['modulo_id']}$~",
+                            array_column($params['sub-modulos'], 'modulo_pai')
+                        ));
+
+                if( count($sm_k) > 0 ): ?>
+                <legend class="grp-modulo"><?= $m['modulo_nome']; ?></legend>
+                <?php foreach( $sm_k as $k ):
+                    $sm     = $params['sub-modulos'][$k];
+                    $fc_k   = array_keys(
+                                preg_grep("~^{$sm['modulo_id']}$~",
+                                array_column($params['funcs'], 'func_modulo')
+                            )); ?>
+                    <div class="grp-submodulo">
+                        <p class="nm-sm"><?= $sm['modulo_nome']; ?></p><br/>
+
+                        <?php foreach( $fc_k as $k2 ):
+                            $fc = $params['funcs'][$k2]; ?>
+                        <p class="form-p-campo sm-funcs">
+                            <input type="checkbox" name="funcs[]" id="func-modulo-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"<?= in_array($fc['func_modulo_id'], $mod->funcs) ? ' CHECKED' : ''; ?>/>
+                            <label for="func-modulo-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
+                        </p>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach;
+                endif; ?>
+            <?php endforeach; ?>
+        </fieldset -->
+
+        <?php if( !$params['incluindo'] ): ?>
+        <fieldset>
+            <legend><?= TXT_LEGENDA_MEMBROS; ?></legend>
+
+            <table class="lista">
+                <thead>
+                    <tr>
+                        <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php if( !count($params['membros']) )
+                        echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO, '</td></tr>';
+
+                    foreach( $params['membros'] as $l ): ?>
+                    <tr>
+                        <td headers="th-nome"><?= $l['usuario_info_nome']; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </fieldset>
+        <?php endif; ?>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>

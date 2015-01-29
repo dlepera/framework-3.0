@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>" enctype="multipart/form-data">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_ALBUM_FOTOS; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" required/>
+            </p>
+
+            <?php if( $params['incluindo'] ): ?>
+            <p class="form-p-campo">
+                <label for="arq-fotos"><?= TXT_LABEL_FOTOS; ?>:</label><br/>
+                <input type="file" name="fotos" id="arq-fotos" multiple/>
+            </p>
+            <?php endif; ?>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <label for="chk-publicar"></label>
+            </p>
+        </fieldset>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+
+    <?php if( !$params['incluindo'] ): ?>
+    <form id="form-fotos" method="post" action="website/albuns-de-fotos/incluir-fotos" enctype="multipart/form-data" class="form-upload-simples">
+        <input type="hidden" name="foto_album" value="<?= $mod->id; ?>" multiple/>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_FOTOS; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="arq-fotos"><?= TXT_LABEL_FOTOS; ?>:</label><br/>
+                <input type="file" name="fotos" id="arq-fotos" multiple required/>
+            </p>
+        </fieldset>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-upload"><?= TXT_BOTAO_SALVAR_FOTOS; ?></button>
+        </p>
+    </form>
+
+    <form id="form-remover-fotos" method="post" action="website/albuns-de-fotos/excluir-fotos" class="mostrar-fotos">
+        <?php foreach( $params['fotos'] as $f ): ?>
+        <figure class="album-foto">
+            <img src="..<?= $f['foto_album_imagem']; ?>" alt=""/>
+
+            <figcaption>
+                <?php if( !empty($f['foto_album_titulo']) ):
+                    echo TXT_LABEL_TITULO, ": {$f['foto_album_titulo']}<br/>";
+                endif;
+
+                if( !empty($f['foto_album_descr']) ):
+                    echo TXT_LABEL_DESCR, ': ', nl2br($f['foto_album_descr']);
+                endif; ?>
+
+                <p class="foto-links">
+                    <?php if( $f['foto_album_capa'] == 1 ): ?>
+                    <span class="foto-capa"><?= MSG_CAPA; ?></span>
+                    <?php endif; ?>
+
+                    <a href="javascript:;" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>');" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
+                        <?= TXT_LINK_EDITAR; ?>
+                    </a>
+
+                    <input type="checkbox" name="id[]" id="id-foto-<?= $f['foto_album_id']; ?>" value="<?= $f['foto_album_id']; ?>"
+                           style="visibility: hidden; width: 0;" onchange="$fr.submit();" />
+                    <label for="id-foto-<?= $f['foto_album_id']; ?>" class="com-icone a-remover"></label>
+                </p>
+            </figcaption>
+        </figure>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+</section>
+
+<?php if( !$params['incluindo'] ): ?>
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        $ff = $('#form-fotos')._dlformulario({
+            depois: function(){
+                window.location.reload();
+            }
+        });
+
+        $fr = $('#form-remover-fotos')._dlformulario({
+            depois: function(){
+                window.location.reload();
+            }
+        });
+    });
+    //]]>
+</script>
+<?php endif; ?>

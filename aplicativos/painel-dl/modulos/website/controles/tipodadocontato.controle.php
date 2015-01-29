@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 11/01/2015 15:14:07
+ */
+
+namespace WebSite\Controle;
+
+class TipoDadoContato extends \Geral\Controle\PainelDL{
+    public function __construct(){
+        parent::__construct(new \WebSite\Modelo\TipoDadoContato(), 'website', TXT_MODELO_TIPODADOCONTATO);
+
+         $post = filter_input_array(INPUT_POST, array(
+                'id'            =>  FILTER_VALIDATE_INT,
+                'descr'         =>  FILTER_SANITIZE_STRING,
+                'rede_social'   =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1)),
+                'publicar'      =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+            ));
+
+            # Converter o encode
+            \Funcoes::_converterencode($post, \DL3::$ap_charset);
+
+            # Selecionar as informações atuais
+            $this->modelo->_selecionarID($post['id']);
+
+            \Funcoes::_vetor2objeto($post, $this->modelo);
+    } // Fim do método __construct
+
+
+
+    /**
+     * Mostrar a lista de registros
+     * -------------------------------------------------------------------------
+     */
+    protected function _mostrarlista(){
+        $this->_listapadrao('tipo_dado_id, tipo_dado_descr, tipo_dado_icone, ( CASE tipo_dado_rede_social'
+                . " WHEN 0 THEN 'Não'"
+                . " WHEN 1 THEN 'Sim'"
+                . " END ) REDE_SOCIAL,"
+                . ' ( CASE tipo_dado_publicar'
+                . " WHEN 0 THEN 'Não'"
+                . " WHEN 1 THEN 'Sim'"
+                . " END ) AS PUBLICADO", 'tipo_dado_rede_social, tipo_dado_descr', null);
+
+        # Visão
+        $this->_carregarhtml('lista_tipos_dado');
+        $this->visao->titulo = TXT_TITULO_TIPOS_DADO_CONTATO;
+
+        # Parâmetros
+        $this->visao->_adparam('campos', array(
+            array('valor' => 'tipo_dado_descr', 'texto' => TXT_LABEL_DESCR)
+        ));
+    } // Fim do método _mostrarlista
+
+
+
+    /**
+     * Mostrar formulário de inclusão e edição do registro
+     * -------------------------------------------------------------------------
+     *
+     * @param int $id - ID do registro a ser selecionado
+     * @param bool $tr - define se serão carregados o topo e rodapá da visão
+     */
+    protected function _mostrarform($id=null,$tr=true){
+        $inc = $this->_formpadrao('tipo-dado', 'tipos-de-dados/salvar', 'tipos-de-dados/salvar', 'website/tipos-de-dados', $id);
+
+        # Visão
+        $this->_carregarhtml('form_tipo_dado',$tr);
+        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_TIPO_DADO : TXT_TITULO_EDITAR_TIPO_DADO;
+    } // Fim do método _mostrarform
+} // Fim do Controle TipoDadoContato

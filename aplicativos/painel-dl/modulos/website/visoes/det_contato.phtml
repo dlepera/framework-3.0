@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 10/01/2015 18:33:40
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+$le  = $params['log-email'];
+// echo '<pre>', var_dump($le), '</pre>';
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <h2 class="sub-h2">
+        <?php printf(MSG_CONTATO_DT_ENVIO, $mod->mod_lr->data_criacao); ?>
+    </h2>
+
+    <h2><?= TXT_TITULO_CONTATO; ?></h2>
+
+    <p>
+        <b><?= TXT_LABEL_NOME; ?>:</b>
+        <?= $mod->nome; ?>
+        <br/>
+
+        <b><?= TXT_LABEL_EMAIL; ?>:</b>
+        <a href="mailto:<?= $mod->email; ?>;"><?= $mod->email; ?></a>
+        <br/>
+
+        <b><?= TXT_LABEL_TELEFONE; ?>:</b>
+        <?= $mod->telefone; ?><br/>
+
+        <?php if( !is_null($params['assunto']) ): ?>
+        <b><?= TXT_LABEL_ASSUNTO; ?></b>
+        <?= $params['assunto']; ?>
+        <br/>
+        <?php endif; ?>
+
+        <b><?= TXT_LABEL_MENSAGEM; ?>:</b><br/>
+        <?= nl2br($mod->mensagem); ?>
+    </p>
+
+    <h2><?= TXT_TITULO_ENVIO_EMAIL; ?></h2>
+
+    <p>
+        <b><?= TXT_LABEL_STATUS; ?>:</b>
+        <?php switch( $le->status ):
+            case 'E':
+                echo MSG_EMAIL_ENVIADO, '<br/>',
+                    '<b>', TXT_LABEL_DT_ENVIO, ':</b> ',
+                    $le->mod_lr->data_criacao;
+                break;
+            case 'F':
+                echo MSG_EMAIL_FALHOU, '<br/>',
+                    '<b>', TXT_LABEL_MSG_ERRO, ':</b><br/>',
+                    nl2br($le->mensagem);
+                break;
+        endswitch; ?>
+    </p>
+</section>

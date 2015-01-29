@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 16:51:21
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
+
+    <form id="form-editar-lista" method="post" action="website/contatos-recebidos/apagar-contato">
+        <!-- Exibir a lista com os registros selecionados -->
+        <table class="lista">
+            <thead>
+                <tr>
+                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-data" class="v-desk"><?= TXT_TABELA_TITULO_DATA; ?></th>
+                    <th id="th-assunto"><?= TXT_TABELA_TITULO_ASSUNTO; ?></th>
+                    <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
+                    <th id="th-email" class="v-desk"><?= TXT_TABELA_TITULO_EMAIL; ?></th>
+                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php if( !count($params['lista']) )
+                    echo '<tr class="sem-registros"><td colspan="6">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+
+                foreach( $params['lista'] as $l ): ?>
+                <tr>
+                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['contato_site_id']; ?>"/></td>
+                    <td headers="th-data" class="v-desk"><?= \Funcoes::_formatardatahora($l['log_registro_data_criacao'], $_SESSION['formato_data_completo']); ?></td>
+                    <td headers="th-assunto"><?= $l['ASSUNTO']; ?></td>
+                    <td headers="th-nome"><?= $l['contato_site_nome']; ?></td>
+                    <td headers="th-email" class="v-desk"><?= $l['contato_site_email']; ?></td>
+                    <td headers="th-opcoes" class="td-opcoes">
+                        <?php if( $params['perm-detalhes?'] ): ?>
+                        <a href="website/contatos-recebidos/mostrar-detalhes/<?= $l['contato_site_id']; ?>" class="com-icone a-detalhes" title="<?= TXT_LINK_TITLE_DETALHES; ?>">
+                            <?= TXT_LINK_DETALHES; ?>
+                        </a>
+                        <?php endif;
+
+                        if( $params['perm-remover?'] ): ?>
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+
+            <tfoot>
+                <?php if( count($params['lista']) ): ?>
+                <tr class="com-marcados">
+                    <td colspan="6">
+                        <?php if( $params['perm-remover?'] ): ?>
+                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                            <?= TXT_LINK_REMOVER; ?>
+                        </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endif; ?>
+            </tfoot>
+        </table>
+    </form>
+
+    <div id="paginacao"></div>
+</section>

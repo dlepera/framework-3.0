@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 18:34:49
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+        <?php if( !$params['incluindo'] ): ?>
+        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <?php endif; ?>
+
+        <p class="form-p-campo">
+            <label for="sel-tipo"><?= TXT_LABEL_TIPO; ?>:</label><br/>
+
+            <select name="tipo" id="sel-tipo" required>
+                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
+
+                <?php foreach( $params['tipos'] as $o ): ?>
+                <option value="<?= $o['VALOR']; ?>"<?= $o['VALOR'] == $mod->tipo ? ' SELECTED' : ''; ?>>
+                    <?= $o['TEXTO']; ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+
+            <?php if( $params['novo-tipo?'] ): ?>
+            <a href="javascript:;" onclick="CarregarForm('website/tipos-de-dados/novo');" class="com-icone a-inserir">
+                <?= TXT_LINK_NOVO_TIPO_DADO; ?>
+            </a>
+            <?php endif; ?>
+        </p>
+
+        <p class="form-p-campo">
+            <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+        </p>
+
+        <p class="form-p-campo">
+            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <label for="chk-publicar"></label>
+        </p>
+
+        <p class="form-botoes">
+            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+        </p>
+    </form>
+</section>
