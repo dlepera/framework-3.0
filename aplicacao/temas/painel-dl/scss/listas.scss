@@ -133,10 +133,16 @@ table.lista{
             /* Alinhamento */
             vertical-align: top;
 
+            /* Posicionamento */
+            float: left;
+            
             /* Visual */
             background  : #FFF;
-            padding     : .35em;
             border      : $borda-suave;
+            
+            /* Margens */
+            padding     : .35em;
+            margin-right: .35em;
         }
     }
     
