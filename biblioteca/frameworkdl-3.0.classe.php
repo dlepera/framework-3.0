@@ -14,13 +14,21 @@
  * -----------------------------------------------------------------------------
  */
 function __autoload($c){
-    list($m, $t, $n) = explode('\\', strtolower($c));
+    list($m, $t, $n) = explode('\\', $c);
+
+    $md = preg_replace('~^\-~', '', preg_replace_callback('~[A-Z]+~', function($m){
+        return '-'. strtolower($m[0]);
+    }, $m));
+
+    $tl = strtolower($t);
+    $nl = strtolower($n);
 
     # Diretório da classe
-    $dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, $m) ."{$t}s/";
+    if( !file_exists($dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, $md) . "{$tl}s/") )
+        $dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, str_replace('-', '', $md)) . "{$tl}s/";
 
     # Gerar o nome do arquivo
-    $na = "{$dc}{$n}.{$t}.php";
+    $na = "{$dc}{$nl}.{$tl}.php";
 
     if( !file_exists($na) ):
         echo "<pre>O arquivo <b>{$na}</b> não foi encontrado!\n<b>{$c}</b>\n";

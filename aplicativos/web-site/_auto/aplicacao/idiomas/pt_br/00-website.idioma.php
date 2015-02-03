@@ -10,4 +10,5 @@
 # Links
 define('TXT_LINK_HOME', 'Home');
 define('TXT_LINK_SOBRE', 'Sobre');
+define('TXT_LINK_ALBUNS_FOTOS', 'Álbuns de fotos');
 define('TXT_LINK_CONTATO', 'Contato');

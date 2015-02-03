@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 03/02/2015 12:36:09
+ */
+
+if( !isset($params) )
+    $params = $this->_obterparams();
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <div id="album" class="widget"></div>
+</section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        $('#album')._dlgaleria({
+            minis: true,
+            naveg: true,
+            fotos: [
+                <?php foreach( $params['fotos'] as $f ): ?>
+                { src: './<?= $f['foto_album_imagem']; ?>', titulo: '<?= $f['foto_album_titulo']; ?>', descr: '<?= $f['foto_album_descr']; ?>' },
+                <?php endforeach; ?>
+            ]
+        });
+    });
+    //]]>
+</script>

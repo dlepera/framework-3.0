@@ -27,7 +27,7 @@ class Controle{
 
     public function _modulo($v=null){
         return is_null($v) ? (string)$this->modulo
-        : $this->modulo = (string)  ucfirst($v);
+        : $this->modulo = (string)str_replace(' ', '', ucwords(str_replace('-', ' ', $v)));
     } // Fim do método _modulo
 
     public function _controle($v=null){

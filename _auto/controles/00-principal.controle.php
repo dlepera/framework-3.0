@@ -208,8 +208,11 @@ abstract class Principal{
         $this->visao->_adparam('lista', $l);
         $this->visao->_adparam('total-pg', ceil($this->modelo->_qtde_registros($f)/$qr));
         $this->visao->_adparam('filtro?', !empty($get_c));
-        $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));
-        $this->visao->_adparam('perm-editar?', $pi);
-        $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
+
+        if( \DL3::$aut_o instanceof \Autenticacao ):
+            $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));
+            $this->visao->_adparam('perm-editar?', $pi);
+            $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
+        endif;
     } // Fim do método _listapadrao
 } // Fim do controle Principal
