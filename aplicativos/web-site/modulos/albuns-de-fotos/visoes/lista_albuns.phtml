@@ -12,11 +12,11 @@
 <section class="dl3">
     <h1><?= $params['titulo']; ?></h1>
 
-    <div class="widget albuns">
+    <div class="albuns">
         <?php foreach( $params['lista'] as $l ): ?>
         <a href="albuns-de-fotos/fotos/<?= $l['album_id']; ?>">
             <figure class="album-info">
-                <img src="<?= $l['foto_album_imagem']; ?>" alt="<?= $l['album_nome']; ?>" class="album-capa"/>
+                <img src="./<?= $l['foto_album_imagem']; ?>" alt="<?= $l['album_nome']; ?>" class="album-capa"/>
 
                 <figcaption>
                     <span class="album-titulo"><?= $l['album_nome']; ?></span><br/>

@@ -21,7 +21,7 @@ class Album extends \Geral\Controle\WebSite{
      * -------------------------------------------------------------------------
      */
     public function _mostrarlista(){
-        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao', 'log_registro_data_criacao DESC', 20,
+        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao, foto_album_imagem', 'log_registro_data_criacao DESC', 20,
                 '_listar', false);
 
         # Visão
