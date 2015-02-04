@@ -213,9 +213,6 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
-    var pg_atual    = window.location.pathname;
-    var pg_modulo   = /painel-dl\/([a-zA-Z0-9\-_]+)/.exec(pg_atual)[1];
-    
     if( window.location.toString().indexOf('/painel-dl') > -1 ){
         // Configurar o menu fixo
         /* $(window).on('scroll', function(){
@@ -231,12 +228,6 @@ $(document).ready(function(){
         $('form').on('reset', function(){
             history.back();
         });
-        
-        // Marcar o módulo da página atual
-        $('.menu-item a[href*="painel-dl/modulo/'+ pg_modulo +'/"]').addClass('mod-atual');
-        
-        // Marcar a página atual
-        $('.menu-item a[href$="'+ pg_atual +'"]').addClass('pg-atual');
     } // Fim if( window.location.toString().indexOf('/painel-dl') > -1 )
 });
 
