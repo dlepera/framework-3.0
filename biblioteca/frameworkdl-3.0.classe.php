@@ -145,7 +145,7 @@ class FrameworkDL3{
         $this->_carregarmodulo();
 
         # Alterar o diretório atual
-        self::$ap_base_html = "/{$this->ap_raiz}" . ($h = trim(self::$ap_home, '/')) .( empty($h) ? '' : '/' );
+        self::$ap_base_html = ( $this->ap_raiz != '/' ? "/{$this->ap_raiz}" : '/' ) . ($h = trim(self::$ap_home, '/')) . ( empty($h) ? '' : '/' );
         chdir($this->ap_raiz . self::$ap_home);
 
         # Definir o timezone
@@ -419,7 +419,7 @@ class FrameworkDL3{
             return;
         endif;
 
-        if( !preg_match("~/{$h_url}/([a-z\-_0-9]+)~", $r_url, $modulo) )
+        if( !preg_match("~/{$h_url}/?([a-z\-_0-9]+)~", $r_url, $modulo) )
             throw new Exception('Não foi possível identificar o módulo atual!', 1500);
 
         $this->_ap_modulo(end($modulo));

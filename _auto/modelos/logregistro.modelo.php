@@ -129,7 +129,8 @@ class LogRegistro extends Principal{
         $this->_selecionarID($this->tabela, $this->idreg);
 
         # Obter o ID do usuário
-        $id_u = ($vl = \DL3::$aut_o->_verificarlogin(false)) ? $_SESSION['usuario_id'] : 0;
+        $vl = \DL3::$aut_o instanceof \Autenticacao ? \DL3::$aut_o->_verificarlogin(false) : false;
+        $id_u = $vl ? $_SESSION['usuario_id'] : 0;
         $nm_u = $vl ? $_SESSION['usuario_info_nome'] : null;
 
         if( is_null($this->data_criacao) || $this->data_criacao == '0000-00-00 00:00:00' ):

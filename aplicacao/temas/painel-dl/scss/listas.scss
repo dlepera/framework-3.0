@@ -148,7 +148,8 @@ table.lista{
     
     .td-infos:first-line{
         /* Texto */
-        color: #000;
+        color       : #000;
+        line-height : initial;
     }
 
     /* Remover o texto dos links com icones */
