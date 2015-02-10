@@ -92,7 +92,7 @@ class Modulo extends \Geral\Controle\PainelDL{
                 # Módulo pai
                 $mp = end($this->modelo->_listar("M.modulo_id = {$this->modelo->pai}", null, 'M.modulo_nome'));
 
-                $this->visao->_adparam('modulo-pai', $mp['modulo_nome']);
+                $this->visao->_adparam('modulo-pai', str_replace(' ', '', $mp['modulo_nome']));
             endif;
 
             $this->visao->_adparam('funcs', $l_mf);

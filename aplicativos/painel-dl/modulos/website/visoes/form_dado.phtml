@@ -46,7 +46,7 @@ $mod = $params['modelo'];
 
         <p class="form-p-campo">
             <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?= !empty($params['expreg']) ? ' pattern="'. $params['expreg'] .'"': ''; ?> required/>
         </p>
 
         <p class="form-p-campo">
@@ -61,3 +61,34 @@ $mod = $params['modelo'];
         </p>
     </form>
 </section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        <?php if( !empty($params['mascara']) ): ?>
+        // Aplicar a máscara
+        $('#txt-descr')._mascara('<?= $params['mascara']; ?>');
+        <?php endif; ?>
+
+        $('#sel-tipo').on('change', function(){
+            var tipo = $(this).val();
+
+            $.ajax({
+                url     : 'website/tipos-de-dados/opcoes-avancadas',
+                type    : 'post',
+                dataType: 'json',
+                data    : 'id='+ tipo,
+                success : function(j){
+                    var $descr = $('#txt-descr');
+
+                    if( j.mascara != '' )
+                        $descr._mascara(j.mascara);
+
+                    if( j.expreg != '' )
+                        $descr.attr({ pattern: j.expreg });
+                }
+            });
+        });
+    });
+    //]]>
+</script>

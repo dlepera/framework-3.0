@@ -70,6 +70,12 @@ class DadoContato extends \Geral\Controle\PainelDL{
         $m_td = new \WebSite\Modelo\TipoDadoContato();
         $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);
 
+        if( !is_null($this->modelo->id) ):
+            $m_td->_selecionarID($this->modelo->tipo);
+            $this->visao->_adparam('macara', $m_td->mascara);
+            $this->visao->_adparam('expreg', $m_td->expreg);
+        endif;
+
         # Parâmetros
         $this->visao->_adparam('tipos', $l_td);
         $this->visao->_adparam('novo-tipo?', \DL3::$aut_o->_verificarperm('WebSite\Controle\TipoDadoContato', '_mostrarform'));

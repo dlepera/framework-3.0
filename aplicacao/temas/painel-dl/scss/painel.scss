@@ -367,6 +367,27 @@
     }
 }
 
+/* -----------------------------------------------------------------------------
+ *  Mostrar usuario que leram o contato
+ * -------------------------------------------------------------------------- */
+.leituras{
+    /* Margens */
+    padding: 0;
+    
+    > .item-leitura{
+        /* Margens */
+        padding: .5em 0;
+        
+        /* Visual */
+        list-style-position: inside;
+    }
+    
+    > .item-leitura:not(:last-child){
+        /* Visual */
+        border-bottom: $borda-suave;
+    }
+}
+
 
 
 /* Desktops */

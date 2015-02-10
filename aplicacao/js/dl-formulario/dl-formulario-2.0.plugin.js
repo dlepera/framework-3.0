@@ -322,6 +322,7 @@ function TratarResposta(r){
             
             // Elementos que compõe, a máscara
             var mask_e = mascara.replace(/#/g, '');
+                mask_e = /[a-zA-Z]/.test(mascara) ? '('+ mask_e +')' : '['+ mask_e +']';
             
             // Configurar os eventos do campo
             // Obs: primeiro o evento é removido para evitar que seja executado
@@ -329,11 +330,12 @@ function TratarResposta(r){
             $this.unbind('keypress').on('keypress', function(event){
                 var kc = event.keyCode > 0 ? event.keyCode : event.charCode;
                 
-                if( kc > 47 && kc < 91 ){
-                    var sem_mask    = $this.val().replace(new RegExp('['+ mask_e +']', 'g'), '').replace(/_/g, '') + String.fromCharCode(kc);
+                if( kc > 47 && kc < 123 ){
+                    // var sem_mask    = $this.val().replace(new RegExp('['+ mask_e +']', 'g'), '').replace(/_/g, '') + String.fromCharCode(kc);
+                    var sem_mask    = $this.val().replace(new RegExp(mask_e, 'g'), '').replace(/_/g, '') + String.fromCharCode(kc);;
                     var com_mask    = mask_f;
                     var qtde_sm     = sem_mask.length;
-
+                    
                     for(var i = 0; i < qtde_sm; i++)
                         com_mask = com_mask.replace('_', sem_mask[i]);
 

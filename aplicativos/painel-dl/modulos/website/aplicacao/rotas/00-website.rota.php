@@ -107,6 +107,11 @@ $rotas['^tipos-de-dados/carregar-select$'] = array(
     'acao'      =>  'carregarselect'
 );
 
+$rotas['^tipos-de-dados/opcoes-avancadas$'] = array(
+    'controle'  =>  'TipoDadoContato',
+    'acao'      =>  'opcoesavancadas'
+);
+
 
 
 /**

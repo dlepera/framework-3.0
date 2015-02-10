@@ -10,7 +10,7 @@
 namespace WebSite\Modelo;
 
 class TipoDadoContato extends \Geral\Modelo\Principal{
-    protected $id, $descr, $icone, $rede_social = 0, $publicar = 1, $delete = 0;
+    protected $id, $descr, $icone, $rede_social = 0, $mascara, $expreg, $publicar = 1, $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
@@ -34,6 +34,16 @@ class TipoDadoContato extends \Geral\Modelo\Principal{
 
         return $this->rede_social = (int)filter_var($v, FILTER_VALIDATE_INT);
     } // Fim do método _rede_social
+
+    public function _mascara($v=null){
+        return is_null($v) ? (string)$this->mascara
+        : $this->mascara = (string)filter_var($v, FILTER_DEFAULT);
+    } // Fim do método _mascara
+
+    public function _expreg($v=null){
+        return is_null($v) ? (string)$this->expreg
+        : $this->expreg = (string)filter_var($v, FILTER_DEFAULT);
+    } // Fim do método _expreg
 
 
 

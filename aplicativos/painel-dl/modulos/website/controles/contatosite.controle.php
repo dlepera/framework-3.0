@@ -68,8 +68,16 @@ class ContatoSite extends \Geral\Controle\PainelDL{
             $this->visao->_adparam('assunto-cor', $ma->cor);
         endif;
 
+        # Registrar a leitura desse contato e obter a lista de quem já leu
+        $mlc = new \WebSite\Modelo\LeituraContato();
+        $mlc->leitura_contato   = $this->modelo->id;
+        $mlc->usuario           = $_SESSION['usuario_id'];
+        $mlc->_salvar();
+        $llc = $mlc->_listar("leitura_contato = {$this->modelo->id}", 'leitura_contato_data DESC', "leitura_contato_data, IFNULL(usuario_info_nome, 'Super Admin') AS USUARIO");
+
         # Parâmetro
         $this->visao->_adparam('modelo', $this->modelo);
         $this->visao->_adparam('log-email', new \Geral\Modelo\LogEmail($this->modelo->bd_tabela, $id));
+        $this->visao->_adparam('leituras', $llc);
     } // Fim do método _mostrardetalhes
 } // Fim do Controle ContatoSite

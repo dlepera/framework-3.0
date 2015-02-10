@@ -23,7 +23,7 @@ $le  = $params['log-email'];
     </h2>
 
     <h2><?= TXT_TITULO_CONTATO; ?></h2>
-    
+
     <p>
         <b><?= TXT_LABEL_NOME; ?>:</b>
         <?= $mod->nome; ?>
@@ -68,4 +68,18 @@ $le  = $params['log-email'];
                 break;
         endswitch; ?>
     </p>
+
+    <h2><?= TXT_TITULO_QUEM_LEU; ?></h2>
+
+    <?php if( !count($params['leituras']) ):
+        echo MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO;
+    else: ?>
+    <ol reversed="reversed" class="leituras">
+        <?php foreach( $params['leituras'] as $l ): ?>
+        <li class="item-leitura">
+            <?= \Funcoes::_formatardatahora($l['leitura_contato_data'], $_SESSION['formato_data_completo']) ."<br/>{$l['USUARIO']}"; ?>
+        </li>
+        <?php endforeach; ?>
+    </ol>
+    <?php endif; ?>
 </section>

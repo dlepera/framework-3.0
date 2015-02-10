@@ -24,27 +24,47 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <p class="form-p-campo">
-            <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
-        </p>
+        <fieldset>
+            <legend><?= TXT_LEGENDA_TIPO_DADO; ?></legend>
 
-        <p class="form-p-campo">
-            <label for="arq-icone"><?= TXT_LABEL_ICONE; ?>:</label><br/>
-            <input type="file" name="icone" id="arq-icone"/>
+            <p class="form-p-campo">
+                <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+            </p>
 
-            <?php if( $mod->icone != '' ): ?>
-            <figure class="mostrar-icone">
-                <img src="..<?= $mod->icone; ?>" alt=""/>
-            </figure>
-            <?php endif; ?>
-        </p>
+            <p class="form-p-campo">
+                <label for="arq-icone"><?= TXT_LABEL_ICONE; ?>:</label><br/>
+                <input type="file" name="icone" id="arq-icone"/>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_REDE_SOCIAL; ?></label><br/>
-            <input type="checkbox" name="rede_social" id="rede-social" class="s-ou-n" value="1"<?= $mod->rede_social ? ' CHECKED' : ''; ?>/>
-            <label for="rede-social"></label>
-        </p>
+                <?php if( $mod->icone != '' ): ?>
+                <figure class="mostrar-icone">
+                    <img src="..<?= $mod->icone; ?>" alt=""/>
+                </figure>
+                <?php endif; ?>
+            </p>
+
+            <p class="form-p-campo">
+                <label><?= TXT_LABEL_REDE_SOCIAL; ?></label><br/>
+                <input type="checkbox" name="rede_social" id="rede-social" class="s-ou-n" value="1"<?= $mod->rede_social ? ' CHECKED' : ''; ?>/>
+                <label for="rede-social"></label>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><?= TXT_LEGENDA_OPCOES_AVANCADAS; ?></legend>
+
+            <p class="form-p-campo">
+                <label for="txt-mascara"><?= TXT_LABEL_MASCARA; ?>:</label><br/>
+                <span class="form-dica"><?= TXT_DICA_TIPODADO_MASCARA; ?></span><br/>
+                <input type="text" name="mascara" id="txt-mascara" value="<?= $mod->mascara; ?>"/>
+            </p>
+
+            <p class="form-p-campo">
+                <label for="txt-expreg"><?= TXT_LABEL_EXPREG; ?>:</label><br/>
+                <span class="form-dica"><?= TXT_DICA_TIPODADO_EXPREG; ?></span><br/>
+                <input type="text" name="expreg" id="txt-expreg" value="<?= $mod->expreg; ?>"/>
+            </p>
+        </fieldset>
 
         <p class="form-p-campo">
             <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>

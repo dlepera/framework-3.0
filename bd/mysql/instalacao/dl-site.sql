@@ -37,6 +37,8 @@ CREATE TABLE IF NOT EXISTS dl_site_dados_contato_tipos(
     tipo_dado_descr VARCHAR(30) NOT NULL,
     tipo_dado_icone VARCHAR(255),
     tipo_dado_rede_social BIT NOT NULL DEFAULT 0,
+    tipo_dado_mascara VARCHAR(100),
+    tipo_dado_expreg VARCHAR(200),
     tipo_dado_publicar BIT NOT NULL DEFAULT 1,
     tipo_dado_delete BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(tipo_dado_id),

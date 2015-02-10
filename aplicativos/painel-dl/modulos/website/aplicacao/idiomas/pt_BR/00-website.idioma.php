@@ -37,6 +37,7 @@ define('TXT_TITULO_ALBUNS_FOTOS', 'Álbuns de fotos');
 define('TXT_TITULO_NOVO_ALBUM', 'Cadastrar um novo álbum de fotos');
 define('TXT_TITULO_EDITAR_ALBUM', 'Editar esse álbum de fotos');
 define('TXT_TITULO_EDITAR_FOTO', 'Editar as informações dessa foto');
+define('TXT_TITULO_QUEM_LEU', 'Quem leu?');
 
 # Tabelas
 # -> Títulos
@@ -57,6 +58,8 @@ define('TXT_LEGENDA_CONTA_GOOGLE', 'Conta Google');
 define('TXT_LEGENDA_CONFIGURACOES', 'Configurações');
 define('TXT_LEGENDA_ALBUM_FOTOS', 'Álbum de fotos');
 define('TXT_LEGENDA_FOTOS', 'Fotos do álbum');
+define('TXT_LEGENDA_OPCOES_AVANCADAS', 'Opções avançadas');
+define('TXT_LEGENDA_TIPO_DADO', 'Tipo de dado');
 
 # -> Campos
 define('TXT_LABEL_NOME', 'Nome');
@@ -81,12 +84,18 @@ define('TXT_LABEL_FOTOS', 'Fotos');
 define('TXT_LABEL_TITULO', 'Título');
 define('TXT_LABEL_CAPA', 'É a capa?');
 define('TXT_LABEL_CODIGO_UA', 'Código UA');
+define('TXT_LABEL_MASCARA', 'Máscara');
+define('TXT_LABEL_EXPREG', 'Expressão regular');
 
 # -> Botões
 define('TXT_BOTAO_SALVAR_FOTOS', 'Salvar fotos');
 
 # -> Dicas
 define('MSG_DICA_ALBUMFOTO_CAPA', 'Definir essa foto como a capa do álbum.');
+define('TXT_DICA_TIPODADO_MASCARA', 'Definir uma mácara para o preenchimento do regitro.<br/>'
+        . '<b>Ex.:</b> Telefone - (##) ####-####<br/>'
+        . '<b>Obs.:</b> O # representa qualquer caractere. Os demais caracteres presentes na máscara ficarão fixos!');
+define('TXT_DICA_TIPODADO_EXPREG', 'Expressão regular para ser usada na validação do registro inserido.');
 
 # Links
 define('TXT_LINK_NOVO_ASSUNTO', 'Novo assunto');
