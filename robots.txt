@@ -1,0 +1,7 @@
+Disallow: /_auto/
+Disallow: /_padroes/
+Disallow: /aplicacao/
+Disallow: /aplicativos/
+Disallow: /biblioteca/
+Disallow: /config/
+Disallow: /painel-dl/
