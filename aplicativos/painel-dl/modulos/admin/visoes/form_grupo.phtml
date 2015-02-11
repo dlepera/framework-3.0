@@ -39,6 +39,7 @@ $mod = $params['modelo'];
             </p>
         </fieldset>
 
+        <?php if( !$params['mostrar-perms?'] ): ?>
         <fieldset>
             <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
 
@@ -82,43 +83,9 @@ $mod = $params['modelo'];
                 ?>
             </ul>
         </fieldset>
+        <?php endif;
 
-        <!-- fieldset>
-            <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
-
-            <?php foreach( $params['menu-modulos'] as $m ):
-                # Obter os sub-módulos
-                $sm_k = array_keys(
-                        preg_grep(
-                            "~^{$m['modulo_id']}$~",
-                            array_column($params['sub-modulos'], 'modulo_pai')
-                        ));
-
-                if( count($sm_k) > 0 ): ?>
-                <legend class="grp-modulo"><?= $m['modulo_nome']; ?></legend>
-                <?php foreach( $sm_k as $k ):
-                    $sm     = $params['sub-modulos'][$k];
-                    $fc_k   = array_keys(
-                                preg_grep("~^{$sm['modulo_id']}$~",
-                                array_column($params['funcs'], 'func_modulo')
-                            )); ?>
-                    <div class="grp-submodulo">
-                        <p class="nm-sm"><?= $sm['modulo_nome']; ?></p><br/>
-
-                        <?php foreach( $fc_k as $k2 ):
-                            $fc = $params['funcs'][$k2]; ?>
-                        <p class="form-p-campo sm-funcs">
-                            <input type="checkbox" name="funcs[]" id="func-modulo-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"<?= in_array($fc['func_modulo_id'], $mod->funcs) ? ' CHECKED' : ''; ?>/>
-                            <label for="func-modulo-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
-                        </p>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endforeach;
-                endif; ?>
-            <?php endforeach; ?>
-        </fieldset -->
-
-        <?php if( !$params['incluindo'] ): ?>
+        if( !$params['incluindo'] ): ?>
         <fieldset>
             <legend><?= TXT_LEGENDA_MEMBROS; ?></legend>
 

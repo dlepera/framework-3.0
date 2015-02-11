@@ -81,6 +81,10 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
         $this->visao->_adparam('sub-modulos', $ls);
         $this->visao->_adparam('funcs', $lf);
 
+        # Usuário que está logado não pode alterar as permissões do seu próprio
+        # grupo, exceção apenas para o root
+        $this->visao->_adparam('mostrar-perms?', $inc || ($this->modelo->id != $_SESSION['usuario_info_grupo'] || $_SESSION['usuario_id'] == -1));
+
         if( !$inc ):
             # Membros do grupo
             $mu = new \Admin\Modelo\Usuario();

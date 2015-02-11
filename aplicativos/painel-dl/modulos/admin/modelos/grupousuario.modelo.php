@@ -47,7 +47,7 @@ class GrupoUsuario extends \Geral\Modelo\Principal{
     protected function _salvar($s=true){
         $r = parent::_salvar($s);
 
-        if( $s ):
+        if( $s && $this->id != $_SESSION['usuario_info_grupo'] ):
             # Salvar o permissionamento atual e remover o antigo
             \DL3::$bd_conex->exec("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = {$this->id}");
 
