@@ -188,3 +188,19 @@ a{
     /* Visual */
     border-color: green;
 }
+
+/* Link: Atualizar */
+.a-atualizar{
+    /* Texto */
+    color: #54a1a8 !important;
+}
+
+.a-atualizar:before{
+    @extend .a-atualizar;
+    
+    /* Texto */
+    content: 'R';
+    
+    /* Visual */
+    border-color: #54a1a8;
+}
