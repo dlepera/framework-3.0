@@ -39,7 +39,7 @@ $mod = $params['modelo'];
             </p>
         </fieldset>
 
-        <?php if( !$params['mostrar-perms?'] ): ?>
+        <?php if( $params['mostrar-perms?'] ): ?>
         <fieldset>
             <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
 
