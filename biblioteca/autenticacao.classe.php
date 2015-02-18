@@ -71,7 +71,7 @@ class Autenticacao{
         $this->_form_login($fl);
 
         # Verificar o status do login
-        $this->_verificarlogin( !preg_match('~/login~', DL3_URL) );
+        $this->_verificarlogin( !preg_match('~/?login~', DL3_URL) );
 
         # Iniciar o modelo de usuário
         $this->usuario = new \Admin\Modelo\Usuario();
