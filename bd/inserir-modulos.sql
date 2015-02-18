@@ -1,16 +1,23 @@
--- Incluir o módulo Admin e seus sub-módulos
-INSERT INTO dl_painel_modulos(modulo_pai, modulo_nome, modulo_descr, modulo_link) VALUES
-(NULL, 'Admin', 'Módulo de administração do sistema. Gerencia opções como configurações de e-mail, usuários e permissionamentos.', 'admin'),
-(1, 'Usuários', 'Gerencia as contas de usuário do sistema.', 'admin/usuarios/lista'),
-(1, 'Envio de e-mails', 'Configurações de envios de e-mails pelo sistema.\nConfigurar servidores SMTP para enviar e-mails.', 'admin/emails/lista'),
-(1, 'Grupos de usuários', 'Gerenciar grupos de usuários, podendo definir permissionamentos padrões para os usuário que forem incluídos no grupo.', 'admin/grupos-de-usuarios/lista');
+-- Módulo Desenvolvedor e seus sub-módulos
+INSERT INTO dl_painel_modulos VALUES
+(22,NULL,'Desenvolvedor','Área para desenvolvedores adicionarem módulos, temas e pacote de idiomas.','','desenvolvedor',99,'','\0'),
+(23,22,'Temas','Gerenciar temas do Painel-DL instalados.','','desenvolvedor/temas',0,'','\0'),
+(24,22,'Módulos','Gerenciar módulos instalados, ou informar novos módulos do Painel-DL.','','desenvolvedor/modulos',0,'','\0'),
+(25,22,'Idiomas','Informar pacotes de idiomas instalados.','','desenvolvedor/idiomas',0,'','\0');
 
+-- Módulo Admin e seus sub-módulos
+INSERT INTO dl_painel_modulos VALUES
+(26,NULL,'Admin','','','admin',98,'','\0'),
+(27,26,'Usuários','Gerenciar contas de usuário.','','admin/usuarios',0,'','\0'),
+(28,26,'Grupos de usuários','Gerenciar grupos de usuários e suas permissões.','','admin/grupos-de-usuarios',0,'','\0'),
+(29,26,'Envio de e-mails','Configuração SMTP para envios de e-mails através do sistema.','','admin/envio-de-emails',0,'','\0');
 
--- Incluir módulo web-site e seus sub-módulos
-INSERT INTO dl_painel_modulos(modulo_pai, modulo_nome, modulo_descr, modulo_link) VALUES
-(NULL, 'Website', 'Gerenciar conteúdo exibido e recebido no site, como formas de contato, contatos recebidos, galerias de fotos e muito mais!', 'web-site'),
-(5, 'Contatos recebidos', 'Lista dos contatos recebidos através do formulário de contato do site. É possível verificar se houve falha no envio do e-mail, qual foi a falha encontrada e remover contatos não desejados.', 'web-site/contatos-recebidos/lista'),
-(5, 'Dados para contato', 'Dados para contato que serão exibidos no site.\nEx.: e-mails, telefones e redes sociais.', 'web-site/dados-para-contato/lista'),
-(5, 'Assuntos de contatos', 'Assuntos de contatos estão disponíveis na tela de contato do site e cada assunto pode direcionar para um e-mail diferente. Ideal para vínculo com gerenciadores de chamado ou segmentação dos retornos.', 'web-site/assuntos-de-contatos/lista'),
-(5, 'Álbuns de fotos', 'Criar, editar e/ou remover álbuns de fotos que deverão ser exibidas no site.', 'web-site/albuns-de-fotos/lista'),
-(5, 'Formas de contato', 'Define os tipos de dados para contato, por exemplo, telefone, e-mail, skype, etc...\nEssas opções serão exibidas na combobox Tipo de dado" do cadastro de "Dados para contato".', 'web-site/formas-de-contato/lista');
+-- Módulo Website e seus sub-módulos
+INSERT INTO dl_painel_modulos VALUES
+(30,NULL,'Website','','','website',0,'','\0'),
+(31,30,'Álbuns de fotos','Incluir, editar e remover álbuns de fotos para o site.','','website/albuns-de-fotos',0,'\0','\0'),
+(32,30,'Dados para contato','Dados para entrar em contato com o proprietário do site.','','website/dados-para-contato',0,'','\0'),
+(33,30,'Contatos recebidos','Lista com todos os contatos recebidos através do formulário do web-site.','','website/contatos-recebidos',0,'','\0'),
+(34,30,'Assuntos de contatos','Assuntos que são exibidos no formulário de contato. São utilizados para categorizar  os contatos recebidos, podendo encaminhar cada assunto para um e-mail específico.','','website/assuntos-contato',0,'','\0'),
+(35,30,'Google Analytics','Configurações do Google Analytics.','\0','website/google-analytics',0,'','\0'),
+(36,30,'Tipos de dados para contato','Tipos de dados para contato. Redes sociais, e-mails, telefones, etc.','\0','website/tipos-de-dados',0,'','\0');
