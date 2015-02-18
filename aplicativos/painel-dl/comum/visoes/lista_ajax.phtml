@@ -17,7 +17,8 @@
             depois  : function(){
                 // Remover o item da lista
                 $el.find('tbody :checked').parents('tr').remove();
-            }
+            },
+            aparencia: { tema: '<?= DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
 
         $pg = $('#paginacao')._dlpaginacao({

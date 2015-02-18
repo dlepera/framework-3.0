@@ -57,10 +57,10 @@ class Controle extends \Geral\Controle\Principal{
      * @param int $id - ID do registro a ser selecionado
      */
     public function _mostrarform($id=null){
-        $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $id);
+        $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $url, $id);
 
         # Visão
-        $this->_carregarhtml('from_');
+        $this->_carregarhtml('form_');
         $this->visao->titulo = $inc ? TXT_TITULO_NOVO : TXT_TITULO_EDITAR;
     } // Fim do método _mostrarform
 } // Fim do Controle Controle

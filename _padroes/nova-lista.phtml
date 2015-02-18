@@ -16,7 +16,7 @@ if( !isset($params) )
     <h1><?= $params['titulo']; ?></h1>
 
     <!-- Inserir um novo registro -->
-    <a href="" class="com-icone a-inserir"><?= TXT_LINK_INSERIR; ?></a>
+    <a href="/novo" class="com-icone a-inserir"><?= TXT_LINK_INSERIR; ?></a>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
@@ -40,11 +40,11 @@ if( !isset($params) )
                     <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
 
                     <td headers="th-opcoes" class="td-opcoes">
-                        <a href="" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                        <a href="/editar/<?= $l['_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>
