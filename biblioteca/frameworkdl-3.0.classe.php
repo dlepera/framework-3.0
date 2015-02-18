@@ -206,6 +206,10 @@ class FrameworkDL3{
         : $this->aut_ativar = (bool)$v;
     } // Fim do método _bd_ativar
 
+    public function _aut_prefixo($v=null){
+        return $this->aut_prefixo = strtolower(filter_var(is_null($v) ? $this->aut_prefixo : $v, FILTER_SANITIZE_STRING));
+    } // Fim do método _bd_prefixo
+
     public function _bd_ativar($v=null){
         return is_null($v) ? (bool)$this->bd_ativar
         : $this->bd_ativar = (bool)$v;
