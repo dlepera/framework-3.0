@@ -36,6 +36,11 @@ form{
         padding: .5em;
     }
     
+    input:focus, select:focus, textarea:focus{
+        /* Visual */
+        outline: none;
+    }
+    
     [type="checkbox"], [type="radio"]{
         /* Tamanho */
         width: auto;
