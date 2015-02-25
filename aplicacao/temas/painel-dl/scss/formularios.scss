@@ -239,7 +239,7 @@ form{
         height  : 3em;
 
         /* Visual */
-        display         : block;
+        display         : inline-block;
         border-radius   : 25px;
         border          : 2px solid #DDD;
         cursor          : pointer;
@@ -251,6 +251,9 @@ form{
         /* Texto */
         text-align  : right;
         color       : #AAA;
+        
+        /* Alinhamento */
+        vertical-align: middle;
     }
 
     [type='checkbox'].s-ou-n:checked + label{
