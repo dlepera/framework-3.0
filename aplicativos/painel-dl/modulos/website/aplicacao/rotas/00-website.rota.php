@@ -234,3 +234,24 @@ $rotas['^albuns-de-fotos/excluir-fotos$'] = array(
     'controle'  =>  'FotoAlbum',
     'acao'      =>  'remover'
 );
+
+
+
+/**
+ *  Informações institucionais
+ * -----------------------------------------------------------------------------
+ */
+$rotas['^institucional$'] = array(
+    'controle'  =>  'Institucional',
+    'acao'      =>  'mostrarinfos'
+);
+
+$rotas['^institucional/editar$'] = array(
+    'controle'  =>  'Institucional',
+    'acao'      =>  'mostrarform'
+);
+
+$rotas['^institucional/salvar$'] = array(
+    'controle'  =>  'Institucional',
+    'acao'      =>  'salvar'
+);

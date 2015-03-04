@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 07/01/2015 14:18:37
+ */
+
+if( isset($params) )
+    $params = $this->_obterparams();
+
+$mod = $params['modelo'];
+
+?>
+
+<section class="dl3">
+    <h1><?= $params['titulo']; ?></h1>
+
+    <h2><?= TXT_TITULO_HISTORIA; ?></h2>
+    <p class="instit-historia"><?= nl2br($mod->historia); ?></p>
+
+    <h2><?= TXT_TITULO_MISSAO; ?></h2>
+    <p class="instit-missao"><?= nl2br($mod->missao); ?></p>
+
+    <h2><?= TXT_TITULO_VISAO; ?></h2>
+    <p class="instit-visao"><?= nl2br($mod->visao); ?></p>
+
+    <h2><?= TXT_TITULO_VALORES; ?></h2>
+    <p class="instit-valores"><?= nl2br($mod->valores); ?></p>
+</section>

@@ -88,3 +88,14 @@ CREATE TABLE IF NOT EXISTS dl_site_google_analytics(
     ga_delete BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(ga_id)
 ) ENGINE=INNODB;
+
+-- Informações institucionais
+CREATE TABLE IF NOT EXISTS dl_site_institucional(
+    instit_id INT NOT NULL AUTO_INCREMENT,
+    instit_historia LONGTEXT,
+    instit_missao LONGTEXT,
+    instit_visao LONGTEXT,
+    instit_valores LONGTEXT,
+    instit_publicar BIT NOT NULL DEFAULT 1,
+    PRIMARY KEY(instit_id)
+) ENGINE=INNODB;

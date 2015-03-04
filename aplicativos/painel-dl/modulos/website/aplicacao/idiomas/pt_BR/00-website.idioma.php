@@ -38,6 +38,12 @@ define('TXT_TITULO_NOVO_ALBUM', 'Cadastrar um novo álbum de fotos');
 define('TXT_TITULO_EDITAR_ALBUM', 'Editar esse álbum de fotos');
 define('TXT_TITULO_EDITAR_FOTO', 'Editar as informações dessa foto');
 define('TXT_TITULO_QUEM_LEU', 'Quem leu?');
+define('TXT_TITULO_HISTORIA', 'História');
+define('TXT_TITULO_MISSAO', 'Missão');
+define('TXT_TITULO_VISAO', 'Visão');
+define('TXT_TITULO_VALORES', 'Valores');
+define('TXT_TITULO_INFOS_INSTITUCIONAIS', 'Informações institucionais');
+define('TXT_TITULO_EDITAR_INSTITUCIONAL', 'Editar informações institucionais');
 
 # Tabelas
 # -> Títulos
@@ -60,6 +66,10 @@ define('TXT_LEGENDA_ALBUM_FOTOS', 'Álbum de fotos');
 define('TXT_LEGENDA_FOTOS', 'Fotos do álbum');
 define('TXT_LEGENDA_OPCOES_AVANCADAS', 'Opções avançadas');
 define('TXT_LEGENDA_TIPO_DADO', 'Tipo de dado');
+define('TXT_LEGENDA_HISTORIA', 'História');
+define('TXT_LEGENDA_MISSAO', 'Missão');
+define('TXT_LEGENDA_VISAO', 'Visão');
+define('TXT_LEGENDA_VALORES', 'Valores');
 
 # -> Campos
 define('TXT_LABEL_NOME', 'Nome');
@@ -103,6 +113,7 @@ define('TXT_LINK_NOVO_TIPO_DADO', 'Novo tipo de dado para contato');
 define('TXT_LINK_NOVO_GA', 'Nova configuração');
 define('TXT_LINK_NOVO_DADOCONTATO', 'Novo dado para contato');
 define('TXT_LINK_NOVO_ALBUM', 'Novo ábum');
+define('TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS', 'Editar as informações institucionais');
 
 # Mensagens diversas
 define('MSG_CONTATO_DT_ENVIO', 'Contato enviado em %s');

@@ -11,7 +11,7 @@ namespace Sobre\Controle;
 
 class Sobre extends \Geral\Controle\WebSite{
     public function __construct(){
-        parent::__construct(null, 'sobre', TXT_MODELO_SOBRE);
+        parent::__construct(new \Sobre\Modelo\Institucional(), 'sobre', TXT_MODELO_SOBRE);
     } // Fim do método __construct
 
 
@@ -21,7 +21,13 @@ class Sobre extends \Geral\Controle\WebSite{
      * -------------------------------------------------------------------------
      */
     public function _historia(){
-        $this->_carregarhtml('historia');
+        $this->_carregarhtml('sobre');
         $this->visao->titulo = TXT_TITULO_SOBRE;
+
+        $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
+        $this->modelo->_selecionarID($id['ID']);
+
+        /* Parâmetros */
+        $this->visao->_adparam('modelo', $this->modelo);
     } // Fim do método _historia
 } // Fim do método Sobre
