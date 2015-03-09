@@ -38,7 +38,7 @@ abstract class Principal{
         switch($nome):
             # Gravar log de inserção e alteração do registro
             case '_salvar':
-                $s = $this->_salvar();
+                $s = call_user_func_array(array($this, '_salvar'), $args);
 
                 if( class_exists($mod_registro) && $s > 0 && !is_null($this->id) ):
                     $this->mod_lr->tabela  = $this->bd_tabela;
@@ -62,7 +62,7 @@ abstract class Principal{
 
             # Selecionar as informações de inclusão e alteração do registro
             case '_selecionarID':
-                $this->_selecionarID($args[0], $args[1]);
+                call_user_func_array(array($this, '_selecionarID'), $args);
 
                 if( !is_null($this->id) && get_called_class() != $mod_registro )
                     $this->mod_lr->_selecionarID($this->bd_tabela, $this->id);
@@ -136,10 +136,8 @@ abstract class Principal{
      * @param string $filtro - parte da string referente à clausula WHERE da consulta SQL
      * @param string $ordem - parte da string referente à clausula ORDER BY da consulta SQL
      * @param string $campos - lista de campos a serem selecionados
-     * @param int $pagina - página a ser considerada durante uma paginação de resultados.
-     *  Se definida como 0 (zero) a paginação não é realizada
-     * @param int $qtde - quantidade de registros a serem exibidos caso a paginação seja
-     *  ativada
+     * @param int $pagina - página a ser considerada durante uma paginação de resultados.<br>Se definida como 0 (zero) a paginação não é realizada
+     * @param int $qtde - quantidade de registros a serem exibidos caso a paginação seja ativada
      *
      * @return array: array associativo contendo o recordset da consulta
      */
@@ -228,9 +226,8 @@ abstract class Principal{
      *
      * @param boolean $s - define se o registro será salvo ou apenas
      * será gerada a query de insert/update
-     *
-     * @params array $ci - vetor com os campos a serem considerados
-     * @params array $ce - vetor com os campos a serem desconsiderados
+     * @param array $ci - vetor com os campos a serem considerados
+     * @param array $ce - vetor com os campos a serem desconsiderados
      */
     protected function _salvar($s=true, $ci=null, $ce=null){
         $query = !$this->id ? $this->_criar_insert($ci,$ce) : $this->_criar_update($ci,$ce);
