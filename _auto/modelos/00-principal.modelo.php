@@ -228,9 +228,10 @@ abstract class Principal{
      * será gerada a query de insert/update
      * @param array $ci - vetor com os campos a serem considerados
      * @param array $ce - vetor com os campos a serem desconsiderados
+     * @param bool $ipk - define se o campo PK será considerado para inserção
      */
-    protected function _salvar($s=true, $ci=null, $ce=null){
-        $query = !$this->id ? $this->_criar_insert($ci,$ce) : $this->_criar_update($ci,$ce);
+    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+        $query = !$this->id ? $this->_criar_insert($ipk, $ci,$ce) : $this->_criar_update($ci,$ce);
 
         if( !$s ) return $query;
 
