@@ -201,7 +201,7 @@ class FrameworkDL3{
     } // Fim do método _ap_modulo
 
     public function _aut_ativar($v=null){
-        return $this->aut_ativar = filter_var(if_null($v) ? $this->aut_ativar : $v, FILTER_VALIDATE_BOOLEAN);
+        return $this->aut_ativar = filter_var(is_null($v) ? $this->aut_ativar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _aut_ativar
 
     public function _aut_prefixo($v=null){
@@ -209,7 +209,7 @@ class FrameworkDL3{
     } // Fim do método _aut_prefixo
 
     public function _bd_ativar($v=null){
-        return $this->bd_ativar = filter_var(if_null($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
+        return $this->bd_ativar = filter_var(is_null($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _bd_ativar
 
     public function _bd_driver($v=null){
