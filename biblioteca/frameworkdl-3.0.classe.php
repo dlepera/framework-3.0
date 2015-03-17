@@ -179,8 +179,7 @@ class FrameworkDL3{
     } // Fim do método _ap_raiz
 
     public function _ap_nome($v=null){
-        return is_null($v) ? (string)$this->ap_nome
-        : $this->ap_nome = (string)$v;
+        return $this->ap_nome = filter_var(is_null($v) ? $this->ap_nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _ap_nome
 
     public function _ap_modulo($v=null){
@@ -202,47 +201,39 @@ class FrameworkDL3{
     } // Fim do método _ap_modulo
 
     public function _aut_ativar($v=null){
-        return is_null($v) ? (bool)$this->aut_ativar
-        : $this->aut_ativar = (bool)$v;
-    } // Fim do método _bd_ativar
+        return $this->aut_ativar = filter_var(if_null($v) ? $this->aut_ativar : $v, FILTER_VALIDATE_BOOLEAN);
+    } // Fim do método _aut_ativar
 
     public function _aut_prefixo($v=null){
         return $this->aut_prefixo = strtolower(filter_var(is_null($v) ? $this->aut_prefixo : $v, FILTER_SANITIZE_STRING));
-    } // Fim do método _bd_prefixo
+    } // Fim do método _aut_prefixo
 
     public function _bd_ativar($v=null){
-        return is_null($v) ? (bool)$this->bd_ativar
-        : $this->bd_ativar = (bool)$v;
+        return $this->bd_ativar = filter_var(if_null($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _bd_ativar
 
     public function _bd_driver($v=null){
-        return is_null($v) ? (string)$this->bd_driver
-        : $this->bd_driver = (string)$v;
+        return $this->bd_driver = filter_var(is_null($v) ? $this->bd_driver : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_driver
 
     public function _bd_host($v=null){
-        return is_null($v) ? (string)$this->bd_host
-        : $this->bd_host = (string)$v;
+        return $this->bd_host = filter_var(is_null($v) ? $this->bd_host : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_host
 
     public function _bd_porta($v=null){
-        return is_null($v) ? (int)$this->bd_porta
-        : $this->bd_porta = (int)$v;
+        return $this->bd_porta = filter_var(is_null($v) ? $this->bd_porta : $v, FILTER_VALIDATE_INT);
     } // Fim do método _bd_porta
 
     public function _bd_usuario($v=null){
-        return is_null($v) ? (string)$this->bd_usuario
-        : $this->bd_usuario = (string)$v;
+        return $this->bd_usuario = filter_var(is_null($v) ? $this->bd_usuario : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_usuario
 
     public function _bd_senha($v=null){
-        return is_null($v) ? (string)$this->bd_senha
-        : $this->bd_senha = (string)$v;
+        return $this->bd_senha = filter_var(is_null($v) ? $this->bd_senha : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_senha
 
     public function _bd_base($v=null){
-        return is_null($v) ? (string)$this->bd_base
-        : $this->bd_base = (string)$v;
+        return $this->bd_base = filter_var(is_null($v) ? $this->bd_base : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_base
 
 
