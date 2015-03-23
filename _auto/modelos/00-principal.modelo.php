@@ -101,12 +101,9 @@ abstract class Principal{
         return $this->mod_lr;
     } // Fim do método _bd_tabela
 
-    public function _id($v){
-        if( !property_exists($this, 'id') )
-            return null;
-
-        return is_null($v) ? $this->id
-        : $this->id = filter_var($v);
+    public function _id($v=null){
+        if( !property_exists($this, 'id') ) return null;
+        return $this->id = filter_var(is_null($v) ? $this->id : $v);
     } // Fim do método _id
 
     public function _publicar($v){
