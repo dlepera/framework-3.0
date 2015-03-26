@@ -153,6 +153,9 @@ nav.dl3{
             > a{
                 /* Texto */
                 font-size: 1.15em;
+                
+                /* Tamanho */
+                height: auto;
             }
             
             > .sm-descr{
@@ -185,8 +188,13 @@ nav.dl3{
         /* Submenu */
         .sub-menu{
              > .sm-item{
+                $tm: 33%; /* Tamanho */
+                
                 /* Flex */
-                @include _flex(1 33%);
+                @include _flex(1 $tm);
+                
+                /* Tamanho */
+                max-width: $tm;
 
                 /* Margens */
                 padding-right   : 2.5em;

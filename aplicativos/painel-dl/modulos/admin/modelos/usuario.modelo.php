@@ -12,30 +12,26 @@ namespace Admin\Modelo;
 class Usuario extends \Geral\Modelo\Principal{
     protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo, $info_login, $info_senha,
             $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20,
-            $conf_bloq = 0, $conf_reset = 1, $delete = 0;
+            $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png', $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
     public function _info_grupo($v=null){
-        return is_null($v) ? (int)$this->info_grupo
-        : $this->info_grupo = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->info_grupo = filter_var(is_null($v) ? $this->info_grupo : $v, FILTER_VALIDATE_INT);
     } // Fim do método _info_grupo
 
     public function _info_nome($v=null){
-        return is_null($v) ? (string)$this->info_nome
-        : $this->info_nome = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->info_nome = filter_var(is_null($v) ? $this->info_nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_nome
 
     public function _info_email($v=null){
-        return is_null($v) ? (string)$this->info_email
-        : $this->info_email = (string)filter_var($v, FILTER_VALIDATE_EMAIL, FILTER_NULL_ON_FAILURE);
+        return $this->info_email = filter_var(is_null($v) ? $this->info_email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _info_email
 
     public function _info_telefone($v=null){
-        return is_null($v) ? (string)$this->info_telefone
-        : $this->info_telefone = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->info_telefone = filter_var(is_null($v) ? $this->info_telefone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_telefone
 
     public function _info_sexo($v=null){
@@ -48,52 +44,40 @@ class Usuario extends \Geral\Modelo\Principal{
     } // Fim do método _info_sexo
 
     public function _info_login($v=null){
-        return is_null($v) ? (string)$this->info_login
-        : $this->info_login = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->info_login = filter_var(is_null($v) ? $this->info_login : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_login
 
     public function _info_senha($v=null){
-        return is_null($v) ? (string)$this->info_senha
-        : $this->info_senha = (string)md5(md5(filter_var($v, FILTER_SANITIZE_STRING)));
+        return $this->info_senha = md5(md5(filter_var(is_null($v) ? $this->info_senha : $v, FILTER_DEFAULT)));
     } // Fim do método _info_senha
 
     public function _pref_idioma($v=null){
-        return is_null($v) ? (int)$this->pref_idioma
-        : $this->pref_idioma = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->pref_idioma = filter_var(is_null($v) ? $this->pref_idioma : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_idioma
 
     public function _pref_tema($v=null){
-        return is_null($v) ? (int)$this->pref_tema
-        : $this->pref_tema = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->pref_tema = filter_var(is_null($v) ? $this->pref_tema : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_tema
 
     public function _pref_formato_data($v=null){
-        return is_null($v) ? (int)$this->pref_formato_data
-        : $this->pref_formato_data = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->pref_formato_data = filter_var(is_null($v) ? $this->pref_formato_data : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_formato_data
 
     public function _pref_num_registros($v=null){
-        return is_null($v) ? (int)$this->pref_num_registros
-        : $this->pref_num_registros = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->pref_num_registros = filter_var(is_null($v) ? $this->pref_num_registros : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_num_registros
 
     public function _conf_bloq($v=null){
-        if( is_null($v) ) return (int)$this->conf_bloq;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'conf_bloq'), 1500);
-
-        return $this->conf_bloq = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->conf_bloq = filter_var(is_null($v) ? $this->conf_bloq : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _conf_bloq
 
     public function _conf_reset($v=null){
-        if( is_null($v) ) return (int)$this->conf_reset;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'conf_reset'), 1500);
-
-        return $this->conf_reset = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->conf_reset = filter_var(is_null($v) ? $this->conf_reset : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _conf_reset
+
+    public function _perfil_foto($v=null){
+        return $this->perfil_foto = filter_var(is_null($v) ? $this->perfil_foto : $v);
+    } // Fim do método _perfil_foto
 
 
 
@@ -133,6 +117,24 @@ class Usuario extends \Geral\Modelo\Principal{
             # Verificar se o login já está cadastrado
             if( $this->_qtde_registros("{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}") > 0 )
                 throw new \Exception(ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500);
+
+            # Salvar a foto do usuário
+            if( file_exists($_FILES['perfil_foto']['tmp_name']) && $this->id == $_SESSION['usuario_id'] ):
+                $oup = new \Upload('/aplicacao/uploads/usuarios');
+                $oup->_extensoes(array('jpg', 'jpeg', 'gif', 'png'));
+
+                if( $oup->_salvar(\Funcoes::_removeracentuacao(strtolower(str_replace(' ', '-', $this->info_nome)))) ):
+                    $this->_perfil_foto(preg_replace('~^.~', '', $oup->arquivos_salvos[0]));
+
+                    # Recortar a foto
+                    $tim = 200;
+                    $oim = new \Imagem($oup->arquivos_salvos[0]);
+                    $oim->_redimensionar($tim);
+                    $oim->_redimensionar(null, $tim);
+                    $oim->_recortar($tim, $tim);
+                    $oim->_salvar($oup->arquivos_salvos[0]);
+                endif;
+            endif;
         endif;
 
         return parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
@@ -155,7 +157,7 @@ class Usuario extends \Geral\Modelo\Principal{
 
             $this->_selecionarID($_SESSION['usuario_id']);
         endif;
-        
+
         if( is_null($this->id) )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
 
@@ -218,4 +220,21 @@ class Usuario extends \Geral\Modelo\Principal{
 
         return $d;
     } // Fim do método _fazerlogin
+
+
+
+    /**
+     *  Mostrar a foto de perfil do usuário
+     * -------------------------------------------------------------------------
+     *
+     * @param string $dr - diretório relativo da foto
+     * @param string $tm - tamanho da foto
+     */
+    public function _mostrarfoto($dr = '.', $tm = 'm'){
+        $pf = "{$dr}{$this->perfil_foto}";
+
+        return '<span class="usr-perfil-foto tam-'. $tm .'">'
+            . "<img src='{$pf}' class='foto' alt='{$this->info_nome}'/>"
+            . '</span>';
+    } // Fim do método _mostrarfoto
 } // Fim do Modelo Usuario

@@ -83,6 +83,7 @@ define('TXT_LABEL_PRINCIPAL', 'Principal?');
 define('TXT_LABEL_SENHA_ATUAL', 'Senha atual');
 define('TXT_LABEL_SENHA_NOVA', 'Nova senha');
 define('TXT_LABEL_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
+define('TXT_LABEL_SELECIONAR_TODOS', 'Selecionar todos');
 
 # Opções
 define('TXT_OPCAO_MASCULINO', 'Masculino');
@@ -98,6 +99,7 @@ define('MSG_DICA_USUARIO_NUM_REGISTROS', 'Define a quantidade de registros a ser
 define('MSG_DICA_EMAIL_HTML', 'Quando essa opção é marcada o corpo dos e-mails enviados é formatod em HTML. Do contrário, apenas texto puro, sem formatação.');
 define('MSG_DICA_EMAIL_PRINCIPAL', 'Define qual configuração será usada para o envio quando mais de uma configuração for cadastrada no sistema.');
 define('MSG_USUARIO_BLOQUEADO', '<b>Atenção: </b> Esse usuário está bloqueado e, portanto, não tem acesso ao sistema.');
+define('MSG_USUARIO_ALTERAR_FOTO', 'Alterar foto');
 
 # E-mails
 # -> Assuntos
@@ -138,3 +140,4 @@ define('ERRO_USUARIO_ALTERARSENHA_SENHA_ATUAL_INCORRETA', '<b>Erro ao tentar alt
 define('ERRO_USUARIO_ALTERSENHA_SENHAS_NAO_COINCIDEM', '<b>Erro ao tentar alterar sua senha</b><p>As novas senhas informadas devem ser iguais.</p>');
 define('ERRO_USUARIO_BLOQUEAR', '<b>Erro ao tentar bloquear o(s) usuário(s)</b><p>Nenhum usuário foi bloqueado.</p>');
 define('ERRO_USUARIO_DESBLOQUEAR', '<b>Erro ao tentar desbloquear o(s) usuário(s)</b><p>Nenhum usuário foi desbloqueado.</p>');
+define('ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO', '<b>E-mail inválido!</b><p>O e-mail informado já está sendo usado por outro usuário.</p>');

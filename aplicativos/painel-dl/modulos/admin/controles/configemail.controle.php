@@ -96,7 +96,7 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
             throw new \Exception(sprintf(ERRO_PADRAO_CLASSE_NAO_ENCONTRADA, 'Email'), 1500);
 
         $oe = new \Email();
-        $te = $oe->_enviar(session_status() === PHP_SESSION_ACTIVE ? $_SESSION['usuario_info_email'] : 'd_lepera@hotmail.com', TXT_EMAIL_ASSUNTO_TESTE, TXT_EMAIL_CONTEUDO_TESTE, $id);
+        $te = $oe->_enviar(session_status() === PHP_SESSION_ACTIVE ? $_SESSION['usuario_info_email'] : $_SESSION['usuario_info_email'], TXT_EMAIL_ASSUNTO_TESTE, TXT_EMAIL_CONTEUDO_TESTE, $id);
 
         if( !$te )
             throw new \Exception(sprintf(ERRO_CONFIGEMAIL_TESTAR, $oe->_exibirlog()), 1500);

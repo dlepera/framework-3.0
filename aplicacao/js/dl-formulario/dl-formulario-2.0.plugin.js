@@ -260,7 +260,7 @@ function TratarResposta(r){
         // Criar o botão de fechamento da mensagem
         var $botao = $(document.createElement('button')).attr({
             type: 'button'
-        }).click(function() {
+        }).on('click', function() {
             // Remover o 'timeout' dessa mensagem
             window.clearTimeout(tempo_msg[id_unico]);
             
@@ -304,6 +304,12 @@ function TratarResposta(r){
                 $b.text(na-1);
             }, 1000);
         } // Fim if( opcoes.tempo.exibir )
+        
+        // Configurar a tecla Enter para disparar o evento click do botão Ok
+        $(window).on('keyup', function(){ 
+            var kc = event.keyCode || event.charCode;
+            if( kc == 27 ) $botao.trigger('click');
+        });
         
         // Configurar o tempo para que a mensagem suma
         tempo_msg[id_unico] = window.setTimeout(function(){

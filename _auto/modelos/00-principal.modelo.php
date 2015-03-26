@@ -102,7 +102,7 @@ abstract class Principal{
     } // Fim do método _bd_tabela
 
     public function _id($v=null){
-        if( !property_exists($this, 'id') ) return null;
+        if( !property_exists($this, 'id') || (is_null($this->id) && is_null($v)) ) return null;
         return $this->id = filter_var(is_null($v) ? $this->id : $v);
     } // Fim do método _id
 

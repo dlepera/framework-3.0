@@ -25,10 +25,24 @@ $mod = $params['modelo'];
     </p>
     <?php endif; ?>
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>" enctype="multipart/form-data">
         <?php if( !$params['incluindo'] ): ?>
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
+
+
+        <p class="form-p-campo usr-alterar-foto">
+            <?php if( $params['usuario-logado?'] ): ?>
+            <input type="file" name="perfil_foto" id="perfil-foto"/>
+            <label for="perfil-foto">
+                <?= $mod->_mostrarfoto('..', 'g'); ?>
+                <span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
+            </label>
+            <?php else:
+                echo $mod->_mostrarfoto('..', 'g');
+            endif; ?>
+        </p>
+
 
         <fieldset>
             <legend><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
@@ -144,6 +158,7 @@ $mod = $params['modelo'];
             <?php elseif( $params['usuario-logado?'] ): ?>
             <p class="form-p-campo">
                 <?= TXT_LABEL_GRUPO, ':<br/>', $params['grupo-descr']; ?>
+                <input type="hidden" name="info_grupo" value="<?= $mod->info_grupo; ?>"/>
             </p>
             <?php endif; ?>
 
@@ -190,11 +205,3 @@ $mod = $params['modelo'];
         </p>
     </form>
 </section>
-
-<script>
-    //<![CDATA[
-    function CarregarGU(){
-
-    } // Fim function CarregarGU()
-    //]]>
-</script>

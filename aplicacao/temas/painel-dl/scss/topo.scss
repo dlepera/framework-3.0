@@ -180,31 +180,6 @@ header.dl3{
             @include _transform(translateX(-125%) translateY(-100%));
         }
         
-        /* Link: Usuario */
-        .a-usuario:after{
-            /* Texto */
-            content     : 'u';
-            font-family : 'icones';
-            font-size   : 1.2em;
-            text-align  : center;
-            line-height : 1.5em; 
-            
-            /* Visual */
-            border-radius   : 50%;
-            border          : 1px solid $c-mnus-links;
-            display         : inline-block;
-            
-            /* Alinhamento */
-            vertical-align: middle;
-            
-            /* Tamanho */
-            width   : 1.5em;
-            height  : 1.5em;
-            
-            /* Margens */
-            margin-left: .35em;
-        }
-        
         /* Link: Minha conta */
         .a-conta:before{ content: 'D'; }
         

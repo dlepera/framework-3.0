@@ -151,6 +151,7 @@ CREATE TABLE IF NOT EXISTS dl_painel_usuarios(
     usuario_pref_num_registros INT NOT NULL DEFAULT 20,
     usuario_conf_bloq BIT NOT NULL DEFAULT 0,
     usuario_conf_reset BIT NOT NULL DEFAULT 0,
+    usuario_perfil_foto VARCHAR(255) NOT NULL DEFAULT '/aplicacao/imgs/usuario-sem-foto.png',
     usuario_delete BIT NOT NULL DEFAULT 0,
     PRIMARY KEY(usuario_id),
     UNIQUE KEY(usuario_info_email),

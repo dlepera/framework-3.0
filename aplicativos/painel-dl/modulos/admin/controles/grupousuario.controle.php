@@ -64,9 +64,9 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarform($id=null,$tr=true){
         $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $id);
-
+        
         # Visão
-        $this->_carregarhtml('form_grupo',$tr);
+        $this->_carregarhtml('form_grupo', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_TITULO_NOVO_GRUPOUSUARIO : TXT_TITULO_EDITAR_GRUPOUSUARIO;
 
         # Sub-módulos

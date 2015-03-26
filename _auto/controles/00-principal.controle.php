@@ -144,7 +144,7 @@ abstract class Principal{
 
         # Verificar se o registro será alterado ou incluído
         $inc = is_null($this->modelo->id);
-
+        
         # Parâmetros
         $this->visao->_adparam('incluindo', $inc);
         $this->visao->_adparam('modelo', $this->modelo);

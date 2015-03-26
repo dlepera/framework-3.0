@@ -47,7 +47,7 @@ if( !isset($params) )
                     <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
                     <td headers="th-opcoes" class="td-opcoes">
                         <?php if( $params['perm-testar?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>');" class="com-icone a-email">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return; });" class="com-icone a-email">
                             <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
                         </a>
                         <?php endif;

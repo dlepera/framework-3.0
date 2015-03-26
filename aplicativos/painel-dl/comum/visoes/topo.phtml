@@ -49,6 +49,8 @@ $params = $this->_obterparams();
                         <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
                     </a>
 
+                    <?= $params['usr-foto']; ?>
+
                     <ul class="sub-menu sem-marcadores">
                         <?php if( $params['perm-usr-conta?'] ): ?>
                         <li class="sm-item">

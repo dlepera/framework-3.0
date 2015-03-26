@@ -311,9 +311,6 @@
         $c-grp-txt: #900;
         
         > .grp-nm-modulo{
-            /* Posicionamento 
-            position: relative;*/
-            
             /* Texto */
             color       : $c-grp-txt;
             font-weight : bold;
@@ -334,13 +331,6 @@
             
             /* Margens */
             margin-left: 1em;
-            
-            /* Posicionamento 
-            position: absolute;
-            top     : 50%;
-            
-            /* Transformar 
-            @include _transform(translateY(-50%));*/
         }
         
         > .grp-nm-submodulo{
@@ -364,8 +354,75 @@
         
         /* Visual */
         background: #efefef;
+        
+        > .grp-func{
+            /* Texto */
+            line-height: 3em;
+        }
     }
 }
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Foto do usuario
+ * -------------------------------------------------------------------------- */
+.usr-perfil-foto{
+    /* Visual */
+    display: inline-block;
+    
+    > .foto{
+        /* Visual */
+        border-radius   : 50%;
+        border          : $borda-suave;
+        background      : #FFF;
+        
+        /* Tamanho */
+        max-width   : 100%;
+        max-height  : 100%;
+        
+        /* Margens */
+        margin: auto;
+        
+        /* Alinhamento */
+        vertical-align: middle;
+    }
+}
+
+.usr-perfil-foto.tam-p{
+    /* Tamanho */
+    width   : 40px;
+    height  : 40px;
+    
+    .foto{
+        /* Margens */
+        padding: 3px;
+    }
+}
+
+.usr-perfil-foto.tam-m{
+    /* Tamanho */
+    width   : 60px;
+    height  : 60px;
+    
+    .foto{
+        /* Margens */
+        padding: 4px;
+    }
+}
+
+.usr-perfil-foto.tam-g{
+    /* Tamanho */
+    width   : 90px;
+    height  : 90px;
+    
+    .foto{
+        /* Margens */
+        padding: 5px;
+    }
+}
+
+
 
 /* -----------------------------------------------------------------------------
  *  Mostrar usuario que leram o contato
@@ -447,8 +504,13 @@
     .grp-funcs{
         .grp-submodulo{
             > .grp-func{
+                $tm: 33.33%;
+                
                 /* Flex */
-                @include _flex(33.3%);
+                @include _flex($tm);
+                
+                /* Tamanho */
+                max-width: $tm;
             }
         }
     }
@@ -503,8 +565,13 @@
     .grp-funcs{
         .grp-submodulo{
             > .grp-func{
+                $tm: 50%;
+                
                 /* Flex */
-                @include _flex(50%);
+                @include _flex($tm);
+                
+                /* Tamanho */
+                max-width: $tm;
             }
         }
     }
@@ -527,8 +594,13 @@
     .grp-funcs{
         .grp-submodulo{
             > .grp-func{
+                $tm: 100%;
+                
                 /* Flex */
-                @include _flex(100%);
+                @include _flex($tm);
+                
+                /* Tamanho */
+                max-width: $tm;
             }
         }
     }

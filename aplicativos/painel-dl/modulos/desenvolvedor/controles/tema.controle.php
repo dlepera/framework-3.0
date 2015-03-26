@@ -72,7 +72,7 @@ class Tema extends \Geral\Controle\PainelDL{
         $inc = $this->_formpadrao('tema', 'temas/instalar-tema', 'temas/atualizar-tema', 'desenvolvedor/temas', $id);
 
         # Visão
-        $this->_carregarhtml('form_tema',$tr);
+        $this->_carregarhtml('form_tema', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_TITULO_NOVO_TEMA : TXT_TITULO_EDITAR_TEMA;
     } // Fim di método _mostrarform
 } // Fim do Controle Tema

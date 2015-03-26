@@ -20,9 +20,13 @@ class PainelDL extends \Geral\Controle\Principal{
             $mm->_listarmenu('M.modulo_publicar = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link')
         : $mm->_listar('M.modulo_publicar = 1 AND M.modulo_menu = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link');
 
+        # Dados do usuário
+        $mus = new \Admin\Modelo\Usuario($_SESSION['usuario_id']);
+
         # Parâmetros
         $this->visao->_adparam('menu-modulos', $lm);
         $this->visao->_adparam('menu-submodulos', $ls);
+        $this->visao->_adparam('usr-foto', $mus->_mostrarfoto('..', 'p'));
         $this->visao->_adparam('perm-usr-senha?', \DL3::$aut_o->_verificarperm('Admin\Controle\Usuario', '_formalterarsenha') && $_SESSION['usuario_id'] > 0);
         $this->visao->_adparam('perm-usr-conta?', \DL3::$aut_o->_verificarperm('Admin\Controle\Usuario', '_minhaconta') && $_SESSION['usuario_id'] > 0);
     } // Fim do método __construct

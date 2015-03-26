@@ -13,11 +13,9 @@
     //<![CDATA[
     window.onload = function(){
         $sf = $('#form-<?= $params['form-id']; ?>')._dlformulario({
-            <?php if( $params['incluindo'] ): ?>
             depois: function(){
                 window.location = '<?= $params['url-depois']; ?>';
             },
-            <?php endif; ?>
             aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
     };

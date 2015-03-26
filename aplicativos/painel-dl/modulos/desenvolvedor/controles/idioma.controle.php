@@ -61,7 +61,7 @@ class Idioma extends \Geral\Controle\PainelDL{
         $inc = $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $id);
 
         # Visão
-        $this->_carregarhtml('form_idioma',$tr);
+        $this->_carregarhtml('form_idioma', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_TITULO_NOVO_IDIOMA : TXT_TITULO_EDITAR_IDIOMA;
     } // Fim do método _mostrarform
 } // Fim do Controle Tema

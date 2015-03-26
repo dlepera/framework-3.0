@@ -34,7 +34,7 @@ $mod = $params['modelo'];
 
             <p class="form-p-campo">
                 <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
-                <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo?'] ? ' CHECKED' : ''; ?>/>
                 <label for="chk-publicar"></label>
             </p>
         </fieldset>
@@ -75,6 +75,9 @@ $mod = $params['modelo'];
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+
+                                <input type="checkbox" id="selc-todos-<?= $k1; ?>"<?= !$params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                                <label for="selc-todos-<?= $k1; ?>"><?= TXT_LABEL_SELECIONAR_TODOS; ?></label>
                                 <?php endif;
                             endforeach; ?>
                         </li>
@@ -116,3 +119,25 @@ $mod = $params['modelo'];
         </p>
     </form>
 </section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        // Selecionar todos os checkbox de um determinado sub-módulo
+        $(':checkbox[id^="selc-todos-"]').on('change', function(){
+            $(this).each(function(){
+                var $th = $(this);
+                var chk = this.checked;
+
+                $th.prev().find(':checkbox').each(function(){
+                    this.checked = chk;
+                });
+            });
+        });
+
+        $('.grp-submodulo :checkbox').not(':checked').parents('.grp-submodulo').each(function(){
+            $(this).next()[0].checked = false;
+        });
+    });
+    //]]>
+</script>

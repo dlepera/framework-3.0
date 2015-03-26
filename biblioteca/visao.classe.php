@@ -131,7 +131,7 @@ class Visao{
      * @param mixed $v - valor atribuído ao parâmetro
      */
     public function _adparam($n,$v){
-        $this->params[$n] = is_scalar($v) ?
+        $this->params[$n] = is_scalar($v) && !is_bool($v) ?
             filter_var($v, FILTER_DEFAULT)
         : $v;
     } // Fim do método _adparam
