@@ -123,7 +123,7 @@ class Usuario extends \Geral\Modelo\Principal{
                 $oup = new \Upload('/aplicacao/uploads/usuarios');
                 $oup->_extensoes(array('jpg', 'jpeg', 'gif', 'png'));
 
-                if( $oup->_salvar(\Funcoes::_removeracentuacao(strtolower(str_replace(' ', '-', $this->info_nome)))) ):
+                if( $oup->_salvar(\Funcoes::_removeracentuacao(strtolower(str_replace(' ', '-', $this->info_nome))), true) ):
                     $this->_perfil_foto(preg_replace('~^.~', '', $oup->arquivos_salvos[0]));
 
                     # Recortar a foto
