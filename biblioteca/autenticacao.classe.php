@@ -26,7 +26,7 @@ class Autenticacao{
         'formato_data_completo' =>  'd/m/Y H:i',
         'formato_data_data'     =>  'd/m/Y',
         'formato_data_hora'     =>  'H:i',
-        'usuario_pref_num_registros'    => 2,
+        'usuario_pref_num_registros'    => 20,
         'usuario_conf_reset'    =>  0,
         'usuario_conf_bloq'     =>  0
     );
