@@ -126,10 +126,8 @@ abstract class Principal{
      * -------------------------------------------------------------------------
      *
      * @param string $form_id - ID do formulário
-     * @param string $form_ia - ação do formulário a ser executado no caso
-     *  de inclusào de registros
-     * @param string $form_ea - ação do formulário a ser executado no caso
-     *  de alteraçao de registros
+     * @param string $form_ia - ação do formulário a ser executado no caso de inclusào de registros
+     * @param string $form_ea - ação do formulário a ser executado no caso de alteraçao de registros
      * @param string $url - URL para onde o formulário redicionará
      * @param int $id - ID do registro a ser selecionado
      * @param bool $ajax - define se o formulário será submetido via AJAX
@@ -144,7 +142,7 @@ abstract class Principal{
 
         # Verificar se o registro será alterado ou incluído
         $inc = is_null($this->modelo->id);
-        
+
         # Parâmetros
         $this->visao->_adparam('incluindo', $inc);
         $this->visao->_adparam('modelo', $this->modelo);
@@ -170,15 +168,14 @@ abstract class Principal{
      * Carregar informações e parâmetros padrões para uma lista de registros
      * -------------------------------------------------------------------------
      *
-     * @param string $c - lista de campos a serem selecionados para criar
-     *  a lista de registro
+     * @param string $c - lista de campos a serem selecionados para criar a lista de registro
      * @param string $o - ordenção inicial
-     * @param int $q - quantidade de registros a serem exibidos em modo de
-     *  paginação
+     * @param int $q - quantidade de registros a serem exibidos em modo de paginação
      * @param string $m - método do modelo a ser usado para gerar a lista
      * @param bool $a - define se a lista será editada via AJAX
+     * @param string $fa - filtro alternativo a ser aplicado na consulta
      */
-    protected function _listapadrao($c, $o = '', $q = 20, $m = '_listar', $a=true){
+    protected function _listapadrao($c, $o = '', $q = 20, $m = '_listar', $a=true, $fa=''){
         # Verificar se o método informado existe
         if( !method_exists($this->modelo, $m) )
             throw new \Exception(sprintf(ERRO_PADRAO_METODO_NAO_ENCONTRADO, $m, getclass($this->modelo)), 1404);
@@ -193,13 +190,16 @@ abstract class Principal{
         $this->visao->_adparam('get-pg', $get_pg = filter_input(INPUT_GET, 'pg', FILTER_VALIDATE_INT));
 
         # Filtro
-        $f = !empty($get_t) && !empty($get_c) ? "{$get_c} LIKE '%{$get_t}%'" : null;
+        $fl = array();
+
+        if( !empty($fa) ) $fl[] = $fa;
+        if( !empty($get_t) && !empty($get_c) ) $fl[] = "{$get_c} LIKE '%{$get_t}%'";
 
         # Quantidade de registros
         $qr = is_null($q) && session_status() === PHP_SESSION_ACTIVE ? $_SESSION['usuario_pref_num_registros'] : 2/* $q */;
 
         # Lista
-        $l = $this->modelo->{$m}($f, !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
+        $l = $this->modelo->{$m}(implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
 
         # Nome da classe
         $cl = get_called_class();
