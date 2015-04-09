@@ -14,7 +14,7 @@ class Autenticacao{
     # Configurações do usuário root
     private $root = array(
         'usuario_id'            =>  -1,
-        'usuario_info_grupo'    =>  1,
+        'usuario_info_grupo'    =>  -1,
         'usuario_info_nome'     =>  'Super Admin',
         'usuario_info_email'    =>  'd_lepera@hotmail.com',
         'usuario_info_telefone' =>  '',
