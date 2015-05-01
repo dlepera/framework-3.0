@@ -195,9 +195,15 @@ abstract class Principal{
         if( !empty($fa) ) $fl[] = $fa;
         if( !empty($get_t) && !empty($get_c) ) $fl[] = "{$get_c} LIKE '%{$get_t}%'";
 
-        # Quantidade de registros
-        $qr = is_null($q) && session_status() === PHP_SESSION_ACTIVE ? $_SESSION['usuario_pref_num_registros'] : 2/* $q */;
+        # Considerar dados de sessão
+        $dsess = is_null($q) && session_status() === PHP_SESSION_ACTIVE;
 
+        # Quantidade de registros
+        $qr = $dsess ? $_SESSION['usuario_pref_num_registros'] : 20;
+
+        # Exibir o ID do registro ou não
+        $eid = $dsess ? $_SESSION['usuario_pref_exibir_id'] : false;
+        
         # Lista
         $l = $this->modelo->{$m}(implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
 
@@ -208,6 +214,7 @@ abstract class Principal{
         $this->visao->_adparam('lista', $l);
         $this->visao->_adparam('total-pg', ceil($this->modelo->_qtde_registros($f)/$qr));
         $this->visao->_adparam('filtro?', !empty($get_c));
+        $this->visao->_adparam('exibir-id', $eid);
 
         if( \DL3::$aut_o instanceof \Autenticacao ):
             $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));

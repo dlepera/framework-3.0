@@ -15,14 +15,14 @@ class Modulo extends \Geral\Controle\PainelDL{
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
-                'id'        => FILTER_VALIDATE_INT,
-                'pai'       => FILTER_VALIDATE_INT,
-                'nome'      => FILTER_SANITIZE_STRING,
-                'descr'     => FILTER_DEFAULT,
-                'menu'      => array('filter' => FILTER_SANITIZE_NUMBER_INT, 'options' => array('min_range' => 0, 'max_range' => 1)),
-                'link'      => FILTER_SANITIZE_STRING,
-                'ordem'     => FILTER_SANITIZE_NUMBER_INT,
-                'publicar'  => array('filter' => FILTER_SANITIZE_NUMBER_INT, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'id'        =>  FILTER_VALIDATE_INT,
+                'pai'       =>  FILTER_VALIDATE_INT,
+                'nome'      =>  FILTER_SANITIZE_STRING,
+                'descr'     =>  FILTER_DEFAULT,
+                'menu'      =>  FILTER_VALIDATE_BOOLEAN,
+                'link'      =>  FILTER_SANITIZE_STRING,
+                'ordem'     =>  FILTER_VALIDATE_INT,
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -56,8 +56,8 @@ class Modulo extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'M.modulo_nome', 'texto' => TXT_LABEL_NOME),
-            array('valor' => 'M.modulo_link', 'texto' => TXT_LABEL_LINK)
+            array('valor' => 'M.modulo_nome', 'texto' => TXT_ROTULO_NOME),
+            array('valor' => 'M.modulo_link', 'texto' => TXT_ROTULO_LINK)
         ));
     } // Fim do método _mostrarlista
 
@@ -151,4 +151,21 @@ class Modulo extends \Geral\Controle\PainelDL{
             !$qe ? 'msg-erro' : 'msg-sucesso'
         );
     } // Fim do método _removerfunc
+
+
+
+    /**
+     *  Filtrar menu
+     * -------------------------------------------------------------------------
+     *
+     * @param string $bm - termo a ser buscado no cadastro de modulos
+     * @param boolean $e - define se a pesquisa retornada será escrita ou será retornada
+     */
+    public function _filtromenu($bm, $e=true){
+        $r = json_encode($this->modelo->_listarmenu("M.modulo_nome LIKE '%{$bm}%' OR M.modulo_descr LIKE '%{$bm}%'", 'M.modulo_nome', 'M.modulo_nome, M.modulo_descr'));
+
+        # Escrever ou retornar o resultado
+        if( $e ) echo $r;
+        else return $r;
+    } // Fim do método _filtromenu
 } // Fim do Controle Modulo

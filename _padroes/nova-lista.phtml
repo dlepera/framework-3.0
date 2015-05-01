@@ -12,7 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <!-- Inserir um novo registro -->
@@ -25,8 +25,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
-
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -37,8 +39,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
-
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
+                    <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-opcoes" class="td-opcoes">
                         <a href="/editar/<?= $l['_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>

@@ -15,6 +15,9 @@ abstract class Principal{
     # Gravar logs do registro
     protected $mod_lr;
 
+    # Define se o registro encontra-se vazio
+    protected $reg_vazio = true;
+
     public function __construct($tabela, $prefixo = ''){
         $this->_bd_tabela($tabela);
         $this->_bd_prefixo($prefixo);
@@ -32,7 +35,7 @@ abstract class Principal{
      * @param string $nome - Nome do método a ser executado
      * @param array $args - vetor contendo os argumentos a serem passados para o método
      */
-    public function __call($nome, $args){
+    public function __call($nome, $args = array()){
         $mod_registro = 'Geral\Modelo\LogRegistro';
 
         switch($nome):
@@ -205,6 +208,54 @@ abstract class Principal{
 
         $lis_m = end($this->_listar("{$alias}{$this->bd_prefixo}id = {$id}", null, "{$alias}*{$bit}"));
 
+        # Indicar que o registro foi selecionado
+        $this->reg_vazio = !(bool)$lis_m;
+
+        # Carregar os dados obtidos do banco de dados
+        # nas propriedades da classe
+        foreach( $lis_m as $c => $m ):
+            $p = preg_replace("~^{$this->bd_prefixo}~", '', $c);
+
+            if( property_exists($this, $p) ):
+                $_p = "_{$p}";
+                $this->{$_p}($m);
+            endif;
+        endforeach;
+    } // Fim do método _selecionarID
+
+
+
+    /**
+     * Selecionar um registro através de uma chave única
+     * -------------------------------------------------------------------------
+     *
+     * @param string $c - nome do campo onde será realizado o filtro (sem o prefixo)
+     * @param mixed $v - valor a ser pesquisado no campo informado
+     * @param string $a - alias da tabela principal
+     *
+     * @return void
+     */
+    public function _selecionarUK($c, $v, $a=null){
+        if( !method_exists($this, '_listar') )
+            throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
+
+        # Tratar os parâmetros
+        $a = is_null($a) ? '' : (string)"{$a}.";
+
+        # Armazenar string com campos BIT
+        $bit = '';
+
+        if( \DL3::$bd_conex->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'mysql' ):
+            $campos     = \DL3::$bd_conex->_campos($this->bd_tabela);
+            $c_bits     = array_keys(preg_grep('~^bit~', array_column($campos, 'Type')));
+            $c_nomes    = array_column($campos, 'Field');
+
+            foreach( $c_bits as $k )
+                $bit .= ", {$a}{$c_nomes[$k]}+0 AS {$c_nomes[$k]}";
+        endif;
+
+        $lis_m = end($this->_listar("{$a}{$this->bd_prefixo}{$c} = ". var_export($v), null, "{$a}*{$bit}"));
+
         # Carregar os dados obtidos do banco de dados
         # nas propriedades da classe
         foreach( $lis_m as $c => $m ):
@@ -213,7 +264,7 @@ abstract class Principal{
             if( property_exists($this, $p) )
                $this->{$p} = $m;
         endforeach;
-    } // Fim do método _selecionarID
+    } // Fim do método _selecionarUK
 
 
 
@@ -228,8 +279,8 @@ abstract class Principal{
      * @param bool $ipk - define se o campo PK será considerado para inserção
      */
     protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
-        $query = !$this->id ? $this->_criar_insert($ipk, $ci,$ce) : $this->_criar_update($ci,$ce);
-
+        $query = $this->reg_vazio ? $this->_criar_insert($ipk, $ci,$ce) : $this->_criar_update($ci,$ce);
+        
         if( !$s ) return $query;
 
         if( ($exec = \DL3::$bd_conex->exec($query)) === false )

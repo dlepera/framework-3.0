@@ -58,8 +58,8 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'config_email_titulo', 'texto' => TXT_LABEL_TITULO),
-            array('valor' => 'config_email_host', 'texto' => TXT_LABEL_HOST)
+            array('valor' => 'config_email_titulo', 'texto' => TXT_ROTULO_TITULO),
+            array('valor' => 'config_email_host', 'texto' => TXT_ROTULO_HOST)
         ));
         $this->visao->_adparam('perm-testar?', \DL3::$aut_o->_verificarperm(get_called_class(), '_testar'));
     } // Fim do método _mostrarlista

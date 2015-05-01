@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -24,16 +24,21 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
+        <p class="form-paragr">
+            <label for="txt-apelido" class="form-rotulo"><?= TXT_ROTULO_APELIDO; ?>:</label><br/>
+            <input type="text" name="apelido" id="txt-apelido" value="<?= $mod->apelido; ?>" required/>
+        </p>
+
         <fieldset>
             <legend><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="mail-usuario"><?= TXT_LABEL_USUARIO; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="mail-usuario" class="form-rotulo"><?= TXT_ROTULO_USUARIO; ?>:</label><br/>
                 <input type="email" name="usuario" id="mail-usuario" value="<?= $mod->usuario; ?>" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="txt-senha"><?= TXT_LABEL_SENHA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
                 <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" required/>
             </p>
         </fieldset>
@@ -41,21 +46,27 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="perfil-id"><?= TXT_LABEL_PERFIL; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="perfil-id" class="form-rotulo"><?= TXT_ROTULO_PERFIL; ?>:</label><br/>
                 <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000"/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="codigo-ua"><?= TXT_LABEL_CODIGO_UA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="codigo-ua" class="form-rotulo"><?= TXT_ROTULO_CODIGO_UA; ?>:</label><br/>
                 <input type="text" name="codigo_ua" id="codigo-ua" value="<?= $mod->codigo_ua; ?>"/>
             </p>
         </fieldset>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_ATIVAR; ?></label><br/>
-            <input type="checkbox" name="ativar" id="chk-ativar" class="s-ou-n" value="1"<?= $mod->ativar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
-            <label for="chk-ativar"></label>
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
+            <input type="checkbox" name="principal" id="chk-principal" class="s-ou-n" value="1"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
+            <label for="chk-principal"></label>
+        </p>
+
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <label for="chk-publicar"></label>
         </p>
 
         <p class="form-botoes">

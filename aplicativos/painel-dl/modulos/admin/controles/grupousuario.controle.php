@@ -49,7 +49,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
 
         # Parâmetro
         $this->visao->_adparam('campos', array(
-            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_LABEL_DESCR)
+            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_DESCR)
         ));
     } // Fim do método _mostrarlista
 

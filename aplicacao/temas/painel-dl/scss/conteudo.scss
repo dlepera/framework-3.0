@@ -14,7 +14,7 @@
  *  Conteudo
  *  -> Cores
  * -------------------------------------------------------------------------- */
-section.dl3{
+.dl3-conteudo{
     /* Visual */
     background-color: $c-cont-fundo;
     
@@ -36,7 +36,7 @@ section.dl3{
  *  Conteudo
  *  -> Visual e comportamento
  * -------------------------------------------------------------------------- */
-section.dl3{
+.dl3-conteudo{
     /* Flex */
     @include _flex(100%);
     

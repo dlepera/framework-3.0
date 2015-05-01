@@ -12,7 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php if( $params['perm-inserir?'] ): ?>
@@ -27,7 +27,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-descr"><?= TXT_TABELA_TITULO_DESCR; ?></th>
                     <th id="th-padrao"><?= TXT_TABELA_TITULO_PADRAO; ?></th>
                     <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
@@ -40,7 +43,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['tema_id']; ?>"/></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['tema_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['tema_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-descr"><?= $l['tema_descr']; ?></td>
                     <td headers="th-padrao"><?= $l['PADRAO']; ?></td>
                     <td headers="th-opcoes" class="td-opcoes">

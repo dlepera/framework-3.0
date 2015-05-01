@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -24,9 +24,8 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <p class="form-p-campo">
-            <label for="sel-tipo"><?= TXT_LABEL_TIPO; ?>:</label><br/>
-
+        <p class="form-paragr">
+            <label for="sel-tipo" class="form-rotulo"><?= TXT_ROTULO_TIPO; ?>:</label><br/>
             <select name="tipo" id="sel-tipo" required>
                 <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -44,13 +43,13 @@ $mod = $params['modelo'];
             <?php endif; ?>
         </p>
 
-        <p class="form-p-campo">
-            <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
             <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?= !empty($params['expreg']) ? ' pattern="'. $params['expreg'] .'"': ''; ?> required/>
         </p>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
             <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>

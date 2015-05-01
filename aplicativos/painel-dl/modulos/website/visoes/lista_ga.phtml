@@ -12,7 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php if( $params['perm-inserir?'] ): ?>
@@ -22,15 +22,23 @@ if( !isset($params) )
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
+    <!-- Alerta sobre a utilização de muitas configurações do Google Analytics -->
+    <p class="msg-atencao"><?= MSG_GA_ALERTA_UTILIZACAO_MUITOS; ?></p>
+
     <form id="form-editar-lista" method="post" action="website/google-analytics/excluir-configuracao">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
+                    <th id="th-apelido"><?= TXT_TABELA_TITULO_APELIDO; ?></th>
                     <th id="th-usuario"><?= TXT_TABELA_TITULO_USUARIO; ?></th>
                     <th id="th-perfil"><?= TXT_TABELA_TITULO_PERFIL; ?></th>
-                    <th id="th-ativo"><?= TXT_TABELA_TITULO_ATIVO; ?></th>
+                    <th id="th-principal"><?= TXT_TABELA_TITULO_PRINCIPAL; ?></th>
+                    <th id="th-publicar"><?= TXT_TABELA_TITULO_PUBLICADO; ?></th>
                     <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -41,10 +49,15 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['ga_id']; ?>"/></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['ga_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['ga_id']; ?></td>
+                    <?php endif; ?>
+                    <td headers="th-apelido"><?= $l['ga_apelido']; ?></td>
                     <td headers="th-usuario"><?= $l['ga_usuario']; ?></td>
                     <td headers="th-perfil"><?= $l['ga_perfil_id']; ?></td>
-                    <td headers="th-ativo"><?= $l['ATIVO']; ?></td>
+                    <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
+                    <td headers="th-publicar"><?= $l['PUBLICADO']; ?></td>
                     <td headers="th-opcoes" class="td-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
                         <a href="website/google-analytics/editar/<?= $l['ga_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">

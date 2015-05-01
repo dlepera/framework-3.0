@@ -47,8 +47,8 @@ class DadoContato extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'dado_contato_descr', 'texto' => TXT_LABEL_DESCR),
-            array('valor' => 'tipo_dado_descr', 'texto' => TXT_LABEL_TIPO)
+            array('valor' => 'dado_contato_descr', 'texto' => TXT_ROTULO_DESCR),
+            array('valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO)
         ));
     } // Fim do método _mostrarlista
 

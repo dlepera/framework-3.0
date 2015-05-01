@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -26,26 +26,26 @@ $mod = $params['modelo'];
         <figure class="mostrar-imagem">
             <img src="..<?= $mod->imagem; ?>" alt=""/>
         </figure>
-        
-        <p class="form-p-campo">
-            <label for="txt-titulo"><?= TXT_LABEL_TITULO; ?>:</label><br/>
+
+        <p class="form-paragr">
+            <label for="txt-titulo" class="form-rotulo"><?= TXT_ROTULO_TITULO; ?>:</label><br/>
             <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>"/>
         </p>
 
-        <p class="form-p-campo">
-            <label for="txt-descr"><?= TXT_LABEL_DESCR; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
             <textarea name="descr" id="txt-descr"><?= $mod->descr; ?></textarea>
         </p>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_CAPA; ?></label><br/>
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_CAPA; ?></span><br/>
             <span class="form-dica"><?= MSG_DICA_ALBUMFOTO_CAPA; ?></span>
             <input type="checkbox" name="capa" id="chk-capa" class="s-ou-n" value="1"<?= $mod->capa ? ' CHECKED' : ''; ?>/>
             <label for="chk-capa"></label>
         </p>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
             <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>

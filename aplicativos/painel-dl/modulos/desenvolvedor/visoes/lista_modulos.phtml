@@ -12,7 +12,7 @@ if( !isset($params) )
 // echo '<pre>', var_dump($params), '</pre>';
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php if( $params['perm-inserir?'] ): ?>
@@ -26,8 +26,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
-                    <th id="th-idreg" class="v-desk"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
                     <th id="th-link" class="v-desk"><?= TXT_TABELA_TITULO_LINK; ?></th>
                     <th id="th-publicado"><?= TXT_TABELA_TITULO_PUBLICADO; ?></th>
@@ -41,8 +43,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['modulo_id']; ?>"/></td>
-                    <td headers="th-idreg" class="v-desk"><?= $l['modulo_id']; ?></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['modulo_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['modulo_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-nome"><?= $l['NOME_COMPLETO']; ?></td>
                     <td headers="th-link" class="v-desk"><?= $l['modulo_link']; ?></td>
                     <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>

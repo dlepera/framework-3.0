@@ -94,7 +94,7 @@ class ContatoSite extends \Geral\Modelo\Principal{
 
         $tabela .= '</tbody><tfoot>'
                 . '<tr style="color: #000">'
-                . '<td>'. TXT_LABEL_TOTAL .'</td>'
+                . '<td>'. TXT_ROTULO_TOTAL .'</td>'
                 . "<td>{$num} (100%)</td>"
                 . '</tr></tfoot></table>';
 

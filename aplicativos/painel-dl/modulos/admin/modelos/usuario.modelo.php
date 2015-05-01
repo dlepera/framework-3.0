@@ -11,8 +11,9 @@ namespace Admin\Modelo;
 
 class Usuario extends \Geral\Modelo\Principal{
     protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo, $info_login, $info_senha,
-            $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20,
-            $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png', $delete = 0;
+            $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20, $pref_exibir_id = 1,
+            $pref_filtro_menu, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
+            $ultimo_login, $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
@@ -35,12 +36,7 @@ class Usuario extends \Geral\Modelo\Principal{
     } // Fim do método _info_telefone
 
     public function _info_sexo($v=null){
-        if( is_null($v) ) return (string)$this->info_sexo;
-
-        if( !empty($v) && (strlen($v) > 1 || !in_array($v, array('M', 'F'))) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'info_sexo'), 1500);
-
-        return $this->info_sexo = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->info_sexo = filter_var(is_null($v) ? $this->info_sexo : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '~^[MF]{1}$~')));
     } // Fim do método _info_sexo
 
     public function _info_login($v=null){
@@ -48,7 +44,7 @@ class Usuario extends \Geral\Modelo\Principal{
     } // Fim do método _info_login
 
     public function _info_senha($v=null){
-        return $this->info_senha = md5(md5(filter_var(is_null($v) ? $this->info_senha : $v, FILTER_DEFAULT)));
+        return $this->info_senha = filter_var(is_null($v) ? $this->info_senha : md5(md5($v)));
     } // Fim do método _info_senha
 
     public function _pref_idioma($v=null){
@@ -67,6 +63,14 @@ class Usuario extends \Geral\Modelo\Principal{
         return $this->pref_num_registros = filter_var(is_null($v) ? $this->pref_num_registros : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_num_registros
 
+    public function _pref_exibir_id($v=null){
+        return $this->pref_exibir_id = filter_var(is_null($v) ? $this->pref_exibir_id : $v, FILTER_VALIDATE_BOOLEAN);
+    } // Fim do método _pref_exibir_id
+
+    public function _pref_filtro_menu($v=null){
+        return $this->pref_filtro_menu = filter_var(is_null($v) ? $this->pref_filtro_menu : $v, FILTER_VALIDATE_BOOLEAN);
+    } // Fim do método _pref_filtro_menu
+
     public function _conf_bloq($v=null){
         return $this->conf_bloq = filter_var(is_null($v) ? $this->conf_bloq : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _conf_bloq
@@ -78,6 +82,10 @@ class Usuario extends \Geral\Modelo\Principal{
     public function _perfil_foto($v=null){
         return $this->perfil_foto = filter_var(is_null($v) ? $this->perfil_foto : $v);
     } // Fim do método _perfil_foto
+
+    public function _ultimo_login($v=null){
+        return $this->ultimo_login = \Funcoes::_formatardatahora(filter_var(is_null($v) ? $this->ultimo_login : $v), \DL3::$bd_dh_formato_completo);
+    } // Fim do método _ultimo_login
 
 
 
@@ -102,7 +110,7 @@ class Usuario extends \Geral\Modelo\Principal{
      * Salvar o registro no banco de dados
      * -------------------------------------------------------------------------
      *
-     * @params int $s - define se o registro será salvo no banco de dados ou
+     * @params bool $s - define se o registro será salvo no banco de dados ou
      *  deverá ser retornada a consulta SQL
      */
     protected function _salvar($s=true){
@@ -137,7 +145,12 @@ class Usuario extends \Geral\Modelo\Principal{
             endif;
         endif;
 
-        return parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
+        $r = parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
+
+        if( $this->id == $_SESSION['usuario_id'] && $r && $s )
+            \DL3::$aut_o->_carregarsessao(end($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos))));
+
+        return $r;
     } // Fim do método _salvar
 
 
@@ -203,20 +216,31 @@ class Usuario extends \Geral\Modelo\Principal{
      * @param string $u - nome de usuário
      * @param string $s - senha do usuário
      * @param string $c - campos a serem selecionados para a sessão
+     * @param string $m - define se a senha deverá passar pela rotina de criptografia
      *
      * @return array - vetor associativo com as informações do usuário
      */
-    public function _fazerlogin($u,$s,$c='*'){
+    public function _fazerlogin($u,$s,$c='*',$m=true){
         $this->_info_login($u);
-        $this->_info_senha($s);
+        $m ? $this->_info_senha($s) : $this->info_senha = $s;
 
         $d = end($this->_listar(
                 "usuario_info_login = '{$this->info_login}' AND usuario_info_senha = '{$this->info_senha}'",
                 null, $c
             ));
 
-        if( $d === false )
+        if( (bool)$d === false )
             throw new \Exception(ERRO_USUARIO_FAZERLOGIN_USUARIO_OU_SENHA_INVALIDOS, 1403);
+
+        if( (bool)$d['usuario_conf_bloq'] )
+            throw new \Exception(ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO, 1403);
+
+        if( $m ):
+            # Registrar a data desse login
+            $this->_selecionarID($d['usuario_id']);
+            $this->ultimo_login = date(\DL3::$bd_dh_formato_completo);
+            $this->_salvar();
+        endif;
 
         return $d;
     } // Fim do método _fazerlogin
@@ -237,4 +261,25 @@ class Usuario extends \Geral\Modelo\Principal{
             . "<img src='{$pf}' class='foto' alt='{$this->info_nome}'/>"
             . '</span>';
     } // Fim do método _mostrarfoto
+
+
+
+    public function _resumo(){
+        return '<table class="usr-resumo">'
+                . '<tbody>'
+                . '<tr>'
+                . '  <td class="usr-resumo-rotulo">'. TXT_ROTULO_NOME .'</td>'
+                . '  <td class="usr-resumo-info">'. $this->info_nome .'</td>'
+                . '</tr>'
+                . '<tr>'
+                . '  <td class="usr-resumo-rotulo">'. TXT_ROTULO_EMAIL .'</td>'
+                . '  <td class="usr-resumo-info">'. $this->info_email .'</td>'
+                . '</tr>'
+                . '<tr>'
+                . '  <td class="usr-resumo-rotulo">'. TXT_ROTULO_GRUPO .'</td>'
+                . '  <td class="usr-resumo-info">'. $this->info_grupo .'</td>'
+                . '</tr>'
+                . '</tbody>'
+                . '</table>';
+    } // Fim do método _resumo
 } // Fim do Modelo Usuario

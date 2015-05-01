@@ -12,7 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
@@ -22,7 +22,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-data" class="v-desk"><?= TXT_TABELA_TITULO_DATA; ?></th>
                     <th id="th-assunto"><?= TXT_TABELA_TITULO_ASSUNTO; ?></th>
                     <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
@@ -37,7 +40,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['contato_site_id']; ?>"/></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['contato_site_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['contato_site_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-data" class="v-desk"><?= \Funcoes::_formatardatahora($l['log_registro_data_criacao'], $_SESSION['formato_data_completo']); ?></td>
                     <td headers="th-assunto"><?= $l['ASSUNTO']; ?></td>
                     <td headers="th-nome"><?= $l['contato_site_nome']; ?></td>

@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -24,8 +24,8 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+        <p class="form-paragr">
+            <label><?= TXT_ROTULO_PUBLICAR; ?></label><br/>
             <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>

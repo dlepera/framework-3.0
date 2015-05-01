@@ -1,6 +1,6 @@
 /**
  * @Autor	: Diego Lepera
- * @E-mail	: d_lepera@hotmail.com
+ * @E-mail	: dlepera88@gmail.com
  * @Projeto	: FrameworkDL
  * @Data	: ${date} ${time}
  */

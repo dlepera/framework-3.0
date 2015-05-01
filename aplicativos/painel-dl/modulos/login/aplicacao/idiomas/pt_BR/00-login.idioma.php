@@ -14,11 +14,11 @@ define('TXT_TITULO_MOSTRARRESETSENHA', 'Resetar senha');
 
 # Formuários
 # -> Campos
-define('TXT_LABEL_LOGIN', 'Login');
-define('TXT_LABEL_SENHA', 'Senha');
-define('TXT_LABEL_SENHA_NOVA', 'Sua nova senha');
-define('TXT_LABEL_SENHA_CONF', 'Confirme a sua nova senha');
-define('TXT_LABEL_LOGIN_OU_EMAIL', 'Informe seu <b>login</b> ou <b>e-mail</b> cadastrado');
+define('TXT_ROTULO_LOGIN', 'Login');
+define('TXT_ROTULO_SENHA', 'Senha');
+define('TXT_ROTULO_SENHA_NOVA', 'Sua nova senha');
+define('TXT_ROTULO_SENHA_CONF', 'Confirme a sua nova senha');
+define('TXT_ROTULO_LOGIN_OU_EMAIL', 'Informe seu <b>login</b> ou <b>e-mail</b> cadastrado');
 
 # -> Botões
 define('TXT_BOTAO_ENTRAR', 'Entrar');
@@ -48,6 +48,7 @@ define('MSG_EMAIL_CORPO_RECUPERAR_SENHA', '<h1>Olá %s!</h1>'
  */
 # Erros
 define('ERRO_USUARIO_FAZERLOGIN_USUARIO_OU_SENHA_INVALIDOS', 'Usuário e/ou senha inválidos!');
+define('ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO', 'Esse usuário está bloqueado e não pode acessar o sistema nesse momento.');
 
 
 

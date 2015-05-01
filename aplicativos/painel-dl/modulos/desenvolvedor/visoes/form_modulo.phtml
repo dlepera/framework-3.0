@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -30,8 +30,8 @@ $mod = $params['modelo'];
             <legend><?= TXT_LEGENDA_MODULO; ?></legend>
 
             <?php if( $params['modulos-pai'] != false ): ?>
-            <p class="form-p-campo">
-                <label for="sel-pai"><?= TXT_LABEL_MODULO_PAI; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="sel-pai" class="form-rotulo"><?= TXT_ROTULO_MODULO_PAI; ?>:</label><br/>
                 <select name="pai" id="sel-pai">
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -44,13 +44,13 @@ $mod = $params['modelo'];
             </p>
             <?php endif; ?>
 
-            <p class="form-p-campo">
-                <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
                 <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="txt-descr"><?= TXT_LABEL_DESCRICAO; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
                 <textarea name="descr" id="txt-descr"><?= $mod->descr; ?></textarea>
             </p>
         </fieldset>
@@ -58,26 +58,26 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_MENU; ?></legend>
 
-            <p class="form-p-campo">
-                <label><?= TXT_LABEL_MENU; ?></label><br/>
-                <span class="form-dica"><?= TXT_DICA_MODULO_MENU; ?></span>
-                <input type="checkbox" name="menu" id="chk-menu" class="s-ou-n" value="1"<?= $mod->menu == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <p class="form-paragr">
+                <span class="form-rotulo"><?= TXT_ROTULO_MENU; ?></span><br/>
+                <span class="form-dica"><?= TXT_DICA_MODULO_MENU; ?></span><br/>
+                <input type="checkbox" name="menu" id="chk-menu" class="s-ou-n"<?= $mod->menu == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
                 <label for="chk-menu"></label>
             </p>
 
-            <p class="form-p-campo">
-                <label for="txt-link"><?= TXT_LABEL_LINK; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-link" class="form-rotulo"><?= TXT_ROTULO_LINK; ?>:</label><br/>
                 <input type="text" name="link" id="txt-link" value="<?= $mod->link; ?>" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="num-ordem"><?= TXT_LABEL_ORDEM; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="num-ordem" class="form-rotulo"><?= TXT_ROTULO_ORDEM; ?>:</label><br/>
                 <input type="number" name="ordem" id="num-ordem" value="<?= $mod->ordem; ?>" required/>
             </p>
         </fieldset>
 
-        <p class="form-p-campo">
-            <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+        <p class="form-paragr">
+            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
             <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>
@@ -97,19 +97,19 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="txt-descr"><?= TXT_LABEL_DESCRICAO; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
                 <input type="text" name="descr" id="txt-descr" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="txt-classe"><?= TXT_LABEL_CLASSE; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-classe" class="form-rotulo"><?= TXT_ROTULO_CLASSE; ?>:</label><br/>
                 <input type="text" name="classe" id="txt-classe" value="<?= "{$params['modulo-pai']}\Controle\\". preg_replace('~[\s\-]~', '', ucwords(\Funcoes::_removeracentuacao(preg_replace('~s(\s+|$)~', '', $mod->nome)))); ?>" required/>
             </p>
 
             <ul id="metodos" class="sub-itens sem-marcadores">
                 <li class="item">
-                    <input type="text" name="metodos[]" placeholder="<?= TXT_LABEL_METODO; ?>" required/>
+                    <input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" required/>
                 <li>
             </ul>
 
@@ -181,7 +181,7 @@ $mod = $params['modelo'];
 
     function NovoMetodo(){
         $(document.createElement('li')).addClass('item').html(
-            '<input type="text" name="metodos[]" placeholder="<?= TXT_LABEL_METODO; ?>" required/>'
+            '<input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" required/>'
                 + '<a href="javascript:;" onclick="$(this).parent().remove();">x</a>'
         ).appendTo($('#metodos'));
     } // Fim function NovoMetodo

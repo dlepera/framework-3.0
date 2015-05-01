@@ -10,40 +10,35 @@
 namespace WebSite\Modelo;
 
 class GoogleAnalytics extends \Geral\Modelo\Principal{
-    protected $id, $usuario, $senha, $perfil_id, $codigo_ua, $ativar = 1, $delete = 0;
+    protected $id, $apelido, $usuario, $senha, $perfil_id, $codigo_ua, $principal = 0, $publicar = 1, $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
+    public function _apelido($v=null){
+        return $this->apelido = filter_var(is_null($v) ? $this->apelido : $v, FILTER_SANITIZE_STRING);
+    } // Fim do méodo _apelido
+
     public function _usuario($v=null){
-        return is_null($v) ? (string)$this->usuario
-        : $this->usuario = (string)filter_var($v, FILTER_VALIDATE_EMAIL);
+        return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do méodo _usuario
 
     public function _senha($v=null){
-        return is_null($v) ? (string)$this->senha
-        : $this->senha = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->senha = filter_var(is_null($v) ? $this->senha : $v);
     } // Fim do méodo _senha
 
     public function _perfil_id($v=null){
-        return is_null($v) ? (int)$this->perfil_id
-        : $this->perfil_id = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->perfil_id = filter_var(is_null($v) ? $this->perfil_id : $v, FILTER_VALIDATE_INT);
     } // Fim do méodo _perfil_id
 
     public function _codigo_ua($v=null){
-        return is_null($v) ? (string)$this->codigo_ua
-        : $this->codigo_ua = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->codigo_ua = filter_var(is_null($v) ? $this->codigo_ua : $v, FILTER_SANITIZE_STRING);
     } // Fim do méodo _codigo_ua
 
-    public function _ativar($v=null){
-        if( is_null($v) ) return (int)$this->ativar;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'ativar'), 1500);
-
-        return $this->ativar = (int)filter_var($v, FILTER_VALIDATE_INT);
-    } // Fim do método _ativar
+    public function _principal($v=null){
+        return $this->principal = filter_var(is_null($v) ? $this->principal : $v, FILTER_VALIDATE_BOOLEAN);
+    } // Fim do método _principal
 
 
 
@@ -64,11 +59,11 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
      *  ser retornado a string da consulta SQL
      */
     public function _salvar($s=true){
-        # Apenas um registro pode conter a Flag 'ativar' marcada, portanto, caso
+        # Apenas um registro pode conter a Flag 'principal' marcada, portanto, caso
         # a flag do registro atual esteja marcada, deve-se desmarcar a flag de
         # qualquer outro registro
-        if( $this->ativar == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}ativar = 0");
+        if( $this->principal == 1 )
+            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
 
         return parent::_salvar($s);
     } // Fim do método _salvar
@@ -76,15 +71,15 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
 
 
     /**
-     * Selecionar a configuração ativa
+     * Selecionar a configuração principal
      * -------------------------------------------------------------------------
      */
-    public function _selecionar_ativa(){
-        $l = end($this->_listar("{$this->bd_prefixo}ativar = 1", null, "{$this->bd_prefixo}id AS ID"));
+    public function _selecionar_principal(){
+        $l = end($this->_listar("{$this->bd_prefixo}principal = 1", null, "{$this->bd_prefixo}id AS ID"));
 
         if( $l === false )
             throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);
 
         return $this->_selecionarID($l['ID']);
-    } // Fim do método _selecionar_ativa
+    } // Fim do método _selecionar_principal
 } // Fim do Modelo GoogleAnalytics

@@ -23,10 +23,12 @@ class Usuario extends \Geral\Controle\PainelDL{
                 'info_sexo'         =>  FILTER_SANITIZE_STRING,
                 'info_login'        =>  /* array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_NULL_ON_FAILURE) */ FILTER_SANITIZE_STRING,
                 'info_senha'        =>  FILTER_DEFAULT,
-                'pref_idioma'       =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE),
-                'pref_tema'         =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE),
-                'pref_formato_data' =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE),
+                'pref_idioma'       =>  FILTER_VALIDATE_INT,
+                'pref_tema'         =>  FILTER_VALIDATE_INT,
+                'pref_formato_data' =>  FILTER_VALIDATE_INT,
                 'pref_num_registros'=>  FILTER_SANITIZE_NUMBER_INT,
+                'pref_exibir_id'    =>  FILTER_VALIDATE_BOOLEAN,
+                'pref_filtro_menu'  =>  FILTER_VALIDATE_BOOLEAN,
                 'conf_reset'        =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1)),
                 'conf_bloq'         =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
             ));
@@ -57,9 +59,9 @@ class Usuario extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_LABEL_GRUPO),
-            array('valor' => 'usuario_info_nome', 'texto' => TXT_LABEL_NOME),
-            array('valor' => 'usuario_info_email', 'texto' => TXT_LABEL_EMAIL)
+            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_GRUPO),
+            array('valor' => 'usuario_info_nome', 'texto' => TXT_ROTULO_NOME),
+            array('valor' => 'usuario_info_email', 'texto' => TXT_ROTULO_EMAIL)
         ));
         $this->visao->_adparam('perm-bloquear?', \DL3::$aut_o->_verificarperm(get_called_class(), '_bloquear'));
     } // Fim do método _mostrarlista
@@ -86,7 +88,7 @@ class Usuario extends \Geral\Controle\PainelDL{
         $l_id = $m_id->_carregarselect('idioma_publicar = 1', false);
 
         $m_te = new \Desenvolvedor\Modelo\Tema();
-        $l_te = $m_te->_carregarselect('tema_publicar = 1', false);
+        $l_te = $m_te->_listar('tema_publicar = 1', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
 
         $m_fd = new \Desenvolvedor\Modelo\FormatoData();
         $l_fd = $m_fd->_carregarselect('formato_data_publicar = 1', false);

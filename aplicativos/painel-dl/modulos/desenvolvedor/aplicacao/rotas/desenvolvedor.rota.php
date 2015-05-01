@@ -54,6 +54,16 @@ $rotas['^modulos/apagar-funcionalidade$'] = array(
     'acao'      =>  'removerfunc'
 );
 
+/**
+ *  Filtro de módulos para o menu
+ * -----------------------------------------------------------------------------
+ */
+$rotas['^modulos/filtro-menu$'] = array(
+    'controle'  =>  'Modulo',
+    'acao'      =>  'filtromenu',
+    'bm'        =>  filter_input(INPUT_POST, 'bm')
+);
+
 
 
 /**

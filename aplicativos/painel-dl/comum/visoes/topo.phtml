@@ -37,10 +37,11 @@ $params = $this->_obterparams();
     <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/formularios.css"/>
     <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/rodape.css"/>
     <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/painel.css"/>
+    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/flexivel.css"/>
 </head>
 <body>
     <div id="grid-layout">
-        <header class="dl3">
+        <header class="dl3-topo">
             <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
 
             <ul class="menu-usuario sem-marcadores">
@@ -78,10 +79,12 @@ $params = $this->_obterparams();
             </ul>
         </header>
 
-        <nav class="dl3">
-            <ul class="menu-principal sem-marcadores">
+        <nav class="dl3-menu">
+            <a class="a-mostrar-menu v-smart v-tablet"></a>
+
+            <ul id="menu-principal" class="menu-principal sem-marcadores">
                 <li class="menu-item">
-                    <a href="" class="a-home">
+                    <a href="" class="menu-texto a-home">
                         <?= TXT_LINK_HOME; ?>
                     </a>
                 </li>
@@ -95,7 +98,7 @@ $params = $this->_obterparams();
                             ));
                     if( count($sm_k) > 0 ): ?>
                     <li class="menu-item">
-                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="a-modulo">
+                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto a-modulo">
                             <?= $mm['modulo_nome']; ?>
                         </a>
 
@@ -103,7 +106,7 @@ $params = $this->_obterparams();
                             <?php foreach( $sm_k as $k ):
                                 $sm = $params['menu-submodulos'][$k]; ?>
                             <li class="sm-item">
-                                <a href="<?= $sm['modulo_link']; ?>" class="a-submodulo">
+                                <a href="<?= $sm['modulo_link']; ?>" class="sm-texto a-submodulo">
                                     <?= $sm['modulo_nome']; ?>
                                 </a>
 
@@ -119,5 +122,45 @@ $params = $this->_obterparams();
                     <?php endif;
                 endforeach; ?>
             </ul>
+
+            <?php if( $params['mostrar-filtro-menu?'] ): ?>
+            <form id="form-filtro-modulos">
+                <p class="form-paragr">
+                    <label for="txt-bm" class="form-rotulo"><?= TXT_ROTULO_BUSCAR_MODULO; ?></label>
+                    <input type="text" name="bm" id="txt-bm" placeholder="<?= TXT_ROTULO_BUSCAR_MODULO; ?>"/>
+                </p>
+
+                <ul id="menu-filtro" class="menu-filtro sem-marcadores" style="display:none;">
+                    <?php foreach( $params['menu-modulos'] as $mm ):
+                        # Obter os sub-módulos
+                        $sm_k = array_keys(
+                                preg_grep(
+                                    "~^{$mm['modulo_id']}$~",
+                                    array_column($params['menu-submodulos'], 'modulo_pai')
+                                ));
+                        if( count($sm_k) > 0 ): ?>
+                        <li class="menu-item" style="display:none;">
+                            <ul class="sub-menu sem-marcadores">
+                                <?php foreach( $sm_k as $k ):
+                                    $sm = $params['menu-submodulos'][$k]; ?>
+                                <li class="sm-item" style="display:none;">
+                                    <a href="<?= $sm['modulo_link']; ?>" class="sm-texto a-submodulo">
+                                        <?= "{$mm['modulo_nome']} > {$sm['modulo_nome']}"; ?>
+                                    </a>
+
+                                    <?php if( !empty($sm['modulo_descr']) ): ?>
+                                    <span class="sm-descr">
+                                        <?= nl2br($sm['modulo_descr']); ?>
+                                    </span>
+                                    <?php endif; ?>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                        <?php endif;
+                    endforeach; ?>
+                </ul>
+                <?php endif; ?>
+            </form>
         </nav>
 

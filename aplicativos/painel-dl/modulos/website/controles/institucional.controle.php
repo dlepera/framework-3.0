@@ -20,7 +20,7 @@ class Institucional extends \Geral\Controle\PainelDL{
                 'missao'    =>  FILTER_DEFAULT,
                 'visao'     =>  FILTER_DEFAULT,
                 'valores'   =>  FILTER_DEFAULT,
-                'publicar'  =>  array('filter' => FILTER_VALIDATE_INT, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode

@@ -12,28 +12,28 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <form id="form-contato" action="contato/enviar" method="post">
-        <p class="form-p-campo">
-            <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
             <input type="text" name="nome" id="txt-nome" required/>
         </p>
 
-        <p class="form-p-campo">
-            <label for="mail-email"><?= TXT_LABEL_EMAIL; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="mail-email" class="form-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</label><br/>
             <input type="email" name="email" id="mail-email" required/>
         </p>
 
-        <p class="form-p-campo">
-            <label for="tel-telefone"><?= TXT_LABEL_FONE; ?>:</label><br/>
+        <p class="form-paragr" class="form-rotulo">
+            <label for="tel-telefone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
             <input type="tel" name="telefone" id="tel-fone"/>
         </p>
 
         <?php if( $params['mostrar-assunto?'] && count($params['assuntos']) > 0 ): ?>
-        <p class="form-p-campo">
-            <label for="sel-assunto"><?= TXT_LABEL_ASSUNTO; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="sel-assunto" class="form-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</label><br/>
             <select name="assunto" id="sel-assunto" required>
                 <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -44,8 +44,8 @@ if( !isset($params) )
         </p>
         <?php endif; ?>
 
-        <p class="form-p-campo">
-            <label for="ta-mensagem"><?= TXT_LABEL_MENSAGEM; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="ta-mensagem" class="form-rotulo"><?= TXT_ROTULO_MENSAGEM; ?>:</label><br/>
             <textarea name="mensagem" id="ta-mensagem" required></textarea>
         </p>
 

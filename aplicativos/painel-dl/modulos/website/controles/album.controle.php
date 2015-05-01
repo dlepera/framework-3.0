@@ -17,7 +17,7 @@ class Album extends \Geral\Controle\PainelDL{
             $post = filter_input_array(INPUT_POST, array(
                 'id'        =>  FILTER_VALIDATE_INT,
                 'nome'      =>  FILTER_SANITIZE_STRING,
-                'publicar'  =>  array('filter' => FILTER_VALIDATE_INT, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -48,7 +48,7 @@ class Album extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'album_nome', 'texto' => TXT_LABEL_NOME)
+            array('valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME)
         ));
     } // Fim do método _mostrarlista
 

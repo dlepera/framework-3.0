@@ -35,7 +35,7 @@ class WebSite extends \Geral\Controle\PainelDL{
     public function _ganalytics($dt_inicio, $dt_fim, $dimensao = 'day', $metricas = array('visits')){
         # Selecionar as configurações do Google Analytics
         $m_ga = new \WebSite\Modelo\GoogleAnalytics();
-        $m_ga->_selecionar_ativa();
+        $m_ga->_selecionar_principal();
 
         # Conectar ao Google Analytics
         $o_ga = new \gapi($m_ga->usuario, $m_ga->senha);

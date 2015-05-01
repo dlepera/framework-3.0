@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -31,7 +31,7 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
 
-        <p class="form-p-campo usr-alterar-foto">
+        <p class="form-paragr usr-alterar-foto">
             <?php if( $params['usuario-logado?'] ): ?>
             <input type="file" name="perfil_foto" id="perfil-foto"/>
             <label for="perfil-foto">
@@ -47,23 +47,23 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="info-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
                 <input type="text" name="info_nome" id="info-nome" value="<?= $mod->info_nome; ?>" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="info-email"><?= TXT_LABEL_EMAIL; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-email" class="form-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</label><br/>
                 <input type="email" name="info_email" id="info-email" value="<?= $mod->info_email; ?>" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="info-telefone"><?= TXT_LABEL_TELEFONE; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-telefone"><?= TXT_ROTULO_TELEFONE; ?>:</label><br/>
                 <input type="tel" name="info_telefone" id="info-telefone" value="<?= $mod->info_telefone; ?>"/>
             </p>
 
-            <p class="form-p-campo">
-                <label><?= TXT_LABEL_SEXO; ?>:</label><br/>
+            <p class="form-paragr">
+                <span class="form-rotulo"><?= TXT_ROTULO_SEXO; ?>:</span><br/>
                 <input type="radio" name="info_sexo" id="info-sexo-m" value="M"<?= $mod->info_sexo == 'M' ? ' CHECKED' : ''; ?>/>
                 <label for="info-sexo-m"><?= TXT_OPCAO_MASCULINO; ?></label>
 
@@ -75,8 +75,8 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_PREFERENCIAS; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="pref-idioma"><?= TXT_LABEL_IDIOMA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="pref-idioma" class="form-rotulo"><?= TXT_ROTULO_IDIOMA; ?>:</label><br/>
                 <select name="pref_idioma" id="pref-idioma" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -94,8 +94,8 @@ $mod = $params['modelo'];
                 <?php endif; ?>
             </p>
 
-            <p class="form-p-campo">
-                <label for="pref-tema"><?= TXT_LABEL_TEMA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="pref-tema" class="form-rotulo"><?= TXT_ROTULO_TEMA; ?>:</label><br/>
                 <select name="pref_tema" id="pref-tema" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -113,8 +113,8 @@ $mod = $params['modelo'];
                 <?php endif; ?>
             </p>
 
-            <p class="form-p-campo">
-                <label for="pref-formato-data"><?= TXT_LABEL_FORMATO_DATA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="pref-formato-data" class="form-rotulo"><?= TXT_ROTULO_FORMATO_DATA; ?>:</label><br/>
                 <select name="pref_formato_data" id="pref-formato-data" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
@@ -126,10 +126,24 @@ $mod = $params['modelo'];
                 </select>
             </p>
 
-            <p class="form-p-campo">
-                <label for="pref-num-registros"><?= TXT_LABEL_NUM_REGISTROS; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="pref-num-registros" class="form-rotulo"><?= TXT_ROTULO_NUM_REGISTROS; ?>:</label><br/>
                 <span class="form-dica"><?= MSG_DICA_USUARIO_NUM_REGISTROS; ?></span><br/>
                 <input type="number" name="pref_num_registros" id="pref-num-registros" value="<?= $mod->pref_num_registros; ?>" min="5"/>
+            </p>
+
+            <p class="form-paragr">
+                <span class="form-rotulo"><?= TXT_ROTULO_EXIBIR_ID; ?></span><br/>
+                <span class="form-dica"><?= TXT_DICA_EXIBIR_ID; ?></span><br/>
+                <input type="checkbox" name="pref_exibir_id" id="chk-exibir-id" class="s-ou-n"<?= $mod->pref_exibir_id ? ' CHECKED' : ''; ?>/>
+                <label for="chk-exibir-id"></label>
+            </p>
+
+            <p class="form-paragr">
+                <span class="form-rotulo"><?= TXT_ROTULO_FILTRO_MENU; ?></span><br/>
+                <span class="form-dica"><?= TXT_DICA_FILTRO_MENU; ?></span><br/>
+                <input type="checkbox" name="pref_filtro_menu" id="chk-filtro-menu" class="s-ou-n"<?= $mod->pref_filtro_menu ? ' CHECKED' : ''; ?>/>
+                <label for="chk-filtro-menu"></label>
             </p>
         </fieldset>
 
@@ -137,13 +151,13 @@ $mod = $params['modelo'];
             <legend><?= TXT_LEGENDA_ACESSO_SISTEMA; ?></legend>
 
             <?php if( $params['incluindo'] || !$params['usuario-logado?'] ): ?>
-            <p class="form-p-campo">
-                <label for="info-grupo"><?= TXT_LABEL_GRUPO; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-grupo" class="form-rotulo"><?= TXT_ROTULO_GRUPO; ?>:</label><br/>
                 <select name="info_grupo" id="info-grupo" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['grupos-usuarios'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->info_grupo == $o['VALOR'] ? ' SELECTED' : ''; ?>>
+                    <option value="<?= $o['VALOR']; ?>"<?= $mod->info_grupo == $o['VALOR'] || ($params['incluindo'] && $mod->padrao) ? ' SELECTED' : ''; ?>>
                         <?= $o['TEXTO']; ?>
                     </option>
                     <?php endforeach; ?>
@@ -156,44 +170,44 @@ $mod = $params['modelo'];
                 <?php endif; ?>
             </p>
             <?php elseif( $params['usuario-logado?'] ): ?>
-            <p class="form-p-campo">
-                <?= TXT_LABEL_GRUPO, ':<br/>', $params['grupo-descr']; ?>
+            <p class="form-paragr">
+                <?= TXT_ROTULO_GRUPO, ':<br/>', $params['grupo-descr']; ?>
                 <input type="hidden" name="info_grupo" value="<?= $mod->info_grupo; ?>"/>
             </p>
             <?php endif; ?>
 
             <?php if( $params['incluindo'] ): ?>
-            <p class="form-p-campo">
-                <label for="info-login"><?= TXT_LABEL_LOGIN; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
                 <input type="text" name="info_login" id="info-login" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="info-senha"><?= TXT_LABEL_SENHA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
                 <input type="password" name="info_senha" id="info-senha" required/>
             </p>
 
-            <p class="form-p-campo">
-                <label for="conf-senha"><?= TXT_LABEL_CONF_SENHA; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="conf-senha" class="form-rotulo"><?= TXT_ROTULO_CONF_SENHA; ?>:</label><br/>
                 <input type="password" name="conf_senha" id="conf-senha" required/>
             </p>
             <?php else: ?>
-            <p class="form-p-campo">
-                <label for="info-login"><?= TXT_LABEL_LOGIN; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="info-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
                 <input type="text" name="info_login" id="info-login" value="<?= $mod->info_login; ?>" readonly required/>
             </p>
             <?php endif; ?>
 
             <?php if( !$params['usuario-logado?'] ): ?>
-            <p class="form-p-campo">
+            <p class="form-paragr">
                 <input type="checkbox" name="conf_reset" id="conf-reset" value="1"<?= $mod->conf_reset == 1  ? ' CHECKED' : ''; ?>/>
-                <label for="conf-reset"><?= TXT_LABEL_RESET; ?></label><br/>
+                <label for="conf-reset"><?= TXT_ROTULO_RESET; ?></label><br/>
                 <sapn class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
             </p>
 
-            <p class="form-p-campo">
+            <p class="form-paragr">
                 <input type="checkbox" name="conf_bloq" id="conf-bloq" value="1"<?= $mod->conf_bloq == 1  ? ' CHECKED' : ''; ?>/>
-                <label for="conf-bloq"><?= TXT_LABEL_BLOQ; ?></label><br/>
+                <label for="conf-bloq"><?= TXT_ROTULO_BLOQ; ?></label><br/>
                 <sapn class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
             </p>
             <?php endif; ?>

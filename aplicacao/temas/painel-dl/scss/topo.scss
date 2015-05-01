@@ -14,7 +14,7 @@
  *  Topo
  *  -> Cores
  * -------------------------------------------------------------------------- */
-header.dl3{
+.dl3-topo{
     /* Visual */
     background-color: $c-topo-fundo;
     
@@ -66,7 +66,7 @@ header.dl3{
  *  Topo
  *  -> Visual e comportamento
  * -------------------------------------------------------------------------- */
-header.dl3{
+.dl3-topo{
     /* Flex */
     @include _flex(100%);   
     
@@ -89,7 +89,7 @@ header.dl3{
         background-size : contain;
         
         /* Margens */
-        padding-left: 1.3em;
+        padding-left: 1.5em;
         
         /* Posicionamento */
         position: relative;
@@ -195,7 +195,7 @@ header.dl3{
 
 /* Desktop */
 @media screen and (min-width:$tela-tablet + 1px){
-    header.dl3{
+    .dl3-topo{
         .menu-usuario{
             .sub-menu{
                 /* Tamanho */
@@ -209,7 +209,7 @@ header.dl3{
 
 /* Tablets e smartphones */
 @media screen and (max-width:$tela-tablet){
-    header.dl3{
+    .dl3-topo{
         .menu-usuario{
             .sub-menu{
                 /* Tamanho */

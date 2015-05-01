@@ -34,10 +34,10 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'contato_site_nome', 'texto' => TXT_LABEL_NOME),
-            array('valor' => 'contato_site_email', 'texto' => TXT_LABEL_EMAIL),
-            array('valor' => 'assunto_contato_descr', 'texto' => TXT_LABEL_ASSUNTO),
-            array('valor' => 'log_registro_data_criacao', 'texto' => TXT_LABEL_DATA)
+            array('valor' => 'contato_site_nome', 'texto' => TXT_ROTULO_NOME),
+            array('valor' => 'contato_site_email', 'texto' => TXT_ROTULO_EMAIL),
+            array('valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_ASSUNTO),
+            array('valor' => 'log_registro_data_criacao', 'texto' => TXT_ROTULO_DATA)
         ));
         $this->visao->_adparam('perm-detalhes?', \DL3::$aut_o->_verificarperm(get_called_class(), '_mostrardetalhes'));
     } // Fim do método _mostrarlista

@@ -53,9 +53,10 @@ define('TXT_TABELA_TITULO_NOME', 'Nome');
 define('TXT_TABELA_TITULO_EMAIL', 'E-mail');
 define('TXT_TABELA_TITULO_DESCR', 'Descrição');
 define('TXT_TABELA_TITULO_REDE_SOCIAL', 'Rede Social?');
+define('TXT_TABELA_TITULO_APELIDO', 'Apelido');
 define('TXT_TABELA_TITULO_USUARIO', 'Usuário');
 define('TXT_TABELA_TITULO_PERFIL', 'Perfil');
-define('TXT_TABELA_TITULO_ATIVO', 'Ativo?');
+define('TXT_TABELA_TITULO_PRINCIPAL', 'Principal?');
 define('TXT_TABELA_TITULO_TIPO', 'Tipo');
 
 # Formulários
@@ -72,30 +73,31 @@ define('TXT_LEGENDA_VISAO', 'Visão');
 define('TXT_LEGENDA_VALORES', 'Valores');
 
 # -> Campos
-define('TXT_LABEL_NOME', 'Nome');
-define('TXT_LABEL_EMAIL', 'E-mail');
-define('TXT_LABEL_TELEFONE', 'Telefone');
-define('TXT_LABEL_MENSAGEM', 'Mensagem');
-define('TXT_LABEL_ASSUNTO', 'Assunto');
-define('TXT_LABEL_STATUS', 'Status');
-define('TXT_LABEL_DT_ENVIO', 'Data do envio');
-define('TXT_LABEL_MSG_ERRO', 'Mensagem de erro');
-define('TXT_LABEL_DATA', 'Data');
-define('TXT_LABEL_DESCR', 'Descrição');
-define('TXT_LABEL_COR', 'Cor');
-define('TXT_LABEL_ICONE', 'Ícone');
-define('TXT_LABEL_REDE_SOCIAL', 'Rede social?');
-define('TXT_LABEL_ATIVAR', 'Ativar?');
-define('TXT_LABEL_USUARIO', 'Usuário');
-define('TXT_LABEL_SENHA', 'Senha');
-define('TXT_LABEL_PERFIL', 'Perfil');
-define('TXT_LABEL_TIPO', 'Tipo');
-define('TXT_LABEL_FOTOS', 'Fotos');
-define('TXT_LABEL_TITULO', 'Título');
-define('TXT_LABEL_CAPA', 'É a capa?');
-define('TXT_LABEL_CODIGO_UA', 'Código UA');
-define('TXT_LABEL_MASCARA', 'Máscara');
-define('TXT_LABEL_EXPREG', 'Expressão regular');
+define('TXT_ROTULO_NOME', 'Nome');
+define('TXT_ROTULO_EMAIL', 'E-mail');
+define('TXT_ROTULO_TELEFONE', 'Telefone');
+define('TXT_ROTULO_MENSAGEM', 'Mensagem');
+define('TXT_ROTULO_ASSUNTO', 'Assunto');
+define('TXT_ROTULO_STATUS', 'Status');
+define('TXT_ROTULO_DT_ENVIO', 'Data do envio');
+define('TXT_ROTULO_MSG_ERRO', 'Mensagem de erro');
+define('TXT_ROTULO_DATA', 'Data');
+define('TXT_ROTULO_DESCR', 'Descrição');
+define('TXT_ROTULO_COR', 'Cor');
+define('TXT_ROTULO_ICONE', 'Ícone');
+define('TXT_ROTULO_REDE_SOCIAL', 'Rede social?');
+define('TXT_ROTULO_PRINCIPAL', 'Principal?');
+define('TXT_ROTULO_APELIDO', 'Apelido (opcional)');
+define('TXT_ROTULO_USUARIO', 'Usuário');
+define('TXT_ROTULO_SENHA', 'Senha');
+define('TXT_ROTULO_PERFIL', 'Perfil');
+define('TXT_ROTULO_TIPO', 'Tipo');
+define('TXT_ROTULO_FOTOS', 'Fotos');
+define('TXT_ROTULO_TITULO', 'Título');
+define('TXT_ROTULO_CAPA', 'É a capa?');
+define('TXT_ROTULO_CODIGO_UA', 'Código UA');
+define('TXT_ROTULO_MASCARA', 'Máscara');
+define('TXT_ROTULO_EXPREG', 'Expressão regular');
 
 # -> Botões
 define('TXT_BOTAO_SALVAR_FOTOS', 'Salvar fotos');
@@ -120,6 +122,7 @@ define('MSG_CONTATO_DT_ENVIO', 'Contato enviado em %s');
 define('MSG_EMAIL_ENVIADO', 'E-mail enviado');
 define('MSG_EMAIL_FALHOU', 'O envio do e-mail falhou');
 define('MSG_CAPA', 'Capa');
+define('MSG_GA_ALERTA_UTILIZACAO_MUITOS', '<b>Atenção!</b> A utilização de muitas contas do Google Analytics pode prejudicar o desempenho do site.');
 
 
 

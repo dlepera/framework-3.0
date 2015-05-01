@@ -14,7 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
@@ -27,20 +27,20 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_ALBUM_FOTOS; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="txt-nome"><?= TXT_LABEL_NOME; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
                 <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" required/>
             </p>
 
             <?php if( $params['incluindo'] ): ?>
-            <p class="form-p-campo">
-                <label for="arq-fotos"><?= TXT_LABEL_FOTOS; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
                 <input type="file" name="fotos" id="arq-fotos" multiple/>
             </p>
             <?php endif; ?>
 
-            <p class="form-p-campo">
-                <label><?= TXT_LABEL_PUBLICAR; ?></label><br/>
+            <p class="form-paragr">
+                <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
                 <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
                 <label for="chk-publicar"></label>
             </p>
@@ -59,8 +59,8 @@ $mod = $params['modelo'];
         <fieldset>
             <legend><?= TXT_LEGENDA_FOTOS; ?></legend>
 
-            <p class="form-p-campo">
-                <label for="arq-fotos"><?= TXT_LABEL_FOTOS; ?>:</label><br/>
+            <p class="form-paragr">
+                <label for="arq-fotos" class="form-rotulo"  ><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
                 <input type="file" name="fotos" id="arq-fotos" multiple required/>
             </p>
         </fieldset>
@@ -77,11 +77,11 @@ $mod = $params['modelo'];
 
             <figcaption>
                 <?php if( !empty($f['foto_album_titulo']) ):
-                    echo TXT_LABEL_TITULO, ": {$f['foto_album_titulo']}<br/>";
+                    echo TXT_ROTULO_TITULO, ": {$f['foto_album_titulo']}<br/>";
                 endif;
 
                 if( !empty($f['foto_album_descr']) ):
-                    echo TXT_LABEL_DESCR, ': ', nl2br($f['foto_album_descr']);
+                    echo TXT_ROTULO_DESCR, ': ', nl2br($f['foto_album_descr']);
                 endif; ?>
 
                 <p class="foto-links">

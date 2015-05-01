@@ -43,8 +43,8 @@ class Idioma extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'idioma_descr', 'texto' => TXT_LABEL_DESCRICAO),
-            array('valor' => 'idioma_sigla', 'texto' => TXT_LABEL_SIGLA)
+            array('valor' => 'idioma_descr', 'texto' => TXT_ROTULO_DESCRICAO),
+            array('valor' => 'idioma_sigla', 'texto' => TXT_ROTULO_SIGLA)
         ));
     } // Fim do método _mostrarlista
 

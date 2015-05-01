@@ -54,38 +54,44 @@ define('TXT_LEGENDA_GRUPO', 'Grupo');
 define('TXT_LEGENDA_MEMBROS', 'Membros');
 define('TXT_LEGENDA_PERMISSOES', 'Permissões');
 
-# -> Campos
-define('TXT_LABEL_DESCR', 'Descrição');
-define('TXT_LABEL_NOME', 'Nome');
-define('TXT_LABEL_EMAIL', 'E-mail');
-define('TXT_LABEL_TELEFONE', 'Telefone');
-define('TXT_LABEL_SEXO', 'Sexo');
-define('TXT_LABEL_IDIOMA', 'Idioma');
-define('TXT_LABEL_TEMA', 'Tema');
-define('TXT_LABEL_FORMATO_DATA', 'Formato de exibição de datas');
-define('TXT_LABEL_NUM_REGISTROS', 'Número de registros');
-define('TXT_LABEL_GRUPO', 'Grupo');
-define('TXT_LABEL_LOGIN', 'Login');
-define('TXT_LABEL_SENHA', 'Senha');
-define('TXT_LABEL_CONF_SENHA', 'Confirme a senha');
-define('TXT_LABEL_RESET', 'Resetar a senha no próximo login');
-define('TXT_LABEL_BLOQ', 'Bloquear login do usuário');
-define('TXT_LABEL_TITULO', 'Título');
-define('TXT_LABEL_HOST', 'Host');
-define('TXT_LABEL_REQUER_AUTENT', 'Requer autenticação?');
-define('TXT_LABEL_TIPO_CRIPTO', 'Tipo de criptografia');
-define('TXT_LABEL_CONTA', 'Conta');
-define('TXT_LABEL_DE_NOME', 'De (nome)');
-define('TXT_LABEL_DE_EMAIL', 'De (e-mail)');
-define('TXT_LABEL_RESPONDER_PARA', 'Responder para');
-define('TXT_LABEL_HTML', 'HTML?');
-define('TXT_LABEL_PRINCIPAL', 'Principal?');
-define('TXT_LABEL_SENHA_ATUAL', 'Senha atual');
-define('TXT_LABEL_SENHA_NOVA', 'Nova senha');
-define('TXT_LABEL_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
-define('TXT_LABEL_SELECIONAR_TODOS', 'Selecionar todos');
+# -> Rótulos
+define('TXT_ROTULO_DESCR', 'Descrição');
+define('TXT_ROTULO_NOME', 'Nome');
+define('TXT_ROTULO_EMAIL', 'E-mail');
+define('TXT_ROTULO_TELEFONE', 'Telefone');
+define('TXT_ROTULO_SEXO', 'Sexo');
+define('TXT_ROTULO_IDIOMA', 'Idioma');
+define('TXT_ROTULO_TEMA', 'Tema');
+define('TXT_ROTULO_FORMATO_DATA', 'Formato de exibição de datas');
+define('TXT_ROTULO_NUM_REGISTROS', 'Número de registros');
+define('TXT_ROTULO_EXIBIR_ID', 'Exibir ID?');
+define('TXT_ROTULO_FILTRO_MENU', 'Mostrar filtro do menu?');
+define('TXT_ROTULO_GRUPO', 'Grupo');
+define('TXT_ROTULO_LOGIN', 'Login');
+define('TXT_ROTULO_SENHA', 'Senha');
+define('TXT_ROTULO_CONF_SENHA', 'Confirme a senha');
+define('TXT_ROTULO_RESET', 'Resetar a senha no próximo login');
+define('TXT_ROTULO_BLOQ', 'Bloquear login do usuário');
+define('TXT_ROTULO_TITULO', 'Título');
+define('TXT_ROTULO_HOST', 'Host');
+define('TXT_ROTULO_REQUER_AUTENT', 'Requer autenticação?');
+define('TXT_ROTULO_TIPO_CRIPTO', 'Tipo de criptografia');
+define('TXT_ROTULO_CONTA', 'Conta');
+define('TXT_ROTULO_DE_NOME', 'De (nome)');
+define('TXT_ROTULO_DE_EMAIL', 'De (e-mail)');
+define('TXT_ROTULO_RESPONDER_PARA', 'Responder para');
+define('TXT_ROTULO_HTML', 'HTML?');
+define('TXT_ROTULO_PRINCIPAL', 'Principal?');
+define('TXT_ROTULO_SENHA_ATUAL', 'Senha atual');
+define('TXT_ROTULO_SENHA_NOVA', 'Nova senha');
+define('TXT_ROTULO_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
+define('TXT_ROTULO_SELECIONAR_TODOS', 'Selecionar todos');
 
-# Opções
+# -> Dicas
+define('TXT_DICA_EXIBIR_ID', 'Deseja ver o ID do registro nas listas?');
+define('TXT_DICA_FILTRO_MENU', 'Mostra um filtro para localizar as opções do menu.');
+
+# -> Opções
 define('TXT_OPCAO_MASCULINO', 'Masculino');
 define('TXT_OPCAO_FEMININO', 'Feminino');
 define('TXT_OPCAO_NENHUMA', 'Nenhuma');

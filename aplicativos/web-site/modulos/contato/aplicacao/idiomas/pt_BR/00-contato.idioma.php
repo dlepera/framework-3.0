@@ -15,11 +15,11 @@ define('TXT_TITULO_CONTATO', 'Contato');
 
 # Formulários
 # -> Campos
-define('TXT_LABEL_NOME', 'Nome');
-define('TXT_LABEL_EMAIL', 'E-mail');
-define('TXT_LABEL_FONE', 'Telefone');
-define('TXT_LABEL_ASSUNTO', 'Assunto');
-define('TXT_LABEL_MENSAGEM', 'Mensagem');
+define('TXT_ROTULO_NOME', 'Nome');
+define('TXT_ROTULO_EMAIL', 'E-mail');
+define('TXT_ROTULO_FONE', 'Telefone');
+define('TXT_ROTULO_ASSUNTO', 'Assunto');
+define('TXT_ROTULO_MENSAGEM', 'Mensagem');
 
 # -> Botões
 define('TXT_BOTAO_ENVIAR', 'Enviar');
@@ -34,11 +34,11 @@ define('TXT_EMAIL_ASSUNTO_CONTATOSITE', '[%s] - Assunto: %s');
 
 # -> Conteúdos
 define('TXT_EMAIL_CONTEUDO_CONTATOSITE', '<p>Foi enviado um contato através do formulário do site <b>%s</b>.</p>'
-        . '<p><b>'. TXT_LABEL_NOME .':</b> %s<br/>'
-        . '<b>'. TXT_LABEL_EMAIL .':</b> %s<br/>'
-        . '<b>'. TXT_LABEL_FONE .':</b> %s<br/>'
-        . '<b>'. TXT_LABEL_ASSUNTO .':</b> %s<br/>'
-        . '<b>'. TXT_LABEL_MENSAGEM .':</b><br/>%s</p>');
+        . '<p><b>'. TXT_ROTULO_NOME .':</b> %s<br/>'
+        . '<b>'. TXT_ROTULO_EMAIL .':</b> %s<br/>'
+        . '<b>'. TXT_ROTULO_FONE .':</b> %s<br/>'
+        . '<b>'. TXT_ROTULO_ASSUNTO .':</b> %s<br/>'
+        . '<b>'. TXT_ROTULO_MENSAGEM .':</b><br/>%s</p>');
 
 
 

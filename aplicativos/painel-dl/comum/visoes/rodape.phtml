@@ -9,8 +9,8 @@
 
 ?>
 
-        <footer class="dl3">
-            <?= \DL3::$ap_titulo .' &copy; '. date('Y'); ?>
+        <footer class="dl3-rodape">
+            <?= \DL3::$ap_titulo .' v'. \DL3::$ap_versao .' &copy; '. date('Y'); ?>
         </footer>
     </div>
 
@@ -31,6 +31,25 @@
             },
             aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
+
+        <?php if( $params['mostrar-filtro-menu?'] ): ?>
+        $('#form-filtro-modulos #txt-bm').on('input', function(){
+            var $th = $(this);
+            var $mf = $('#menu-filtro');
+            var vlr = $th.val();
+
+            if( vlr !== (false || '') )
+                $mf.slideDown('fast');
+            else
+                $mf.slideUp('fast');
+
+            $mf.find('> *, .menu-item, .sm-item').css({ display: 'none' });
+            $mf.find('.sm-item:contains('+ vlr +')').css({ display: 'block' }).parents('.menu-item').css({ display: 'block' });
+        }).on('blur', function(){
+            var $mf = $('#menu-filtro');
+            $mf.slideUp('slow');
+        });
+        <?php endif; ?>
         //]]>
     </script>
 </body>

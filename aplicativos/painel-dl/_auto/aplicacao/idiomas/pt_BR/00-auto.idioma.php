@@ -34,8 +34,9 @@ define('TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS', 'Desbloquear os usuá
 # -> Dicas
 define('TXT_DICA_FORM_FILTRO', 'O que deseja encontrar?');
 
-# -> Campos
-define('TXT_LABEL_PUBLICAR', 'Publicar?');
+# -> Rótulos
+define('TXT_ROTULO_BUSCAR_MODULO', 'Ir para...');
+define('TXT_ROTULO_PUBLICAR', 'Publicar?');
 
 # -> Botões
 define('TXT_BOTAO_FILTRAR', 'Filtrar');

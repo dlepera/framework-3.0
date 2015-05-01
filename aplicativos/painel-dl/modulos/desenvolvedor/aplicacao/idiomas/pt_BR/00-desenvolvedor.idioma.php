@@ -40,17 +40,17 @@ define('TXT_LEGENDA_MODULO', 'Módulo');
 define('TXT_LEGENDA_MENU', 'Menu');
 
 # -> Campos
-define('TXT_LABEL_MODULO_PAI', 'Módulo pai');
-define('TXT_LABEL_NOME', 'Nome');
-define('TXT_LABEL_DESCRICAO', 'Descrição');
-define('TXT_LABEL_LINK', 'Link');
-define('TXT_LABEL_ORDEM', 'Ordem');
-define('TXT_LABEL_DIRETORIO', 'Diretório');
-define('TXT_LABEL_PADRAO', 'Padrão?');
-define('TXT_LABEL_SIGLA', 'Sigla');
-define('TXT_LABEL_METODO', 'Nome do método');
-define('TXT_LABEL_CLASSE', 'Classe');
-define('TXT_LABEL_MENU', 'Incluir no menu?');
+define('TXT_ROTULO_MODULO_PAI', 'Módulo pai');
+define('TXT_ROTULO_NOME', 'Nome');
+define('TXT_ROTULO_DESCRICAO', 'Descrição');
+define('TXT_ROTULO_LINK', 'Link');
+define('TXT_ROTULO_ORDEM', 'Ordem');
+define('TXT_ROTULO_DIRETORIO', 'Diretório');
+define('TXT_ROTULO_PADRAO', 'Padrão?');
+define('TXT_ROTULO_SIGLA', 'Sigla');
+define('TXT_ROTULO_METODO', 'Nome do método');
+define('TXT_ROTULO_CLASSE', 'Classe');
+define('TXT_ROTULO_MENU', 'Incluir no menu?');
 
 # -> Dicas
 define('TXT_DICA_SIGLA', 'Ex.: pt_BR');

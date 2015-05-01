@@ -16,11 +16,13 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
                 'id'        =>  FILTER_VALIDATE_INT,
+                'apelido'   =>  FILTER_SANITIZE_STRING,
                 'usuario'   =>  FILTER_VALIDATE_EMAIL,
                 'senha'     =>  FILTER_SANITIZE_STRING,
                 'perfil_id' =>  FILTER_VALIDATE_INT,
                 'codigo_ua' =>  FILTER_SANITIZE_STRING,
-                'ativar'    =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'principal' =>  FILTER_VALIDATE_BOOLEAN,
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -40,10 +42,11 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
      * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('ga_id, ga_usuario, ga_perfil_id, ( CASE ga_ativar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
-                . ' END ) AS ATIVO', 'ga_perfil_id', null);
+        $this->_listapadrao('ga_id, ga_apelido, ga_usuario, ga_perfil_id, ( CASE ga_principal'
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
+                . ' END ) AS PRINCIPAL, ( CASE ga_publicar'
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
+                . ' END ) AS PUBLICADO', 'ga_perfil_id', null);
 
         # Visão
         $this->_carregarhtml('lista_ga');
@@ -51,8 +54,8 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'ga_usuario', 'texto' => TXT_LABEL_USUARIO),
-            array('valor' => 'ga_perfil_id', 'texto' => TXT_LABEL_PERFIL)
+            array('valor' => 'ga_usuario', 'texto' => TXT_ROTULO_USUARIO),
+            array('valor' => 'ga_perfil_id', 'texto' => TXT_ROTULO_PERFIL)
         ));
     } // Fim do método _mostrarlista
 

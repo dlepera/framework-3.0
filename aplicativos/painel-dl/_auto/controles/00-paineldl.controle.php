@@ -22,13 +22,14 @@ class PainelDL extends \Geral\Controle\Principal{
 
         # Dados do usuário
         $mus = new \Admin\Modelo\Usuario($_SESSION['usuario_id']);
-
+        
         # Parâmetros
         $this->visao->_adparam('menu-modulos', $lm);
         $this->visao->_adparam('menu-submodulos', $ls);
         $this->visao->_adparam('usr-foto', $mus->_mostrarfoto('..', 'p'));
         $this->visao->_adparam('perm-usr-senha?', \DL3::$aut_o->_verificarperm('Admin\Controle\Usuario', '_formalterarsenha') && $_SESSION['usuario_id'] > 0);
         $this->visao->_adparam('perm-usr-conta?', \DL3::$aut_o->_verificarperm('Admin\Controle\Usuario', '_minhaconta') && $_SESSION['usuario_id'] > 0);
+        $this->visao->_adparam('mostrar-filtro-menu?', $_SESSION['usuario_pref_filtro_menu']);
     } // Fim do método __construct
 
 

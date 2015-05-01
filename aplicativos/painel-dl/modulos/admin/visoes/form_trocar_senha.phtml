@@ -12,22 +12,22 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
-        <p class="form-p-campo">
-            <label for="senha-atual"><?= TXT_LABEL_SENHA_ATUAL; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="senha-atual" class="form-rotulo"><?= TXT_ROTULO_SENHA_ATUAL; ?>:</label><br/>
             <input type="password" name="senha_atual" id="senha-atual" required/>
         </p>
 
-        <p class="form-p-campo">
-            <label for="senha-nova"><?= TXT_LABEL_SENHA_NOVA; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="senha-nova" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA; ?>:</label><br/>
             <input type="password" name="senha_nova" id="senha-nova" required/>
         </p>
 
-        <p class="form-p-campo">
-            <label for="senha-nova-conf"><?= TXT_LABEL_SENHA_NOVA_CONF; ?>:</label><br/>
+        <p class="form-paragr">
+            <label for="senha-nova-conf" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA_CONF; ?>:</label><br/>
             <input type="password" name="senha_nova_conf" id="senha-nova-conf" required/>
         </p>
 

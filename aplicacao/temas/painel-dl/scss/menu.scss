@@ -14,7 +14,7 @@
  *  Menu principal
  *  -> Cores
  * -------------------------------------------------------------------------- */
-nav.dl3{
+.dl3-menu{
     /* Visual */
     background-color: $c-mnnv-fundo;
     
@@ -22,13 +22,13 @@ nav.dl3{
     color: $c-mnnv-txt;
     
     > .menu-principal{
-        a{
+        .menu-texto{
             /* Texto */
             color: $c-mnnv-links;
         }
         
-        .menu-item:hover a,
-        a:hover{
+        .menu-item:hover .menu-texto,
+        .menu-item:hover{
             /* Texto */
             color: $c-mnnv-links-h;
         }
@@ -41,12 +41,12 @@ nav.dl3{
         /* Texto */
         color: $c-mnnv-sub-txt;
         
-        a{
+        .sm-texto{
             /* Texto */
             color: $c-mnnv-sub-links;
         }
         
-        a:hover{
+        .sm-texto:hover{
             /* Texto */
             color: $c-mnnv-sub-links-h;
         }
@@ -59,7 +59,10 @@ nav.dl3{
  *  Menu principal
  *  -> Visual e comportamento
  * -------------------------------------------------------------------------- */
-nav.dl3{
+.dl3-menu{
+    /* Flex */
+    @include _flex-box();
+    
     /* Posicionamento */
     position: fixed;
     top     : 0;
@@ -73,153 +76,395 @@ nav.dl3{
     /* Visual */
     box-shadow: $sombra-padrao;
     
-    a{
-        /* Visual */
-        display: inline-block;
-        
-        /* Tamanho */
-        width   : 100%;
-        height  : 100%;
-    }
-    
-    a:hover{
-        /* Texto */
-        text-decoration: none;
-    }
-    
-    /* Menu principal */
     > .menu-principal{
-        /* Flex */
-        @include _flex-box();
-        
-        /* Tamanho */
-        max-width   : $grid-layout;
-        height      : 100%;
-        
-        /* Margens */
-        margin: auto;
-        
-        /* Itens do sub-menu */
         > .menu-item{
-            /* Flex */
-            @include _flex(auto);
+            > .sub-menu{
+                > .sm-item{
+                    > .sm-texto{
+                        /* Texto */
+                        font-size: 1.1em;
+                    }
+                }
+            }
+        }
+    }
+    
+    > #form-filtro-modulos{
+        /* Margens */
+        margin  : 0;
+        padding : .35em .9em;
+
+        /* Tamanho */
+        height: 2.85em;
+        
+        > .form-paragr{
+            /* Tamanho */
+            width   : 100%;
+            height  : 100%;
             
             /* Margens */
-            margin: 0 1%;
+            margin  : 0;
+            padding : 0;
             
-            > a{
-                /* Texto */
-                text-align  : center;
-                line-height : $cf-mnnv-altura;
+            /* Visual */
+            background      : #FFF;
+            border-radius   : 20px;
+            
+            /* Posicionamento */
+            position: relative;
+            
+            > .form-rotulo{
+                /* Visual */
+                display: none;
+            }
+            
+            > input{
+                /* Visual */
+                border      : none;
+                background  : none;
+                
+                /* Tamanho */
+                width   : 100%;
+                height  : 100%;
             }
         }
         
-        /* Ajustar as margens */
-        > .menu-item:first-child{  margin-left: 0; }
-        > .menu-item:last-child{ margin-right: 0; }
+        > .form-paragr:after{
+            /* Texto */
+            content     : 'b';
+            font-family : 'icones';
+            color       : #CCC;
+            font-size   : 1.5em;
+            text-align  : center;
+
+            /* Tamanho */
+            width: 2em;
+
+            /* Posicionamento */
+            position: absolute;
+            right   : 0;
+            top     : 50%;
+
+            /* Transformar */
+            @include _transform(translateY(-45%));
+        }
         
-        > .menu-item:hover{
+        > .menu-filtro{
+            /* Posicionamento */
+            position: absolute;
+            right   : 1em;
+
             /* Visual */
-            background: #FFF;
-            
-            > .sub-menu{
-                /* Flex */
-                @include _flex-box();
+            border-radius   : 10px;
+            box-shadow      : $sombra-padrao;
+            background      : #FFF;
+            overflow        : auto; 
+
+            /* Margens */
+            padding: 0 1em;
+
+            .sm-item{
+                /* Visual */
+                background: none;
+
+                /* Margens */
+                padding: 5% 0;
+
+                /* Visual */
+                border-bottom: $borda-suave;
+                
+                > .sm-texto{
+                    /* Visual */
+                    display: block;
+                    
+                    /* Texto */
+                    line-height: 2em;
+                }
+            }
+
+            .sm-item:last-child{
+                /* Visual */
+                border: none;
             }
         }
     }
+}
+
+
+
+/* Desktops ----------------------------------------------------------------- */
+@media screen and(min-width:$tela-tablet + 1px){
+    .dl3-menu{
+        > .menu-principal{
+            /* Flex */
+            @include _flex-box();
+            @include _flex(83%);
+            
+            .menu-texto{
+                /* Visual */
+                display: inline-block;
+
+                /* Tamanho */
+                width   : 100%;
+                height  : 100%;
+            }
+
+            > .menu-item{
+                /* Flex */
+                @include _flex(auto);
+                
+                /* Margens */
+                margin: 0 1%;
+                
+                /* Tamanho */
+                height : $cf-mnnv-altura;
+                
+                > .menu-texto{
+                    /* Texto */
+                    text-align  : center;
+                    line-height : $cf-mnnv-altura;
+                }
+                
+                /* Esconder o sub-menu desse item */
+                > .sub-menu{
+                    /* Visual */
+                    display         : none;
+                    border-bottom   : $borda-suave;
+                    
+                    /* Posicionamento */
+                    position: absolute;
+                    left    : 0;
+                    
+                    /* Tamanho */
+                    width: 100%;
+                    
+                    > .sm-item{
+                        $tm: 33.33%;
+                        
+                        /* Flex */
+                        @include _flex($tm);
+                        
+                        /* Tamanho */
+                        max-width: $tm;
+                        
+                        /* Margens */
+                        padding: 1% 2%;
+                        
+                        > .sm-texto{
+                            /* Visual */
+                            display: block;
+                            
+                            /* Texto */
+                            line-height: 2em;
+                        }
+                    }
+                }
+            }
+            
+            /* Ajustar as margens */
+            > .menu-item:first-child{ margin-left: 0; }
+            > .menu-item:last-child{ margin-right: 0; }
+            
+            > .menu-item:hover{
+                /* Visual */
+                background: #FFF;
+
+                > .sub-menu{
+                    /* Flex */
+                    @include _flex-box();
+                }
+            }
+        }
+        
+        > #form-filtro-modulos{
+            /* Flex */
+            @include _flex(17%);
+            
+            > .menu-filtro{
+                /* Tamanho */
+                width       : 30vw;
+                max-height  : 60vh;
+            }
+        }
+    }
+}
+
+
+
+/* Tablets ------------------------------------------------------------------ */
+@media screen and(min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+    .dl3-menu{
+        > .menu-principal{
+            /* Tamanho */
+            width: 50vw;
+        }
+        
+        > #form-filtro-modulos{
+            > .menu-filtro{
+                /* Tamanho */
+                width       : 50vw;
+                max-height  : 80vh;
+            }
+        }
+    }
+}
+
+
+
+/* Smartphones -------------------------------------------------------------- */
+@media screen and(max-width:$tela-smart){
+    .dl3-menu{
+        > .menu-principal{
+            /* Tamanho */
+            width: 75vw;
+        }
+        
+        > #form-filtro-modulos{
+            > .menu-filtro{
+                /* Tamanho */
+                width       : 75vw;
+                max-height  : 80vh;
+            }
+        }
+    }
+}
+
+
+
+/* Tablets e smartphones ---------------------------------------------------- */
+@media screen and (max-width:$tela-tablet){
+    .dl3-menu{
+        > .menu-principal{
+            /* Posicionamento */
+            position: fixed;
+            top     : 0;
+            left    : -100%;
+            z-index : 2;
+            
+            /* Tamanho */
+            height: 100vh;
+            
+            /* Visual */
+            background: #FFF;
+            box-shadow: $sombra-padrao;
+            overflow-y: auto;
+            
+            /* Transicao */
+            @include _transition(left .75s);
+            
+            > .menu-item{
+                > .menu-texto{
+                    /* Visual */
+                    background      : $c-mnnv-fundo;
+                    display         : block;
+                    border-bottom   : 1px solid #FFF;
+                    
+                    /* Tamanho */
+                    width: 100%;
+                    
+                    /* Texto */
+                    line-height: 3em;
+                    text-indent: 1em;
+                    
+                    /* Margens */
+                    padding: 0 3%;
+                    
+                    /* Posicionamento */
+                    position: relative;
+                }
+                
+                > .menu-texto:after{
+                    /* Triangulo */
+                    @include _triangulo-baixo($c-mnnv-links, 5px, 5px);
+                    
+                    /* Texto */
+                    content: '';
+                    
+                    /* Posicionamento */
+                    position: absolute;
+                    top     : 50%;
+                    right   : 1.5em;
+                    
+                    /* Transformar */
+                    @include _transform(translateY(-50%));
+                }
+                
+                > .sub-menu{
+                    /* Margens 
+                    padding: 0 5%;*/
+                    
+                    > .sm-item{
+                        /* Margens */
+                        margin  : 3.5% 0;
+                        padding : .35em 5%;
+                        
+                        > .sm-texto{
+                            /* Visual */
+                            display: block;
+                            
+                            /* Texto */
+                            line-height: 2em;
+                        }
+                    }
+                    
+                    > .sm-item:hover{
+                        /* Visual */
+                        background: lighten($c-mnnv-fundo,50%);
+                    }
+                }
+            }
+            
+            > .menu-item:hover{
+                > .menu-texto{
+                    /* Texto */
+                    color: #FFF;
+                }
+            }
+        }
+        
+        > #form-filtro-modulos{
+            /* Tamanho */
+            width: 50%;
+            
+            /* Posicionamento */
+            position: absolute;
+            right   : 1em;
+        }
+        
+        > .a-mostrar-menu{
+            /* Visual */
+            display: inline-block;
+
+            /* Tamanho */
+            width   : 50%;
+            height  : 100%;
+            
+            /* Posicionamento */
+            position: absolute;
+            left    : 0;
+            z-index : 2; 
+        }
+
+        > .menu-principal:hover,
+        > .a-mostrar-menu:hover + .menu-principal{
+            /* Posicionamento */
+            left: 0;
+        }
+    }
     
-    /* Submenu */
-    .sub-menu{
-        /* Visual */
-        display         : none;
-        border-bottom   : $borda-suave;
-        
-        /* Flex */
-        @include _flex-flow(row wrap);
-        
-        /* Tamanho */
-        width: 100%;
+    .dl3-menu:before{
+        /* Texto */
+        content     : 'q';
+        color       : $c-mnnv-links;
+        font-family : 'icones';
+        font-size   : 1.8em;
         
         /* Posicionamento */
         position: absolute;
-        top     : 100%;
-        left    : 0;
+        top     : 50%;
+        left    : 1em;
         
-        /* Margens */
-        padding: 0.75em 5em;
-        
-        > .sm-item{
-            > a{
-                /* Texto */
-                font-size: 1.15em;
-                
-                /* Tamanho */
-                height: auto;
-            }
-            
-            > .sm-descr{
-                /* Margens */
-                margin-top: .45em;
-                
-                /* Visual */
-                display: inline-block;
-            }
-        }
-    }
-    
-    /* Link: Home */
-    .a-home:before{
-        /* Texto */
-        content     : 'h';
-        font-family : 'icones';
-        font-size   : 1.5em;
-        
-        /* Alinhamento */
-        vertical-align: middle;
-    }
-}
-
-
-
-/* Desktops */
-@media screen and (min-width:$tela-tablet + 1px){
-    nav.dl3{
-        /* Submenu */
-        .sub-menu{
-             > .sm-item{
-                $tm: 33%; /* Tamanho */
-                
-                /* Flex */
-                @include _flex(1 $tm);
-                
-                /* Tamanho */
-                max-width: $tm;
-
-                /* Margens */
-                padding-right   : 2.5em;
-                margin          : 1em 0;
-             }
-        }
-    }
-}
-
-
-
-/* Smartphones e desktops */
-@media screen and (max-width:$tela-tablet){
-    nav.dl3{
-        /* Submenu */
-        .sub-menu{
-            > .sm-item{
-               /* Flex */
-               @include _flex(1 100%);
-            }
-
-            > .sm-item:not(last-child){
-                /* Margens */
-                margin-bottom: 2em;
-            }
-        }
+        /* Transformar */
+        @include _transform(translateY(-50%));
     }
 }

@@ -50,8 +50,8 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'assunto_contato_descr', 'texto' => TXT_LABEL_DESCR),
-            array('valor' => 'assunto_contato_email', 'texto' => TXT_LABEL_EMAIL)
+            array('valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_DESCR),
+            array('valor' => 'assunto_contato_email', 'texto' => TXT_ROTULO_EMAIL)
         ));
     } // Fim do método _mostrarlista
 

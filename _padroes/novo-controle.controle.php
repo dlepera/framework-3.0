@@ -16,7 +16,7 @@ class Controle extends \Geral\Controle\Principal{
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
                 'id'        =>  FILTER_VALIDATE_INT,
-                'publicar'  =>  array('filter' => FILTER_VALIDATE_INT, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode

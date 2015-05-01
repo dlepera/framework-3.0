@@ -15,8 +15,9 @@ class Autenticacao{
     private $root = array(
         'usuario_id'            =>  -1,
         'usuario_info_grupo'    =>  -1,
+        'grupo_usuario_descr'   =>  'Super Admin',
         'usuario_info_nome'     =>  'Super Admin',
-        'usuario_info_email'    =>  'd_lepera@hotmail.com',
+        'usuario_info_email'    =>  'dlepera88@gmail.com',
         'usuario_info_telefone' =>  '',
         'usuario_info_sexo'     =>  'M',
         'usuario_info_login'    =>  'root',
@@ -27,15 +28,20 @@ class Autenticacao{
         'formato_data_data'     =>  'd/m/Y',
         'formato_data_hora'     =>  'H:i',
         'usuario_pref_num_registros'    => 20,
+        'usuario_pref_exibir_id'    =>  true,
+        'usuario_pref_filtro_menu'  =>  true,
         'usuario_conf_reset'    =>  0,
         'usuario_conf_bloq'     =>  0
     );
 
     # Informações dos usuários a serem carregados no login
-    private $usr_infos = array(
-        'usuario_id', 'usuario_info_grupo', 'usuario_info_nome', 'usuario_info_email', 'usuario_info_telefone',
-        'usuario_info_login', 'idioma_sigla', 'tema_diretorio', 'formato_data_completo', 'formato_data_data',
-        'formato_data_hora', 'usuario_pref_num_registros', 'usuario_conf_reset', 'usuario_conf_bloq'
+    public $usr_infos = array(
+        'usuario_id', 'usuario_info_grupo', 'grupo_usuario_descr', 'usuario_info_nome',
+        'usuario_info_email', 'usuario_info_telefone', 'usuario_info_login', 'idioma_sigla',
+        'tema_diretorio', 'formato_data_completo', 'formato_data_data', 'formato_data_hora',
+        'usuario_pref_num_registros', 'usuario_pref_exibir_id+0 AS usuario_pref_exibir_id',
+        'usuario_pref_filtro_menu+0 AS usuario_pref_filtro_menu', 'usuario_conf_reset+0 AS usuario_conf_reset',
+        'usuario_conf_bloq+0 AS usuario_conf_bloq', 'usuario_ultimo_login'
     );
 
     /**
@@ -137,10 +143,11 @@ class Autenticacao{
      *
      * @param string $u - nome de usuário
      * @param string $s - senha do usuário
+     * @param string $c - define se a senha deve ser criptografada
      */
-    public function _fazerlogin($u,$s){
+    public function _fazerlogin($u,$s,$c=true){
         # Login do Super Admin ou login de usuário do sistema
-        if( $u == $this->root['usuario_info_login'] && md5(md5($s)) == $this->root['usuario_info_senha'] ):
+        if( $u == $this->root['usuario_info_login'] && ($c ? md5(md5($s)) : $s) == $this->root['usuario_info_senha'] ):
             $i = $this->usr_infos;
             $d = [];
 
@@ -148,7 +155,7 @@ class Autenticacao{
                 if( in_array($ch, $i) ) $d[$ch] = $vr;
             });
         else:
-            $d = $this->usuario->_fazerlogin($u,$s,implode(',', $this->usr_infos));
+            $d = $this->usuario->_fazerlogin($u,$s,implode(',', $this->usr_infos),$c);
         endif;
 
         $this->_sessao_id($d['usuario_id']);
@@ -158,12 +165,18 @@ class Autenticacao{
         session_id($this->sessao_id);
         session_start();
 
-        # Carregar os dados na sessão
-        foreach( $d as $ch => $vr )
-            $_SESSION[$ch] = $vr;
+        $this->_carregarsessao($d);
 
         return /* $this->_verificarlogin(false) */ true;
     } // Fim do método _fazerlogin
+
+
+
+    public function _carregarsessao($d){
+        # Carregar os dados na sessão
+        foreach( $d as $ch => $vr )
+            $_SESSION[$ch] = $vr;
+    } // Fim do método _carregarsessao
 
 
 

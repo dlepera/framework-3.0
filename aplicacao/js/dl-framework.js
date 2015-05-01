@@ -112,13 +112,18 @@ function CarregarHTML(controle, id_html){
                 var kc = e.keyCode || e.charCode || e.which;
                 
                 if( kc === 27 ){
-                    $html.fadeOut('fast', function(){
-                        $(this).remove();
-                    });
+                    $('#btn-'+ id_html).trigger('click');
                 } // Fim if( kc === 27 )
             });
         }
     });
+    
+    // Criar o botão para fechar
+    $(document.createElement('button')).text('x').attr({ id: 'btn-'+ id_html }).on('click', function(){
+        $html.fadeOut('fast', function(){
+            $(this).remove();
+        });
+    }).addClass('btn-fechar').appendTo($html);
     
     return $html;
 } // Fim de function CarregarHTML(controle, id_html)

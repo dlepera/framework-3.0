@@ -12,14 +12,14 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <?php if( $params['perm-inserir?'] ): ?>
     <!-- Inserir um novo registro -->
     <a href="admin/grupos-de-usuarios/novo" class="com-icone a-inserir"><?= TXT_LINK_NOVO_GRUPO_USUARIO; ?></a>
     <?php endif; ?>
-    
+
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
     <form id="form-editar-lista" method="post" action="admin/grupos-de-usuarios/excluir-grupo">
@@ -27,7 +27,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-descr"><?= TXT_TABELA_TITULO_DESCR; ?></th>
                     <th id="th-publicado"><?= TXT_TABELA_TITULO_PUBLICADO; ?></th>
                     <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
@@ -40,7 +43,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['grupo_usuario_id']; ?>"/></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['grupo_usuario_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['grupo_usuario_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-descr"><?= $l['grupo_usuario_descr']; ?></td>
                     <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>
                     <td headers="th-opcoes" class="td-opcoes">

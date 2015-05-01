@@ -12,7 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3">
+<section class="dl3-conteudo">
     <h1><?= $params['titulo']; ?></h1>
 
     <!-- Inserir um novo registro -->
@@ -27,7 +27,10 @@ if( !isset($params) )
         <table class="lista">
             <thead>
                 <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
+                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <?php endif; ?>
                     <th id="th-grupo" class="v-desk"><?= TXT_TABELA_TITULO_GRUPO; ?></th>
                     <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
                     <th id="th-email" class="v-desk"><?= TXT_TABELA_TITULO_EMAIL; ?></th>
@@ -41,7 +44,10 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-id" class="td-id"><input type="checkbox" name="id[]" value="<?= $l['usuario_id']; ?>"/></td>
+                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['usuario_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="td-id"><?= $l['usuario_id']; ?></td>
+                    <?php endif; ?>
                     <td headers="th-grupo" class="v-desk"><?= $l['grupo_usuario_descr']; ?></td>
                     <td headers="th-nome"><?= $l['usuario_info_nome']; ?></td>
                     <td headers="th-email" class="v-desk"><?= $l['usuario_info_email']; ?></td>

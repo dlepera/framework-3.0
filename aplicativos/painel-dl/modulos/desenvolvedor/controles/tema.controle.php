@@ -54,8 +54,8 @@ class Tema extends \Geral\Controle\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
-            array('valor' => 'tema_desc', 'texto' => TXT_LABEL_DESCRICAO),
-            array('valor' => 'tema_diretorio', 'texto' => TXT_LABEL_DIRETORIO)
+            array('valor' => 'tema_desc', 'texto' => TXT_ROTULO_DESCRICAO),
+            array('valor' => 'tema_diretorio', 'texto' => TXT_ROTULO_DIRETORIO)
         ));
     } // Fim do método _mostrartemas
 
