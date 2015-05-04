@@ -12,3 +12,6 @@ ALTER TABLE dl_painel_usuarios ADD usuario_ultimo_login DATETIME AFTER usuario_p
 ALTER TABLE dl_site_google_analytics CHANGE ga_ativar ga_principal BIT NOT NULL DEFAULT 0;
 ALTER TABLE dl_site_google_analytics ADD ga_publicar BIT NOT NULL DEFAULT 1 AFTER ga_principal;
 ALTER TABLE dl_site_google_analytics ADD ga_apelido VARCHAR(100) AFTER ga_id;
+
+-- Incluir o idioma Inglês (USA)
+INSERT INTO dl_painel_idiomas (idioma_descr, idioma_sigla) VALUES ('Inglês (USA)', 'en_US');
