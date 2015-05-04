@@ -227,6 +227,10 @@
                 
                 /* Esconder o sub-menu desse item */
                 > .sub-menu{
+                    /* Flex */
+                    @include _flex-box();
+                    @include _flex-flow(row wrap);
+            
                     /* Visual */
                     display         : none;
                     border-bottom   : $borda-suave;
