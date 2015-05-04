@@ -21,7 +21,7 @@ define('TXT_ROTULO_NOME', 'Nome');
 define('TXT_ROTULO_EMAIL', 'E-mail');
 define('TXT_ROTULO_LOGIN', 'Login');
 define('TXT_ROTULO_GRUPO', 'Grupo');
-define('TXT_ROTULO_ULTIMO_LOGIN', 'Ultimo login');
+define('TXT_ROTULO_ULTIMO_LOGIN', 'Último login');
 
 # Relatórios
 # -> Títulos
