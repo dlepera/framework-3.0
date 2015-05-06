@@ -55,12 +55,13 @@ class Controle extends \Geral\Controle\Principal{
      * -------------------------------------------------------------------------
      *
      * @param int $id - ID do registro a ser selecionado
+     * @param bool $tr - define se serão carregados o topo e rodapé da página
      */
-    public function _mostrarform($id=null){
+    public function _mostrarform($id=null,$tr=true){
         $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $url, $id);
 
         # Visão
-        $this->_carregarhtml('form_');
+        $this->_carregarhtml('form_', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_TITULO_NOVO : TXT_TITULO_EDITAR;
     } // Fim do método _mostrarform
 } // Fim do Controle Controle

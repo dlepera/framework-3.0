@@ -16,6 +16,9 @@ class Modelo extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
+    public function _campo($v=null){
+        return $this->campo = filter_var(is_null($v) ? $this->campo : $v, FILTER_DEFAULT);
+    } // Fim do método _campo
 
 
 
