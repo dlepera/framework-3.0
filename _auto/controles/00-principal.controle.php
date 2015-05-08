@@ -178,7 +178,7 @@ abstract class Principal{
     protected function _listapadrao($c, $o = '', $q = 20, $m = '_listar', $a=true, $fa=''){
         # Verificar se o método informado existe
         if( !method_exists($this->modelo, $m) )
-            throw new \Exception(sprintf(ERRO_PADRAO_METODO_NAO_ENCONTRADO, $m, getclass($this->modelo)), 1404);
+            throw new \Exception(sprintf(ERRO_PADRAO_METODO_NAO_ENCONTRADO, $m, get_class($this->modelo)), 1404);
 
         # Carregar o script AJAX
         if( $a ) $this->_carregarhtml ('comum/visoes/lista_ajax', false, 98);
@@ -203,7 +203,7 @@ abstract class Principal{
 
         # Exibir o ID do registro ou não
         $eid = $dsess ? $_SESSION['usuario_pref_exibir_id'] : false;
-        
+
         # Lista
         $l = $this->modelo->{$m}(implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
 
