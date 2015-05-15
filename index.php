@@ -10,6 +10,7 @@
 /**
  * Definir algumas constantes que serão utilizadas durante a execução das
  * classes
+ * -----------------------------------------------------------------------------
  */
 define('ABSPATH', dirname(__FILE__));
 define('DL3_AMBIENTE', filter_input(INPUT_GET, 'dl3_a'));

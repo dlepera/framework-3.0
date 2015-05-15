@@ -50,7 +50,7 @@ class Funcoes{
             return '';
 
         # A função strtotime() não aceita a string da data no formato brasileiro
-        # com a '/' barra separando dia, mÃªs e ano. Portanto, caso a data seja
+        # com a '/' barra separando dia, mês e ano. Portanto, caso a data seja
         # informada dessa forma substituir a '/' barra pelo '-' hifém
         if( strpos($data_hora, '/') > -1 )
             $data_hora = str_replace('/', '-', $data_hora);
@@ -66,7 +66,7 @@ class Funcoes{
      * -------------------------------------------------------------------------
      *
      * @param string $msg - mensagem a ser exibida na tela
-     * @param string $tipo - define parte da aparÃªncia da mensagens exibida
+     * @param string $tipo - define parte da aparência da mensagens exibida
      */
     public static function _retornar($msg, $tipo){
         \DL3::$tmp_buffer_resposta[] = array(
@@ -112,7 +112,7 @@ class Funcoes{
         $acentuacao['a'] = array('á', 'Ã ', 'â', 'ã');
 
         # Acentuação na letra 'e' minúscula
-        $acentuacao['e'] = array('é', 'Ã¨', 'Ãª');
+        $acentuacao['e'] = array('é', 'Ã¨', 'ê');
 
         # Acentuação na letra 'i' minúscula
         $acentuacao['i'] = array('í', 'Ã¬', 'Ã®');

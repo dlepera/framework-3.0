@@ -38,13 +38,12 @@ class Album extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('album_id, album_nome, foto_album_imagem, ( CASE album_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . ' END ) AS PUBLICADO', 'album_nome', null);
 
         # Visão
         $this->_carregarhtml('lista_albuns');
-        $this->visao->titulo = TXT_TITULO_ALBUNS_FOTOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -65,7 +64,7 @@ class Album extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_album');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_ALBUM : TXT_TITULO_EDITAR_ALBUM;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_ALBUM : TXT_PAGINA_TITULO_EDITAR_ALBUM;
 
         if( !$inc ):
             # Lista de fotos

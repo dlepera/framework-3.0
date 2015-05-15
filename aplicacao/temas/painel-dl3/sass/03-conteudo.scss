@@ -1,0 +1,89 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 12/05/2015 16:48:04
+ */
+
+
+@import '../../_ajuda/compatibilidade.scss';
+@import '../../_ajuda/geometricas.scss';
+@import '../_ajuda/cores.scss';
+@import '../_ajuda/configuracoes.scss';
+
+
+/* -----------------------------------------------------------------------------
+ *  Conteúdo
+ *  -> Cores
+ * -------------------------------------------------------------------------- */
+.dl3-conteudo{
+    /* Visual */
+    background-color: $c-cont-fundo;
+    
+    /* Texto */
+    color: $c-cont-txt;
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Conteudo
+ *  -> Visual e comportamento
+ * -------------------------------------------------------------------------- */
+.dl3-conteudo{
+    /* Flex */
+    @include _flex(100%);
+    
+    /* Visual */
+    border          : $borda-suave;
+    border-radius   : 5px;
+    
+    /* Margens */
+    padding: 1em;
+    
+    /* Posicionamento */
+    position: relative;
+    
+    > .titulo-h1{
+        /* Texto */
+        font-variant: small-caps;
+        font-size   : 1.5em; 
+        line-height : 2em;
+        font-weight : normal; 
+        
+        /* Visual */
+        border-bottom: $borda-suave;
+        
+        /* Margens */
+        margin-bottom: 1em;
+    }
+    
+    > .titulo-h2{
+        /* Texto */
+        font-variant: small-caps;
+        font-size   : 1.3em; 
+        line-height : 1.3em;
+        font-weight : normal;
+        
+        /* Visual */
+        border-left: 3px solid $c-titulo-h2;
+        
+        /* Margens */
+        margin      : 1em 0;
+        padding-left: .35em;
+    }
+}
+
+
+
+/* Desktops ----------------------------------------------------------------- */
+@media screen and (min-width:$tela-tablet + 1px){
+    
+}
+
+
+
+/* Tablets e smartphones ---------------------------------------------------- */
+@media screen and (max-width:$tela-tablet){
+    
+}

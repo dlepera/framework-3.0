@@ -1,0 +1,79 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data    	: 01/05/2015 11:15:07
+ */
+
+
+@import '../../_ajuda/compatibilidade.scss';
+@import 'configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ *  Grade Flexivel
+ * -------------------------------------------------------------------------- */
+.flexivel{
+    /* Flex */
+    @include _flex-box();
+    @include _flex-flow(row wrap);
+}
+
+
+/* Desktops */
+@media screen and (min-width:$tela-tablet + 1px){
+    .flexivel{
+        $mv: 1%; /* Margem vertical */
+        $mh: .55%; /* Margem horizontal */
+        
+        @for $i from 2 through $flex-qtde-cols{
+            $tm : (100% / $i) - ($mh * 2); /* Tamanho da coluna */
+            $mhf: (100% - ($tm * $i)) / ($i + ($i - 2)); /* Margem horizontal final */
+            
+            > .col-#{$i}{
+                /* Flex */
+                @include _flex($tm);
+                
+                /* Tamanho */
+                max-width: $tm;
+                
+                /* Margens */
+                margin: $mv $mhf;
+            }
+            
+            /* Config das margens */
+            .col-#{$i}:nth-child(#{$i}n+1){ margin-left: 0; }
+            .col-#{$i}:nth-child(#{$i}n+#{$i}){ margin-right: 0; }
+        }
+    }
+}
+
+
+
+/* Tablets e smartphones */
+@media screen and (max-width:$tela-tablet){
+    .flexivel{
+        $mv: 2%; /* Margem vertical */
+        $mh: .5%; /* Margem horizontal */
+        
+        @for $i from 2 through $flex-qtde-cols{
+            $qc : floor($i / 2); /* Quatidade de colunas real para esse dispositivo */
+            $tm : (100% / $qc) - if($qc > 1, ($mh * 2), 0); /* Tamanho da coluna */
+            $mhf: (100% - ($tm * $qc)) / ($qc + ($qc - 2)); /* Margem horizontal final */
+            
+            > .col-#{$i}{
+                /* Flex */
+                @include _flex($tm);
+                
+                /* Tamanho */
+                max-width: $tm;
+                
+                /* Margens */
+                margin: $mv if($qc > 1, $mhf, 0);
+            }
+            
+            /* Config das margens */
+            .col-#{$qc}:nth-child(#{$qc}n+1){ margin-left: 0; }
+            .col-#{$qc}:nth-child(#{$qc}n+#{$qc}){ margin-right: 0; }
+        }
+    }
+}

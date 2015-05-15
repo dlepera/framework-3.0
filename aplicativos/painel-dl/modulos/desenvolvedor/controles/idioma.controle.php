@@ -18,7 +18,7 @@ class Idioma extends \Geral\Controle\PainelDL{
                 'id'        =>  FILTER_VALIDATE_INT,
                 'descr'     =>  FILTER_SANITIZE_STRING,
                 'sigla'     =>  FILTER_SANITIZE_STRING,
-                'publicar'  =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
@@ -33,13 +33,12 @@ class Idioma extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla, ( CASE idioma_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) AS PUBLICADO", 'idioma_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_idiomas');
-        $this->visao->titulo = TXT_TITULO_IDIOMAS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_IDIOMAS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -62,6 +61,6 @@ class Idioma extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_idioma', is_null($tr) ? true : $tr);
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_IDIOMA : TXT_TITULO_EDITAR_IDIOMA;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_IDIOMA : TXT_PAGINA_TITULO_EDITAR_IDIOMA;
     } // Fim do método _mostrarform
 } // Fim do Controle Tema

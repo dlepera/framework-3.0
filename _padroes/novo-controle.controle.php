@@ -40,7 +40,7 @@ class Controle extends \Geral\Controle\Principal{
 
         # Visão
         $this->_carregarhtml('lista_');
-        $this->visao->titulo = TXT_TITULO_;
+        $this->visao->titulo = TXT_PAGINA_TITULO_;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -61,7 +61,7 @@ class Controle extends \Geral\Controle\Principal{
         $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $url, $id);
 
         # Visão
-        $this->_carregarhtml('form_', is_null($tr) ? true : $tr);
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO : TXT_TITULO_EDITAR;
+        $this->_carregarhtml('form_');
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO : TXT_PAGINA_TITULO_EDITAR;
     } // Fim do método _mostrarform
 } // Fim do Controle Controle

@@ -51,6 +51,12 @@ $rotas['^grupos-de-usuarios/carregar-select$'] = array(
     'acao'      =>  'carregarselect'
 );
 
+$rotas['^grupos-de-usuarios/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'GrupoUsuario',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**

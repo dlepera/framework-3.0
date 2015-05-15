@@ -10,18 +10,17 @@
 namespace AlbunsDeFotos\Modelo;
 
 class FotoAlbum extends \Geral\Modelo\Principal{
-    protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0,
-            $publicar = 1, $delete = 0;
+    protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0, $publicar = 1, $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _foto_album(){ return (int)$this->foto_album; } // Fim do método _foto_album
-    public function _titulo(){ return (string)$this->titulo; } // Fim do método _titulo
-    public function _descr(){ return (string)$this->descr; } // Fim do método _descr
-    public function _imagem(){ return (string)$this->imagem; } // Fim do método _imagem
-    public function _capa(){ return (int)$this->capa; } // Fim do método _capa
+    public function _foto_album(){ return filter_var($this->foto_album, FILTER_VALIDATE_INT); } // Fim do método _foto_album
+    public function _titulo(){ return filter_var($this->titulo, FILTER_SANITIZE_STRING); } // Fim do método _titulo
+    public function _descr(){ return filter_var($this->descr, FILTER_SANITIZE_STRING); } // Fim do método _descr
+    public function _imagem(){ return filter_var($this->imagem, FILTER_SANITIZE_STRING); } // Fim do método _imagem
+    public function _capa(){ return filter_var($this->capa, FILTER_VALIDATE_BOOLEAN); } // Fim do método _capa
 
 
 

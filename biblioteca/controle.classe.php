@@ -15,19 +15,12 @@ class Controle{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function __get($n){
-        $s = "_{$n}";
-        if( method_exists($this, $s) ) $this->{$s}();
-    } // Fim do método __get
+    public function __get($n){ return m_get($this, $n); } // Fim do método __get
 
-    public function __set($n, $v){
-        $s = "_{$n}";
-        if( method_exists($this, $s) ) $this->{$s}($v);
-    } // Fim do método __set
+    public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
 
     public function _modulo($v=null){
-        return is_null($v) ? (string)$this->modulo
-        : $this->modulo = (string)str_replace(' ', '', ucwords(str_replace('-', ' ', $v)));
+        return $this->modulo = str_replace(' ', '', ucwords(str_replace('-', ' ', filter_var(is_null($v) ? $this->modulo : $v, FILTER_SANITIZE_STRING))));
     } // Fim do método _modulo
 
     public function _controle($v=null){
@@ -36,13 +29,13 @@ class Controle{
     } // Fim do método _controle
 
     public function _acao($v=null){
-        return is_null($v) ? (string)$this->acao
-        : $this->acao = (string)"_{$v}";
+        return $this->acao = filter_var(is_null($v) ? $this->acao : "_{$v}", FILTER_SANITIZE_STRING);
     } // Fim do método _acao
 
     public function _params($v=null){
-        return is_null($v) ? (array)$this->params
-        : $this->params = (array)$v;
+        // Não funcionou dessa maneira
+        // return $this->params = filter_var(is_null($v) ? $this->params : $v, null, FILTER_REQUIRE_ARRAY);
+        return is_null($v) ? (array)$this->params : $this->params = (array)$v;
     } // Fim do método _params
 
     public function __construct($m, $c, $a, array $p = array()){
@@ -78,6 +71,14 @@ class Controle{
             throw new Exception('A ação não pôde ser executada!', 1500);
 
         $c = new $this->controle();
+
+        if( \DL3::$aut_o instanceof \Autenticacao && $_SESSION['usuario_conf_reset'] &&
+            ($this->modulo != 'admin' && $this->controle != '\Admin\Controle\Usuario' && $this->acao != '_alterarsenha') ):
+
+            return  call_user_func_array(
+                array(new \Admin\Controle\Usuario(), '_formalterarsenha'), array()
+            );
+        endif;
 
         return call_user_func_array(
             array($c, $this->acao),

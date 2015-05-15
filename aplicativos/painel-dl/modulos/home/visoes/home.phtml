@@ -10,7 +10,7 @@
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= \DL3::$ap_titulo; ?></h1>
+    <h1 class="titulo-h1"><?= \DL3::$ap_titulo; ?></h1>
 
     <div class="widgets flexivel">
         <div class="widget hm-usuario col-2">
@@ -25,7 +25,7 @@
             </p>
 
             <p class="wg-conteudo">
-                <a href="admin/usuarios/minha-conta" class="wg-link com-icone a-detalhes">
+                <a href="admin/usuarios/minha-conta" class="wg-link com-icone ico-detalhes">
                     <?= TXT_LINK_EDITAR_DADOS; ?>
                 </a>
             </p>
@@ -36,7 +36,7 @@
             <?= $params['rel-contatos']; ?>
 
             <p class="wg-conteudo">
-                <a href="website/contatos-recebidos" class="wg-link com-icone a-detalhes">
+                <a href="website/contatos-recebidos" class="wg-link com-icone ico-detalhes">
                     <?= TXT_LINK_TODOS_CONTATOS; ?>
                 </a>
             </p>
@@ -45,7 +45,7 @@
         <div class="widget hm-analytics col-2">
             <h2 class="wg-titulo"><?= TXT_RELATORIO_TITULO_ACESSOS_MENSAIS; ?></h2>
 
-            <ul id="ga" class="wg-conteudo sem-marcadores">
+            <ul id="ga" class="wg-conteudo">
                 <li class="ga-valor atras-2">
                     <h3><?= MSG_MES; ?></h3>
                     <div class="visitas"></div>
@@ -63,7 +63,7 @@
             </ul>
 
             <p class="wg-conteudo">
-                <a href="website/google-analytics" class="wg-link com-icone a-detalhes">
+                <a href="website/google-analytics" class="wg-link com-icone ico-detalhes">
                     <?= TXT_LINK_CONFIGURACOES_GOOGLE_ANALYTICS; ?>
                 </a>
             </p>

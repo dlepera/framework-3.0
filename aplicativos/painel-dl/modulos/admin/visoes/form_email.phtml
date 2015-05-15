@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -24,33 +24,33 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_SERVIDOR; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_SERVIDOR; ?></legend>
 
             <p class="form-paragr">
                 <label for="txt-titulo" class="form-rotulo"><?= TXT_ROTULO_TITULO; ?>:</label><br/>
-                <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>" required/>
+                <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-host" class="form-rotulo"><?= TXT_ROTULO_HOST; ?>:</label><br/>
-                <input type="text" name="host" id="txt-host" value="<?= $mod->host; ?>" required/>
-                : <input type="number" name="porta" value="<?= $mod->porta; ?>" required/>
+                <input type="text" name="host" id="txt-host" value="<?= $mod->host; ?>" class="form-controle" required/>
+                : <input type="number" name="porta" value="<?= $mod->porta; ?>" min="1" max="9999" class="form-controle form-numero" required/>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_AUTENTICACAO; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_AUTENTICACAO; ?></legend>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_REQUER_AUTENT; ?></span><br/>
-                <input type="checkbox" name="autent" id="chk-autent" class="s-ou-n" value="1"<?= $mod->autent ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?= $mod->autent ? ' CHECKED' : ''; ?>/>
                 <label for="chk-autent"></label>
             </p>
 
             <p class="form-paragr">
                 <label for="sel-cripto" class="form-rotulo"><?= TXT_ROTULO_TIPO_CRIPTO; ?>:</label><br/>
-                <select name="cripto" id="sel-cripto">
+                <select name="cripto" id="sel-cripto" class="form-controle">
                     <option value=""><?= TXT_OPCAO_NENHUMA; ?></option>
                     <option value="tls"<?= $mod->cripto == 'tls' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_TLS; ?></option>
                     <option value="ssl"<?= $mod->cripto == 'ssl' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_SSL; ?></option>
@@ -59,37 +59,37 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="txt-conta" class="form-rotulo"><?= TXT_ROTULO_CONTA; ?>:</label><br/>
-                <input type="text" name="conta" id="txt-conta" value="<?= $mod->conta; ?>"/>
+                <input type="text" name="conta" id="txt-conta" class="form-controle" value="<?= $mod->conta; ?>"/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>"/>
+                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" class="form-controle"/>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
 
             <p class="form-paragr">
                 <label for="de-nome" class="form-rotulo"><?= TXT_ROTULO_DE_NOME; ?>:</label><br/>
-                <input type="text" name="de_nome" id="de-nome" value="<?= $mod->de_nome; ?>"/>
+                <input type="text" name="de_nome" id="de-nome" value="<?= $mod->de_nome; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
                 <label for="de-email" class="form-rotulo"><?= TXT_ROTULO_DE_EMAIL; ?>:</label><br/>
-                <input type="email" name="de_email" id="de-email" value="<?= $mod->de_email; ?>"/>
+                <input type="email" name="de_email" id="de-email" value="<?= $mod->de_email; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
                 <label for="responder-para" class="form-rotulo"><?= TXT_ROTULO_RESPONDER_PARA; ?>:</label><br/>
-                <input type="email" name="responder_para" id="responder-para" value="<?= $mod->responder_para; ?>"/>
+                <input type="email" name="responder_para" id="responder-para" value="<?= $mod->responder_para; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_HTML; ?></span><br/>
                 <span class="form-dica"><?= MSG_DICA_EMAIL_HTML; ?></span><br/>
-                <input type="checkbox" name="html" id="chk-html" class="s-ou-n" value="1"<?= $mod->html || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?= $mod->html ? ' CHECKED' : ''; ?>/>
                 <label for="chk-html"></label>
             </p>
         </fieldset>
@@ -97,7 +97,7 @@ $mod = $params['modelo'];
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
             <span class="form-dica"><?= MSG_DICA_EMAIL_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="s-ou-n" value="1"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
             <label for="chk-principal"></label>
         </p>
 
@@ -106,7 +106,7 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
 
             <?php if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
-            <a href="javascript:;" onclick="$sf.executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone a-email">
+            <a href="javascript:;" onclick="$sf.executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
                 <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
             </a>
             <?php endif; ?>

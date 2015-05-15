@@ -17,32 +17,23 @@ class TipoDadoContato extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _icone($v=null){
-        return is_null($v) ? (string)$this->icone
-        : $this->icone = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->icone = filter_var(is_null($v) ? $this->icone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _icone
 
     public function _rede_social($v=null){
-        if( is_null($v) ) return (int)$this->rede_social;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'rede_social'), 1500);
-
-        return $this->rede_social = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->rede_social = filter_var(is_null($v) ? $this->rede_social : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _rede_social
 
     public function _mascara($v=null){
-        return is_null($v) ? (string)$this->mascara
-        : $this->mascara = (string)filter_var($v, FILTER_DEFAULT);
+        return $this->mascara = filter_var(is_null($v) ? $this->mascara : $v);
     } // Fim do método _mascara
 
     public function _expreg($v=null){
-        return is_null($v) ? (string)$this->expreg
-        : $this->expreg = (string)filter_var($v, FILTER_DEFAULT);
+        return $this->expreg = filter_var(is_null($v) ? $this->expreg : $v);
     } // Fim do método _expreg
 
 

@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -33,7 +33,7 @@ $mod = $params['modelo'];
 
         <p class="form-paragr usr-alterar-foto">
             <?php if( $params['usuario-logado?'] ): ?>
-            <input type="file" name="perfil_foto" id="perfil-foto"/>
+            <input type="file" name="perfil_foto" id="perfil-foto" class="form-controle"/>
             <label for="perfil-foto">
                 <?= $mod->_mostrarfoto('..', 'g'); ?>
                 <span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
@@ -44,22 +44,22 @@ $mod = $params['modelo'];
         </p>
 
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
 
             <p class="form-paragr">
                 <label for="info-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-                <input type="text" name="info_nome" id="info-nome" value="<?= $mod->info_nome; ?>" required/>
+                <input type="text" name="info_nome" id="info-nome" value="<?= $mod->info_nome; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="info-email" class="form-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</label><br/>
-                <input type="email" name="info_email" id="info-email" value="<?= $mod->info_email; ?>" required/>
+                <input type="email" name="info_email" id="info-email" value="<?= $mod->info_email; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="info-telefone"><?= TXT_ROTULO_TELEFONE; ?>:</label><br/>
-                <input type="tel" name="info_telefone" id="info-telefone" value="<?= $mod->info_telefone; ?>"/>
+                <input type="tel" name="info_telefone" id="info-telefone" value="<?= $mod->info_telefone; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
@@ -72,12 +72,12 @@ $mod = $params['modelo'];
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_PREFERENCIAS; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_PREFERENCIAS; ?></legend>
 
             <p class="form-paragr">
                 <label for="pref-idioma" class="form-rotulo"><?= TXT_ROTULO_IDIOMA; ?>:</label><br/>
-                <select name="pref_idioma" id="pref-idioma" required>
+                <select name="pref_idioma" id="pref-idioma" class="form-controle" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['idiomas'] as $o ): ?>
@@ -88,7 +88,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_IDIOMA; ?>
                 </a>
                 <?php endif; ?>
@@ -96,7 +96,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="pref-tema" class="form-rotulo"><?= TXT_ROTULO_TEMA; ?>:</label><br/>
-                <select name="pref_tema" id="pref-tema" required>
+                <select name="pref_tema" id="pref-tema" class="form-controle" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['temas'] as $o ): ?>
@@ -107,7 +107,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-tema?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_TEMA; ?>
                 </a>
                 <?php endif; ?>
@@ -115,7 +115,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="pref-formato-data" class="form-rotulo"><?= TXT_ROTULO_FORMATO_DATA; ?>:</label><br/>
-                <select name="pref_formato_data" id="pref-formato-data" required>
+                <select name="pref_formato_data" id="pref-formato-data" class="form-controle" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['formatos-data'] as $o ): ?>
@@ -129,31 +129,31 @@ $mod = $params['modelo'];
             <p class="form-paragr">
                 <label for="pref-num-registros" class="form-rotulo"><?= TXT_ROTULO_NUM_REGISTROS; ?>:</label><br/>
                 <span class="form-dica"><?= MSG_DICA_USUARIO_NUM_REGISTROS; ?></span><br/>
-                <input type="number" name="pref_num_registros" id="pref-num-registros" value="<?= $mod->pref_num_registros; ?>" min="5"/>
+                <input type="number" name="pref_num_registros" id="pref-num-registros" value="<?= $mod->pref_num_registros; ?>" min="5" max="999" class="form-controle form-numero"/>
             </p>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_EXIBIR_ID; ?></span><br/>
                 <span class="form-dica"><?= TXT_DICA_EXIBIR_ID; ?></span><br/>
-                <input type="checkbox" name="pref_exibir_id" id="chk-exibir-id" class="s-ou-n"<?= $mod->pref_exibir_id ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="pref_exibir_id" id="chk-exibir-id" class="form-alternar"<?= $mod->pref_exibir_id ? ' CHECKED' : ''; ?>/>
                 <label for="chk-exibir-id"></label>
             </p>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_FILTRO_MENU; ?></span><br/>
                 <span class="form-dica"><?= TXT_DICA_FILTRO_MENU; ?></span><br/>
-                <input type="checkbox" name="pref_filtro_menu" id="chk-filtro-menu" class="s-ou-n"<?= $mod->pref_filtro_menu ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="pref_filtro_menu" id="chk-filtro-menu" class="form-alternar"<?= $mod->pref_filtro_menu ? ' CHECKED' : ''; ?>/>
                 <label for="chk-filtro-menu"></label>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_ACESSO_SISTEMA; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_ACESSO_SISTEMA; ?></legend>
 
             <?php if( $params['incluindo'] || !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
                 <label for="info-grupo" class="form-rotulo"><?= TXT_ROTULO_GRUPO; ?>:</label><br/>
-                <select name="info_grupo" id="info-grupo" required>
+                <select name="info_grupo" id="info-grupo" class="form-controle" required>
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['grupos-usuarios'] as $o ): ?>
@@ -164,7 +164,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone a-inserir a-select">
+                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
                 </a>
                 <?php endif; ?>
@@ -174,39 +174,39 @@ $mod = $params['modelo'];
                 <?= TXT_ROTULO_GRUPO, ':<br/>', $params['grupo-descr']; ?>
                 <input type="hidden" name="info_grupo" value="<?= $mod->info_grupo; ?>"/>
             </p>
-            <?php endif; ?>
+            <?php endif;
 
-            <?php if( $params['incluindo'] ): ?>
+            if( $params['incluindo'] ): ?>
             <p class="form-paragr">
                 <label for="info-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
-                <input type="text" name="info_login" id="info-login" required/>
+                <input type="text" name="info_login" id="info-login" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="info-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-                <input type="password" name="info_senha" id="info-senha" required/>
+                <input type="password" name="info_senha" id="info-senha" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="conf-senha" class="form-rotulo"><?= TXT_ROTULO_CONF_SENHA; ?>:</label><br/>
-                <input type="password" name="conf_senha" id="conf-senha" required/>
+                <input type="password" name="conf_senha" id="conf-senha" class="form-controle" required/>
             </p>
             <?php else: ?>
             <p class="form-paragr">
                 <label for="info-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
-                <input type="text" name="info_login" id="info-login" value="<?= $mod->info_login; ?>" readonly required/>
+                <input type="text" name="info_login" id="info-login" value="<?= $mod->info_login; ?>" class="form-controle" readonly required/>
             </p>
-            <?php endif; ?>
+            <?php endif;
 
-            <?php if( !$params['usuario-logado?'] ): ?>
+            if( !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
-                <input type="checkbox" name="conf_reset" id="conf-reset" value="1"<?= $mod->conf_reset == 1  ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="conf_reset" id="conf-reset"<?= $mod->conf_reset ? ' CHECKED' : ''; ?>/>
                 <label for="conf-reset"><?= TXT_ROTULO_RESET; ?></label><br/>
                 <sapn class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
             </p>
 
             <p class="form-paragr">
-                <input type="checkbox" name="conf_bloq" id="conf-bloq" value="1"<?= $mod->conf_bloq == 1  ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="conf_bloq" id="conf-bloq"<?= $mod->conf_bloq  ? ' CHECKED' : ''; ?>/>
                 <label for="conf-bloq"><?= TXT_ROTULO_BLOQ; ?></label><br/>
                 <sapn class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
             </p>

@@ -8,121 +8,134 @@
  */
 
 # Nomes de modelos
-define('TXT_MODELO_CONTATOSITE', 'site form');
-define('TXT_MODELO_ASSUNTOCONTATO', 'subject');
+define('TXT_MODELO_CONTATOSITE', 'contato do site');
+define('TXT_MODELO_ASSUNTOCONTATO', 'assunto de contato');
 define('TXT_MODELO_TIPODADOCONTATO', 'tipo de dado para contato');
 define('TXT_MODELO_GOOGLEANALYTICS', 'configuração do google analytics');
-define('TXT_MODELO_DADOCONTATO', 'contact data');
-define('TXT_MODELO_ALBUM'. 'photo album');
-define('TXT_MODELO_FOTO', 'photo');
+define('TXT_MODELO_DADOCONTATO', 'dado para contato');
+define('TXT_MODELO_ALBUM'. 'álbum de fotos');
+define('TXT_MODELO_FOTO', 'foto');
+define('TXT_MODELO_CONFIGURACAOSITE', 'configuração do site');
 
-# Títulos de páginas
-define('TXT_TITULO_CONTATOS_RECEBIDOS', 'Received contacts');
-define('TXT_TITULO_DETALHES_CONTATO', 'Contact details');
-define('TXT_TITULO_CONTATO', 'Contact');
-define('TXT_TITULO_ENVIO_EMAIL', 'E-mail send');
-define('TXT_TITULO_ASSUNTOS_CONTATO', 'Subjects');
-define('TXT_TITULO_NOVO_ASSUNTO', 'Inser a new subject');
-define('TXT_TITULO_EDITAR_ASSUNTO', 'Editar esse assunto de contato');
-define('TXT_TITULO_TIPOS_DADO_CONTATO', 'Tipos de dados para contato');
-define('TXT_TITULO_NOVO_TIPO_DADO', 'Cadastrar um novo tipo de dado para contato');
-define('TXT_TITULO_EDITAR_TIPO_DADO', 'Editar esse tipo de dado para contato');
-define('TXT_TITULO_CONFIGURACOES_GA', 'Configurações do Google Analytics');
-define('TXT_TITULO_NOVO_GA', 'Nova configuração do Google Analytics');
-define('TXT_TITULO_EDITAR_GA', 'Editar essa configuração do Google Analytics');
-define('TXT_TITULO_DADOS_CONTATO', 'Dados para contato');
-define('TXT_TITULO_NOVO_DADOCONTATO', 'Cadastrar um novo dado para contato');
-define('TXT_TITULO_EDITAR_DADOCONTATO', 'Editar esse dado para contato');
-define('TXT_TITULO_ALBUNS_FOTOS', 'Álbuns de fotos');
-define('TXT_TITULO_NOVO_ALBUM', 'Cadastrar um novo álbum de fotos');
-define('TXT_TITULO_EDITAR_ALBUM', 'Editar esse álbum de fotos');
-define('TXT_TITULO_EDITAR_FOTO', 'Editar as informações dessa foto');
-define('TXT_TITULO_QUEM_LEU', 'Who read?');
-define('TXT_TITULO_HISTORIA', 'History');
-define('TXT_TITULO_MISSAO', 'Mission');
-define('TXT_TITULO_VISAO', 'Vision');
-define('TXT_TITULO_VALORES', 'Values');
-define('TXT_TITULO_INFOS_INSTITUCIONAIS', 'Institucional information');
-define('TXT_TITULO_EDITAR_INSTITUCIONAL', 'Editar informações institucionais');
+# Páginas
+# -> Títulos
+define('TXT_PAGINA_TITULO_CONTATOS_RECEBIDOS', 'Contatos recebidos');
+define('TXT_PAGINA_TITULO_DETALHES_CONTATO', 'Detalhes do contato');
+define('TXT_PAGINA_TITULO_CONTATO', 'Contato');
+define('TXT_PAGINA_TITULO_ENVIO_EMAIL', 'Envio do e-mail');
+define('TXT_PAGINA_TITULO_ASSUNTOS_CONTATO', 'Assuntos de contato');
+define('TXT_PAGINA_TITULO_NOVO_ASSUNTO', 'Cadastrar um novo assunto de contato');
+define('TXT_PAGINA_TITULO_EDITAR_ASSUNTO', 'Editar esse assunto de contato');
+define('TXT_PAGINA_TITULO_TIPOS_DADO_CONTATO', 'Tipos de dados para contato');
+define('TXT_PAGINA_TITULO_NOVO_TIPO_DADO', 'Cadastrar um novo tipo de dado para contato');
+define('TXT_PAGINA_TITULO_EDITAR_TIPO_DADO', 'Editar esse tipo de dado para contato');
+define('TXT_PAGINA_TITULO_CONFIGURACOES_GA', 'Configurações do Google Analytics');
+define('TXT_PAGINA_TITULO_NOVO_GA', 'Nova configuração do Google Analytics');
+define('TXT_PAGINA_TITULO_EDITAR_GA', 'Editar essa configuração do Google Analytics');
+define('TXT_PAGINA_TITULO_DADOS_CONTATO', 'Dados para contato');
+define('TXT_PAGINA_TITULO_NOVO_DADOCONTATO', 'Cadastrar um novo dado para contato');
+define('TXT_PAGINA_TITULO_EDITAR_DADOCONTATO', 'Editar esse dado para contato');
+define('TXT_PAGINA_TITULO_ALBUNS_FOTOS', 'Álbuns de fotos');
+define('TXT_PAGINA_TITULO_NOVO_ALBUM', 'Cadastrar um novo álbum de fotos');
+define('TXT_PAGINA_TITULO_EDITAR_ALBUM', 'Editar esse álbum de fotos');
+define('TXT_PAGINA_TITULO_EDITAR_FOTO', 'Editar as informações dessa foto');
+define('TXT_PAGINA_TITULO_HISTORIA', 'História');
+define('TXT_PAGINA_TITULO_MISSAO', 'Missão');
+define('TXT_PAGINA_TITULO_VISAO', 'Visão');
+define('TXT_PAGINA_TITULO_VALORES', 'Valores');
+define('TXT_PAGINA_TITULO_INFOS_INSTITUCIONAIS', 'Informações institucionais');
+define('TXT_PAGINA_TITULO_EDITAR_INSTITUCIONAL', 'Editar informações institucionais');
+define('TXT_PAGINA_TITULO_CONFIGURACAOSITE', 'Configurações do website');
 
 # Tabelas
 # -> Títulos
-define('TXT_TABELA_TITULO_DATA', 'Date');
-define('TXT_TABELA_TITULO_ASSUNTO', 'Subject');
-define('TXT_TABELA_TITULO_NOME', 'Name');
-define('TXT_TABELA_TITULO_EMAIL', 'E-mail');
-define('TXT_TABELA_TITULO_DESCR', 'Description');
-define('TXT_TABELA_TITULO_REDE_SOCIAL', 'Social network?');
-define('TXT_TABELA_TITULO_APELIDO', 'Nickname');
-define('TXT_TABELA_TITULO_USUARIO', 'User');
-define('TXT_TABELA_TITULO_PERFIL', 'Profile');
-define('TXT_TABELA_TITULO_PRINCIPAL', 'Default?');
-define('TXT_TABELA_TITULO_TIPO', 'Type');
+define('TXT_LISTA_TITULO_DATA', 'Data');
+define('TXT_LISTA_TITULO_ASSUNTO', 'Assunto');
+define('TXT_LISTA_TITULO_NOME', 'Nome');
+define('TXT_LISTA_TITULO_EMAIL', 'E-mail');
+define('TXT_LISTA_TITULO_DESCR', 'Descrição');
+define('TXT_LISTA_TITULO_REDE_SOCIAL', 'Rede Social?');
+define('TXT_LISTA_TITULO_APELIDO', 'Apelido');
+define('TXT_LISTA_TITULO_USUARIO', 'Usuário');
+define('TXT_LISTA_TITULO_PERFIL', 'Perfil');
+define('TXT_LISTA_TITULO_PRINCIPAL', 'Principal?');
+define('TXT_LISTA_TITULO_TIPO', 'Tipo');
 
 # Formulários
 # -> Legendas
-define('TXT_LEGENDA_CONTA_GOOGLE', 'Google Account');
-define('TXT_LEGENDA_CONFIGURACOES', 'Configurations');
-define('TXT_LEGENDA_ALBUM_FOTOS', 'Photo albums');
-define('TXT_LEGENDA_FOTOS', 'Photo\'s album');
-define('TXT_LEGENDA_OPCOES_AVANCADAS', 'Advanced options');
-define('TXT_LEGENDA_TIPO_DADO', 'Data type');
-define('TXT_LEGENDA_HISTORIA', 'History');
-define('TXT_LEGENDA_MISSAO', 'Mission');
-define('TXT_LEGENDA_VISAO', 'Vision');
-define('TXT_LEGENDA_VALORES', 'Values');
+define('TXT_LEGENDA_CONTA_GOOGLE', 'Conta Google');
+define('TXT_LEGENDA_CONFIGURACOES', 'Configurações');
+define('TXT_LEGENDA_ALBUM_FOTOS', 'Álbum de fotos');
+define('TXT_LEGENDA_FOTOS', 'Fotos do álbum');
+define('TXT_LEGENDA_OPCOES_AVANCADAS', 'Opções avançadas');
+define('TXT_LEGENDA_TIPO_DADO', 'Tipo de dado');
+define('TXT_LEGENDA_HISTORIA', 'História');
+define('TXT_LEGENDA_MISSAO', 'Missão');
+define('TXT_LEGENDA_VISAO', 'Visão');
+define('TXT_LEGENDA_VALORES', 'Valores');
 
-# -> Campos
-define('TXT_ROTULO_NOME', 'Name');
+# -> Rótulos
+define('TXT_ROTULO_NOME', 'Nome');
 define('TXT_ROTULO_EMAIL', 'E-mail');
-define('TXT_ROTULO_TELEFONE', 'Phone');
-define('TXT_ROTULO_MENSAGEM', 'Messagee');
-define('TXT_ROTULO_ASSUNTO', 'Subject');
+define('TXT_ROTULO_TELEFONE', 'Telefone');
+define('TXT_ROTULO_MENSAGEM', 'Mensagem');
+define('TXT_ROTULO_ASSUNTO', 'Assunto');
 define('TXT_ROTULO_STATUS', 'Status');
-define('TXT_ROTULO_DT_ENVIO', 'Send date');
-define('TXT_ROTULO_MSG_ERRO', 'Error message');
-define('TXT_ROTULO_DATA', 'Date');
-define('TXT_ROTULO_DESCR', 'Description');
-define('TXT_ROTULO_COR', 'Color');
-define('TXT_ROTULO_ICONE', 'Icon');
-define('TXT_ROTULO_REDE_SOCIAL', 'Social network?');
-define('TXT_ROTULO_PRINCIPAL', 'Default?');
-define('TXT_ROTULO_APELIDO', 'Neckname (opcional)');
-define('TXT_ROTULO_USUARIO', 'User');
-define('TXT_ROTULO_SENHA', 'Password');
-define('TXT_ROTULO_PERFIL', 'Profile');
-define('TXT_ROTULO_TIPO', 'Type');
-define('TXT_ROTULO_FOTOS', 'Photos');
-define('TXT_ROTULO_TITULO', 'Title');
-define('TXT_ROTULO_CAPA', 'Is the cover?');
-define('TXT_ROTULO_CODIGO_UA', 'UA code');
-define('TXT_ROTULO_MASCARA', 'Mask');
-define('TXT_ROTULO_EXPREG', 'Regular expression');
+define('TXT_ROTULO_DT_ENVIO', 'Data do envio');
+define('TXT_ROTULO_MSG_ERRO', 'Mensagem de erro');
+define('TXT_ROTULO_DATA', 'Data');
+define('TXT_ROTULO_DESCR', 'Descrição');
+define('TXT_ROTULO_COR', 'Cor');
+define('TXT_ROTULO_ICONE', 'Ícone');
+define('TXT_ROTULO_REDE_SOCIAL', 'Rede social?');
+define('TXT_ROTULO_PRINCIPAL', 'Principal?');
+define('TXT_ROTULO_APELIDO', 'Apelido (opcional)');
+define('TXT_ROTULO_USUARIO', 'Usuário');
+define('TXT_ROTULO_SENHA', 'Senha');
+define('TXT_ROTULO_PERFIL', 'Perfil');
+define('TXT_ROTULO_TIPO', 'Tipo');
+define('TXT_ROTULO_FOTOS', 'Fotos');
+define('TXT_ROTULO_TITULO', 'Título');
+define('TXT_ROTULO_CAPA', 'É a capa?');
+define('TXT_ROTULO_CODIGO_UA', 'Código UA');
+define('TXT_ROTULO_MASCARA', 'Máscara');
+define('TXT_ROTULO_EXPREG', 'Expressão regular');
+define('TXT_ROTULO_TEMA', 'Tema');
+define('TXT_ROTULO_FORMATO_DATA', 'Formato da data');
 
 # -> Botões
-define('TXT_BOTAO_SALVAR_FOTOS', 'Save photos');
+define('TXT_BOTAO_SALVAR_FOTOS', 'Salvar fotos');
+
+# Detalhes
+# -> Sumários
+define('TXT_SUMARIO_CONTATO', 'Contato');
+define('TXT_SUMARIO_ENVIO_EMAIL', 'Envio do e-mail');
+define('TXT_SUMARIO_QUEM_LEU', 'Quem leu?');
 
 # -> Dicas
-define('MSG_DICA_ALBUMFOTO_CAPA', 'Defines this photo like a album cover.');
-define('TXT_DICA_TIPODADO_MASCARA', 'Defines a mask like to record.<br/>'
-        . '<b>Ex.:</b> Phone - (##) ####-####<br/>'
-        . '<b>Obs.:</b> The # character represent eithr character. Os demais caracteres presentes na máscara ficarão fixos!');
+define('MSG_DICA_ALBUMFOTO_CAPA', 'Definir essa foto como a capa do álbum.');
+define('TXT_DICA_TIPODADO_MASCARA', 'Definir uma mácara para o preenchimento do regitro.<br/>'
+        . '<b>Ex.:</b> Telefone - (##) ####-####<br/>'
+        . '<b>Obs.:</b> O # representa qualquer caractere. Os demais caracteres presentes na máscara ficarão fixos!');
 define('TXT_DICA_TIPODADO_EXPREG', 'Expressão regular para ser usada na validação do registro inserido.');
 
 # Links
-define('TXT_LINK_NOVO_ASSUNTO', 'New subject');
+define('TXT_LINK_NOVO_ASSUNTO', 'Novo assunto');
 define('TXT_LINK_NOVO_TIPO_DADO', 'Novo tipo de dado para contato');
-define('TXT_LINK_NOVO_GA', 'New configuration');
+define('TXT_LINK_NOVO_GA', 'Nova configuração');
 define('TXT_LINK_NOVO_DADOCONTATO', 'Novo dado para contato');
-define('TXT_LINK_NOVO_ALBUM', 'New album');
-define('TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS', 'Set the institucional informations');
+define('TXT_LINK_NOVO_ALBUM', 'Novo ábum');
+define('TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS', 'Editar as informações institucionais');
+
+# Ajuda
+define('TXT_AJUDA_CONFIGURACAO_WEBSITE', 'Essas configurações são aplicadas <b>apenas</b> para o website.');
 
 # Mensagens diversas
-define('MSG_CONTATO_DT_ENVIO', 'Contact sended on %s');
-define('MSG_EMAIL_ENVIADO', 'E-mail sended');
+define('MSG_CONTATO_DT_ENVIO', 'Contato enviado em %s');
+define('MSG_EMAIL_ENVIADO', 'E-mail enviado');
 define('MSG_EMAIL_FALHOU', 'O envio do e-mail falhou');
-define('MSG_CAPA', 'Cover');
-define('MSG_GA_ALERTA_UTILIZACAO_MUITOS', '<b>Warning!</b> A utilização de muitas contas do Google Analytics pode prejudicar o desempenho do site.');
+define('MSG_CAPA', 'Capa');
+define('MSG_GA_ALERTA_UTILIZACAO_MUITOS', '<b>Atenção!</b> A utilização de muitas contas do Google Analytics pode prejudicar o desempenho do site.');
 
 
 

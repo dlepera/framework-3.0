@@ -52,7 +52,7 @@ class Modulo extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_modulos');
-        $this->visao->titulo = TXT_TITULO_MODULOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_MODULOS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -72,7 +72,7 @@ class Modulo extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_modulo');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_MODULO : TXT_TITULO_EDITAR_MODULO;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_MODULO : TXT_PAGINA_TITULO_EDITAR_MODULO;
 
         # Lista de módulos 'pai'
         $l_mp = $this->modelo->_listar('M.modulo_pai IS NULL'.

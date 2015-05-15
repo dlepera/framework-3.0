@@ -15,24 +15,24 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
-    <h2><?= TXT_TITULO_MODULO; ?></h2>
+    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_MODULO; ?></h2>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_MODULO; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_MODULO; ?></legend>
 
             <?php if( $params['modulos-pai'] != false ): ?>
             <p class="form-paragr">
                 <label for="sel-pai" class="form-rotulo"><?= TXT_ROTULO_MODULO_PAI; ?>:</label><br/>
-                <select name="pai" id="sel-pai">
+                <select name="pai" id="sel-pai" class="form-controle">
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['modulos-pai'] as $o ): ?>
@@ -46,39 +46,39 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" required/>
+                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-                <textarea name="descr" id="txt-descr"><?= $mod->descr; ?></textarea>
+                <textarea name="descr" id="txt-descr" class="form-controle form-textarea"><?= $mod->descr; ?></textarea>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_MENU; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_MENU; ?></legend>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_MENU; ?></span><br/>
                 <span class="form-dica"><?= TXT_DICA_MODULO_MENU; ?></span><br/>
-                <input type="checkbox" name="menu" id="chk-menu" class="s-ou-n"<?= $mod->menu == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="menu" id="chk-menu" class="form-alternar"<?= $mod->menu ? ' CHECKED' : ''; ?>/>
                 <label for="chk-menu"></label>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-link" class="form-rotulo"><?= TXT_ROTULO_LINK; ?>:</label><br/>
-                <input type="text" name="link" id="txt-link" value="<?= $mod->link; ?>" required/>
+                <input type="text" name="link" id="txt-link" value="<?= $mod->link; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="num-ordem" class="form-rotulo"><?= TXT_ROTULO_ORDEM; ?>:</label><br/>
-                <input type="number" name="ordem" id="num-ordem" value="<?= $mod->ordem; ?>" required/>
+                <input type="number" name="ordem" id="num-ordem" value="<?= $mod->ordem; ?>" min="-99" max="99" class="form-controle form-numero" required/>
             </p>
         </fieldset>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar == 1 || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>
 
@@ -88,32 +88,32 @@ $mod = $params['modelo'];
         </p>
     </form>
 
-    <h2><?= TXT_TITULO_CONFIGURACOES_AVANCADAS; ?></h2>
-
     <?php if( $params['mostrar-funcs?'] ): ?>
+    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_CONFIGURACOES_AVANCADAS; ?></h2>
+
     <form id="form-funcs" method="post" action="desenvolvedor/modulos/inserir-funcionalidade">
         <input type="hidden" name="func_modulo" value="<?= $mod->id; ?>"/>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
 
             <p class="form-paragr">
                 <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" required/>
+                <input type="text" name="descr" id="txt-descr" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-classe" class="form-rotulo"><?= TXT_ROTULO_CLASSE; ?>:</label><br/>
-                <input type="text" name="classe" id="txt-classe" value="<?= "{$params['modulo-pai']}\Controle\\". preg_replace('~[\s\-]~', '', ucwords(\Funcoes::_removeracentuacao(preg_replace('~s(\s+|$)~', '', $mod->nome)))); ?>" required/>
+                <input type="text" name="classe" id="txt-classe" value="<?= \Funcoes::_removeracentuacao($params['modulo-pai']) .'\Controle\\'. preg_replace('~[\s\-]~', '', ucwords(\Funcoes::_removeracentuacao(preg_replace('~s(\s+|$)~', '', $mod->nome)))); ?>" class="form-controle" required/>
             </p>
 
             <ul id="metodos" class="sub-itens sem-marcadores">
                 <li class="item">
-                    <input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" required/>
+                    <input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" class="form-controle" required/>
                 <li>
             </ul>
 
-            <a href="javascript:;" onclick="NovoMetodo();" class="com-icone a-inserir">
+            <a href="javascript:;" onclick="NovoMetodo();" class="com-icone ico-inserir">
                 <?= TXT_LINK_NOVO_METODO; ?>
             </a>
         </fieldset>
@@ -125,27 +125,27 @@ $mod = $params['modelo'];
     </form>
 
     <form id="form-remover-func" method="post" action="desenvolvedor/modulos/apagar-funcionalidade">
-        <table class="lista">
-            <thead>
-                <tr>
-                    <th id="th-id" class="td-id"><input type="checkbox"/></th>
-                    <th id="th-descr"><?= TXT_TABELA_TITULO_DESCR; ?></th>
-                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+        <table class="lista-registros">
+            <thead class="tbl-titulos">
+                <tr class="tbl-linha">
+                    <th id="th-id" class="tbl-celula-id"><input type="checkbox"/></th>
+                    <th id="th-descr"><?= TXT_LISTA_TITULO_DESCR; ?></th>
+                    <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbl-conteudo">
                 <?php if( !count($params['funcs']) )
                     echo '<tr class="sem-registros"><td colspan="3">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO, '</td></tr>';
 
                 foreach( $params['funcs'] as $l ): ?>
-                <tr>
-                    <td headers="th-id" class="td-id">
+                <tr class="tbl-linha">
+                    <td headers="th-id" class="tbl-celula-id">
                         <input type="checkbox" name="id[]" value="<?= $l['VALOR']; ?>"/>
                     </td>
                     <td headers="th-descr"><?= $l['TEXTO']; ?></td>
-                    <td headers="th-opcoes" class="td-opcoes">
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $rf.submit();" class="com-icone a-remover">
+                    <td headers="th-opcoes" class="tbl-celula-opcoes">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $rf.submit();" class="so-icone ico-remover">
                             <?= TXT_LINK_REMOVER;?>
                         </a>
                     </td>

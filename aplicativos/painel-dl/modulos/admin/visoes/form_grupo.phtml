@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -24,26 +24,26 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_GRUPO; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_GRUPO; ?></legend>
 
             <p class="form-paragr">
                 <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-                <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo?'] ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
                 <label for="chk-publicar"></label>
             </p>
         </fieldset>
 
         <?php if( $params['mostrar-perms?'] ): ?>
-        <fieldset>
-            <legend><?= TXT_LEGENDA_PERMISSOES; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_PERMISSOES; ?></legend>
 
-            <ul class="grp-funcs sem-marcadores">
+            <ul class="grp-funcs">
                 <?php
                     foreach( $params['menu-modulos'] as $mm ):
                         $sm_k = array_keys(preg_grep(
@@ -65,10 +65,10 @@ $mod = $params['modelo'];
                                 if( count($fc_k) > 0 ): ?>
                                 <p class="grp-nm-submodulo"><?= $sm['modulo_nome']; ?><p>
 
-                                <ul class="grp-submodulo sem-marcadores">
+                                <ul class="grp-submodulo flexivel">
                                     <?php foreach( $fc_k as $k2 ):
                                         $fc = $params['funcs'][$k2]; ?>
-                                        <li class="grp-func">
+                                        <li class="grp-func col-3">
                                             <input type="checkbox" name="funcs[]" id="func-mod-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"
                                                 <?= in_array($fc['func_modulo_id'], $mod->funcs) ? ' CHECKED' : ''; ?>/>
                                             <label for="func-mod-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
@@ -77,7 +77,7 @@ $mod = $params['modelo'];
                                 </ul>
 
                                 <input type="checkbox" id="selc-todos-<?= $k1; ?>"<?= !$params['incluindo'] ? ' CHECKED' : ''; ?>/>
-                                <label for="selc-todos-<?= $k1; ?>"><?= TXT_ROTULO_SELECIONAR_TODOS; ?></label>
+                                <label for="selc-todos-<?= $k1; ?>" class="form-rotulo"><?= TXT_ROTULO_SELECIONAR_TODOS; ?></label>
                                 <?php endif;
                             endforeach; ?>
                         </li>
@@ -89,22 +89,22 @@ $mod = $params['modelo'];
         <?php endif;
 
         if( !$params['incluindo'] ): ?>
-        <fieldset>
-            <legend><?= TXT_LEGENDA_MEMBROS; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_MEMBROS; ?></legend>
 
-            <table class="lista">
-                <thead>
-                    <tr>
-                        <th id="th-nome"><?= TXT_TABELA_TITULO_NOME; ?></th>
+            <table class="lista-registros">
+                <thead class="tbl-titulos">
+                    <tr class="tbl-linha">
+                        <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="tbl-conteudo">
                     <?php if( !count($params['membros']) )
                         echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO, '</td></tr>';
 
                     foreach( $params['membros'] as $l ): ?>
-                    <tr>
+                    <tr class="tbl-linha">
                         <td headers="th-nome"><?= $l['usuario_info_nome']; ?></td>
                     </tr>
                     <?php endforeach; ?>

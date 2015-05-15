@@ -71,11 +71,11 @@ div.dl-formulario-mensagem.painel-dl.alerta > p{
     transform: translateY(-50%);
     
     /* Margens e espaçamentos */
-    padding: 3% 3% 3% 20%;
+    padding: 1%;
     
     /* Formatação do texto */
     font-size   : 2em;
-    text-align  : left;
+    text-align  : center;
     
     /* Animação */
     -webkit-animation-name      : para-direita-passando;
@@ -89,21 +89,17 @@ div.dl-formulario-mensagem.painel-dl.alerta > p{
 div.dl-formulario-mensagem.painel-dl.alerta > p:before{
     /* Formatação do texto */
     font-family : 'icones';
-    font-size   : 5em;
-    
-    /* Posicionamento */
-    position: absolute;
-    top     : 10%;
-    z-index : -1;
+    font-size   : 4em;
     
     /* Margens e espaçamentos */
-    margin-left: -1em;
+    margin-left : -1em;
+    margin-right: .2em;
     
     /* Aparência */
     opacity: .2;
     
-    /* Transformações 
-    transform: translateY(-50%); */
+    /* Alinhamento */
+    vertical-align: middle;
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------
@@ -124,9 +120,6 @@ div.dl-formulario-mensagem.painel-dl.alerta > p > button{
     top     : -1.5em;
     right   : 10%;
     
-    /* Margens e espaçamentos 
-    margin-left: 3%;*/
-    
     /* Formatação do texto */
     color: #FFF;
 }
@@ -141,7 +134,7 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p{
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p:before{
     /* Conteúdo */
-    content: 'X';
+    content: '\ea10';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p > button{

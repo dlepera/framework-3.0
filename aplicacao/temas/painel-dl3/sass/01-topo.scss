@@ -1,0 +1,220 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 08/05/2015 17:05:53
+ */
+
+@import '../../_ajuda/compatibilidade.scss';
+@import '../../_ajuda/geometricas.scss';
+@import '../_ajuda/cores.scss';
+@import '../_ajuda/configuracoes.scss';
+
+/* -----------------------------------------------------------------------------
+ *  Topo
+ *  -> Cores
+ * -------------------------------------------------------------------------- */
+.dl3-topo{
+    /* Visual */
+    background-color: $c-topo-fundo;
+    
+    /* Texto */
+    color: $c-topo-txt;
+    
+    > .logotipo{
+        /* Texto */
+        color: $c-topo-logo;
+    }
+    
+    > .menu-usuario{
+        /* Visual */
+        background-color: $c-mnus-fundo;
+        
+        /* Texto */
+        color: $c-mnus-txt;
+        
+        a{
+            /* Texto */
+            color: $c-mnus-links;
+        }
+        
+        a:hover{
+            /* Texto */
+            color: $c-mnus-links-h;
+        }
+        
+        .sub-menu{
+            /* Visual */
+            background-color: $c-mnus-sub-fundo;
+            
+            a{
+                /* Texto */
+                color: $c-mnus-sub-links;
+            }
+            
+            a:hover{
+                /* Texto */
+                color: $c-mnus-sub-links-h;
+            }
+        }
+    }
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Topo
+ *  -> Visual e comportamento
+ * -------------------------------------------------------------------------- */
+.dl3-topo{
+    /* Flex */
+    @include _flex(100%);   
+    
+    /* Tamanho */
+    height: 100px;
+    
+    /* Posicionamento */
+    position: relative;
+    
+    /* Logotipo */
+    > .logotipo{
+        /* Texto */
+        font-size   : 2em;
+        font-family : 'logotipo';
+        line-height : 1.5em;
+        
+        /* Visual */
+        display         : inline-block;
+        background      : url('imagens/logotipo.png') no-repeat left center;
+        background-size : contain;
+        
+        /* Margens */
+        padding-left: 1.5em;
+        
+        /* Posicionamento */
+        position: relative;
+        top     : 50%;
+        
+        /* Transformar */
+        @include _transform(translateY(-50%));
+    }
+    
+    /* Menu de acoes do usuario */
+    > .menu-usuario{
+        $ts: 5px; /* tamanho da seta para cima */
+        
+        /* Posicionamento */
+        position: absolute;
+        top     : 50%;
+        right   : 0;
+        z-index : 1;
+        
+        /* Transformar */
+        @include _transform(translateY(-50%));
+        
+        /* Texto */
+        font-size: 1.05em;
+        
+        .menu-texto, .sm-texto{
+            /* Visual */
+            display: inline-block;
+            
+            /* Texto */
+            line-height: 2.3em;
+        }
+        
+        .menu-item{
+            > .menu-texto{
+                /* Margens */
+                margin-bottom: .75em;
+            }
+        }
+        
+        .menu-item:hover{
+            > .sub-menu{
+                /* Visual */
+                display: block;
+            }
+        }
+        
+        .sub-menu{
+            /* Posicionamento */
+            position: absolute;
+            right   : 0;
+            top     : 100%;
+            
+            /* Margens */
+            padding: .5em .75em;
+            
+            /* Visual */
+            border-radius   : 7px;
+            display         : none;
+            
+            /* Incluir icones levemente tombados nos links */
+            .sm-texto:before{
+                /* Texto */
+                font-family : 'icones';
+                font-size   : 1.4em;
+                
+                /* Alinhamento */
+                vertical-align: middle;
+                
+                /* Margens */
+                margin-right: .35em;
+            }
+        }
+        
+        .sub-menu:before{
+            /* Triangulo */
+            @include _triangulo-cima($c-mnus-sub-fundo, $ts, $ts);
+            
+            /* Texto */
+            content: '';
+            
+            /* Posicionamento */
+            position: absolute;
+            top     : 0;
+            right   : 0;
+            
+            /* Transformar */
+            @include _transform(translateX(-125%) translateY(-100%));
+        }
+        
+        /* Link: Minha conta */
+        .ico-conta:before{ content: '\e971'; }
+        
+        /* Link: Alterar minha senha */
+        .ico-senha:before{ content: '\e98d'; };
+        
+        /* Link: Sair do sistema */
+        .ico-logout:before{ content: '\ea14'; };
+    }
+}
+
+
+
+/* Desktop ------------------------------------------------------------------ */
+@media screen and (min-width:$tela-tablet + 1px){
+    .dl3-topo{
+        .menu-usuario{
+            .sub-menu{
+                /* Tamanho */
+                width: 15vw;
+            }
+        }
+    }
+}
+
+
+
+/* Tablets e smartphones ---------------------------------------------------- */
+@media screen and (max-width:$tela-tablet){
+    .dl3-topo{
+        .menu-usuario{
+            .sub-menu{
+                /* Tamanho */
+                width: 70vw;
+            }
+        }
+    }
+}

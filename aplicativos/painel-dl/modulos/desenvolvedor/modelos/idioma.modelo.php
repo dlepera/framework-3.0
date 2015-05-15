@@ -17,18 +17,11 @@ class Idioma extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _sigla($v=null){
-        if( is_null($v) ) return (string)$this->sigla;
-
-        # Validar o idioma informado
-        if( strlen($v) != 5 || strpos($v, '_') != 2 )
-            throw new Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'silga'), 1500);
-
-        return $this->sigla = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->sigla = filter_var(is_null($v) ? $this->sigla : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _sigla
 
 

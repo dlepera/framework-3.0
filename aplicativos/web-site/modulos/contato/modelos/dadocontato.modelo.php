@@ -16,8 +16,8 @@ class DadoContato extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _tipo(){ return (int)$this->tipo; } // Fim do método _tipo
-    public function _descr(){ return (string)$this->descr; } // Fim do método _descr
+    public function _tipo(){ return filter_var($this->tipo, FILTER_VALIDATE_INT); } // Fim do método _tipo
+    public function _descr(){ return filter_var($this->descr, FILTER_SANITIZE_STRING); } // Fim do método _descr
 
 
 

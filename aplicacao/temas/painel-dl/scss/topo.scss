@@ -5,10 +5,10 @@
  * @Data	: 19/12/2014 16:15:20
  */
 
-@import '../../_help/compatibilidade.scss';
-@import '../../_help/configuracoes.scss';
-@import '../_help/cores.scss';
-@import '../_help/configuracoes.scss';
+@import '../../_ajuda/compatibilidade.scss';
+@import '../../_ajuda/geometricas.scss';
+@import '../_ajuda/cores.scss';
+@import '../_ajuda/configuracoes.scss';
 
 /* -----------------------------------------------------------------------------
  *  Topo
@@ -115,7 +115,7 @@
         /* Texto */
         font-size: 1.05em;
         
-        a{
+        .menu-texto{
             /* Visual */
             display: inline-block;
             
@@ -124,7 +124,7 @@
         }
         
         .menu-item{
-            > a{
+            > .menu-texto{
                 /* Margens */
                 margin-bottom: .75em;
             }
@@ -193,7 +193,7 @@
 
 
 
-/* Desktop */
+/* Desktop ------------------------------------------------------------------ */
 @media screen and (min-width:$tela-tablet + 1px){
     .dl3-topo{
         .menu-usuario{
@@ -207,7 +207,7 @@
 
 
 
-/* Tablets e smartphones */
+/* Tablets e smartphones ---------------------------------------------------- */
 @media screen and (max-width:$tela-tablet){
     .dl3-topo{
         .menu-usuario{

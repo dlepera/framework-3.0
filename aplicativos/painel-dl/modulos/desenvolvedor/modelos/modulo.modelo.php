@@ -10,44 +10,34 @@
 namespace Desenvolvedor\Modelo;
 
 class Modulo extends \Geral\Modelo\Principal{
-    protected $id, $pai, $nome, $descr, $menu = 1, $link, $ordem, $publicar = 1, $delete = 0;
+    protected $id, $pai, $nome, $descr, $menu = 1, $link, $ordem = 0, $publicar = 1, $delete = 0;
 
     /**
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
     public function _pai($v=null){
-        return is_null($v) ? (int)$this->pai
-        : $this->pai = $v > 0 ? (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT) : null;
+        return $this->pai = filter_var(is_null($v) ? $this->pai : $v, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
     } // Fim do método _pai
 
     public function _nome($v=null){
-        return is_null($v) ? (string)$this->nome
-        : $this->nome = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _nome
 
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _menu($v=null){
-        if( is_null($v) ) return (int)$this->menu;
-
-        if( !empty($v) && ($v < 0 && $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'menu'), 1500);
-
-        return $this->menu = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->menu = filter_var(is_null($v) ? $this->menu : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _menu
 
     public function _link($v=null){
-        return is_null($v) ? (string)$this->link
-        : $this->link = (string)filter_var(trim($v, '/'), FILTER_SANITIZE_STRING);
+        return $this->link = trim(filter_var(is_null($v) ? $this->link : $v, FILTER_SANITIZE_STRING), '/') .'/';
     } // Fim do método _link
 
     public function _ordem($v=null){
-        return is_null($v) ? (int)$this->ordem
-        : $this->ordem = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->ordem = filter_var(is_null($v) ? $this->ordem : $v, FILTER_VALIDATE_INT);
     } // Fim do método _ordem
 
 

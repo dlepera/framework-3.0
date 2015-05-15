@@ -68,6 +68,12 @@ $rotas['^assuntos-contato/salvar$'] = array(
     'acao'      =>  'salvar'
 );
 
+$rotas['^assuntos-contato/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'AssuntoContato',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**
@@ -112,6 +118,12 @@ $rotas['^tipos-de-dados/opcoes-avancadas$'] = array(
     'acao'      =>  'opcoesavancadas'
 );
 
+$rotas['^tipos-de-dados/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'TipoDadoContato',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**
@@ -146,6 +158,12 @@ $rotas['^google-analytics/salvar$'] = array(
     'acao'      =>  'salvar'
 );
 
+$rotas['^google-analytics/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'GoogleAnalytics',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**
@@ -178,6 +196,12 @@ $rotas['^dados-para-contato/excluir-dados$'] = array(
 $rotas['^dados-para-contato/salvar$'] = array(
     'controle'  =>  'DadoContato',
     'acao'      =>  'salvar'
+);
+
+$rotas['^dados-para-contato/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'DadoContato',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
 );
 
 
@@ -235,6 +259,12 @@ $rotas['^albuns-de-fotos/excluir-fotos$'] = array(
     'acao'      =>  'remover'
 );
 
+$rotas['^albuns-de-fotos/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'FotoAlbum',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**
@@ -253,5 +283,21 @@ $rotas['^institucional/editar$'] = array(
 
 $rotas['^institucional/salvar$'] = array(
     'controle'  =>  'Institucional',
+    'acao'      =>  'salvar'
+);
+
+
+
+/**
+ * Configurações do site
+ * -----------------------------------------------------------------------------
+ */
+$rotas['^configuracoes$'] = array(
+    'controle'  =>  'ConfiguracaoSite',
+    'acao'      =>  'mostrarform'
+);
+
+$rotas['^configuracoes/salvar$'] = array(
+    'controle'  =>  'ConfiguracaoSite',
     'acao'      =>  'salvar'
 );

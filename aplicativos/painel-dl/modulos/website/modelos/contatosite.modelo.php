@@ -31,24 +31,24 @@ class ContatoSite extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _nome(){
-        return (string)$this->nome;
+    public function _nome($v=null){
+        return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _nome
 
-    public function _email(){
-        return (string)$this->email;
+    public function _email($v=null){
+        return $this->email = filter_var(is_null($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _email
 
-    public function _telefone(){
-        return (string)$this->telefone;
+    public function _telefone($v=null){
+        return $this->telefone = filter_var(is_null($v) ? $this->telefone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _telefone
 
-    public function _assunto(){
-        return (int)$this->assunto;
+    public function _assunto($v=null){
+        return $this->assunto = filter_var(is_null($v) ? $this->assunto : $v, FILTER_VALIDATE_INT);
     } // Fim do método _assunto
 
-    public function _mensagem(){
-        return (string)$this->mensagem;
+    public function _mensagem($v=null){
+        return $this->mensagem = filter_var(is_null($v) ? $this->mensagem : $v);
     } // Fim do método _mensagem
 
 
@@ -59,15 +59,14 @@ class ContatoSite extends \Geral\Modelo\Principal{
      *
      * Impedir que o contato recebido do site seja alterado
      */
-    protected function _salvar(){
-        throw new \Exception(ERRO_PADRAO_ACAO_NAO_PERMITIDA, 1403);
-    } // Fim do método _salvar
+    protected function _salvar(){ return; } // Fim do método _salvar
 
 
 
     /**
      * Relatório de contatos recebidos por assunto
      * -------------------------------------------------------------------------
+     *
      * Gerar um relatório simples para mostrar quantos contatos foram recebidos
      * para cada assunto
      *
@@ -81,7 +80,7 @@ class ContatoSite extends \Geral\Modelo\Principal{
             "COUNT({$this->bd_prefixo}id) AS QTDE, IFNULL(assunto_contato_descr, '". MSG_ASSUNTO_NAO_INFORMADO ."') AS DESCR, IFNULL(assunto_contato_cor, '#000') AS COR"
         );
 
-        $tabela = '<table class="conteudo"><tbody>';
+        $tabela = '<table class="wg-conteudo"><tbody>';
 
         foreach($lis as $d):
             $p100 = round(($d['QTDE']*100)/$num);

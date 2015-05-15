@@ -10,9 +10,9 @@
 namespace Admin\Modelo;
 
 class Usuario extends \Geral\Modelo\Principal{
-    protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo, $info_login, $info_senha,
+    protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo = 'M', $info_login, $info_senha,
             $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20, $pref_exibir_id = 1,
-            $pref_filtro_menu, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
+            $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
             $ultimo_login, $delete = 0;
 
     /**
@@ -162,7 +162,7 @@ class Usuario extends \Geral\Modelo\Principal{
      * @param bool $r - define se a senha está sendo redefinida por reset ou
      *  não
      */
-    public function _alterarsenha($r=false){
+    public function _alterarsenha($sn, $sc, $sa=null, $r=false){
         if( !$r ):
             # Verificar se a sessão foi iniciada
             if( session_status() !== PHP_SESSION_ACTIVE )
@@ -174,13 +174,8 @@ class Usuario extends \Geral\Modelo\Principal{
         if( is_null($this->id) )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
 
-        # Obter as senhas informadas
-        $sa = md5(md5(filter_input(INPUT_POST, 'senha_atual')));
-        $sn = filter_input(INPUT_POST, 'senha_nova');
-        $sc = filter_input(INPUT_POST, 'senha_nova_conf');
-
         # Comparar a senha atual
-        if( $sa != $this->info_senha && !$r )
+        if( !end($this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'")) && !$r )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_SENHA_ATUAL_INCORRETA, 1000);
 
         # Comparar as senhas infromadas
@@ -191,7 +186,9 @@ class Usuario extends \Geral\Modelo\Principal{
         $sn_c = md5(md5($sn));
 
         # Alterar a senha no banco de dados
-        \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = '{$sn_c}' WHERE {$this->bd_prefixo}id = {$this->id}");
+        \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = '{$sn_c}', {$this->bd_prefixo}conf_reset = 0 WHERE {$this->bd_prefixo}id = {$this->id}");
+
+        $_SESSION['usuario_conf_reset'] = 0;
     } // Fim do método _alterarsenha
 
 
@@ -266,7 +263,7 @@ class Usuario extends \Geral\Modelo\Principal{
 
     public function _resumo(){
         return '<table class="usr-resumo">'
-                . '<tbody>'
+                . '<tbody class="tbl-conteudo">'
                 . '<tr>'
                 . '  <td class="usr-resumo-rotulo">'. TXT_ROTULO_NOME .'</td>'
                 . '  <td class="usr-resumo-info">'. $this->info_nome .'</td>'

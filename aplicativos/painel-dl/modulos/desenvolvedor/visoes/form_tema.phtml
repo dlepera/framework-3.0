@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -26,23 +26,23 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <label for="txt-diretorio" class="form-rotulo"><?= TXT_ROTULO_DIRETORIO; ?>:</label><br/>
-            <input type="text" name="diretorio" id="txt-diretorio" value="<?= $mod->diretorio; ?>" required/>
+            <input type="text" name="diretorio" id="txt-diretorio" value="<?= $mod->diretorio; ?>" class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PADRAO; ?></span><br/>
-            <input type="checkbox" name="padrao" id="chk-padrao" class="s-ou-n" value="1"<?= $mod->padrao ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="padrao" id="chk-padrao" class="form-alternar"<?= $mod->padrao ? ' CHECKED' : ''; ?>/>
             <label for="chk-padrao"></label>
         </p>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>
 

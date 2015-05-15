@@ -13,25 +13,25 @@ define('TXT_MODELO_TEMA', 'tema');
 define('TXT_MODELO_IDIOMA', 'idioma');
 
 # Títulos de páginas
-define('TXT_TITULO_MODULOS', 'Módulos');
-define('TXT_TITULO_NOVO_MODULO', 'Instalar um novo módulo');
-define('TXT_TITULO_EDITAR_MODULO', 'Atualizar esse módulo');
-define('TXT_TITULO_TEMAS', 'Temas');
-define('TXT_TITULO_NOVO_TEMA', 'Instalar um novo tema');
-define('TXT_TITULO_EDITAR_TEMA', 'Atualizar esse tema');
-define('TXT_TITULO_IDIOMAS', 'Idiomas');
-define('TXT_TITULO_NOVO_IDIOMA', 'Cadastrar um novo idioma');
-define('TXT_TITULO_EDITAR_IDIOMA', 'Atualizar esse idioma');
-define('TXT_TITULO_MODULO', 'Módulo');
-define('TXT_TITULO_CONFIGURACOES_AVANCADAS', 'Configurações avançadas');
+define('TXT_PAGINA_TITULO_MODULOS', 'Módulos');
+define('TXT_PAGINA_TITULO_NOVO_MODULO', 'Instalar um novo módulo');
+define('TXT_PAGINA_TITULO_EDITAR_MODULO', 'Atualizar esse módulo');
+define('TXT_PAGINA_TITULO_TEMAS', 'Temas');
+define('TXT_PAGINA_TITULO_NOVO_TEMA', 'Instalar um novo tema');
+define('TXT_PAGINA_TITULO_EDITAR_TEMA', 'Atualizar esse tema');
+define('TXT_PAGINA_TITULO_IDIOMAS', 'Idiomas');
+define('TXT_PAGINA_TITULO_NOVO_IDIOMA', 'Cadastrar um novo idioma');
+define('TXT_PAGINA_TITULO_EDITAR_IDIOMA', 'Atualizar esse idioma');
+define('TXT_PAGINA_TITULO_MODULO', 'Módulo');
+define('TXT_PAGINA_TITULO_CONFIGURACOES_AVANCADAS', 'Configurações avançadas');
 
 # Tabelas
 # -> Títulos
-define('TXT_TABELA_TITULO_NOME', 'Nome');
-define('TXT_TABELA_TITULO_LINK', 'Link');
-define('TXT_TABELA_TITULO_DESCR', 'Descrição');
-define('TXT_TABELA_TITULO_PADRAO', 'Padrão?');
-define('TXT_TABELA_TITULO_SIGLA', 'Sigla');
+define('TXT_LISTA_TITULO_NOME', 'Nome');
+define('TXT_LISTA_TITULO_LINK', 'Link');
+define('TXT_LISTA_TITULO_DESCR', 'Descrição');
+define('TXT_LISTA_TITULO_PADRAO', 'Padrão?');
+define('TXT_LISTA_TITULO_SIGLA', 'Sigla');
 
 # Formulários
 # -> Legendas

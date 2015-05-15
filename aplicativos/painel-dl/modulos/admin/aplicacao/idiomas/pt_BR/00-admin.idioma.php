@@ -13,16 +13,15 @@ define('TXT_MODELO_USUARIO', 'usuário');
 define('TXT_MODELO_CONFIGEMAIL', 'configuração de envio de email');
 
 # Títulos de páginas
-define('TXT_TITULO_GRUPOS_USUARIOS', 'Grupos de usuários');
-define('TXT_TITULO_NOVO_GRUPOUSUARIO', 'Cadastrar um novo grupo de usuário');
-define('TXT_TITULO_EDITAR_GRUPOUSUARIO', 'Atualizar esse grupo de usuário');
-define('TXT_TITULO_USUARIOS', 'Usuários');
-define('TXT_TITULO_NOVO_USUARIO', 'Cadastrar um novo usuário');
-define('TXT_TITULO_EDITAR_USUARIO', 'Atualizar as informações desse usuário');
-define('TXT_TITULO_CONFIGURACOES_ENVIO_EMAIL', 'Configurações de envio de e-mails');
-define('TXT_TITULO_NOVO_CONFIGEMAIL', 'Incluir uma nova configuração de envio de e-mails');
-define('TXT_TITULO_EDITAR_CONFIGEMAIL', 'Editar essa configurção de envio de e-mails');
-define('TXT_TITULO_TROCAR_MINHA_SENHA', 'Trocar a minha senha');
+define('TXT_PAGINA_TITULO_GRUPOS_USUARIOS', 'Grupos de usuários');
+define('TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO', 'Cadastrar um novo grupo de usuário');
+define('TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO', 'Atualizar esse grupo de usuário');
+define('TXT_PAGINA_TITULO_USUARIOS', 'Usuários');
+define('TXT_PAGINA_TITULO_NOVO_USUARIO', 'Cadastrar um novo usuário');
+define('TXT_PAGINA_TITULO_EDITAR_USUARIO', 'Atualizar as informações desse usuário');
+define('TXT_PAGINA_TITULO_CONFIGURACOES_ENVIO_EMAIL', 'Configurações de envio de e-mails');
+define('TXT_PAGINA_TITULO_NOVO_CONFIGEMAIL', 'Incluir uma nova configuração de envio de e-mails');
+define('TXT_PAGINA_TITULO_EDITAR_CONFIGEMAIL', 'Editar essa configurção de envio de e-mails');
 
 # Links
 define('TXT_LINK_NOVO_GRUPO_USUARIO', 'Novo grupo de usuário');
@@ -34,13 +33,13 @@ define('TXT_LINK_TESTAR_CONFIGURACAO', 'Testar configuração');
 
 # Tabelas
 # -> Títulos
-define('TXT_TABELA_TITULO_DESCR', 'Descrição');
-define('TXT_TABELA_TITULO_GRUPO', 'Grupo');
-define('TXT_TABELA_TITULO_NOME', 'Nome');
-define('TXT_TABELA_TITULO_EMAIL', 'E-mail');
-define('TXT_TABELA_TITULO', 'Título');
-define('TXT_TABELA_HOST', 'Host');
-define('TXT_TABELA_PRINCIPAL', 'Principal?');
+define('TXT_LISTA_TITULO_DESCR', 'Descrição');
+define('TXT_LISTA_TITULO_GRUPO', 'Grupo');
+define('TXT_LISTA_TITULO_NOME', 'Nome');
+define('TXT_LISTA_TITULO_EMAIL', 'E-mail');
+define('TXT_LISTA_TITULO', 'Título');
+define('TXT_LISTA_HOST', 'Host');
+define('TXT_LISTA_PRINCIPAL', 'Principal?');
 
 # Formulários
 # -> Legendas
@@ -82,9 +81,6 @@ define('TXT_ROTULO_DE_EMAIL', 'De (e-mail)');
 define('TXT_ROTULO_RESPONDER_PARA', 'Responder para');
 define('TXT_ROTULO_HTML', 'HTML?');
 define('TXT_ROTULO_PRINCIPAL', 'Principal?');
-define('TXT_ROTULO_SENHA_ATUAL', 'Senha atual');
-define('TXT_ROTULO_SENHA_NOVA', 'Nova senha');
-define('TXT_ROTULO_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
 define('TXT_ROTULO_SELECIONAR_TODOS', 'Selecionar todos');
 
 # -> Dicas

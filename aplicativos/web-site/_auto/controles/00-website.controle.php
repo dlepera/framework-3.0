@@ -21,14 +21,19 @@ class WebSite extends \Geral\Controle\Principal{
         $mdc = new \Contato\Modelo\DadoContato();
 
         # Listar as redes sociais
-        $lrs = $mdc->_listar('tipo_dado_rede_social = 1', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
+        $lrs = $mdc->_listar('dado_contato_publicar AND tipo_dado_rede_social', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
 
         # Listar dados para contato
-        $ldc = $mdc->_listar('tipo_dado_rede_social = 0', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
+        $ldc = $mdc->_listar('dado_contato_publicar AND NOT tipo_dado_rede_social', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
+        
+        # Selecionar as configurações para o website
+        $mcf = new \Geral\Modelo\ConfiguracaoSite();
+        $lcf = end($mcf->_listar(null, null, 'tema_diretorio, formato_data_data, formato_data_hora, formato_data_completo'));
 
         # Parâmetros
         $this->visao->_adparam('ga-configs', $lga);
         $this->visao->_adparam('dados-contato', $ldc);
         $this->visao->_adparam('redes-sociais', $lrs);
+        $this->visao->_adparam('conf-site', $lcf);
     } // Fim do método __construct
 } // Fim do Controle WebSite

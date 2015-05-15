@@ -16,12 +16,12 @@ class Usuario extends \Geral\Controle\PainelDL{
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
                 'id'                =>  FILTER_VALIDATE_INT,
-                'info_grupo'        =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE),
+                'info_grupo'        =>  FILTER_VALIDATE_INT,
                 'info_nome'         =>  FILTER_SANITIZE_STRING,
                 'info_email'        =>  FILTER_VALIDATE_EMAIL,
                 'info_telefone'     =>  FILTER_SANITIZE_STRING,
                 'info_sexo'         =>  FILTER_SANITIZE_STRING,
-                'info_login'        =>  /* array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_NULL_ON_FAILURE) */ FILTER_SANITIZE_STRING,
+                'info_login'        =>  FILTER_SANITIZE_STRING,
                 'info_senha'        =>  FILTER_DEFAULT,
                 'pref_idioma'       =>  FILTER_VALIDATE_INT,
                 'pref_tema'         =>  FILTER_VALIDATE_INT,
@@ -29,8 +29,8 @@ class Usuario extends \Geral\Controle\PainelDL{
                 'pref_num_registros'=>  FILTER_SANITIZE_NUMBER_INT,
                 'pref_exibir_id'    =>  FILTER_VALIDATE_BOOLEAN,
                 'pref_filtro_menu'  =>  FILTER_VALIDATE_BOOLEAN,
-                'conf_reset'        =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1)),
-                'conf_bloq'         =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'conf_reset'        =>  FILTER_VALIDATE_BOOLEAN,
+                'conf_bloq'         =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -55,7 +55,7 @@ class Usuario extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_usuarios');
-        $this->visao->titulo = TXT_TITULO_USUARIOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_USUARIOS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -73,13 +73,14 @@ class Usuario extends \Geral\Controle\PainelDL{
      * -------------------------------------------------------------------------
      *
      * @param int $id - ID do registro a ser selecionado
+     * @param string $rd - para onde redirecionar após salvar o registro
      */
-    protected function _mostrarform($id=null){
-        $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', 'admin/usuarios', $id);
+    protected function _mostrarform($id=null,$rd='admin/usuarios'){
+        $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', $rd, $id);
 
         # Visão
         $this->_carregarhtml('form_usuario');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_USUARIO : TXT_TITULO_EDITAR_USUARIO;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_USUARIO : TXT_PAGINA_TITULO_EDITAR_USUARIO;
 
         $m_gu = new \Admin\Modelo\GrupoUsuario();
         $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar = 1', false);
@@ -95,7 +96,7 @@ class Usuario extends \Geral\Controle\PainelDL{
 
         if( !$inc ):
             # Grupo de usuário
-            $mgu = new \Admin\Modelo\GrupoUsuario($this->modelo->id);
+            $mgu = new \Admin\Modelo\GrupoUsuario($this->modelo->info_grupo);
             $this->visao->_adparam('grupo-descr', $mgu->descr);
         endif;
 
@@ -120,7 +121,7 @@ class Usuario extends \Geral\Controle\PainelDL{
      * Mostrar as informações do usuário logado
      */
     protected function _minhaconta(){
-        return $this->_mostrarform($_SESSION['usuario_id']);
+        return $this->_mostrarform($_SESSION['usuario_id'], '');
     } // Fim do método _minhaconta
 
 
@@ -134,7 +135,10 @@ class Usuario extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_trocar_senha');
-        $this->visao->titulo = TXT_TITULO_TROCAR_MINHA_SENHA;
+        $this->visao->titulo = TXT_PAGINA_TITULO_TROCAR_MINHA_SENHA;
+
+        # Parâmetros
+        $this->visao->_adparam('msg-reset?', (bool)$_SESSION['usuario_conf_reset']);
     } // Fim do método _formalterarsenha
 
 
@@ -144,8 +148,13 @@ class Usuario extends \Geral\Controle\PainelDL{
      * -------------------------------------------------------------------------
      */
     protected function _alterarsenha(){
+        # Obter as senhas informadas
+        $sa = md5(md5(filter_input(INPUT_POST, 'senha_atual')));
+        $sn = filter_input(INPUT_POST, 'senha_nova');
+        $sc = filter_input(INPUT_POST, 'senha_nova_conf');
+
         $this->modelo->_selecionarID($_SESSION['usuario_id']);
-        $this->modelo->_alterarsenha();
+        $this->modelo->_alterarsenha($sn, $sc, $sa);
         return \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
     } // Fim do método _alterarsenha
 

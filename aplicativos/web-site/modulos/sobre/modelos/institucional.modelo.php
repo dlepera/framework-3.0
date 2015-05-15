@@ -16,10 +16,21 @@ class Institucional extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _historia(){ return $this->historia = filter_var($this->historia);  } // Fim do método _historia
-    public function _missao(){ return $this->missao = filter_var($this->missao); } // Fim do método _missao
-    public function _visao(){ return $this->visao = filter_var($this->visao); } // Fim do método _visao
-    public function _valores(){ return $this->valores = filter_var($this->valores); } // Fim do método _valores
+    public function _historia($v=null){
+        return $this->historia = filter_var(is_null($v) ? $this->historia : $v);
+    } // Fim do método _historia
+
+    public function _missao($v=null){
+        return $this->missao = filter_var(is_null($v) ? $this->missao : $v);
+    } // Fim do método _missao
+
+    public function _visao($v=null){
+        return $this->visao = filter_var(is_null($v) ? $this->visao : $v);
+    } // Fim do método _visao
+
+    public function _valores($v=null){
+        return $this->valores = filter_var(is_null($v) ?$this->valores : $v);
+    } // Fim do método _valores
 
 
 

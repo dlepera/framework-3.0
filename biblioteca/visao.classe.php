@@ -35,23 +35,12 @@ class Visao{
      * 'Gets'e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function __get($n){
-        $g = "_{$n}";
+    public function __get($n){ return m_get($this,$n); } // Fim do método __get
 
-        if( property_exists($this, $n) && method_exists($this, $g) )
-            return $this->{$g}();
-    } // Fim do método __get
-
-    public function __set($n,$v){
-        $g = "_{$n}";
-
-        if( property_exists($this, $n) && method_exists($this, $g) )
-            return $this->{$g}(filter_var($v, FILTER_DEFAULT));
-    } // Fim do método __set
+    public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
     public function _titulo($v=null){
-        return is_null($v) ? (string)$this->titulo
-        : $this->titulo = (string)$v;
+        return $this->titulo = filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _titulo
 
 

@@ -17,23 +17,19 @@ class ModuloFunc extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _func_modulo($v=null){
-        return is_null($v) ? (int)$this->func_modulo
-        : $this->func_modulo = filter_var($v, FILTER_VALIDATE_INT);
+        return $this->func_modulo = filter_var(is_null($v) ? $this->func_modulo : $v, FILTER_VALIDATE_INT);
     } // Fim do método _func_modulo
 
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _classe($v=null){
-        return is_null($v) ? (string)$this->classe
-        : $this->classe = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->classe = filter_var(is_null($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _metodos($v=null){
-        return is_null($v) ? (array)$this->metodos
-        : $this->metodos = filter_var($v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+        return $this->metodos = filter_var(is_null($v) ? $this->metodos : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
     } // Fim do método _metodos
 
 

@@ -8,7 +8,7 @@
  */
 
 # Títulos de páginas
-define('TXT_TITULO_PAINELDL_HOME', 'Gerenciador de conteúdo');
+define('TXT_PAGINA_TITULO_PAINELDL_HOME', 'Gerenciador de conteúdo');
 
 # Widgets
 # -> Títulos

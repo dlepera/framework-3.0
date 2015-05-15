@@ -1,0 +1,76 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 18/12/2014 17:20:50
+ */
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Formas geometricas
+ * -------------------------------------------------------------------------- */
+@mixin _triangulo-baixo($c, $l, $a){
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Visual */
+    border-left : $l solid transparent;
+    border-top  : $a solid $c;
+    border-right: $a solid transparent;
+}
+
+@mixin _triangulo-cima($c, $l, $a){
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Visual */
+    border-left     : $l solid transparent;
+    border-bottom   : $a solid $c;
+    border-right    : $a solid transparent;
+}
+
+@mixin _triangulo-direita($c, $l, $a){
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Visual */
+    border-top  : $l solid transparent;
+    border-left : $a solid $c;
+    border-bottom: $a solid transparent;
+}
+
+@mixin _triangulo-esquerda($c, $l, $a){
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Visual */
+    border-top   : $l solid transparent;
+    border-right : $a solid $c;
+    border-bottom: $a solid transparent;
+}
+
+@mixin _triangulo-baixo-direita($c, $l, $a){
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Visual */
+    border-bottom   : $l solid $c;
+    border-left     : $a solid transparent;
+}
+
+@mixin _circulo($c, $t){
+    /* Tamanho */
+    width   : $t;
+    height  : $t;
+    
+    /* Visual */
+    border-radius   : 50%;
+    background-color: $c;
+    display         : inline-block;
+}

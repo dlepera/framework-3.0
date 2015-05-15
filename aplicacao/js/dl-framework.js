@@ -9,6 +9,8 @@ var dir_raiz                    = '/framework-3.0/';
 var plugin_formulario_tema      = 'painel-dl';
 
 function CarregarCSS(arquivo_css){
+    if( /null.css$/.test(arquivo_css) ) return true;
+    
     // Tratar o nome do arquivo CSS
     arquivo_css = dir_raiz.replace(/\/$/, '') +'/'+ arquivo_css.replace(dir_raiz, '').replace(/^\//, '');
     
@@ -191,6 +193,25 @@ if( typeof String.prototype.trim !== 'function' ){
     return this.replace(/^\s+|\s+$/g, ''); 
   };
 }
+
+
+
+/**
+ * Alternar a publicação de um registro
+ * -----------------------------------------------------------------------------
+ * 
+ * @param {string} url - URL do controle a ser executado
+ * @param {bool} chk - define se os registros serão marcados ou não
+ * @returns {void}
+ */
+function AlternarPublicacao(url){
+    $el.executar(
+        url,
+        function(){ return true; },
+        function(){ window.location.reload(); }
+    );
+};
+
 
 // Alterar o selector 'contains' do jQuery para que seja
 // case insensitive

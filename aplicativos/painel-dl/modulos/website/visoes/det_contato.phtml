@@ -16,70 +16,76 @@ $le  = $params['log-email'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
-    <h2 class="sub-h2">
+    <p class="log-registro">
         <?php printf(MSG_CONTATO_DT_ENVIO, $mod->mod_lr->data_criacao); ?>
-    </h2>
-
-    <h2><?= TXT_TITULO_CONTATO; ?></h2>
-
-    <p>
-        <b><?= TXT_ROTULO_NOME; ?>:</b>
-        <?= $mod->nome; ?>
     </p>
 
-    <p>
-        <b><?= TXT_ROTULO_EMAIL; ?>:</b>
-        <a href="mailto:<?= $mod->email; ?>;"><?= $mod->email; ?></a>
-    </p>
+    <details class="detalhes" open>
+        <summary class="det-titulo"><?= TXT_SUMARIO_CONTATO; ?></summary>
 
-    <p>
-        <b><?= TXT_ROTULO_TELEFONE; ?>:</b>
-        <?= $mod->telefone; ?>
-    </p>
+        <p class="det-paragr">
+            <span class="det-rotulo"><?= TXT_ROTULO_NOME; ?>:</span>
+            <?= $mod->nome; ?>
+        </p>
 
-    <?php if( !is_null($params['assunto-descr']) ): ?>
-    <p style="color: <?= $params['assunto-cor']; ?>">
-        <b><?= TXT_ROTULO_ASSUNTO; ?>:</b>
-        <?= $params['assunto-descr']; ?>
-    </p>
-    <?php endif; ?>
+        <p class="det-paragr">
+            <span class="det-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</span>
+            <a href="mailto:<?= $mod->email; ?>;"><?= $mod->email; ?></a>
+        </p>
 
-    <p>
-        <b><?= TXT_ROTULO_MENSAGEM; ?>:</b><br/>
-        <?= nl2br($mod->mensagem); ?>
-    </p>
+        <p class="det-paragr">
+            <span class="det-rotulo"><?= TXT_ROTULO_TELEFONE; ?>:</span>
+            <?= $mod->telefone; ?>
+        </p>
 
-    <h2><?= TXT_TITULO_ENVIO_EMAIL; ?></h2>
+        <?php if( !is_null($params['assunto-descr']) ): ?>
+        <p class="det-paragr" style="color: <?= $params['assunto-cor']; ?>;">
+            <span class="det-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</span>
+            <?= $params['assunto-descr']; ?>
+        </p>
+        <?php endif; ?>
 
-    <p>
-        <b><?= TXT_ROTULO_STATUS; ?>:</b>
-        <?php switch( $le->status ):
-            case 'E':
-                echo MSG_EMAIL_ENVIADO, '<br/>',
-                    '<b>', TXT_ROTULO_DT_ENVIO, ':</b> ',
-                    $le->mod_lr->data_criacao;
-                break;
-            case 'F':
-                echo MSG_EMAIL_FALHOU, '<br/>',
-                    '<b>', TXT_ROTULO_MSG_ERRO, ':</b><br/>',
-                    nl2br($le->mensagem);
-                break;
-        endswitch; ?>
-    </p>
+        <p class="det-paragr">
+            <span class="det-rotulo"><?= TXT_ROTULO_MENSAGEM; ?>:</span><br/>
+            <?= nl2br($mod->mensagem); ?>
+        </p>
+    </details>
 
-    <h2><?= TXT_TITULO_QUEM_LEU; ?></h2>
+    <details class="detalhes" open>
+        <summary class="det-titulo"><?= TXT_SUMARIO_ENVIO_EMAIL; ?></summary>
 
-    <?php if( !count($params['leituras']) ):
-        echo MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO;
-    else: ?>
-    <ol reversed="reversed" class="leituras">
-        <?php foreach( $params['leituras'] as $l ): ?>
-        <li class="item-leitura">
-            <?= \Funcoes::_formatardatahora($l['leitura_contato_data'], $_SESSION['formato_data_completo']) ."<br/>{$l['USUARIO']}"; ?>
-        </li>
-        <?php endforeach; ?>
-    </ol>
-    <?php endif; ?>
+        <p class="det-paragr">
+            <span class="det-rotulo"><?= TXT_ROTULO_STATUS; ?>:</span>
+            <?php switch( $le->status ):
+                case 'E':
+                    echo MSG_EMAIL_ENVIADO, '<br/>',
+                        '<b>', TXT_ROTULO_DT_ENVIO, ':</b> ',
+                        $le->mod_lr->data_criacao;
+                    break;
+                case 'F':
+                    echo MSG_EMAIL_FALHOU, '<br/>',
+                        '<b>', TXT_ROTULO_MSG_ERRO, ':</b><br/>',
+                        nl2br($le->mensagem);
+                    break;
+            endswitch; ?>
+        </p>
+    </details>
+
+    <details class="detalhes" open>
+        <summary class="det-titulo"><?= TXT_SUMARIO_QUEM_LEU; ?></summary>
+
+        <?php if( !count($params['leituras']) ):
+            echo MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO;
+        else: ?>
+        <ol reversed="reversed" class="log-registro leituras">
+            <?php foreach( $params['leituras'] as $l ): ?>
+            <li class="item-leitura">
+                <?= \Funcoes::_formatardatahora($l['leitura_contato_data'], $_SESSION['formato_data_completo']) ." {$l['USUARIO']}"; ?>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+        <?php endif; ?>
+    </details>
 </section>

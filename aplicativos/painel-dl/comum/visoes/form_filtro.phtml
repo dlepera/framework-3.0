@@ -10,7 +10,7 @@
 ?>
 
 <form id="form-filtro" method="get" class="form-filtro">
-    <input type="search" name="t" value="<?= $params['get-t']; ?>" placeholder="<?= TXT_DICA_FORM_FILTRO; ?>"/>
+    <input type="search" name="t" value="<?= $params['get-t']; ?>" placeholder="<?= TXT_DICA_FORM_FILTRO; ?>" class="form-controle"/>
 
     <?php
     $qc = count($params['campos']);
@@ -19,7 +19,7 @@
     <input type="hidden" name="c" value="<?= $params['campos'][0]['valor']; ?>"/>
     <input type="hidden" name="o" value="<?= $params['campos'][0]['valor']; ?>"/>
     <?php elseif( $qc > 1 ):?>
-    <select name="c">
+    <select name="c" class="form-controle">
         <option value=""><?= TXT_OPCAO_NO_CAMPO; ?></option>
 
         <?php foreach( $params['campos'] as $o ): ?>
@@ -29,7 +29,7 @@
         <?php endforeach; ?>
     </select>
 
-    <select name="o">
+    <select name="o" class="form-controle">
         <option value=""><?= TXT_OPCAO_ORDENAR_POR; ?></option>
 
         <?php foreach( $params['campos'] as $o ): ?>

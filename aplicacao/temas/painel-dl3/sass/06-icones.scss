@@ -1,0 +1,85 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 12/05/2015 21:29:50
+ */
+
+
+
+@import '../../_ajuda/compatibilidade.scss';
+@import '../_ajuda/configuracoes.scss';
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Links com icones
+ * -------------------------------------------------------------------------- */
+$_ln: 2.5em;
+
+.com-icone:before{
+    /* Visual */
+    display: inline-block;
+    
+    /* Texto */
+    font-family : 'icones';
+    text-align  : center;
+    line-height : $_ln; 
+    font-size   : 1em; 
+    
+    /* Alinhamento */
+    vertical-align: middle;
+    
+    /* Tamanho */
+    width   : $_ln;
+    height  : $_ln;
+}
+
+.so-icone{
+    /* Texto */
+    color       : transparent !important;
+    text-indent : -9999px;
+    
+    /* Posicionamento */
+    position: relative;
+    
+    /* Visual */
+    display: inline-flex;
+    
+    /* Tamanho */
+    width: $_ln;
+}
+
+.so-icone:before{
+    @extend .com-icone:before;
+    
+    /* Posicionamento */
+    position: absolute;
+    top     : 50%;
+    
+    /* Transofrmar */
+    @include _transform(translateY(-50%));
+}
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Montar os ícones
+ * -------------------------------------------------------------------------- */
+@each $ico in $icos{
+    $cl: nth($ico,1);
+    $co: unquote(nth($ico,2));
+    $ic: nth($ico,3);
+    
+    .ico-#{$cl}{
+        /* Texto */
+        color: $co;
+    }
+    
+    .ico-#{$cl}:before{
+        /* Texto */
+        content     : $ic;
+        color       : $co !important;
+        text-indent : 0;
+    }
+}

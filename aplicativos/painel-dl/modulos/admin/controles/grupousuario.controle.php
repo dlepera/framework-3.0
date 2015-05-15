@@ -18,7 +18,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
                 'id'        =>  FILTER_VALIDATE_INT,
                 'descr'     =>  FILTER_SANITIZE_STRING,
                 'funcs'     =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY),
-                'publicar'  =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -45,7 +45,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_grupos');
-        $this->visao->titulo = TXT_TITULO_GRUPOS_USUARIOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_GRUPOS_USUARIOS;
 
         # Parâmetro
         $this->visao->_adparam('campos', array(
@@ -67,7 +67,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
         
         # Visão
         $this->_carregarhtml('form_grupo', is_null($tr) ? true : $tr);
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_GRUPOUSUARIO : TXT_TITULO_EDITAR_GRUPOUSUARIO;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO : TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO;
 
         # Sub-módulos
         $mm = new \Desenvolvedor\Modelo\Modulo();

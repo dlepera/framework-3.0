@@ -8,9 +8,9 @@
  */
 
 # Títulos de páginas
-define('TXT_TITULO_LOGIN', 'Acessar o sistema');
-define('TXT_TITULO_ESQUECI_MINHA_SENHA', 'Esqueci minha senha');
-define('TXT_TITULO_MOSTRARRESETSENHA', 'Resetar senha');
+define('TXT_PAGINA_TITULO_LOGIN', 'Acessar o sistema');
+define('TXT_PAGINA_TITULO_ESQUECI_MINHA_SENHA', 'Esqueci minha senha');
+define('TXT_PAGINA_TITULO_MOSTRARRESETSENHA', 'Resetar senha');
 
 # Formuários
 # -> Campos

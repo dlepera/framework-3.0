@@ -30,7 +30,7 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_contatos');
-        $this->visao->titulo = TXT_TITULO_CONTATOS_RECEBIDOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_CONTATOS_RECEBIDOS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -58,7 +58,7 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('det_contato');
-        $this->visao->titulo = TXT_TITULO_DETALHES_CONTATO;
+        $this->visao->titulo = TXT_PAGINA_TITULO_DETALHES_CONTATO;
 
         # Assunto do contato
         if( !is_null($this->modelo->assunto) ):

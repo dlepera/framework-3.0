@@ -18,8 +18,8 @@ class Tema extends \Geral\Controle\PainelDL{
                 'id'        => FILTER_VALIDATE_INT,
                 'descr'     => FILTER_SANITIZE_STRING,
                 'diretorio' => FILTER_SANITIZE_STRING,
-                'padrao'    => array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1)),
-                'publicar'  => array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'padrao'    => FILTER_VALIDATE_BOOLEAN,
+                'publicar'  => FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -40,17 +40,15 @@ class Tema extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('tema_id, tema_descr, ( CASE tema_padrao'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
-                . " END ) AS PADRAO,"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
+                . ' END ) AS PADRAO,'
                 . " ( CASE tema_publicar"
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
-                . " END ) AS PUBLICADO", 'tema_descr', null);
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
+                . ' END ) AS PUBLICADO', 'tema_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_temas');
-        $this->visao->titulo = TXT_TITULO_TEMAS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_TEMAS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -73,6 +71,6 @@ class Tema extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_tema', is_null($tr) ? true : $tr);
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_TEMA : TXT_TITULO_EDITAR_TEMA;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_TEMA : TXT_PAGINA_TITULO_EDITAR_TEMA;
     } // Fim di método _mostrarform
 } // Fim do Controle Tema

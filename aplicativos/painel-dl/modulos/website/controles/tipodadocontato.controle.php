@@ -17,10 +17,10 @@ class TipoDadoContato extends \Geral\Controle\PainelDL{
             $post = filter_input_array(INPUT_POST, array(
                 'id'            =>  FILTER_VALIDATE_INT,
                 'descr'         =>  FILTER_SANITIZE_STRING,
-                'rede_social'   =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1)),
+                'rede_social'   =>  FILTER_VALIDATE_BOOLEAN,
                 'mascara'       =>  FILTER_DEFAULT,
                 'expreg'        =>  FILTER_DEFAULT,
-                'publicar'      =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'publicar'      =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -41,17 +41,15 @@ class TipoDadoContato extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('tipo_dado_id, tipo_dado_descr, tipo_dado_icone, ( CASE tipo_dado_rede_social'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) REDE_SOCIAL,"
                 . ' ( CASE tipo_dado_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) AS PUBLICADO", 'tipo_dado_rede_social, tipo_dado_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_tipos_dado');
-        $this->visao->titulo = TXT_TITULO_TIPOS_DADO_CONTATO;
+        $this->visao->titulo = TXT_PAGINA_TITULO_TIPOS_DADO_CONTATO;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -73,7 +71,7 @@ class TipoDadoContato extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_tipo_dado',$tr);
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_TIPO_DADO : TXT_TITULO_EDITAR_TIPO_DADO;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_TIPO_DADO : TXT_PAGINA_TITULO_EDITAR_TIPO_DADO;
     } // Fim do método _mostrarform
 
 
@@ -84,7 +82,7 @@ class TipoDadoContato extends \Geral\Controle\PainelDL{
      */
     public function _opcoesavancadas(){
         $this->modelo->_selecionarID(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT));
-        
+
         echo json_encode(array(
             'mascara'   =>  $this->modelo->mascara,
             'expreg'    =>  $this->modelo->expreg

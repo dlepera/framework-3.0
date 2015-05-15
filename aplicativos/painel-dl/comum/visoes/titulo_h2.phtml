@@ -8,7 +8,7 @@
  */
 
 if( !$params['incluindo'] ): ?>
-<h2 class="sub-h2">
+<p class="log-registro">
     <?php if( !empty($params['dt-inc']) ):
         printf(MSG_REGISTRO_CRIADO, $params['u-inc'], $params['dt-inc']);
         echo '<br/>';
@@ -17,5 +17,5 @@ if( !$params['incluindo'] ): ?>
     if( !empty($params['dt-alt']) ):
         printf(MSG_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']);
     endif; ?>
-</h2>
+</p>
 <?php endif;

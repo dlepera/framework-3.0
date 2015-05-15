@@ -17,13 +17,11 @@ class GrupoUsuario extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _funcs($v=null){
-        return is_null($v) ? $this->funcs
-        : $this->funcs = filter_var($v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+        return $this->funcs = filter_var(is_null($v) ? $this->funcs : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
     } // Fim do método _funcs
 
 

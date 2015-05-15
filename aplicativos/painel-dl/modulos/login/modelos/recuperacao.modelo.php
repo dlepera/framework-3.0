@@ -18,8 +18,7 @@ class Recuperacao extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _usuario($valor=null){
-        return is_null($valor) ? (int)$this->usuario
-        : $this->usuario = (int)$valor;
+        return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario
 
     public function _hash($valor=null){
@@ -28,13 +27,7 @@ class Recuperacao extends \Geral\Modelo\Principal{
     } // Fim do método _hash
 
     public function _status($valor=null){
-        if( is_null($valor) )
-            return $this->status;
-
-        if( !empty($valor) && !in_array($valor, array('E', 'C', 'R', 'X')) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, __METHOD__), 1404);
-
-        return $this->status = (string)$valor;
+        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '~^[ACRX]{1}$~')));
     } // Fim do método _status
 
 

@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -24,17 +24,17 @@ $mod = $params['modelo'];
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_TIPO_DADO; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_TIPO_DADO; ?></legend>
 
             <p class="form-paragr">
                 <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" required/>
+                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="arq-icone" class="form-rotulo"><?= TXT_ROTULO_ICONE; ?>:</label><br/>
-                <input type="file" name="icone" id="arq-icone"/>
+                <input type="file" name="icone" id="arq-icone" class="form-controle"/>
 
                 <?php if( $mod->icone != '' ): ?>
                 <figure class="mostrar-icone">
@@ -45,30 +45,30 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_REDE_SOCIAL; ?></span><br/>
-                <input type="checkbox" name="rede_social" id="rede-social" class="s-ou-n" value="1"<?= $mod->rede_social ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="rede_social" id="rede-social" class="form-alternar"<?= $mod->rede_social ? ' CHECKED' : ''; ?>/>
                 <label for="rede-social"></label>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_OPCOES_AVANCADAS; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_OPCOES_AVANCADAS; ?></legend>
 
             <p class="form-paragr">
                 <label for="txt-mascara" class="form-rotulo"><?= TXT_ROTULO_MASCARA; ?>:</label><br/>
                 <span class="form-dica"><?= TXT_DICA_TIPODADO_MASCARA; ?></span><br/>
-                <input type="text" name="mascara" id="txt-mascara" value="<?= $mod->mascara; ?>"/>
+                <input type="text" name="mascara" id="txt-mascara" value="<?= $mod->mascara; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-expreg" class="form-rotulo"><?= TXT_ROTULO_EXPREG; ?>:</label><br/>
                 <span class="form-dica"><?= TXT_DICA_TIPODADO_EXPREG; ?></span><br/>
-                <input type="text" name="expreg" id="txt-expreg" value="<?= $mod->expreg; ?>"/>
+                <input type="text" name="expreg" id="txt-expreg" value="<?= $mod->expreg; ?>" class="form-controle"/>
             </p>
         </fieldset>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>
 

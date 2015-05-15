@@ -13,28 +13,35 @@ if( !isset($params) )
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
-    <form id="form-contato" action="contato/enviar" method="post">
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <p class="form-paragr">
             <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-            <input type="text" name="nome" id="txt-nome" required/>
+            <input type="text" name="nome" id="txt-nome" class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <label for="mail-email" class="form-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</label><br/>
-            <input type="email" name="email" id="mail-email" required/>
+            <input type="email" name="email" id="mail-email" class="form-controle" required/>
         </p>
 
         <p class="form-paragr" class="form-rotulo">
             <label for="tel-telefone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
-            <input type="tel" name="telefone" id="tel-fone"/>
+
+            <span class="form-dica">
+                <!-- Alternar a mácara do telefone -->
+                <input type="checkbox" id="alt-mask-fone"/>
+                <label for="alt-mask-fone"><?= TXT_ROTULO_ALT_MASK_FONE; ?></label><br/>
+            </span>
+
+            <input type="tel" name="telefone" id="tel-fone" class="form-controle"/>
         </p>
 
         <?php if( $params['mostrar-assunto?'] && count($params['assuntos']) > 0 ): ?>
         <p class="form-paragr">
             <label for="sel-assunto" class="form-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</label><br/>
-            <select name="assunto" id="sel-assunto" required>
+            <select name="assunto" id="sel-assunto" class="form-controle" required>
                 <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                 <?php foreach( $params['assuntos'] as $o ): ?>
@@ -46,7 +53,7 @@ if( !isset($params) )
 
         <p class="form-paragr">
             <label for="ta-mensagem" class="form-rotulo"><?= TXT_ROTULO_MENSAGEM; ?>:</label><br/>
-            <textarea name="mensagem" id="ta-mensagem" required></textarea>
+            <textarea name="mensagem" id="ta-mensagem" class="form-controle form-textarea" required></textarea>
         </p>
 
         <p class="form-botoes">
@@ -55,3 +62,20 @@ if( !isset($params) )
         </p>
     </form>
 </section>
+
+<script>
+    //<![CDATA[
+    window.addEventListener('load', function(){
+        // Aplicar as máscaras
+        $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
+
+        $('#alt-mask-fone').on('change', function(){
+            var $th = $(this);
+            var chk = this.checked;
+
+            if( chk ) $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');
+            else $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
+        });
+    });
+    //]]>
+</script>

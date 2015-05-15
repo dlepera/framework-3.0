@@ -15,7 +15,7 @@ $mod = $params['modelo'];
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
@@ -26,46 +26,46 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <label for="txt-apelido" class="form-rotulo"><?= TXT_ROTULO_APELIDO; ?>:</label><br/>
-            <input type="text" name="apelido" id="txt-apelido" value="<?= $mod->apelido; ?>" required/>
+            <input type="text" name="apelido" id="txt-apelido" value="<?= $mod->apelido; ?>" class="form-controle" required/>
         </p>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
 
             <p class="form-paragr">
                 <label for="mail-usuario" class="form-rotulo"><?= TXT_ROTULO_USUARIO; ?>:</label><br/>
-                <input type="email" name="usuario" id="mail-usuario" value="<?= $mod->usuario; ?>" required/>
+                <input type="email" name="usuario" id="mail-usuario" value="<?= $mod->usuario; ?>" class="form-controle" required/>
             </p>
 
             <p class="form-paragr">
                 <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" required/>
+                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" class="form-controle" required/>
             </p>
         </fieldset>
 
-        <fieldset>
-            <legend><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
+        <fieldset class="form-grupo">
+            <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
 
             <p class="form-paragr">
                 <label for="perfil-id" class="form-rotulo"><?= TXT_ROTULO_PERFIL; ?>:</label><br/>
-                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000"/>
+                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000" max="99999" class="form-controle form-numero"/>
             </p>
 
             <p class="form-paragr">
                 <label for="codigo-ua" class="form-rotulo"><?= TXT_ROTULO_CODIGO_UA; ?>:</label><br/>
-                <input type="text" name="codigo_ua" id="codigo-ua" value="<?= $mod->codigo_ua; ?>"/>
+                <input type="text" name="codigo_ua" id="codigo-ua" value="<?= $mod->codigo_ua; ?>" class="form-controle"/>
             </p>
         </fieldset>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="s-ou-n" value="1"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
             <label for="chk-principal"></label>
         </p>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="s-ou-n" value="1"<?= $mod->publicar || $params['incluindo'] ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
             <label for="chk-publicar"></label>
         </p>
 

@@ -17,22 +17,15 @@ class Tema extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do módulo _descr
 
     public function _diretorio($v=null){
-        return is_null($v) ? (string)$this->diretorio
-        : $this->diretorio = (string)filter_var(trim($v, '/'), FILTER_SANITIZE_STRING) .'/';
+        return $this->diretorio = trim(filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/') .'/';
     } // Fim do módulo _diretorio
 
     public function _padrao($v=null){
-        if( is_null($v) ) return (int)$this->padrao;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'padrao'), 1500);
-
-        return $this->padrao = (int)$v;
+        return $this->padrao = filter_var(is_null($v) ? $this->padrao : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _padrao
 
 

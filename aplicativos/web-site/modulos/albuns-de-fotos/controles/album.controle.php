@@ -26,7 +26,7 @@ class Album extends \Geral\Controle\WebSite{
 
         # Visão
         $this->_carregarhtml('lista_albuns');
-        $this->visao->titulo = TXT_TITULO_ALBUNS_FOTOS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(

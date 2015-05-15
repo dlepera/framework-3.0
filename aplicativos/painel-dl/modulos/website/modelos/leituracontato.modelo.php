@@ -17,18 +17,15 @@ class LeituraContato extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _leitura_contato($v=null){
-        return is_null($v) ? (int)$this->leitura_contato
-        : $this->leitura_contato = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->leitura_contato = filter_var(is_null($v) ? $this->leitura_contato : $v, FILTER_VALIDATE_INT);
     } // Fim do método _leitura_contato
 
     public function _usuario($v=null){
-        return is_null($v) ? (int)$this->usuario
-        : $this->usuario = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario
 
     public function _data($v=null){
-        return is_null($v) ? \Funcoes::_formatardatahora($this->data, $_SESSION['formato_data_completo'])
-        : $this->data = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
+        return $this->data = \Funcoes::_formatardatahora(filter_var(is_null($v) ? $this->data : $v, FILTER_SANITIZE_STRING), \DL3::$bd_dh_formato_completo);
     } // Fim do método _data
 
 
@@ -58,7 +55,7 @@ class LeituraContato extends \Geral\Modelo\Principal{
      * @param array $ce - vetor com os campos a serem desconsiderados
      */
     protected function _salvar($s=true, $ci=null, $ce=null){
-        if( !is_null($this->id) || $this->_verificarleitura() ) return 0;
+        if( !$this->reg_vazio || $this->_verificarleitura() ) return 0;
 
         # Obter a data atual
         $this->_data(date(\DL3::$bd_dh_formato_completo));
