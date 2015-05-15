@@ -272,15 +272,14 @@ abstract class Principal{
      * Salvar determinado registro
      * -------------------------------------------------------------------------
      *
-     * @param boolean $s - define se o registro será salvo ou apenas
-     * será gerada a query de insert/update
+     * @param boolean $s - define se o registro será salvo ou apenas será gerada a query de insert/update
      * @param array $ci - vetor com os campos a serem considerados
      * @param array $ce - vetor com os campos a serem desconsiderados
      * @param bool $ipk - define se o campo PK será considerado para inserção
      */
     protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         $query = $this->reg_vazio ? $this->_criar_insert($ipk, $ci,$ce) : $this->_criar_update($ci,$ce);
-        
+
         if( !$s ) return $query;
 
         if( ($exec = \DL3::$bd_conex->exec($query)) === false )
@@ -420,4 +419,18 @@ abstract class Principal{
 
         if( $escrever ) echo json_encode($lis); else return $lis;
     } // Fim _carregarselect
+
+
+
+    /**
+     * Alternar a publicação
+     * -------------------------------------------------------------------------
+     */
+    public function _alternarpublicacao(){
+        if( !property_exists($this, 'publicar') )
+            throw new \Exception(ERRO_PRINCIPAL_ALTERNARPUBLICACAO_PROPRIEDADE_NAO_EXISTE, 1404);
+
+        $this->publicar = !$this->publicar;
+        return $this->_salvar();
+    } // Fim do método _alternarpublicacao
 } // Fim do modelo Principal

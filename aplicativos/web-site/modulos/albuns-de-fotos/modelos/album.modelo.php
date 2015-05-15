@@ -16,7 +16,7 @@ class Album extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _nome(){ return (string)$this->nome; } // Fim do método _nome
+    public function _nome(){ return filter_var($this->nome, FILTER_SANITIZE_STRING); } // Fim do método _nome
 
 
     public function __construct($id=null){

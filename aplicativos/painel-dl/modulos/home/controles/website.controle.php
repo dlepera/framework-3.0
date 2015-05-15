@@ -17,7 +17,7 @@ class WebSite extends \Geral\Controle\PainelDL{
     public function _index(){
         # Visao
         $this->_carregarhtml('home');
-        $this->visao->titulo = TXT_TITULO_PAINELDL_HOME;
+        $this->visao->titulo = TXT_PAGINA_TITULO_PAINELDL_HOME;
 
         # Carregar informações sobre contatos recebidos
         $mc = new \WebSite\Modelo\ContatoSite();

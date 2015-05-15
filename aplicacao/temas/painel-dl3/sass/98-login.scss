@@ -1,0 +1,61 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 13/05/2015 14:57:53
+ */
+
+
+
+@import '../_ajuda/configuracoes.scss';
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Login
+ *  -> Desktops
+ * -------------------------------------------------------------------------- */
+@media screen and (min-width:$tela-tablet + 1px){
+    #dl3-grid.grid-login{
+        /* Tamanho */
+        width   : $grid-tamanho-x / 3;
+        height  : $grid-tamanho-y / 3;
+        
+        .form-controle{
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+}
+
+
+
+/* Tablets ------------------------------------------------------------------ */
+@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+    #dl3-grid.grid-login{
+        /* Tamanho */
+        width   : $grid-tamanho-x / 1.5;
+        height  : $grid-tamanho-y / 1.5;
+        
+        .form-controle{
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+}
+
+
+
+/* Smartphones -------------------------------------------------------------- */
+@media screen and (max-width:$tela-smart){
+    #dl3-grid.grid-login{
+        /* Tamanho */
+        width   : $grid-tamanho-x;
+        height  : $grid-tamanho-y;
+        
+        .form-controle{
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+}

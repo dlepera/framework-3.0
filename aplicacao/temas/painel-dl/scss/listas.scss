@@ -5,10 +5,10 @@
  * @Data	: 16/01/2015 22:38:33
  */
 
-@import '../../_help/compatibilidade.scss';
-@import '../../_help/configuracoes.scss';
-@import '../_help/cores.scss';
-@import '../_help/configuracoes.scss';
+@import '../../_ajuda/compatibilidade.scss';
+@import '../../_ajuda/configuracoes.scss';
+@import '../_ajuda/cores.scss';
+@import '../_ajuda/configuracoes.scss';
 
 /* -----------------------------------------------------------------------------
  *  Tabela com lista de registros
@@ -102,7 +102,7 @@ table.lista{
     }
     
     /* TDs especificos */
-    .td-chk{
+    .tbl-celula-chk{
         /* Tamanho */
         width: 30px;
 
@@ -110,7 +110,7 @@ table.lista{
         text-align: center;
     }
 
-    .td-id{
+    .tbl-celula-id{
         /* Tamanho */
         width: 3%;
         
@@ -121,17 +121,17 @@ table.lista{
         text-align: center;
     }
     
-    .td-id + th, .td-id + td{
+    .tbl-celula-id + th, .tbl-celula-id + td{
         /* Margens */
         padding-left: .7em;
     }
     
-    .td-opcoes{
+    .tbl-celula-opcoes{
         /* Tamanho */
         max-width: 10%;
     }
     
-    .td-infos{
+    .tbl-celula-infos{
         /* Texto */
         color: #888;
 
@@ -162,7 +162,7 @@ table.lista{
         }
     }
     
-    .td-infos:first-line{
+    .tbl-celula-infos:first-line{
         /* Texto */
         color       : #000;
         line-height : initial;

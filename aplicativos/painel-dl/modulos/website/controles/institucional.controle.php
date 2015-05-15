@@ -42,7 +42,7 @@ class Institucional extends \Geral\Controle\PainelDL{
     protected function _mostrarinfos(){
         # Visão
         $this->_carregarhtml('det_instit');
-        $this->visao->titulo = TXT_TITULO_INFOS_INSTITUCIONAIS;
+        $this->visao->titulo = TXT_PAGINA_TITULO_INFOS_INSTITUCIONAIS;
 
         # Obter o ID das informações
         $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
@@ -65,6 +65,6 @@ class Institucional extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_instit');
-        $this->visao->titulo = TXT_TITULO_EDITAR_INSTITUCIONAL;
+        $this->visao->titulo = TXT_PAGINA_TITULO_EDITAR_INSTITUCIONAL;
     } // Fim do método _mostrarform
 } // Fim do Controle Institucional

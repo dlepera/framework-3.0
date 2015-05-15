@@ -18,75 +18,51 @@ class ConfigEmail extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _titulo($v=null){
-        return is_null($v) ? (string)$this->titulo
-        : $this->titulo = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->titulo = filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _titulo
 
     public function _host($v=null){
-        return is_null($v) ? (string)$this->host
-        : $this->host = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->host = filter_var(is_null($v) ? $this->host : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _host
 
     public function _porta($v=null){
-        return is_null($v) ? (int)$this->porta
-        : $this->porta = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->porta = filter_var(is_null($v) ? $this->porta : $v, FILTER_VALIDATE_INT);
     } // Fim do método _porta
 
     public function _autent($v=null){
-        if ( is_null($v) ) return (int)$this->autent;
-
-        if( !empty($v) && ($v < 0 && $v > 0) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'autent'), 1500);
-
-        return $this->autent = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->autent = filter_var(is_null($v) ? $this->autent : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _autent
 
     public function _cripto($v=null){
-        return is_null($v) ? (string)$this->cripto
-        : $this->cripto = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->cripto = filter_var(is_null($v) ? $this->cripto : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _cripto
 
     public function _conta($v=null){
-        return is_null($v) ? (string)$this->conta
-        : $this->conta = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->conta = filter_var(is_null($v) ? $this->conta : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _conta
 
     public function _senha($v=null){
-        return is_null($v) ? (string)$this->senha
-        : $this->senha = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->senha = filter_var(is_null($v) ? $this->senha : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _senha
 
     public function _de_email($v=null){
-        return is_null($v) ? (string)$this->de_email
-        : $this->de_email = (string)filter_var($v, FILTER_VALIDATE_EMAIL);
+        return $this->de_email = filter_var(is_null($v) ? $this->de_email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _de_email
 
     public function _de_nome($v=null){
-        return is_null($v) ? (string)$this->de_nome
-        : $this->de_nome = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->de_nome = filter_var(is_null($v) ? $this->de_nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _de_nome
 
     public function _responder_para($v=null){
-        return is_null($v) ? (string)$this->responder_para
-        : $this->responder_para = (string)filter_var($v, FILTER_VALIDATE_EMAIL);
+        return $this->responder_para = filter_var(is_null($v) ? $this->responder_para : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _responder_para
 
     public function _html($v=null){
-        if ( is_null($v) ) return (int)$this->html;
-
-        if( !empty($v) && ($v < 0 && $v > 0) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'html'), 1500);
-
-        return $this->html = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->html = filter_var(is_null($v) ? $this->html : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _html
 
     public function _principal($v=null){
-        if ( is_null($v) ) return (int)$this->principal;
-
-        if( !empty($v) && ($v < 0 && $v > 0) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'principal'), 1500);
-
-        return $this->principal = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->principal = filter_var(is_null($v) ? $this->principal : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _principal
 
 

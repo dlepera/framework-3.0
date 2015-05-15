@@ -50,7 +50,7 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_ga');
-        $this->visao->titulo = TXT_TITULO_CONFIGURACOES_GA;
+        $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_GA;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -72,6 +72,6 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_ga');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_GA : TXT_TITULO_EDITAR_GA;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_GA : TXT_PAGINA_TITULO_EDITAR_GA;
     } // Fim do método _mostrarform
 } // Fim do Controle GoogleAnalytics

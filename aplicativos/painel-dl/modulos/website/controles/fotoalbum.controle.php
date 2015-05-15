@@ -19,8 +19,8 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
                 'foto_album'    =>  FILTER_VALIDATE_INT,
                 'titulo'        =>  FILTER_SANITIZE_STRING,
                 'descr'         =>  FILTER_SANITIZE_STRING,
-                'capa'          =>  array('filter' => FILTER_VALIDATE_INT, 'options' => array('min_range' => 0, 'max_range' => 1)),
-                'publicar'      =>  array('filter' => FILTER_VALIDATE_INT, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'capa'          =>  FILTER_VALIDATE_BOOLEAN,
+                'publicar'      =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -46,8 +46,8 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
         $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $id);
 
         # Visão
-        $this->_carregarhtml('form_foto', $tr);
-        $this->visao->titulo = TXT_TITULO_EDITAR_FOTO;
+        $this->_carregarhtml('form_foto', is_null($tr) ? true :$tr);
+        $this->visao->titulo = TXT_PAGINA_TITULO_EDITAR_FOTO;
     } // Fim do método _mostrarform
 
 

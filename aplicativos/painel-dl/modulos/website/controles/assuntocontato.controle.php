@@ -18,8 +18,8 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
                 'id'        =>  FILTER_VALIDATE_INT,
                 'descr'     =>  FILTER_SANITIZE_STRING,
                 'email'     =>  FILTER_VALIDATE_EMAIL,
-                'cor'       =>  FILTER_DEFAULT,
-                'publicar'  =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'cor'       =>  array('filter' => FILTER_VALIDATE_REGEXP, 'options' => array('regexp' => EXPREG_COR_HEXA)),
+                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -40,13 +40,12 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor, ( CASE assunto_contato_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . ' END ) AS PUBLICADO', 'assunto_contato_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_assuntos');
-        $this->visao->titulo = TXT_TITULO_ASSUNTOS_CONTATO;
+        $this->visao->titulo = TXT_PAGINA_TITULO_ASSUNTOS_CONTATO;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -68,6 +67,6 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_assunto');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_ASSUNTO : TXT_TITULO_EDITAR_ASSUNTO;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_ASSUNTO : TXT_PAGINA_TITULO_EDITAR_ASSUNTO;
     } // Fim do método _mostrarform
 } // Fim do Controle AssuntoContato

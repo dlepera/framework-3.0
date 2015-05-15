@@ -18,32 +18,23 @@ class FotoAlbum extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _foto_album($v=null){
-        return is_null($v) ? (int)$this->foto_album
-        : $this->foto_album = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->foto_album = filter_var(is_null($v) ? $this->foto_album : $v, FILTER_VALIDATE_INT);
     } // Fim do método _foto_album
 
     public function _titulo($v=null){
-        return is_null($v) ? (string)$this->titulo
-        : $this->titulo = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->titulo = filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _titulo
 
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _imagem($v=null){
-        return is_null($v) ? (string)$this->imagem
-        : $this->imagem = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->imagem = filter_var(is_null($v) ? $this->imagem : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _imagem
 
     public function _capa($v=null){
-        if( is_null($v) ) return (int)$this->capa;
-
-        if( !empty($v) && ($v < 0 || $v > 1) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'capa'), 1500);
-
-        return (int)$this->capa;
+        return $this->capa = filter_var(is_null($v) ? $this->capa : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _capa
 
 

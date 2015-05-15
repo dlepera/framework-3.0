@@ -22,31 +22,22 @@ $params = $this->_obterparams();
     <base href="<?= \DL3::$ap_base_html; ?>"/>
 
     <!-- Tamanho do dispositivo -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../<?= \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
     <!-- Aplicar o tema da página -->
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/padrao.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/links.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/topo.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/menu.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/conteudo.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/listas.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/formularios.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/rodape.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/painel.css"/>
-    <link rel="stylesheet" media="all" href="../<?= \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>css/flexivel.css"/>
+    <?= \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
 </head>
 <body>
-    <div id="grid-layout">
+    <div id="dl3-grid">
         <header class="dl3-topo">
             <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
 
             <ul class="menu-usuario sem-marcadores">
                 <li class="menu-item">
-                    <a href="javascript:;" class="a-usuario">
+                    <a href="javascript:;" class="menu-texto ico-usuario">
                         <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
                     </a>
 
@@ -55,7 +46,7 @@ $params = $this->_obterparams();
                     <ul class="sub-menu sem-marcadores">
                         <?php if( $params['perm-usr-conta?'] ): ?>
                         <li class="sm-item">
-                            <a href="admin/usuarios/minha-conta" class="a-conta">
+                            <a href="admin/usuarios/minha-conta" class="sm-texto ico-conta">
                                 <?= TXT_LINK_MINHA_CONTA; ?>
                             </a>
                         </li>
@@ -63,14 +54,14 @@ $params = $this->_obterparams();
 
                         if( $params['perm-usr-senha?'] ): ?>
                         <li class="sm-item">
-                            <a href="admin/usuarios/alterar-minha-senha" class="a-senha">
+                            <a href="admin/usuarios/alterar-minha-senha" class="sm-texto ico-senha">
                                 <?= TXT_LINK_ALTERAR_MINHA_SENHA; ?>
                             </a>
                         </li>
                         <?php endif; ?>
 
                         <li class="sm-item">
-                            <a href="javascript:;" onclick="$logout.submit();" class="a-logout">
+                            <a href="javascript:;" onclick="$logout.submit();" class="sm-texto ico-logout">
                                 <?= TXT_LINK_LOGOUT; ?>
                             </a>
                         </li>
@@ -84,7 +75,7 @@ $params = $this->_obterparams();
 
             <ul id="menu-principal" class="menu-principal sem-marcadores">
                 <li class="menu-item">
-                    <a href="" class="menu-texto a-home">
+                    <a href="" class="menu-texto ico-home">
                         <?= TXT_LINK_HOME; ?>
                     </a>
                 </li>
@@ -98,7 +89,7 @@ $params = $this->_obterparams();
                             ));
                     if( count($sm_k) > 0 ): ?>
                     <li class="menu-item">
-                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto a-modulo">
+                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto ico-modulo">
                             <?= $mm['modulo_nome']; ?>
                         </a>
 
@@ -106,7 +97,7 @@ $params = $this->_obterparams();
                             <?php foreach( $sm_k as $k ):
                                 $sm = $params['menu-submodulos'][$k]; ?>
                             <li class="sm-item">
-                                <a href="<?= $sm['modulo_link']; ?>" class="sm-texto a-submodulo">
+                                <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
                                     <?= $sm['modulo_nome']; ?>
                                 </a>
 
@@ -127,7 +118,7 @@ $params = $this->_obterparams();
             <form id="form-filtro-modulos">
                 <p class="form-paragr">
                     <label for="txt-bm" class="form-rotulo"><?= TXT_ROTULO_BUSCAR_MODULO; ?></label>
-                    <input type="text" name="bm" id="txt-bm" placeholder="<?= TXT_ROTULO_BUSCAR_MODULO; ?>"/>
+                    <input type="text" name="bm" id="txt-bm" placeholder="<?= TXT_ROTULO_BUSCAR_MODULO; ?>" class="form-controle"/>
                 </p>
 
                 <ul id="menu-filtro" class="menu-filtro sem-marcadores" style="display:none;">
@@ -144,7 +135,7 @@ $params = $this->_obterparams();
                                 <?php foreach( $sm_k as $k ):
                                     $sm = $params['menu-submodulos'][$k]; ?>
                                 <li class="sm-item" style="display:none;">
-                                    <a href="<?= $sm['modulo_link']; ?>" class="sm-texto a-submodulo">
+                                    <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
                                         <?= "{$mm['modulo_nome']} > {$sm['modulo_nome']}"; ?>
                                     </a>
 

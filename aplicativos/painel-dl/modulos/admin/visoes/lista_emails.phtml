@@ -13,59 +13,59 @@ if( !isset($params) )
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <!-- Inserir um novo registro -->
     <?php if( $params['perm-inserir?'] ): ?>
-    <a href="admin/envio-de-emails/novo" class="com-icone a-inserir"><?= TXT_LINK_NOVO_CONFIGEMAIL; ?></a>
+    <a href="admin/envio-de-emails/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_CONFIGEMAIL; ?></a>
     <?php endif; ?>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
     <form id="form-editar-lista" method="post" action="admin/envio-de-emails/excluir-configuracao">
         <!-- Exibir a lista com os registros selecionados -->
-        <table class="lista">
-            <thead>
-                <tr>
-                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+        <table class="lista-registros">
+            <thead class="tbl-titulos">
+                <tr class="tbl-linha">
+                    <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
                     <?php if( $params['exibir-id'] ): ?>
-                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
-                    <th id="th-titulo"><?= TXT_TABELA_TITULO; ?></th>
-                    <th id="th-host" class="v-desk"><?= TXT_TABELA_HOST; ?></th>
-                    <th id="th-principal"><?= TXT_TABELA_PRINCIPAL; ?></th>
-                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                    <th id="th-titulo"><?= TXT_LISTA_TITULO; ?></th>
+                    <th id="th-host" class="v-desk"><?= TXT_LISTA_HOST; ?></th>
+                    <th id="th-principal"><?= TXT_LISTA_PRINCIPAL; ?></th>
+                    <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbl-conteudo">
                 <?php if( !count($params['lista']) )
-                    echo '<tr class="sem-registros"><td colspan="5">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+                    echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
                 foreach( $params['lista'] as $l ): ?>
-                <tr>
-                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['config_email_id']; ?>"/></td>
+                <tr class="tbl-linha">
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['config_email_id']; ?>"/></td>
                     <?php if( $params['exibir-id'] ): ?>
-                    <td headers="th-id" class="td-id"><?= $l['config_email_id']; ?></td>
+                    <td headers="th-id" class="tbl-celula-id"><?= $l['config_email_id']; ?></td>
                     <?php endif; ?>
                     <td headers="th-titulo"><?= $l['config_email_titulo']; ?></td>
                     <td headers="th-host" class="v-desk"><?= $l['config_email_host']; ?></td>
                     <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
-                    <td headers="th-opcoes" class="td-opcoes">
+                    <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-testar?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return; });" class="com-icone a-email">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return; });" class="so-icone ico-email">
                             <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-editar?'] ): ?>
-                        <a href="admin/envio-de-emails/editar/<?= $l['config_email_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                        <a href="admin/envio-de-emails/editar/<?= $l['config_email_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -74,12 +74,12 @@ if( !isset($params) )
                 <?php endforeach; ?>
             </tbody>
 
-            <tfoot>
+            <tfoot class="tbl-rodape">
                 <?php if( count($params['lista']) ): ?>
-                <tr class="com-marcados">
-                    <td colspan="5">
+                <tr class="tbl-linha com-marcados">
+                    <td>
                         <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

@@ -17,23 +17,15 @@ class AssuntoContato extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _email($v=null){
-        return is_null($v) ? (string)$this->email
-        : $this->email = filter_var($v, FILTER_VALIDATE_EMAIL);
+        return $this->email = filter_var(is_null($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _email
 
     public function _cor($v=null){
-        if( is_null($v) ) return (string)$this->cor;
-
-        # Validar o formato hexadecimal da cor
-        if( !empty($v) && !preg_match('~^#[a-fA-F0-9]{3,6}$~', $v) )
-            throw new Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, 'cor'), 1500);
-
-        return $this->cor = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->cor = filter_var(is_null($v) ? $this->cor : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => EXPREG_COR_HEXA)));
     } // Fim do método _email
 
 

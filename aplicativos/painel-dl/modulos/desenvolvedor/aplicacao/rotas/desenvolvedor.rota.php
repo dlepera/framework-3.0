@@ -54,6 +54,12 @@ $rotas['^modulos/apagar-funcionalidade$'] = array(
     'acao'      =>  'removerfunc'
 );
 
+$rotas['^modulos/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'Modulo',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 /**
  *  Filtro de módulos para o menu
  * -----------------------------------------------------------------------------
@@ -103,6 +109,12 @@ $rotas['^temas/carregar-select$'] = array(
     'acao'      =>  'carregarselect'
 );
 
+$rotas['^temas/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'Tema',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
+);
+
 
 
 /**
@@ -140,4 +152,10 @@ $rotas['^idiomas/remover-idioma$'] = array(
 $rotas['^idiomas/carregar-select$'] = array(
     'controle'  =>  'Idioma',
     'acao'      =>  'carregarselect'
+);
+
+$rotas['^idiomas/alternar-publicacao/(publicar|ocultar)$'] = array(
+    'controle'  =>  'Idioma',
+    'acao'      =>  'alternarpublicacao',
+    'params'    =>  '/-/-/:a'
 );

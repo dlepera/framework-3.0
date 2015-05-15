@@ -58,6 +58,8 @@ function TratarResposta(r){
     return { msg: mensagem, ret: retorno };
 } // Fim function TratarResposta(r)
 
+
+
 (function($){
     $.fn._dlformulario = function(opcoes){
         // Valores padrão para as opções desse plugin
@@ -319,6 +321,15 @@ function TratarResposta(r){
         return $this;
     }; // Fim $.fn._dlmostrarmsg
     
+    
+    
+    /**
+     * Aplicar uma máscara em um campo
+     * -------------------------------------------------------------------------
+     * 
+     * @param {string} mascara - string contendo o formato a ser aplicado
+     * @returns {dl-formulario-2.0.plugin_L63.$.fn@call;each}
+     */
     $.fn._mascara = function(mascara){
         return this.each(function(){
             var $this = $(this);
@@ -362,6 +373,82 @@ function TratarResposta(r){
             });
             
             return $this;
+        });
+    };
+    
+    
+    
+    $.fn._select = function(o){
+        // Configurações padrão
+        var p = {
+            nome    : 'nome',
+            filtro  : true,
+            opcoes  : [{ vlr: '', txt: '', sel: false, html: '' }]
+        };
+        
+        // Carregar as opções e mesclá-las com as opções padrao
+        o = $.extend({}, p, o);
+        
+        return $(this).each(function(){
+            var $th = $(this).addClass('form-controle').addClass('select-dl').css({
+                /* Tamanho */
+                height: 'auto',
+                
+                /* Posicionamento */
+                position    : 'relative',
+                'z-index'   : 5
+            });
+            var qto = o.opcoes.length;
+            
+            // Opção selecionada
+            $(document.createElement('span')).addClass('select-selecionada').appendTo($th);
+            
+            // Busca de opções
+            $(document.createElement('input')).attr({
+                type: 'search'
+            }).on('input', function(){
+                var $th = $(this);
+                var vlr = $th.val();
+                var $op = $th.parents('.select-dl').find('.select-opcoes');
+
+                if( vlr !== (false || '') )
+                    $op.slideDown('fast');
+                else
+                    $op.slideUp('fast');
+
+                $op.find('> *').css({ display: 'none' });
+                $op.find(':contains('+ vlr +')').parents('.select-opcao').css({ display: 'block' });
+            }).addClass('select-filtro').appendTo($th);
+            
+            // Todas as opções
+            var $ul = $(document.createElement('ul')).addClass('sem-marcadores').addClass('select-opcoes').css({ display: 'none' }).appendTo($th);
+            
+            // Botão para exibir/ocultar as opções
+            $(document.createElement('button')).addClass('select-botao').attr({ type: 'button' }).html('+').on('click', function(){
+                var $op = $(this).parents('.select-dl').find('.select-opcoes');
+                    $op.find('> *').css({ display: 'block' });
+                    $op.slideToggle('fast');
+            }).appendTo($th);
+            
+            // Incluir as opções
+            for(var i=0; i<qto; i++){
+                var opc = o.opcoes[i];
+                var id  = 'sel'+ o.nome.replace(/_/g, '-') + opc.vlr.replace(/\s/g, '-').toLowerCase();
+                var $li = $(document.createElement('li')).addClass('select-opcao').css({ display: 'none' }).appendTo($ul);
+                
+                // Controle
+                $(document.createElement('input')).attr({
+                    type    : 'radio',
+                    name    : o.nome,
+                    id      : id,
+                    value   : opc.vlr
+                }).appendTo($li);
+                
+                // Label
+                $(document.createElement('label')).attr({
+                    'for': id
+                }).html(opc.txt).appendTo($li);
+            } // Fim for(i)
         });
     };
 })(jQuery);

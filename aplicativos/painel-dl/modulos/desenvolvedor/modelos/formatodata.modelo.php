@@ -17,23 +17,19 @@ class FormatoData extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
     public function _completo($v=null){
-        return is_null($v) ? (string)$this->completo
-        : $this->completo = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->completo = filter_var(is_null($v) ? $this->completo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _completo
 
     public function _data($v=null){
-        return is_null($v) ? (string)$this->data
-        : $this->data = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->data = filter_var(is_null($v) ? $this->data : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _data
 
     public function _hora($v=null){
-        return is_null($v) ? (string)$this->hora
-        : $this->hora = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->hora = filter_var(is_null($v) ? $this->hora : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _hora
 
 

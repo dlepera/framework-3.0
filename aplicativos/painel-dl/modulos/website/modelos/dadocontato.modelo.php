@@ -17,13 +17,11 @@ class DadoContato extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _tipo($v=null){
-        return is_null($v) ? (int)$this->tipo
-        : $this->tipo = (int)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->tipo = filter_var(is_null($v) ? $this->tipo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _tipo
 
     public function _descr($v=null){
-        return is_null($v) ? (string)$this->descr
-        : $this->descr = filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
 

@@ -8,4 +8,4 @@
  */
 
 # Títulos de fotos
-define('TXT_TITULO_ALBUNS_FOTOS', 'Álbuns de fotos');
+define('TXT_PAGINA_TITULO_ALBUNS_FOTOS', 'Álbuns de fotos');

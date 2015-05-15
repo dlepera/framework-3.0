@@ -85,23 +85,11 @@ abstract class Principal{
      * -------------------------------------------------------------------------
      */
     protected function _remover(){
-        $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
-
-        if( is_null($tid) )
-            throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
-
-        # Quantidade total de registros e quantidade excluída
-        $qt = count($tid);
-        $qe = 0;
-
-        foreach( $tid as $id ):
-            $this->modelo->_selecionarID($id);
-            $qe += (int)$this->modelo->_remover();
-        endforeach;
+        $qt = $this->_executaremlote('_remover');
 
         return \Funcoes::_retornar(
-            !$qe ? ERRO_CONTROLEPRINCIPAL_REMOVER : sprintf($qe == 1 ? SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM : SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS, $qe, $qt),
-            !$qe ? 'msg-erro' : 'msg-sucesso'
+            !$qt->e ? ERRO_CONTROLEPRINCIPAL_REMOVER : sprintf($qt->e == 1 ? SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM : SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS, $qt->e, $qt->t),
+            !$qt->e ? 'msg-erro' : 'msg-sucesso'
         );
     } // Fim do método _remover
 
@@ -203,7 +191,7 @@ abstract class Principal{
 
         # Exibir o ID do registro ou não
         $eid = $dsess ? $_SESSION['usuario_pref_exibir_id'] : false;
-        
+
         # Lista
         $l = $this->modelo->{$m}(implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
 
@@ -222,4 +210,48 @@ abstract class Principal{
             $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
         endif;
     } // Fim do método _listapadrao
+
+
+    protected function _alternarpublicacao($a){
+        $qt = $this->_executaremlote('_alternarpublicacao');
+
+        $msg = array(
+            'publicar'  =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_PUBLICAR),
+            'ocultar'   =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR)
+        );
+        
+        return \Funcoes::_retornar(
+            !$qt->e ? $msg[$a][0] : $qt->e == 1 ? $msg[$a][1] : sprintf($msg[$a][2], $qt->e, $qt->t),
+            !$qt->e ? 'msg-erro' : 'msg-sucesso'
+        );
+    } // Fim do método _alternarpublicacao
+
+
+
+    /**
+     * Executar uma ação em lote através dos IDs dos registros
+     * -------------------------------------------------------------------------
+     *
+     * @param string $m - nome do método a ser executado no modelo
+     * @param array $a - vetor contendo os argumentos necessários para a execução do método
+     * @return object
+     * @throws \Exception
+     */
+    protected function _executaremlote($m){
+        $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+
+        if( is_null($tid) )
+            throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
+
+        # Quantidade total de registros e quantidade excluída
+        $qt->t = count($tid);
+        $qt->e = 0;
+
+        foreach( $tid as $id ):
+            $this->modelo->_selecionarID($id);
+            $qt->e += (int)$this->modelo->{$m}();
+        endforeach;
+
+        return $qt;
+    } // Fim do método _executaremlote
 } // Fim do controle Principal

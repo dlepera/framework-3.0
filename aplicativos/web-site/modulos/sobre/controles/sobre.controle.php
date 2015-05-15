@@ -22,7 +22,7 @@ class Sobre extends \Geral\Controle\WebSite{
      */
     public function _historia(){
         $this->_carregarhtml('sobre');
-        $this->visao->titulo = TXT_TITULO_SOBRE;
+        $this->visao->titulo = TXT_PAGINA_TITULO_SOBRE;
 
         $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
         $this->modelo->_selecionarID($id['ID']);

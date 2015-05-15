@@ -13,22 +13,24 @@ if( !isset($params) )
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <p class="msg-info"><?= MSG_RESET_SENHA_PROX_LOGIN; ?></p>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
         <p class="form-paragr">
             <label for="senha-atual" class="form-rotulo"><?= TXT_ROTULO_SENHA_ATUAL; ?>:</label><br/>
-            <input type="password" name="senha_atual" id="senha-atual" required/>
+            <input type="password" name="senha_atual" id="senha-atual" class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <label for="senha-nova" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA; ?>:</label><br/>
-            <input type="password" name="senha_nova" id="senha-nova" required/>
+            <input type="password" name="senha_nova" id="senha-nova" class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <label for="senha-nova-conf" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA_CONF; ?>:</label><br/>
-            <input type="password" name="senha_nova_conf" id="senha-nova-conf" required/>
+            <input type="password" name="senha_nova_conf" id="senha-nova-conf" class="form-controle" required/>
         </p>
 
         <p class="form-botoes">

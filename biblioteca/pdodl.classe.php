@@ -80,7 +80,7 @@ class PDODL extends PDO{
      * @param string $tabela - nome da tabela a ser verificada
      * @return boolean
      */
-    public function _tabela_existe($tabela){
+    public function _LISTA_existe($tabela){
         try{
             $sql = $this->query("SELECT 1 FROM {$tabela}");
         } catch(PDOException $e){
@@ -88,7 +88,7 @@ class PDODL extends PDO{
         } // Fim do bloco try / catch
 
         return $sql;
-    } // Fim do método _tabela_existe
+    } // Fim do método _LISTA_existe
 
     public function _campos($tabela, $campo = null){
         switch(\DL3::$bd_conex->getAttribute(PDO::ATTR_DRIVER_NAME)):

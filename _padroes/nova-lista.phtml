@@ -13,42 +13,42 @@ if( !isset($params) )
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <!-- Inserir um novo registro -->
-    <a href="/novo" class="com-icone a-inserir"><?= TXT_LINK_INSERIR; ?></a>
+    <a href="/novo" class="com-icone ico-inserir"><?= TXT_LINK_INSERIR; ?></a>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
     <form id="form-editar-lista" method="post" action="">
         <!-- Exibir a lista com os registros selecionados -->
-        <table class="lista">
-            <thead>
+        <table class="lista-registros">
+            <thead class="tbl-titulos">
                 <tr>
-                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+                    <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
-                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
-                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                    <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbl-conteudo">
                 <?php if( !count($params['lista']) )
                     echo '<tr class="sem-registros"><td colspan="">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr>
-                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
-                    <td headers="th-id" class="td-id"><?= $l['_id']; ?></td>
+                    <td headers="th-id" class="tbl-celula-id"><?= $l['_id']; ?></td>
                     <?php endif; ?>
-                    <td headers="th-opcoes" class="td-opcoes">
-                        <a href="/editar/<?= $l['_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                    <td headers="th-opcoes" class="tbl-celula-opcoes">
+                        <a href="/editar/<?= $l['_id']; ?>" class="com-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>
@@ -56,11 +56,11 @@ if( !isset($params) )
                 <?php endforeach; ?>
             </tbody>
 
-            <tfoot>
+            <tfoot class="tbl-rodape">
                 <?php if( count($params['lista']) ): ?>
                 <tr class="com-marcados">
                     <td colspan="">
-                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el.submit();" class="com-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>

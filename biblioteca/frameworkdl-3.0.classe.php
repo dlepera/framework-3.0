@@ -15,7 +15,7 @@
  */
 function __autoload($c){
     list($m, $t, $n) = explode('\\', $c);
-
+    
     $md = preg_replace('~^\-~', '', preg_replace_callback('~[A-Z]+~', function($m){
         return '-'. strtolower($m[0]);
     }, $m));
@@ -31,9 +31,21 @@ function __autoload($c){
     $na = "{$dc}{$nl}.{$tl}.php";
 
     if( !file_exists($na) ):
-        echo "<pre>O arquivo <b>{$na}</b> não foi encontrado!\n<b>{$c}</b>\n";
+        //echo "<pre>O arquivo <b>{$na}</b> não foi encontrado!\n<b>{$c}</b>\n";
         // var_dump(get_included_files());
-        throw new Exception("O arquivo <b>{$na}</b> não foi encontrado!", 1404);
+        //throw new Exception("O arquivo <b>{$na}</b> não foi encontrado!", 1404);
+
+        echo '<h1>Desculpe, não consegui executar a ação que você pediu! :(</h1>',
+            '<p>Tem certeza que o caminho digitado aqui em cima está correto?</p>',
+            '<details>',
+            '  <summary>Detalhes</summary>',
+            '  <p>',
+            '    <b>Módulo: </b>', $md, '<br/>',
+            '    <b>', $t,': </b>', $n, '<br/>',
+            '    <b>Arquivo:</b> ', $na,
+            '  </p>',
+            '</details>';
+        // throw new Exception("O arquivo <b>{$na}</b> não foi encontrado!", 1404);
     endif;
 
     require_once $na;
@@ -97,7 +109,7 @@ class FrameworkDL3{
     # Configurações da aplicação
     private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = array(), $ap_timezone = 'America/Sao_Paulo';
     public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8',
-            $ap_base_html = '/', $ap_versao_jquery = '2.1.1', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
+            $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
 
     # Diretórios usados para montar as páginas HTML
     public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/', $dir_imgs = 'aplicacao/imgs/';
@@ -131,18 +143,8 @@ class FrameworkDL3{
         # Carregar os arquivos da biblioteca
         $this->_carregarbibl();
 
-        # Carregar o pacote de idiomas
-        $this->_carregaridioma();
-
         # Carregar as rotas
         $this->_carregarrotas();
-
-        # Carregamento automático de controles e modelos
-        $this->_carregarauto();
-        $this->_carregarauto(null, true);
-
-        # Carregar módulo atual
-        $this->_carregarmodulo();
 
         # Alterar o diretório atual
         self::$ap_base_html = ( $this->ap_raiz != '/' ? "/{$this->ap_raiz}" : '/' ) . ($h = trim(self::$ap_home, '/')) . ( empty($h) ? '' : '/' );
@@ -150,6 +152,28 @@ class FrameworkDL3{
 
         # Definir o timezone
         date_default_timezone_set($this->ap_timezone);
+
+
+        # Se o sistema requer autenticação, iniciar a classe de autenticação e
+        # utilizar preferências pós login
+        if( $this->aut_ativar ):
+            self::$aut_o = new \Autenticacao($this->aut_prefixo, DL3_APLICATIVO);
+
+            if( self::$aut_o->_verificarlogin(false) ):
+                # Alterar a configuração do idioma
+                $this->_ap_idioma($_SESSION['idioma_sigla']);
+            endif;
+        endif;
+
+        # Carregar o pacote de idiomas
+        $this->_carregaridioma();
+
+        # Carregamento automático de controles e modelos
+        $this->_carregarauto();
+        $this->_carregarauto(null, true);
+
+        # Carregar módulo atual
+        $this->_carregarmodulo();
 
         # Conectar ao banco de dados se for necessário
         $this->_conectarbd();
@@ -174,8 +198,7 @@ class FrameworkDL3{
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
     public function _ap_raiz($v=null){
-        return is_null($v) ? (string)$this->ap_raiz
-        : $this->ap_raiz = (string)trim($v, '/') .'/';
+        return $this->ap_raiz = trim(filter_var(is_null($v) ? $this->ap_raiz : $v, FILTER_SANITIZE_STRING), '/') .'/';
     } // Fim do método _ap_raiz
 
     public function _ap_nome($v=null){
@@ -183,8 +206,7 @@ class FrameworkDL3{
     } // Fim do método _ap_nome
 
     public function _ap_modulo($v=null){
-        return is_null($v) ? (string)$this->ap_modulo
-        : $this->ap_modulo = self::$modulo_atual = (string)$v;
+        return $this->ap_modulo = self::$modulo_atual = filter_var(is_null($v) ? $this->ap_modulo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _ap_modulo
 
     public function _ap_idioma($v=null){
@@ -454,10 +476,6 @@ class FrameworkDL3{
      * através da URL
      */
     private function _carregarconteudo(){
-        # Se o sistema requer autenticação, iniciar a classe de autenticação
-        if( $this->aut_ativar )
-            self::$aut_o = new \Autenticacao($this->aut_prefixo, DL3_APLICATIVO);
-
         $obj_r = new Roteamento($this->ap_rotas, $this->dir_modulo, $this->ap_modulo);
         $obj_c = $obj_r->_obterrota();
 
@@ -526,6 +544,23 @@ class FrameworkDL3{
                 )
             );
     } // Fim do método _filtrarprefixo
+
+
+
+    public static function _carregartema($d){
+        $dcss = self::$dir_temas . trim($d, '/') .'/css/';
+        $acss = preg_grep('~^[^\.]~', scandir($dcss));
+        $tema = '';
+
+        foreach( $acss as $a ):
+            $css = "{$dcss}{$a}";
+
+            if( is_file("./{$css}") )
+                $tema .= '<link rel="stylesheet" media="all" href="'. (!empty(self::$ap_home) ? '../' : '') . str_repeat('../', count(explode(self::$ap_home))-1) . $css .'"/>';
+        endforeach;
+
+        return $tema;
+    } // Fim do método _carregartema
 } // Fim da classe FrameworkDL3
 
 # Simular um alias para a classe FrameworkDL3

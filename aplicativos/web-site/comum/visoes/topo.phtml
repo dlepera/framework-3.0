@@ -28,44 +28,36 @@ $params = $this->_obterparams();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Aplicar o tema da página -->
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/padrao.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/links.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/topo.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/menu.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/conteudo.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/listas.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/formularios.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/rodape.css"/>
-    <link rel="stylesheet" media="all" href="<?= \DL3::$dir_temas; ?>website/css/website.css"/>
+    <?= \DL3::_carregartema($params['conf-site']['tema_diretorio']); ?>
 </head>
 <body>
-    <div id="grid-layout">
+    <div id="dl3-grid">
         <header class="dl3-topo">
             <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
         </header>
 
-        <nav class="dl3">
-            <ul class="menu-principal sem-marcadores">
+        <nav class="dl3-menu">
+            <ul class="menu-principal">
                 <li class="menu-item">
-                    <a href="" class="a-home">
+                    <a href="" class="menu-texto ico-home">
                         <?= TXT_LINK_HOME; ?>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a href="sobre" class="a-sobre">
+                    <a href="sobre" class="menu-texto ico-sobre">
                         <?= TXT_LINK_SOBRE; ?>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a href="albuns-de-fotos" class="a-fotos">
+                    <a href="albuns-de-fotos" class="menu-texto ico-fotos">
                         <?= TXT_LINK_ALBUNS_FOTOS; ?>
                     </a>
                 </li>
 
                 <li class="menu-item">
-                    <a href="contato" class="a-contato">
+                    <a href="contato" class="menu-texto ico-contato">
                         <?= TXT_LINK_CONTATO; ?>
                     </a>
                 </li>

@@ -16,9 +16,11 @@ class AssuntoContato extends \Geral\Modelo\Principal{
      * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
-    public function _descr(){ return (string)$this->descr; } // Fim do método _descr
-    public function _email(){ return (string)$this->email; } // Fim do método _email
-    public function _cor(){ return (string)$this->cor; } // Fim do método _email
+    public function _descr(){ return filter_var($this->descr, FILTER_SANITIZE_STRING); } // Fim do método _descr
+    public function _email(){ return filter_var($this->email, FILTER_VALIDATE_EMAIL); } // Fim do método _email
+    public function _cor(){
+        return filter_var($this->cor, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => EXPREG_COR_HEXA)));
+    } // Fim do método _email
 
 
     public function __construct($id=null){
@@ -34,6 +36,6 @@ class AssuntoContato extends \Geral\Modelo\Principal{
      * Impedir a alteração e exclusão dos registros
      * -------------------------------------------------------------------------
      */
-    public function _salvar(){ return false; }
-    public function _remover(){ return false; }
+    public function _salvar(){ return; }
+    public function _remover(){ return; }
 } // Fim do Modelo AssuntoContato

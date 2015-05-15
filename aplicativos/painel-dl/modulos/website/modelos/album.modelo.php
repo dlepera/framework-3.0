@@ -17,8 +17,7 @@ class Album extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _nome($v=null){
-        return is_null($v) ? (string)$this->nome
-        : $this->nome = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _nome
 
 

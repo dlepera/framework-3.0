@@ -27,11 +27,11 @@ class Autenticacao{
         'formato_data_completo' =>  'd/m/Y H:i',
         'formato_data_data'     =>  'd/m/Y',
         'formato_data_hora'     =>  'H:i',
-        'usuario_pref_num_registros'    => 20,
-        'usuario_pref_exibir_id'    =>  true,
-        'usuario_pref_filtro_menu'  =>  true,
-        'usuario_conf_reset'    =>  0,
-        'usuario_conf_bloq'     =>  0
+        'usuario_pref_num_registros' => 20,
+        'usuario_pref_exibir_id+0 AS usuario_pref_exibir_id'        =>  1,
+        'usuario_pref_filtro_menu+0 AS usuario_pref_filtro_menu'    =>  1,
+        'usuario_conf_reset+0 AS usuario_conf_reset'                =>  0,
+        'usuario_conf_bloq+0 AS usuario_conf_bloq'                  =>  0
     );
 
     # Informações dos usuários a serem carregados no login
@@ -49,32 +49,34 @@ class Autenticacao{
      * -------------------------------------------------------------------------
      */
     public function _sessao_prefixo($v=null){
-        return is_null($v) ? (string)$this->sessao_prefixo
-        : $this->sessao_prefixo = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->sessao_prefixo = filter_var(is_null($v) ? $this->sessao_prefixo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_prefixo
 
     public function _sessao_nome($v=null){
-        return is_null($v) ? (string)$this->sessao_nome
-        : $this->sessao_nome = (string)'sess-'. filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->sessao_nome = filter_var(is_null($v) ? $this->sessao_nome : "sess-{$v}", FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_nome
 
     public function _sessao_id($v=null){
-        return is_null($v) ? (string)$this->sessao_id
-        : $this->sessao_id = (string)"{$this->sessao_prefixo}-". md5(filter_var($v, FILTER_SANITIZE_STRING));
+        return $this->sessao_id = filter_var(is_null($v) ? $this->sessao_id : "{$this->sessao_prefixo}-". md5($v), FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_id
 
     public function _form_login($v=null){
-        return is_null($v) ? (string)$this->form_login
-        : $this->form_login = (string)trim(filter_var($v, FILTER_SANITIZE_STRING), '/');
+        return $this->form_login = trim(filter_var(is_null($v) ? $this->form_login : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do método _form_login
 
 
 
-    public function __construct($sp, $sn, $fl){
+    public function __construct($sp, $sn, $fl = null){
         # Configurações da sessão
         $this->_sessao_prefixo($sp);
         $this->_sessao_nome($sn);
         $this->_form_login($fl);
+
+        # Preciso incluir o arquivo aqui para previnir o seguinte caso:
+        #
+        require_once '_auto/modelos/00-principal.modelo.php';
+        require_once '_auto/modelos/logregistro.modelo.php';
+        require_once 'aplicativos/'. DL3_APLICATIVO .'/modulos/admin/modelos/grupousuario.modelo.php';
 
         # Verificar o status do login
         $this->_verificarlogin( !preg_match('~/?login~', DL3_URL) );
@@ -174,8 +176,13 @@ class Autenticacao{
 
     public function _carregarsessao($d){
         # Carregar os dados na sessão
-        foreach( $d as $ch => $vr )
+        foreach( $d as $ch => $vr ):
+            if( preg_match('~\sAS\s([a-z_-]+)~', $ch, $nm) ):
+                $ch = end($nm);
+            endif;
+
             $_SESSION[$ch] = $vr;
+        endforeach;
     } // Fim do método _carregarsessao
 
 

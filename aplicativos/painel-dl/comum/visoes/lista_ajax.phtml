@@ -26,6 +26,8 @@
             mostrar     : 5,
             aparencia   : { tema: '<?= \DL3::$plugin_paginacao_tema; ?>', estilo: 'paginacao' }
         });
+
+        $('.com-marcados > *:first-child,.sem-registros > *:first-child').attr({ 'colspan': $('.tbl-conteudo > .tbl-linha:first-child > *').length });
     };
     //]]>
 </script>

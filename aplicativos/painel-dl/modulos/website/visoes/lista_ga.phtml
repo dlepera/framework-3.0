@@ -13,60 +13,64 @@ if( !isset($params) )
 ?>
 
 <section class="dl3-conteudo">
-    <h1><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
 
     <?php if( $params['perm-inserir?'] ): ?>
     <!-- Inserir um novo registro -->
-    <a href="website/google-analytics/novo" class="com-icone a-inserir"><?= TXT_LINK_NOVO_GA; ?></a>
-    <?php endif; ?>
+    <a href="website/google-analytics/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_GA; ?></a>
+    <?php endif;
 
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
+    include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
     <!-- Alerta sobre a utilização de muitas configurações do Google Analytics -->
     <p class="msg-atencao"><?= MSG_GA_ALERTA_UTILIZACAO_MUITOS; ?></p>
 
     <form id="form-editar-lista" method="post" action="website/google-analytics/excluir-configuracao">
         <!-- Exibir a lista com os registros selecionados -->
-        <table class="lista">
-            <thead>
-                <tr>
-                    <th id="th-chk" class="td-chk"><input type="checkbox"/></th>
+        <table class="lista-registros">
+            <thead class="tbl-titulos">
+                <tr class="tbl-linha">
+                    <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
                     <?php if( $params['exibir-id'] ): ?>
-                    <th id="th-id" class="td-id"><?= TXT_TABELA_TITULO_ID; ?></th>
+                    <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
-                    <th id="th-apelido"><?= TXT_TABELA_TITULO_APELIDO; ?></th>
-                    <th id="th-usuario"><?= TXT_TABELA_TITULO_USUARIO; ?></th>
-                    <th id="th-perfil"><?= TXT_TABELA_TITULO_PERFIL; ?></th>
-                    <th id="th-principal"><?= TXT_TABELA_TITULO_PRINCIPAL; ?></th>
-                    <th id="th-publicar"><?= TXT_TABELA_TITULO_PUBLICADO; ?></th>
-                    <th id="th-opcoes" class="td-opcoes"><?= TXT_TABELA_TITULO_OPCOES; ?></th>
+                    <th id="th-apelido"><?= TXT_LISTA_TITULO_APELIDO; ?></th>
+                    <th id="th-usuario"><?= TXT_LISTA_TITULO_USUARIO; ?></th>
+                    <th id="th-perfil"><?= TXT_LISTA_TITULO_PERFIL; ?></th>
+                    <th id="th-principal"><?= TXT_LISTA_TITULO_PRINCIPAL; ?></th>
+                    <th id="th-publicar"><?= TXT_LISTA_TITULO_PUBLICADO; ?></th>
+                    <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody class="tbl-conteudo">
                 <?php if( !count($params['lista']) )
-                    echo '<tr class="sem-registros"><td colspan="5">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+                    echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
                 foreach( $params['lista'] as $l ): ?>
-                <tr>
-                    <td headers="th-chk" class="td-chk"><input type="checkbox" name="id[]" value="<?= $l['ga_id']; ?>"/></td>
+                <tr class="tbl-linha">
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['ga_id']; ?>"/></td>
                     <?php if( $params['exibir-id'] ): ?>
-                    <td headers="th-id" class="td-id"><?= $l['ga_id']; ?></td>
+                    <td headers="th-id" class="tbl-celula-id"><?= $l['ga_id']; ?></td>
                     <?php endif; ?>
                     <td headers="th-apelido"><?= $l['ga_apelido']; ?></td>
                     <td headers="th-usuario"><?= $l['ga_usuario']; ?></td>
                     <td headers="th-perfil"><?= $l['ga_perfil_id']; ?></td>
                     <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
                     <td headers="th-publicar"><?= $l['PUBLICADO']; ?></td>
-                    <td headers="th-opcoes" class="td-opcoes">
+                    <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="website/google-analytics/editar/<?= $l['ga_id']; ?>" class="com-icone a-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); AlternarPublicacao('website/google-analytics/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
+                            <?= $p ? TXT_LINK_OCULTAR : TXT_LINK_PUBLICAR; ?>
+                        </a>
+
+                        <a href="website/google-analytics/editar/<?= $l['ga_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -75,12 +79,22 @@ if( !isset($params) )
                 <?php endforeach; ?>
             </tbody>
 
-            <tfoot>
+            <tfoot class="tbl-rodape">
                 <?php if( count($params['lista']) ): ?>
-                <tr class="com-marcados">
-                    <td colspan="5">
-                        <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="$el.submit();" class="com-icone a-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                <tr class="tbl-linha com-marcados">
+                    <td>
+                        <?php if( $params['perm-editar?'] ): ?>
+                        <a href="javascript:;" onclick="SelecionarLinha(this); AlternarPublicacao('website/google-analytics/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+                            <?= TXT_LINK_PUBLICAR; ?>
+                        </a>
+
+                        <a href="javascript:;" onclick="SelecionarLinha(this); AlternarPublicacao('website/google-analytics/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+                            <?= TXT_LINK_OCULTAR; ?>
+                        </a>
+                        <?php endif;
+
+                        if( $params['perm-remover?'] ): ?>
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

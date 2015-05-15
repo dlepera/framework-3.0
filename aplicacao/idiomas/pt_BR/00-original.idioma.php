@@ -49,6 +49,13 @@ define('ERRO_MODELOPRINCIPAL_CRIARINSERT_CAMPO_OBRIGATORIO_NULO', 'Erro! O campo
 # Sucessos
 define('SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM', 'Registro removido com sucesso!');
 define('SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS', 'Foram removidos %d registros de um total de %d com sucesso!');
+define('SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_PUBLICAR', 'Registro publicado com sucesso!');
+define('SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_PUBLICAR', 'Foram publicados %d registros de um total de %d com sucesso!');
+define('SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR', 'Registro ocultado com sucesso!');
+define('SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR', 'Foram ocultados %d registros de um total de %d com sucesso!');
+
 
 # Erros
 define('ERRO_CONTROLEPRINCIPAL_REMOVER', 'Erro! Nenhum registro pôde ser removido.');
+define('ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_PUBLICAR', 'Erro! Não foi possível publicar esse registro.');
+define('ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR', 'Erro! Não foi possível ocultar esse registro.');

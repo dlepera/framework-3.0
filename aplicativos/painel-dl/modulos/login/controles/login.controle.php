@@ -24,7 +24,14 @@ class Login extends \Geral\Controle\Principal{
         $this->_formpadrao('login', 'fazer-login', null, filter_input(INPUT_GET, 'url'));
 
         $this->_carregarhtml('form_login');
-        $this->visao->titulo = TXT_TITULO_LOGIN;
+        $this->visao->titulo = TXT_PAGINA_TITULO_LOGIN;
+
+        # Selecionar o tema padrão
+        $mtm = new \Desenvolvedor\Modelo\Tema();
+        $ltm = end($mtm->_listar('tema_padrao = 1', null, 'tema_diretorio'));
+
+        /* Parâmetros */
+        $this->visao->_adparam('tema', $ltm['tema_diretorio']);
     } // Fim do método _mostrarform
 
 
@@ -37,7 +44,14 @@ class Login extends \Geral\Controle\Principal{
         $this->_formpadrao('login', 'recuperar-senha', null);
 
         $this->_carregarhtml('form_esqueci');
-        $this->visao->titulo = TXT_TITULO_ESQUECI_MINHA_SENHA;
+        $this->visao->titulo = TXT_PAGINA_TITULO_ESQUECI_MINHA_SENHA;
+
+        # Selecionar o tema padrão
+        $mtm = new \Desenvolvedor\Modelo\Tema();
+        $ltm = end($mtm->_listar('tema_padrao = 1', null, 'tema_diretorio'));
+
+        /* Parâmetros */
+        $this->visao->_adparam('tema', $ltm['tema_diretorio']);
     } // Fim do método _mostraresqueci
 
 
@@ -108,7 +122,7 @@ class Login extends \Geral\Controle\Principal{
 
         # Visão
         $this->_carregarhtml('form_reset');
-        $this->visao->titulo = TXT_TITULO_MOSTRARRESETSENHA;
+        $this->visao->titulo = TXT_PAGINA_TITULO_MOSTRARRESETSENHA;
 
         # Parâmetros
         $this->visao->_adparam('id', $lr['recuperacao_id']);

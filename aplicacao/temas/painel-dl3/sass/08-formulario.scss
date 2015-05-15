@@ -1,0 +1,302 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 12/05/2015 22:10:50
+ */
+
+
+@import '../../_ajuda/compatibilidade.scss';
+@import '../_ajuda/configuracoes.scss';
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Formulários
+ * -------------------------------------------------------------------------- */
+$btn: 'salvar' 'green' '\ea10',
+    'cancelar' 'red' '\ea0e',
+    'filtrar' '#AAA' '\e986',
+    'entrar' 'green' '\ea13',
+    'enviar' '#aabbff' '\ea84',
+    'upload' '#069' '\e9c3';
+    
+form{
+    .form-controle{
+        /* Visual */
+        border          : 1px solid #DDD;
+        border-radius   : 8px;
+        background      : #FFF;
+        
+        /* Texto */
+        font-size: 0.85em;
+        
+        /* Tamanho */
+        height: 3em;
+        
+        /* Margens */
+        padding: 0 .35em;
+    }
+    
+    .form-numero,.form-data{
+        /* Tamanho */
+        width: auto !important;
+    }
+    
+    .form-textarea{
+        /* Tamanho */
+        height: 15em;
+        
+        /* Margens */
+        padding: .5em;
+    }
+    
+    .form-grupo{
+        /* Visual */
+        border: none;
+        
+        > .form-legenda{
+            /* Texto */
+            color       : orange;
+            font-variant: small-caps;
+            font-size   : 1.3em;
+            line-height : 1.75em; 
+            
+            /* Visual */
+            border-bottom: 1px dashed #CCC;
+            
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+    
+    .form-grupo:not(:first-of-type){
+        /* Margens */
+        margin-top: 2em;
+    }
+    
+    .form-paragr{
+        /* Margens */
+        margin: 1em 0;
+    }
+    
+    .form-rotulo{
+        /* Visual */
+        display: inline-block;
+
+        /* Texto */
+        line-height: 2em;
+    }
+
+    .form-dica{
+        /* Texto */
+        color: #999;
+    }
+
+    .form-dica:before{
+        /* Texto */
+        content     : '\ea09';
+        font-family : 'icones';
+        color       : #069;
+
+        /* Alinhamento */
+        vertical-align: middle;
+
+        /* Margens */
+        margin-right: .35em;
+        padding     : .35em 0;
+
+        /* Visual */
+        display: inline-block;
+    }
+    
+    .form-botoes{
+        /* Texto */
+        text-align: center;
+        
+        > *:not(:first-child){
+            /* Margens */
+            margin-left: 4em;
+        }
+    }
+    
+    [class^="btn-"]{
+        /* Visual */
+        border      : none;
+        background  : none;
+
+        /* Texto */
+        font-size: 1em;
+
+        /* Margens */
+        padding: .5em 0;
+    }
+
+    [class^="btn-"]:before{
+        /* Texto */
+        font-family : 'icones';
+        font-size   : 1.2em;
+
+        /* Visual */
+        display: inline-block;
+
+        /* Alinhamento */
+        vertical-align: middle;
+
+        /* Margens */
+        margin-right: .35em;
+    }
+
+    [class^="btn-"]:hover{
+        /* Visual */
+        cursor: pointer;
+    }
+
+    @each $bt in $btn{
+        $cl: nth($bt,1);
+        $co: unquote(nth($bt,2));
+        $ic: nth($bt,3);
+
+        .btn-#{$cl}{
+            /* Texto */
+            color: $co;
+        }
+
+        .btn-#{$cl}:before{
+            /* Texto */
+            content: $ic;
+        }
+    }
+    
+    .form-alternar{
+        /* Tamanho */
+        width   : 0;
+        height  : 0;
+        
+        /* Posicionamento */
+        position: fixed;
+        top     : -9999px;
+        left    : -9999px;
+        
+        /* Visual */
+        opacity: 0;
+    }
+    
+    $cf: #EFEFEF; 
+    $cb: darken($cf,10%);
+    
+    .form-alternar + label{
+        /* Visual */
+        display         : inline-block;
+        border-radius   : 30px;
+        border          : 2px solid $cb;
+        background      : $cf;
+        
+        /* Tamanho */
+        width   : 5em;
+        height  : 3em;
+        
+        /* Posicionamento */
+        position: relative;
+    }
+    
+    .form-alternar + label:hover{
+        /* Visual */
+        cursor: pointer;
+    }
+    
+    .form-alternar + label:before{
+        /* Visual */
+        background      : #FFF;
+        border-radius   : 50%;
+        display         : block;
+        
+        /* Tamanho */
+        width   : 3em;
+        height  : calc(3em - 2px);
+        
+        /* Texto */
+        content     : 'Não';
+        line-height : calc(3em - 1px);
+        text-align  : center;
+        color       : $cb;
+        
+        /* Posicionamento */
+        position: absolute;
+        top     : -1px;
+        left    : 0;
+        
+        /* Transicoes */
+        @include _transition(left .5s);
+        
+        /* Visual */
+        border-right: 1px solid darken($cb,10%);
+        border-left : none;
+    }
+    
+    $cf: #ebfee7;
+    $cb: darken($cf,30%);
+    
+    .form-alternar:checked + label{
+        /* Visual */
+        background  : $cf;
+        border-color: $cb;
+    }
+    
+    .form-alternar:checked + label:before{
+        /* Texto */
+        content     : 'Sim';
+        color       : darken($cb,20%);
+        
+        /* Posicionamento */
+        left: calc(50% - 9px);
+        
+        /* Visual */
+        border-right: none;
+        border-left : 1px solid darken($cb,10%);
+    }
+}
+
+
+
+/* Fomulário de filtro ------------------------------------------------------ */
+.form-filtro{
+    /* Margens */
+    margin-bottom: 2%;
+}
+
+
+
+/* Desktops ----------------------------------------------------------------- */
+@media screen and (min-width:$tela-tablet + 1px){
+    form{
+        .form-controle{
+            /* Tamanho */
+            width: 30%;
+        }
+    }
+}
+
+
+
+/* Tablets ------------------------------------------------------------------ */
+@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+    form{
+        .form-controle{
+            /* Tamanho */
+            width: 60%;
+        }
+    }
+}
+
+
+
+/* Smatphones --------------------------------------------------------------- */
+@media screen and (max-width:$tela-smart){
+    form{
+        .form-controle{
+            /* Tamanho */
+            width: 100%;
+        }
+    }
+}

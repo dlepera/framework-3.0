@@ -19,15 +19,15 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
                 'titulo'            =>  FILTER_SANITIZE_STRING,
                 'host'              =>  FILTER_SANITIZE_STRING,
                 'porta'             =>  FILTER_SANITIZE_NUMBER_INT,
-                'autent'            =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1)),
+                'autent'            =>  FILTER_VALIDATE_BOOLEAN,
                 'cripto'            =>  FILTER_SANITIZE_STRING,
                 'conta'             =>  FILTER_SANITIZE_STRING,
                 'senha'             =>  FILTER_SANITIZE_STRING,
                 'de_email'          =>  FILTER_VALIDATE_EMAIL,
                 'de_nome'           =>  FILTER_SANITIZE_STRING,
                 'responder_para'    =>  FILTER_VALIDATE_EMAIL,
-                'html'              =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1)),
-                'principal'         =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE, 'options' => array('min_range' => 0, 'max_range' => 1))
+                'html'              =>  FILTER_VALIDATE_BOOLEAN,
+                'principal'         =>  FILTER_VALIDATE_BOOLEAN
             ));
 
             # Converter o encode
@@ -54,7 +54,7 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('lista_emails');
-        $this->visao->titulo = TXT_TITULO_CONFIGURACOES_ENVIO_EMAIL;
+        $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_ENVIO_EMAIL;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -77,7 +77,7 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
         # Visão
         $this->_carregarhtml('form_email');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_CONFIGEMAIL : TXT_TITULO_EDITAR_CONFIGEMAIL;
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_CONFIGEMAIL : TXT_PAGINA_TITULO_EDITAR_CONFIGEMAIL;
 
         # Parâmetros
         $this->visao->_adparam('perm-testar?', \DL3::$aut_o->_verificarperm(get_called_class(), '_testar'));

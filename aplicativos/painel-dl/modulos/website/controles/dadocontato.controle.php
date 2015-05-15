@@ -17,7 +17,7 @@ class DadoContato extends \Geral\Controle\PainelDL{
             'id'        =>  FILTER_VALIDATE_INT,
             'tipo'      =>  FILTER_VALIDATE_INT,
             'descr'     =>  FILTER_SANITIZE_STRING,
-            'publicar'  =>  array('filter' => FILTER_SANITIZE_STRING, 'options' => array('min_range' => 0, 'max_range' => 1))
+            'publicar'  =>  FILTER_VALIDATE_BOOLEAN
         ));
 
         # Converter o encode
@@ -37,13 +37,12 @@ class DadoContato extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr, ( CASE dado_contato_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . ' END ) AS PUBLICADO', 'tipo_dado_descr, dado_contato_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_dados');
-        $this->visao->titulo = TXT_TITULO_DADOS_CONTATO;
+        $this->visao->titulo = TXT_PAGINA_TITULO_DADOS_CONTATO;
 
         # Parâmetros
         $this->visao->_adparam('campos', array(
@@ -60,12 +59,12 @@ class DadoContato extends \Geral\Controle\PainelDL{
      *
      * @param int $id - ID do registro a ser selecionado
      */
-    protected function _mostrarform($id=null){
+    protected function _mostrarform($id=null,$tr=true){
         $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $id);
 
         # Visão
-        $this->_carregarhtml('form_dado');
-        $this->visao->titulo = $inc ? TXT_TITULO_NOVO_DADOCONTATO : TXT_TITULO_EDITAR_DADOCONTATO;
+        $this->_carregarhtml('form_dado', is_null($tr) ? true : $tr);
+        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
         $m_td = new \WebSite\Modelo\TipoDadoContato();
         $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);

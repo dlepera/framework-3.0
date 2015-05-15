@@ -1,0 +1,24 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 12/05/2015 19:48:23
+ */
+
+@import '../../_ajuda/compatibilidade.scss';
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Rodapé
+ * -------------------------------------------------------------------------- */
+.dl3-rodape{
+    /* Flex */
+    @include _flex(100%);
+    
+    /* Margens */
+    margin: .5em 0;
+    
+    /* Texto */
+    color: #888;
+}

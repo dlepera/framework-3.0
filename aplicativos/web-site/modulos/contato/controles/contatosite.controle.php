@@ -17,9 +17,9 @@ class ContatoSite extends \Geral\Controle\WebSite{
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
                 'nome'      =>  FILTER_SANITIZE_STRING,
-                'email'     =>  FILTER_SANITIZE_EMAIL,
+                'email'     =>  FILTER_VALIDATE_EMAIL,
                 'telefone'  =>  FILTER_SANITIZE_STRING,
-                'assunto'   =>  array('filter' => FILTER_SANITIZE_NUMBER_INT, 'flags' => FILTER_NULL_ON_FAILURE),
+                'assunto'   =>  FILTER_VALIDATE_INT,
                 'mensagem'  =>  FILTER_DEFAULT
             ));
 
@@ -34,8 +34,11 @@ class ContatoSite extends \Geral\Controle\WebSite{
      * -------------------------------------------------------------------------
      */
     public function _mostrarform(){
+        $this->_formpadrao('contato', 'enviar', null, 'contato', null);
+
+        # Visões
         $this->_carregarhtml('formulario');
-        $this->visao->titulo = TXT_TITULO_CONTATO;
+        $this->visao->titulo = TXT_PAGINA_TITULO_CONTATO;
 
         # Selecionar os assuntos de contatos
         $ma = new \Contato\Modelo\AssuntoContato();

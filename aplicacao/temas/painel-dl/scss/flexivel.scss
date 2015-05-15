@@ -5,10 +5,10 @@
  * @Data	: 01/05/2015 11:15:07
  */
 
-@import '../../_help/compatibilidade.scss';
-@import '../../_help/configuracoes.scss';
-@import '../_help/cores.scss';
-@import '../_help/configuracoes.scss';
+@import '../../_ajuda/compatibilidade.scss';
+@import '../../_ajuda/configuracoes.scss';
+@import '../_ajuda/cores.scss';
+@import '../_ajuda/configuracoes.scss';
 
 /* -----------------------------------------------------------------------------
  *  Grade Flexivel
@@ -26,7 +26,7 @@
         $mv: 1%; /* Margem vertical */
         $mh: .5%; /* Margem horizontal */
         
-        @for $i from 2 through $grid-qtde-cols{
+        @for $i from 2 through $flex-qtde-cols{
             $tm : (100% / $i) - ($mh * 2); /* Tamanho da coluna */
             $mhf: (100% - ($tm * $i)) / ($i + ($i - 2)); /* Margem horizontal final */
             
@@ -56,7 +56,7 @@
         $mv: 2%; /* Margem vertical */
         $mh: .5%; /* Margem horizontal */
         
-        @for $i from 2 through $grid-qtde-cols{
+        @for $i from 2 through $flex-qtde-cols{
             $qc : floor($i / 2); /* Quatidade de colunas real para esse dispositivo */
             $tm : (100% / $qc) - if($qc > 1, ($mh * 2), 0); /* Tamanho da coluna */
             $mhf: (100% - ($tm * $qc)) / ($qc + ($qc - 2)); /* Margem horizontal final */

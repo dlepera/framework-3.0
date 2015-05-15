@@ -1,0 +1,124 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 10/05/2015 11:32:04
+ */
+
+
+
+@import '../_ajuda/configuracoes.scss';
+
+
+
+/* -----------------------------------------------------------------------------
+ *  Listas de registros
+ * -------------------------------------------------------------------------- */
+.lista-registros{
+    $ln: 2.75em;
+    
+    /* Tamanho */
+    width: 100%;
+    
+    /* Visual */
+    border-spacing  : 0;
+    border-collapse : collapse;
+    
+    .tbl-titulos{
+        /* Visual */
+        border-bottom: $borda-suave;
+        
+        /* Texto */
+        text-align  : left;
+        color       : #888;
+    }
+    
+    .tbl-conteudo{
+        > .tbl-linha:nth-child(odd){
+            /* Visual */
+            background: #FFF;
+        }
+        
+        > .tbl-linha:nth-child(even){
+            /* Visual */
+            background: #EFEFEF;
+        }
+    }
+    
+    .tbl-rodape{
+        /* Visual */
+        border-top: $borda-suave;
+        
+        > .com-marcados{
+            /* Visual */
+            background: url('imagens/icone-com-marcados.png') no-repeat top left;
+            
+            > *:first-child{
+                /* Margens */
+                padding-left: 35px;
+            }
+        }
+    }
+    
+    /* Linhas */
+    .tbl-linha{
+        height: $ln;
+    }
+    
+    /* Celulas */
+    .tbl-celula-chk{
+        /* Tamanho */
+        width: 30px;
+        
+        /* Texto */
+        text-align: center;
+    }
+    
+    .tbl-celula-id{
+        /* Tamanho */
+        width: 5%;
+        
+        /* Texto */
+        text-align: center;
+        
+        /* Visual */
+        border-right: $borda-suave;
+        
+        /* Margens */
+        padding: 0 .5em;
+    }
+    
+    .tbl-celula-id + *{
+        /* Margens */
+        padding-left: .75em;
+    }
+    
+    .tbl-celula-infos{
+        /* Texto */
+        color: #888;
+        
+        /* Margens */
+        padding-top     : .35em;
+        padding-bottom  : .35em;
+        
+        .tbl-imagem{
+            /* Alinhamento */
+            vertical-align: top;
+            
+            /* Tamanho */
+            max-width: 25%;
+            
+            /* Visual */
+            background  : #FFF;
+            border      : $borda-suave;
+            
+            /* Margens */
+            padding: .35em;
+        }
+    }
+    
+    .tbl-celula-infos:first-line{
+        /* Texto */
+        color: initial;
+    }
+}
