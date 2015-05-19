@@ -39,8 +39,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('grupo_usuario_id, grupo_usuario_descr, ( CASE grupo_usuario_publicar'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) AS PUBLICADO", 'grupo_usuario_descr', null);
 
         # Visão
@@ -64,7 +63,7 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
      */
     protected function _mostrarform($id=null,$tr=true){
         $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $id);
-        
+
         # Visão
         $this->_carregarhtml('form_grupo', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO : TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO;

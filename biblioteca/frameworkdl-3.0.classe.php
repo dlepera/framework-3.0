@@ -70,7 +70,7 @@ function m_set($o,$p,$v){
     $s = "_{$p}";
 
     if( property_exists($o, $p) && method_exists($o, $s) )
-        return $o->{$s}(filter_var($v, FILTER_DEFAULT));
+        return $o->{$s}($v);
 } // Fim da função m_set
 
 
