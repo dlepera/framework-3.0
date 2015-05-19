@@ -23,7 +23,7 @@ define('TXT_LINK_LIMPAR_FILTRO', 'Clean filter');
 define('TXT_LINK_DETALHES', 'Details');
 define('TXT_LINK_BLOQUEAR', 'Block');
 define('TXT_LINK_DESBLOQUEAR', 'Unblock');
-define('TXT_LINK_LINK_PUBLICAR', 'Publish');
+define('TXT_LINK_PUBLICAR', 'Publish');
 define('TXT_LINK_OCULTAR', 'Hide');
 
 # -> Title

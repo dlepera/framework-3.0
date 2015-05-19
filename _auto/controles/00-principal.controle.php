@@ -193,7 +193,7 @@ abstract class Principal{
         $eid = $dsess ? $_SESSION['usuario_pref_exibir_id'] : false;
 
         # Lista
-        $l = $this->modelo->{$m}(implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
+        $l = $this->modelo->{$m}($f = implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
 
         # Nome da classe
         $cl = get_called_class();
@@ -219,7 +219,7 @@ abstract class Principal{
             'publicar'  =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_PUBLICAR),
             'ocultar'   =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR)
         );
-        
+
         return \Funcoes::_retornar(
             !$qt->e ? $msg[$a][0] : $qt->e == 1 ? $msg[$a][1] : sprintf($msg[$a][2], $qt->e, $qt->t),
             !$qt->e ? 'msg-erro' : 'msg-sucesso'

@@ -24,7 +24,7 @@ if( !isset($params) )
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
             <thead class="tbl-titulos">
-                <tr>
+                <tr class="tbl-linha">
                     <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
@@ -35,20 +35,20 @@ if( !isset($params) )
 
             <tbody class="tbl-conteudo">
                 <?php if( !count($params['lista']) )
-                    echo '<tr class="sem-registros"><td colspan="">', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+                    echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
                 foreach( $params['lista'] as $l ): ?>
-                <tr>
+                <tr class="tbl-linha">
                     <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['_id']; ?>"/></td>
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['_id']; ?></td>
                     <?php endif; ?>
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
-                        <a href="/editar/<?= $l['_id']; ?>" class="com-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                        <a href="/editar/<?= $l['_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="com-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>
@@ -58,9 +58,9 @@ if( !isset($params) )
 
             <tfoot class="tbl-rodape">
                 <?php if( count($params['lista']) ): ?>
-                <tr class="com-marcados">
-                    <td colspan="">
-                        <a href="javascript:;" onclick="$el.submit();" class="com-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                <tr class="tbl-linha com-marcados">
+                    <td>
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>

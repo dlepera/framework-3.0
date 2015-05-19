@@ -55,17 +55,19 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
      * Salvar o registro no banco de dados
      * -------------------------------------------------------------------------
      *
-     * @param int $s Define se o registro será salvo automaticamente ou se deve
-     *  ser retornado a string da consulta SQL
+     * @param boolean $s - define se o registro será salvo ou apenas será gerada a query de insert/update
+     * @param array $ci - vetor com os campos a serem considerados
+     * @param array $ce - vetor com os campos a serem desconsiderados
+     * @param bool $ipk - define se o campo PK será considerado para inserção
      */
-    public function _salvar($s=true){
+    public function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         # Apenas um registro pode conter a Flag 'principal' marcada, portanto, caso
         # a flag do registro atual esteja marcada, deve-se desmarcar a flag de
         # qualquer outro registro
         if( $this->principal == 1 )
             \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
 
-        return parent::_salvar($s);
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 
@@ -75,8 +77,8 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _selecionar_principal(){
-        $l = end($this->_listar("{$this->bd_prefixo}principal = 1", null, "{$this->bd_prefixo}id AS ID"));
-
+        $l = $this->_listar("{$this->bd_prefixo}principal", null, "{$this->bd_prefixo}id AS ID", 0, 1, -1);
+        
         if( $l === false )
             throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);
 

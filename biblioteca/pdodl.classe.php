@@ -15,37 +15,37 @@ class PDODL extends PDO{
     /**
      * Realizar a paginação de resultados
      *
-     * @param string $query - consulta a ser utilizada na paginação
-     * @param int $pagina - número da página atual
+     * @param string $q - consulta a ser utilizada na paginação
+     * @param int $pgn - número da página atual
      * @param int $qtde - quantidade de registros a ser exibida na paginação
      */
-    public function _paginacao($query, $pagina = 1, $qtde = 20){
+    public function _paginacao($q, $pgn = 1, $qtde = 20){
         if( $qtde > 0 ):
             $bd = \DL3::$bd_conex->getAttribute(PDO::ATTR_DRIVER_NAME);
 
             switch( $bd ):
                 case 'mysql':
-                    $inicio = $pagina == 1 ? 0 : ($pagina-1)*$qtde;
+                    $inicio = $pgn == 1 ? 0 : ($pgn-1)*$qtde;
 
                     # Verificar se a query foi passada com o LIMIT
-                    if( strpos("LIMIT", $query) > -1 )
-                        $query = preg_replace('~LIMIT\s+[\d\w,]+~i', '', $query);
+                    if( strpos("LIMIT", $q) > -1 )
+                        $q = preg_replace('~LIMIT\s+[\d\w,]+~i', '', $q);
 
                     # Realizar a paginação dos resultados
-                    $query .= " LIMIT {$inicio},{$qtde}";
+                    $q .= " LIMIT {$inicio},{$qtde}";
                     break;
 
                 case 'dblib':
                 case 'mssql':
-                    $inicio = $pagina == 1 ? 1 : (($pagina-1)*$qtde)+1;
-                    $fim    = $inicio == 1 ? $qtde : $pagina*$qtde;
+                    $inicio = $pgn == 1 ? 1 : (($pgn-1)*$qtde)+1;
+                    $fim    = $inicio == 1 ? $qtde : $pgn*$qtde;
 
                     $expreg = '~^(SELECT){1}\s+(.+)\s+(FROM){1}\s+(.+)';
-                        $expreg .= stripos($query, " WHERE ") === false ? '' : '\s+(WHERE){1}\s+(.+)';
-                        $expreg .= stripos($query, " GROUP ") === false ? '' : '\s+(GROUP\s+BY){1}\s+(.+)';
-                        $expreg .= stripos($query, " ORDER ") === false ? '' : '\s+(ORDER\s+BY){1}\s+(.+)';
+                        $expreg .= stripos($q, " WHERE ") === false ? '' : '\s+(WHERE){1}\s+(.+)';
+                        $expreg .= stripos($q, " GROUP ") === false ? '' : '\s+(GROUP\s+BY){1}\s+(.+)';
+                        $expreg .= stripos($q, " ORDER ") === false ? '' : '\s+(ORDER\s+BY){1}\s+(.+)';
                         $expreg .= '~i';
-                    preg_match($expreg, $query, $string);
+                    preg_match($expreg, $q, $string);
 
                     /* =========================================================
                      * 	SEPARAR A CLÃUSULA 'ORDER BY'
@@ -63,42 +63,45 @@ class PDODL extends PDO{
 
                     # Adicionar o número da linha na query principal
 
-                    $query = "{$string[1]} ROW_NUMBER() OVER (ORDER BY ". trim($order) .") AS linha, {$clausulas}";
+                    $q = "{$string[1]} ROW_NUMBER() OVER (ORDER BY ". trim($order) .") AS linha, {$clausulas}";
 
                     # Realizar a paginação dos resultados
-                    $query = "WITH paginacao AS ({$query}) SELECT * FROM paginacao WHERE linha BETWEEN {$inicio} AND {$fim}";
+                    $q = "WITH paginacao AS ({$q}) SELECT * FROM paginacao WHERE linha BETWEEN {$inicio} AND {$fim}";
                     break;
             endswitch;
         endif; // Fim if( $qtde > 0 )
 
-        return $this->query($query);
+        return $this->query($q);
     } // Fim do método _paginacao
 
     /**
      * Verificar se uma determnada tabela existe no banco de dados
      *
-     * @param string $tabela - nome da tabela a ser verificada
+     * @param string $tbl - nome da tabela a ser verificada
      * @return boolean
      */
-    public function _LISTA_existe($tabela){
+    public function _tabela_existe($tbl){
         try{
-            $sql = $this->query("SELECT 1 FROM {$tabela}");
+            $sql = $this->query("SELECT 1 FROM {$tbl}");
         } catch(PDOException $e){
             return false;
         } // Fim do bloco try / catch
 
         return $sql;
-    } // Fim do método _LISTA_existe
+    } // Fim do método _tabela_existe
 
-    public function _campos($tabela, $campo = null){
+    public function _campos($tbl, $cpo = null){
+        if( !$this->_tabela_existe($tbl) ) return;
+
         switch(\DL3::$bd_conex->getAttribute(PDO::ATTR_DRIVER_NAME)):
             case 'mysql':
-                $sql = $this->query("SHOW COLUMNS FROM {$tabela}". ( !is_null($campo) ? " LIKE '{$campo}'" : ''));
+                $q      = "SHOW COLUMNS FROM {$tbl}". ( !is_null($cpo) ? " LIKE '{$cpo}'" : '');
+                $sql    = $this->query($q);
                 break;
 
             case 'mssql':
             case 'dblib':
-                $query = "SELECT"
+                $q = "SELECT"
                         . " CAST(C.name AS TEXT) AS Field, CAST(T.name +'('+ CONVERT(VARCHAR(5), T.max_length) +')' AS TEXT) AS Type,"
                         . " CAST(( CASE C.is_nullable WHEN 0 THEN 'NO' WHEN 1 THEN 'YES' END ) AS TEXT) AS 'Null',"
                         . " CAST(( CASE I.is_primary_key WHEN 1 THEN 'PRI' ELSE '' END ) AS TEXT) AS 'Key',"
@@ -110,17 +113,17 @@ class PDODL extends PDO{
                         . " INNER JOIN sysobjects AS O ON( O.id = C.object_id )"
                         . " LEFT JOIN sys.index_columns AS IC ON( IC.column_id = C.column_id AND IC.object_id = O.id )"
                         . " LEFT JOIN sys.indexes AS I ON( I.index_id = IC.index_id AND I.object_id = O.id )"
-                        . " WHERE O.xtype = 'U' AND O.name = '{$tabela}'"
-                        . ( !is_null($campo) ? " AND C.name = '{$campo}'" : '' )
+                        . " WHERE O.xtype = 'U' AND O.name = '{$tbl}'"
+                        . ( !is_null($cpo) ? " AND C.name = '{$cpo}'" : '' )
                         . " ORDER BY C.column_id";
-                $sql = $this->query($query);
+                $sql = $this->query($q);
                 break;
         endswitch;
 
         if( $sql === false )
             throw new \Exception(
                     sprintf(ERRO_PDODL_CAMPOS,
-                        '<b>'. $this->bd_tabela .':</b><br><br>'. $query .'<br><br>'. \DL3::$bd_conex->errorInfo()[2]
+                        '<b>'. $tbl .':</b><br><br>'. $q .'<br><br>'. \DL3::$bd_conex->errorInfo()[2]
                     ),
                 1500);
 

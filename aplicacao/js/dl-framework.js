@@ -189,9 +189,9 @@ function CarregarSelect($s, c){
 // Adicionar o suporte ao trim
 // Necessário para o IE (óbvio!!) 8 ou mais antigo
 if( typeof String.prototype.trim !== 'function' ){
-  String.prototype.trim = function() {
-    return this.replace(/^\s+|\s+$/g, ''); 
-  };
+    String.prototype.trim = function() {
+        return this.replace(/^\s+|\s+$/g, ''); 
+    };
 }
 
 

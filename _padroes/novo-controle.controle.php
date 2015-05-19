@@ -61,7 +61,7 @@ class Controle extends \Geral\Controle\Principal{
         $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $url, $id);
 
         # Visão
-        $this->_carregarhtml('form_');
+        $this->_carregarhtml('form_', is_null($tr) ? true : $tr);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO : TXT_PAGINA_TITULO_EDITAR;
     } // Fim do método _mostrarform
 } // Fim do Controle Controle

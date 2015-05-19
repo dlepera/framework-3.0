@@ -24,7 +24,7 @@ class Sobre extends \Geral\Controle\WebSite{
         $this->_carregarhtml('sobre');
         $this->visao->titulo = TXT_PAGINA_TITULO_SOBRE;
 
-        $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
+        $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
         $this->modelo->_selecionarID($id['ID']);
 
         /* Parâmetros */

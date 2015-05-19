@@ -142,7 +142,7 @@ class ConfigEmail extends Principal{
      * no modelo
      */
     public function _selecionarprincipal(){
-        $lis_m = end($this->_listar("{$this->bd_prefixo}principal = 1", null, "{$this->bd_prefixo}id"));
+        $lis_m = $this->_listar("{$this->bd_prefixo}principal", null, "{$this->bd_prefixo}id", 0, 1, 0);
 
         if( $lis_m === false )
             throw new \Exception(ERRO_CONFIGEMAIL_SELECIONARPRINCIPAL, 1404);

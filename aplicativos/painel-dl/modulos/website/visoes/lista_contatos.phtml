@@ -36,7 +36,7 @@ if( !isset($params) )
 
             <tbody class="tbl-conteudo">
                 <?php if( !count($params['lista']) )
-                    echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+                    echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr class="tbl-linha">

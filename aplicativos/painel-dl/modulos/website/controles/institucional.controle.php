@@ -45,7 +45,7 @@ class Institucional extends \Geral\Controle\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_INFOS_INSTITUCIONAIS;
 
         # Obter o ID das informações
-        $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
+        $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
         $this->modelo->_selecionarID($id['ID']);
 
         # Parâmetros
@@ -59,7 +59,7 @@ class Institucional extends \Geral\Controle\PainelDL{
      * -------------------------------------------------------------------------
      */
     protected function _mostrarform(){
-        $id = end($this->modelo->_listar(null, null, 'MAX(instit_id) AS ID'));
+        $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
 
         $this->_formpadrao('instit', 'institucional/salvar', 'institucional/salvar', 'website/institucional', $id['ID']);
 

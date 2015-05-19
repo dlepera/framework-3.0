@@ -15,14 +15,14 @@ class LogRegistro extends Principal{
             $usuario_alteracao, $usuario_nome_alteracao, $usuario_exclusao, $usuario_nome_exclusao, $ip_criacao,
             $ip_alteracao, $ip_exclusao;
 
-    public function __construct($tabela=null, $idreg=null){
+    public function __construct($tbl=null, $idreg=null){
         parent::__construct('dl_painel_registros_logs', 'log_registro_');
 
         # Query de seleção
         $this->bd_select = 'SELECT %s FROM %s';
 
-        if( !is_null($tabela) && !is_null($idreg) )
-            $this->_selecionarID($tabela, $idreg);
+        if( !is_null($tbl) && !is_null($idreg) )
+            $this->_selecionarID($tbl, $idreg);
     } // Fim do método mágico de construção da classe
 
     /**
@@ -30,13 +30,11 @@ class LogRegistro extends Principal{
      * -------------------------------------------------------------------------
      */
     public function _tabela($v=null){
-        return is_null($v) ? (string)$this->tabela
-        : $this->tabela = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _tabela
 
     public function _idreg($v=null){
-        return is_null($v) ? (string)$this->idreg
-        : $this->idreg = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v, FILTER_VALIDATE_INT);
     } // Fim do método _idreg
 
     public function _data_criacao($v=null){
@@ -55,33 +53,27 @@ class LogRegistro extends Principal{
     } // Fim do método _data_exclusao
 
     public function _usuario_criacao($v=null){
-        return is_null($v) ? (int)$this->usuario_criacao
-        : $this->usuario_criacao = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->usuario_criacao = filter_var(is_null($v) ? $this->usuario_criacao : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario_criacao
 
     public function _usuario_nome_criacao($v=null){
-        return is_null($v) ? (string)$this->usuario_nome_criacao
-        : $this->usuario_nome_criacao = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->usuario_nome_criacao = filter_var(is_null($v) ? $this->usuario_nome_criacao : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _usuario_nome_criacao
 
     public function _usuario_alteracao($v=null){
-        return is_null($v) ? (int)$this->usuario_alteracao
-        : $this->usuario_alteracao = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->usuario_alteracao = filter_var(is_null($v) ? $this->usuario_alteracao : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario_alteracao
 
     public function _usuario_nome_alteracao($v=null){
-        return is_null($v) ? (string)$this->usuario_nome_alteracao
-        : $this->usuario_nome_alteracao = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->usuario_nome_alteracao = filter_var(is_null($v) ? $this->usuario_nome_alteracao : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _usuario_nome_alteracao
 
     public function _usuario_exclusao($v=null){
-        return is_null($v) ? (int)$this->usuario_exclusao
-        : $this->usuario_exclusao = (int)filter_var($v, FILTER_VALIDATE_INT);
+        return $this->usuario_exclusao = filter_var(is_null($v) ? $this->usuario_exclusao : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario_exclusao
 
     public function _usuario_nome_exclusao($v=null){
-        return is_null($v) ? (string)$this->usuario_nome_exclusao
-        : $this->usuario_nome_exclusao = (string)filter_var($v, FILTER_SANITIZE_STRING);
+        return $this->usuario_nome_exclusao = filter_var(is_null($v) ? $this->usuario_nome_exclusao : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _usuario_nome_exclusao
 
 
@@ -91,21 +83,23 @@ class LogRegistro extends Principal{
      * -------------------------------------------------------------------------
      * Obs.: No caso desse modelo a chave é composta: tabela e id do registro
      *
-     * @param string $tabela
+     * @param string $tbl
      * @param int $idreg - ID do registro a ser selecionado
      *
      * @return void
      */
-    public function _selecionarID($tabela, $idreg){
+    public function _selecionarID($tbl, $idreg){
         if( !method_exists($this, '_listar') )
             throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
 
         # Garantir que o ID seja um número inteiro
         # e a tabela uma string
         $idreg  = (int)$idreg;
-        $tabela = (string)$tabela;
+        $tbl    = (string)$tbl;
 
-        $lis_m = end($this->_listar("{$this->bd_prefixo}tabela = '{$tabela}' AND {$this->bd_prefixo}idreg = {$idreg}"));
+        $lis_m = $this->_listar("{$this->bd_prefixo}tabela = '{$tbl}' AND {$this->bd_prefixo}idreg = {$idreg}", null, '*', 0, 1, 0);
+
+        $this->reg_vazio = !(bool)$lis_m;
 
         # Carregar os dados obtidos do banco de dados
         # nas propriedades da classe
@@ -125,7 +119,7 @@ class LogRegistro extends Principal{
      * @param bool $salvar - define se o registro será salvo ou apenas
      * será gerada a query de insert/update
      */
-    public function _salvar($remover=false, $salvar=true){
+    public function _salvar($rmv=false, $salvar=true){
         $this->_selecionarID($this->tabela, $this->idreg);
 
         # Obter o ID do usuário
@@ -133,7 +127,7 @@ class LogRegistro extends Principal{
         $id_u = $vl ? $_SESSION['usuario_id'] : 0;
         $nm_u = $vl ? $_SESSION['usuario_info_nome'] : null;
 
-        if( is_null($this->data_criacao) || $this->data_criacao == '0000-00-00 00:00:00' ):
+        if( $this->reg_vazio ):
             # Complementar informações de inserção
             $this->usuario_criacao      = $id_u;
             $this->usuario_nome_criacao = $nm_u;
@@ -145,7 +139,7 @@ class LogRegistro extends Principal{
                     . " {$this->bd_prefixo}idreg, {$this->bd_prefixo}tabela) VALUES ("
                     . " {$this->usuario_criacao}, '{$this->usuario_nome_criacao}', '{$this->data_criacao}', '{$this->ip_criacao}', {$this->idreg}, '{$this->tabela}')";
         else:
-            if( !$remover ):
+            if( !$rmv ):
                 # Complementar os dados de atualização
                 $this->usuario_alteracao        = $id_u;
                 $this->usuario_nome_alteracao   = $nm_u;

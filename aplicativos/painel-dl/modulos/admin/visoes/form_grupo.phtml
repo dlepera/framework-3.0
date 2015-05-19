@@ -101,7 +101,7 @@ $mod = $params['modelo'];
 
                 <tbody class="tbl-conteudo">
                     <?php if( !count($params['membros']) )
-                        echo '<tr class="sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO, '</td></tr>';
+                        echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO, '</td></tr>';
 
                     foreach( $params['membros'] as $l ): ?>
                     <tr class="tbl-linha">

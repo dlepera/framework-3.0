@@ -14,27 +14,11 @@ var up_arquivos = new Array();
 var tempo_msg   = new Object();
 var tempo_cont  = new Object();
 
-// Máscaras dos formatos mais comuns
-// Telefones
-var MASK_TELEFONE   = '(##) ####-####';
-var MASK_CELULAR    = MASK_TELEFONE;
-var MASK_CELULAR_9  = '(##) # ####-####';
 
-// Documentos
-var MASK_RG     = '##.###.###-#';
-var MASK_CPF    = '###.###.###-##';
-var MASK_CNPJ   = '##.###.###/####-##';
-
-// Endereço
-var MASK_CEP = '#####-###';
-
-// Data e hora
-var MASK_DATA = '##/##/####';
-var MASK_HORA = '##:##';
-var MASK_DATA_E_HORA = MASK_DATA + ' ' + MASK_HORA;
 
 /**
  * Função que será utilizada para tratar a resposta
+ * -----------------------------------------------------------------------------
  * 
  * @param {string} r resposta do servidor após o envio da
  * requisição

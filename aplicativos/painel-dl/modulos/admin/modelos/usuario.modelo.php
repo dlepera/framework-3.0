@@ -148,7 +148,7 @@ class Usuario extends \Geral\Modelo\Principal{
         $r = parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
 
         if( $this->id == $_SESSION['usuario_id'] && $r && $s )
-            \DL3::$aut_o->_carregarsessao(end($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos))));
+            \DL3::$aut_o->_carregarsessao($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos, 0, 1, 0)));
 
         return $r;
     } // Fim do método _salvar
@@ -175,7 +175,7 @@ class Usuario extends \Geral\Modelo\Principal{
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
 
         # Comparar a senha atual
-        if( !end($this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'")) && !$r )
+        if( !(bool)$this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'", 0, 1, 0) && !$r )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_SENHA_ATUAL_INCORRETA, 1000);
 
         # Comparar as senhas infromadas
@@ -221,10 +221,10 @@ class Usuario extends \Geral\Modelo\Principal{
         $this->_info_login($u);
         $m ? $this->_info_senha($s) : $this->info_senha = $s;
 
-        $d = end($this->_listar(
+        $d = $this->_listar(
                 "usuario_info_login = '{$this->info_login}' AND usuario_info_senha = '{$this->info_senha}'",
-                null, $c
-            ));
+                null, $c, 0, 1, 0
+            );
 
         if( (bool)$d === false )
             throw new \Exception(ERRO_USUARIO_FAZERLOGIN_USUARIO_OU_SENHA_INVALIDOS, 1403);

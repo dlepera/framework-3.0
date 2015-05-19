@@ -33,7 +33,7 @@ class Modulo extends \Geral\Modelo\Principal{
     } // Fim do método _menu
 
     public function _link($v=null){
-        return $this->link = trim(filter_var(is_null($v) ? $this->link : $v, FILTER_SANITIZE_STRING), '/') .'/';
+        return $this->link = trim(filter_var(is_null($v) ? $this->link : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do método _link
 
     public function _ordem($v=null){
@@ -48,7 +48,7 @@ class Modulo extends \Geral\Modelo\Principal{
         $this->bd_select = 'SELECT %s'
                 . ' FROM %s AS M'
                 . " LEFT JOIN {$this->bd_tabela} AS S ON( S.{$this->bd_prefixo}id = M.{$this->bd_prefixo}pai )"
-                . " WHERE M.%sdelete = 0";
+                . ' WHERE M.%sdelete = 0';
 
         if( !empty($id) )
             $this->_selecionarID((int)$id);
@@ -64,9 +64,10 @@ class Modulo extends \Geral\Modelo\Principal{
      * automática. Assim não é necessário informar a cada chamada do método
      *
      * @param int $id - ID do registro a ser selecionado
+     * @param string $a - alias da tabela principal
      */
-    protected function _selecionarID($id){
-        return parent::_selecionarID($id, 'M');
+    protected function _selecionarID($id, $a='M'){
+        return parent::_selecionarID($id, $a);
     } // Fim do método _selecionarID
 
 

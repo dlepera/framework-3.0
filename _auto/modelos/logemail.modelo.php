@@ -13,13 +13,13 @@ class LogEmail extends Principal{
     # Propriedades do modelo
     protected $id, $config, $ip, $classe, $tabela, $idreg, $mensagem, $status = 'S';
 
-    public function __construct($tabela=null, $id=null){
+    public function __construct($tbl=null, $id=null){
         parent::__construct('dl_painel_email_logs', 'log_email_');
 
         $this->bd_select = "SELECT %s FROM %s";
 
-        if( !is_null($tabela) && !is_null($id) )
-            $this->_selecionarID((string)$tabela, (int)$id);
+        if( !is_null($tbl) && !is_null($id) )
+            $this->_selecionarID((string)$tbl, (int)$id);
     } // Fim do método mágico de construção da classe
 
     /**
@@ -27,28 +27,23 @@ class LogEmail extends Principal{
      * -------------------------------------------------------------------------
      */
     public function _config($v=null){
-        return is_null($v) ? (int)$this->config
-        : $this->config = (int)$v;
+        return $this->config = filter_var(is_null($v) ? $this->config : $v, FILTER_VALIDATE_INT);
     } // Fim do método _config
 
     public function _ip($v=null){
-        return is_null($v) ? (string)$this->ip
-        : $this->ip = (string)$v;
+        return $this->ip = filter_var(is_null($v) ? $this->ip : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _ip
 
     public function _classe($v=null){
-        return is_null($v) ? (string)$this->classe
-        : $this->classe = (string)$v;
+        return $this->classe = filter_var(is_null($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _classe
 
     public function _tabela($v=null){
-        return is_null($v) ? (string)$this->tabela
-        : $this->tabela = (string)$v;
+        return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _tabela
 
     public function _idreg($v=null){
-        return is_null($v) ? (string)$this->idreg
-        : $this->idreg = (int)$v;
+        return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v, FILTER_VALIDATE_INT);
     } // Fim do método _idreg
 
 
@@ -67,18 +62,12 @@ class LogEmail extends Principal{
      * @return string - valor da propriedade $status
      */
     public function _status($v=null){
-        if( is_null($v) )
-            return $this->status;
-
-        if( !in_array($v, array('S', 'E', 'F')) )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, __METHOD__), 1500);
-
-        return $this->status = (string)$v;
+        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP,
+                array('options' => array('regexp' => '~^[SEF]{1}$~')));
     } // Fim do método _status
 
     public function _mensagem($v=null){
-        return is_null($v) ? (string)$this->mensagem
-        : $this->mensagem = (string)$v;
+        return $this->mensagem = filter_var(is_null($v) ? $this->mensagem : $v);
     } // Fim do método _status
 
 
@@ -91,11 +80,11 @@ class LogEmail extends Principal{
      *
      * @return void
      */
-    protected function _selecionarID($tabela, $idreg){
+    protected function _selecionarID($tbl, $idreg){
         if( !method_exists($this, '_listar') )
             throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
 
-        $lis_m = end($this->_listar("{$this->bd_prefixo}tabela = '{$tabela}' AND {$this->bd_prefixo}idreg = {$idreg}"));
+        $lis_m = $this->_listar("{$this->bd_prefixo}tabela = '{$tbl}' AND {$this->bd_prefixo}idreg = {$idreg}", 0, 1, 0);
 
         # Carregar os dados obtidos do banco de dados
         # nas propriedades da classe

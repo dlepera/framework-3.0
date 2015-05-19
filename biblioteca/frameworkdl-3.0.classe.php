@@ -15,7 +15,7 @@
  */
 function __autoload($c){
     list($m, $t, $n) = explode('\\', $c);
-    
+
     $md = preg_replace('~^\-~', '', preg_replace_callback('~[A-Z]+~', function($m){
         return '-'. strtolower($m[0]);
     }, $m));
@@ -556,7 +556,7 @@ class FrameworkDL3{
             $css = "{$dcss}{$a}";
 
             if( is_file("./{$css}") )
-                $tema .= '<link rel="stylesheet" media="all" href="'. (!empty(self::$ap_home) ? '../' : '') . str_repeat('../', count(explode(self::$ap_home))-1) . $css .'"/>';
+                $tema .= '<link rel="stylesheet" media="all" href="'. (!empty(self::$ap_home) ? '../' : '') . str_repeat('../', count(explode('/', self::$ap_home))-1) . $css .'"/>';
         endforeach;
 
         return $tema;

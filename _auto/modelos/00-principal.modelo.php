@@ -18,9 +18,9 @@ abstract class Principal{
     # Define se o registro encontra-se vazio
     protected $reg_vazio = true;
 
-    public function __construct($tabela, $prefixo = ''){
-        $this->_bd_tabela($tabela);
-        $this->_bd_prefixo($prefixo);
+    public function __construct($tbl, $pfx = ''){
+        $this->_bd_tabela($tbl);
+        $this->_bd_prefixo($pfx);
 
         if( get_called_class() !== 'Geral\Modelo\LogRegistro' )
             $this->mod_lr = new LogRegistro();
@@ -42,7 +42,6 @@ abstract class Principal{
             # Gravar log de inserção e alteração do registro
             case '_salvar':
                 $s = call_user_func_array(array($this, '_salvar'), $args);
-
                 if( class_exists($mod_registro) && $s > 0 && !is_null($this->id) ):
                     $this->mod_lr->tabela  = $this->bd_tabela;
                     $this->mod_lr->idreg   = $this->id;
@@ -86,19 +85,16 @@ abstract class Principal{
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
     public function _bd_tabela($v=null){
-        return is_null($v) ? (string)$this->bd_tabela
-        : $this->bd_tabela = (string)$v;
+        return $this->bd_tabela = filter_var(is_null($v) ? $this->bd_tabela : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_tabela
 
     public function _bd_prefixo($v=null){
-        return is_null($v) ? (string)$this->bd_prefixo
-        : $this->bd_prefixo = (string)$v;
+        return $this->bd_prefixo = filter_var(is_null($v) ? $this->bd_prefixo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_tabela
 
     public function _bd_select($v=null){
-        return is_null($v) ? (string)$this->bd_select
-        : $this->bd_select = (string)$v;
-    } // Fim do método _bd_tabela
+        return $this->bd_select = filter_var(is_null($v) ? $this->bd_select : $v);
+    } // Fim do método _bd_select
 
     public function _mod_lr(){
         return $this->mod_lr;
@@ -109,22 +105,18 @@ abstract class Principal{
         return $this->id = filter_var(is_null($v) ? $this->id : $v);
     } // Fim do método _id
 
-    public function _publicar($v){
+    public function _publicar($v=null){
         if( !property_exists($this, 'publicar') )
             return null;
 
-        if( (int)$v < 0 || (int)$v > 1 )
-            throw new \Exception(sprintf(ERRO_PADRAO_VALOR_INVALIDO, __METHOD__), 1500);
-
-        return is_null($v) ? (int)$this->publicar
-        : $this->publicar = (int)filter_var($v, FILTER_SANITIZE_NUMBER_INT);
+        return $this->publicar = filter_var(is_null($v) ? $this->publicar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _id
 
     public function _delete(){
         if( !property_exists($this, 'delete') )
             return null;
 
-        return (int)$this->delete;
+        return $this->bd_delete = filter_var($this->delete, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _id
 
 
@@ -133,33 +125,35 @@ abstract class Principal{
      * Listar registros desse modelos de acordo com o filtro e ordenação
      * -------------------------------------------------------------------------
      *
-     * @param string $filtro - parte da string referente à clausula WHERE da consulta SQL
-     * @param string $ordem - parte da string referente à clausula ORDER BY da consulta SQL
-     * @param string $campos - lista de campos a serem selecionados
-     * @param int $pagina - página a ser considerada durante uma paginação de resultados.<br>Se definida como 0 (zero) a paginação não é realizada
+     * @param string $flt - parte da string referente à clausula WHERE da consulta SQL
+     * @param string $ord - parte da string referente à clausula ORDER BY da consulta SQL
+     * @param string $cpos - lista de campos a serem selecionados
+     * @param int $pgn - página a ser considerada durante uma paginação de resultados.<br>Se definida como 0 (zero) a paginação não é realizada
      * @param int $qtde - quantidade de registros a serem exibidos caso a paginação seja ativada
      *
      * @return array: array associativo contendo o recordset da consulta
      */
-    public function _listar($filtro=null, $ordem=null, $campos='*', $pagina=0, $qtde=20){
+    public function _listar($flt=null, $ord=null, $cpos='*', $pgn=0, $qtde=20, $pos=null){
         $query = substr_count($this->bd_select, '%s') == 2 ?
-            sprintf($this->bd_select, $campos, $this->bd_tabela)
-        : sprintf($this->bd_select, $campos, $this->bd_tabela, $this->bd_prefixo);
+            sprintf($this->bd_select, $cpos, $this->bd_tabela)
+        : sprintf($this->bd_select, $cpos, $this->bd_tabela, $this->bd_prefixo);
 
-        if( !empty($filtro) )
-            $query .= stripos($query, "WHERE") > -1 ? " AND {$filtro}" : " WHERE {$filtro}";
+        if( !empty($flt) )
+            $query .= stripos($query, "WHERE") > -1 ? " AND {$flt}" : " WHERE {$flt}";
 
-        if( !empty($ordem) )
-            $query .= " ORDER BY {$ordem}";
+        if( !empty($ord) )
+            $query .= " ORDER BY {$ord}";
         // echo $query, '<br>--<br>';
-        $sql = $pagina > 0 ?
-            \DL3::$bd_conex->_paginacao($query, $pagina, $qtde)
+        $sql = $pgn > 0 ?
+            \DL3::$bd_conex->_paginacao($query, $pgn, $qtde)
         : \DL3::$bd_conex->query($query);
 
-        if( !$sql )
-            return false;
+        if( !$sql ) return false;
 
-        return $sql->fetchAll(\PDO::FETCH_ASSOC);
+        # Resultados da consulta
+        $rs = $sql->fetchAll(\PDO::FETCH_ASSOC);
+
+        return !is_null($pos) ? $rs[$pos < 0 ? count($rs) + $pos : $pos] : $rs;
     } // Fim do método _listar
 
 
@@ -168,10 +162,10 @@ abstract class Principal{
      * Obter apenas a quantidade de registros
      * -------------------------------------------------------------------------
      *
-     * @param string $filtro - filtro a ser aplicado na consuta
+     * @param string $flt - filtro a ser aplicado na consuta
      */
-    public function _qtde_registros($filtro=''){
-        $rs = end($this->_listar($filtro, null, 'COUNT(*) AS QTDE'));
+    public function _qtde_registros($flt=''){
+        $rs = $this->_listar($flt, null, 'COUNT(*) AS QTDE', 0, 1, 0);
         return $rs['QTDE'];
     } // Fim do método _qtde_registros
 
@@ -182,31 +176,32 @@ abstract class Principal{
      * -------------------------------------------------------------------------
      *
      * @param int $id - ID do registro a ser selecionado
-     * @param string $alias - alias da tabela principal
+     * @param string $a - alias da tabela principal
      *
      * @return void
      */
-    protected function _selecionarID($id, $alias=null){
+    protected function _selecionarID($id, $a=null){
         if( !method_exists($this, '_listar') )
             throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
 
         # Garantir que o ID seja um número inteiro
-        $id     = (int)$id;
-        $alias  = is_null($alias) ? '' : (string)"{$alias}.";
+        $id = (int)$id;
+        $a  = is_null($a) ? '' : (string)"{$a}.";
 
         # Armazenar string com campos BIT
         $bit = '';
 
         if( \DL3::$bd_conex->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'mysql' ):
-            $campos     = \DL3::$bd_conex->_campos($this->bd_tabela);
-            $c_bits     = array_keys(preg_grep('~^bit~', array_column($campos, 'Type')));
-            $c_nomes    = array_column($campos, 'Field');
+            $cpos     = \DL3::$bd_conex->_campos($this->bd_tabela);
+            $c_bits     = array_keys(preg_grep('~^bit~', array_column($cpos, 'Type')));
+            $c_nomes    = array_column($cpos, 'Field');
 
             foreach( $c_bits as $k )
-                $bit .= ", {$alias}{$c_nomes[$k]}+0 AS {$c_nomes[$k]}";
+                $bit .= ", {$a}{$c_nomes[$k]}+0 AS {$c_nomes[$k]}";
         endif;
 
-        $lis_m = end($this->_listar("{$alias}{$this->bd_prefixo}id = {$id}", null, "{$alias}*{$bit}"));
+        $ls     = $this->_listar("{$a}{$this->bd_prefixo}id = {$id}", null, "{$a}*{$bit}");
+        $lis_m  = end($ls);
 
         # Indicar que o registro foi selecionado
         $this->reg_vazio = !(bool)$lis_m;
@@ -246,15 +241,15 @@ abstract class Principal{
         $bit = '';
 
         if( \DL3::$bd_conex->getAttribute(\PDO::ATTR_DRIVER_NAME) === 'mysql' ):
-            $campos     = \DL3::$bd_conex->_campos($this->bd_tabela);
-            $c_bits     = array_keys(preg_grep('~^bit~', array_column($campos, 'Type')));
-            $c_nomes    = array_column($campos, 'Field');
+            $cpos     = \DL3::$bd_conex->_campos($this->bd_tabela);
+            $c_bits     = array_keys(preg_grep('~^bit~', array_column($cpos, 'Type')));
+            $c_nomes    = array_column($cpos, 'Field');
 
             foreach( $c_bits as $k )
                 $bit .= ", {$a}{$c_nomes[$k]}+0 AS {$c_nomes[$k]}";
         endif;
 
-        $lis_m = end($this->_listar("{$a}{$this->bd_prefixo}{$c} = ". var_export($v), null, "{$a}*{$bit}"));
+        $lis_m = $this->_listar("{$a}{$this->bd_prefixo}{$c} = ". var_export($v), null, "{$a}*{$bit}", 0, 1, 0);
 
         # Carregar os dados obtidos do banco de dados
         # nas propriedades da classe
@@ -329,12 +324,12 @@ abstract class Principal{
      */
     public function _criar_insert($inserir_id = false, array $apenas_campos = null, array $excluir_campos = null){
         # Informações dos campos
-        array_shift($campos = \DL3::$bd_conex->_campos($this->bd_tabela));
+        $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
         $v_campos   = array();
         $v_valores  = array();
 
-        foreach( $campos as $c ):
+        foreach( $cpos as $c ):
             # Nome da propriedade
             $p = preg_replace("~^{$this->bd_prefixo}~", '', $c['Field']);
 
@@ -358,8 +353,7 @@ abstract class Principal{
             endif;
         endforeach;
 
-        return "INSERT INTO {$this->bd_tabela} (". implode(', ', $v_campos) .") VALUES"
-            . " (". implode(', ', $v_valores) .")";
+        return "INSERT INTO {$this->bd_tabela} (". implode(', ', $v_campos) .") VALUES  (". implode(', ', $v_valores) .")";
     } // Fim do modelo _criar_insert
 
 
@@ -373,12 +367,12 @@ abstract class Principal{
      */
     public function _criar_update(array $apenas_campos = null, array $excluir_campos = null){
         # Informações dos campos
-        array_shift($campos = \DL3::$bd_conex->_campos($this->bd_tabela));
+        $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
         $v_alterar  = array();
         $v_where    = array();
 
-        foreach( $campos as $c ):
+        foreach( $cpos as $c ):
             # Nome da propriedade
             $p = preg_replace("~^{$this->bd_prefixo}~", '', $c['Field']);
 
@@ -409,13 +403,13 @@ abstract class Principal{
      * Carregar um 'select' com VALOR e TEXTO
      * -------------------------------------------------------------------------
      *
-     * @param string $filtro - filtro a ser aplicado na query
+     * @param string $flt - filtro a ser aplicado na query
      * @param boolen $escrever - define se o resultado será escrito no formato json ou retornado
      * @param string $id - nome do campo identificado como 'value' (sem prefixo)
      * @param string $label - nome do campo identificado como 'label' (sem prefixo)
      */
-    public function _carregarselect($filtro = null, $escrever = true, $id = 'id', $label = 'descr'){
-        $lis = $this->_listar($filtro, "{$this->bd_prefixo}{$label}", "{$this->bd_prefixo}{$id} AS VALOR, {$this->bd_prefixo}{$label} AS TEXTO");
+    public function _carregarselect($flt = null, $escrever = true, $id = 'id', $label = 'descr'){
+        $lis = $this->_listar($flt, "{$this->bd_prefixo}{$label}", "{$this->bd_prefixo}{$id} AS VALOR, {$this->bd_prefixo}{$label} AS TEXTO");
 
         if( $escrever ) echo json_encode($lis); else return $lis;
     } // Fim _carregarselect

@@ -43,6 +43,18 @@ form{
         width: auto !important;
     }
     
+    .form-cor{
+        /* Visual */
+        border: none;
+        
+        /* Tamanho */
+        width   : 3em;
+        height  : 3em;
+        
+        /* Visual */
+        background: transparent;
+    }
+    
     .form-textarea{
         /* Tamanho */
         height: 15em;

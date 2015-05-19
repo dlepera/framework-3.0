@@ -49,7 +49,7 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
      * -------------------------------------------------------------------------
      */
     public function _selecionar_ativa(){
-        $l = end($this->_listar("{$this->bd_prefixo}ativar = 1", null, "{$this->bd_prefixo}id AS ID"));
+        $l = $this->_listar("{$this->bd_prefixo}ativar = 1", null, "{$this->bd_prefixo}id AS ID", 0, 1, 0);
 
         if( $l === false )
             throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);

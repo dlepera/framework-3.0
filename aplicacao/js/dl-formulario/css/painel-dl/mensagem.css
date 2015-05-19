@@ -127,6 +127,8 @@ div.dl-formulario-mensagem.painel-dl.alerta > p > button{
 /* --------------------------------------------------------------------------------------------------------------------------
  * Parágrafo que contém a mensagem e botão fechar: sucesso
  * ----------------------------------------------------------------------------------------------------------------------- */
+div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso{ border: none; }
+
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p{
     /* Formatação do texto */
     color: green;
@@ -146,6 +148,8 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p > button{
 /* --------------------------------------------------------------------------------------------------------------------------
  * Parágrafo que contém a mensagem e botão fechar: erro
  * ----------------------------------------------------------------------------------------------------------------------- */
+div.dl-formulario-mensagem.painel-dl.alerta.msg-erro{ border: none; }
+
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p{
     /* Formatação do texto */
     color: red;
@@ -153,7 +157,7 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p{
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p:before{
     /* Conteúdo */
-    content: 'x';
+    content: '\ea0f';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p > button{
@@ -172,7 +176,7 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p{
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p:before{
     /* Conteúdo */
-    content: 'i';
+    content: '\ea0c';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p > button{

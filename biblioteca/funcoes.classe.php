@@ -19,10 +19,10 @@ class Funcoes{
      */
     public static function _vetor2objeto($vetor, &$obj, $prefixo = ''){
         foreach( $vetor as $p => $v ):
-            $p = "_{$prefixo}{$p}";
+            $p = "{$prefixo}{$p}";
 
-            if( method_exists($obj, $p) && !is_null($v) )
-                $obj->{$p}($v);
+            if( property_exists($obj, $p) && !is_null($v) )
+                $obj->{$p} = $v;
         endforeach;
     } // Fim do método _post2objeto
 
@@ -84,6 +84,8 @@ class Funcoes{
      * @param string $var - variável a ser convertida
      */
     public static function _converterencode(&$var, $para_encode, $de_encode = 'UTF-8'){
+        if( is_null($var) ) return;
+
         if( !is_array($var) ):
             if( mb_check_encoding($var, $de_encode) ):
                 $var = mb_convert_encoding($var, $para_encode, $de_encode);
@@ -168,7 +170,8 @@ class Funcoes{
 
     /**
      * Aplicar máscara de dados a uma string
-     *
+     * -------------------------------------------------------------------------
+     * 
      * @param string $string - string onde será aplicada a máscara
      * @param string $mask - máscara a ser aplicada
      * @return string

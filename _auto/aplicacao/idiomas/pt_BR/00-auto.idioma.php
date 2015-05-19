@@ -19,3 +19,11 @@ define('MASK_TELEFONE_CELULAR_9', '(##) # ####-####');
 # -> Documentos
 define('MASK_CPF', '###.###.###-##');
 define('MASK_CNPJ', '###.###.###/####-##');
+
+
+
+/**
+ * PDODL
+ * -----------------------------------------------------------------------------
+ */
+define('ERRO_PDODL_CAMPOS', 'Erro ao identificar informações dos campos da tabela: %s');
