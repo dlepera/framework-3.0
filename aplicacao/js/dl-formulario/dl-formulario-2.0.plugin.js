@@ -45,6 +45,26 @@ function TratarResposta(r){
 
 
 (function($){
+    $.fn._serialize = function(){
+        var s = new Array();
+        
+        $(this).find('input, select, textarea').each(function(){
+            var n = this.name;
+            var t = this.type;
+            var v = this.value;
+            
+            if( t === 'checkbox' ){
+                if( v === 'on' )
+                    v = this.checked ? 'on' : 'off';
+                else if( !this.checked ) return;
+            } // Fim if( t === 'checkbox' )
+            
+            s.push(n +'='+ v);
+        });
+        
+        return s.join('&');
+    }; // Fim plugin $.fn._serialize = function()
+    
     $.fn._dlformulario = function(opcoes){
         // Valores padrão para as opções desse plugin
         var padrao = {
@@ -142,7 +162,7 @@ function TratarResposta(r){
                 $.ajax({
                     url         : controle || opcoes.controle,
                     type        : 'post',
-                    data        : obj_fd || $this.serialize(),
+                    data        : obj_fd || $this._serialize(),
                     cache       : false,
                     processData : !upload,
                     contentType : upload ? false : 'application/x-www-form-urlencoded',
