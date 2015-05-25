@@ -1,6 +1,10 @@
-/**
- * @Autor	: Diego Lepera
- * @E-mail	: dlepera88@gmail.com
- * @Projeto	: FrameworkDL
- * @Data	: ${date} ${time}
- */
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} @autor: Diego Lepera
+${licensePrefix} @email: dlepera88@gmail.com
+${licensePrefix} @projeto: ${project.displayName}
+${licensePrefix} @data: ${date} ${time}
+<#if licenseLast??>
+${licenseLast}
+</#if>

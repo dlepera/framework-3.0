@@ -171,7 +171,7 @@ class Funcoes{
     /**
      * Aplicar máscara de dados a uma string
      * -------------------------------------------------------------------------
-     * 
+     *
      * @param string $string - string onde será aplicada a máscara
      * @param string $mask - máscara a ser aplicada
      * @return string
@@ -211,4 +211,25 @@ class Funcoes{
             )
         );
     } // Fim do método _ucwords
+
+
+    
+    /**
+     *  Transformar um valor booleano em valor compreensível para os humanos
+     * -------------------------------------------------------------------------
+     *
+     * @param bool $v - valor booleano a ser testado
+     * @param string $i - sigla do idioma a ser utilizado para a tradução
+     *
+     * @return string - String contendo o valor traduzido para a linguagem humana
+     */
+    public static function _bool2humano($v,$i='pt_BR'){
+        $idiomas = array(
+            'pt_BR' => array('Não', 'Sim'),
+            'en_US' => array('No', 'Yes'),
+            'es_ES' => array('No', 'Sí')
+        );
+
+        return $idiomas[$i][(int)$v];
+    } // Fim do método _bool2humano
 } // Fim da classe Funções

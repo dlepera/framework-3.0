@@ -53,11 +53,17 @@ function TratarResposta(r){
             var t = this.type;
             var v = this.value;
             
-            if( t === 'checkbox' ){
-                if( v === 'on' )
-                    v = this.checked ? 'on' : 'off';
-                else if( !this.checked ) return;
-            } // Fim if( t === 'checkbox' )
+            switch(t){
+                case 'checkbox':
+                    if( v === 'on' )
+                        v = this.checked ? 'on' : 'off';
+                    else if( !this.checked ) return;
+                break;
+                
+                case 'radio':
+                    if( !this.checked ) return;
+                break;
+            } // Fim switch(t)
             
             s.push(n +'='+ v);
         });
