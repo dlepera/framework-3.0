@@ -8,12 +8,12 @@
  */
 
 # Configurações da aplicação
-$ap_raiz    = 'framework-3.0';
+$ap_raiz    = '';
 $ap_nome    = 'painel-dl';
 $ap_home    = 'painel-dl';
 $ap_titulo  = 'Painel-DL';
 $ap_favicon = 'ico-lepera.png';
-$ap_versao  = '3.2';
+$ap_versao  = '3.2.1';
 
 # Configurações do banco de dados
 $bd_ativar  = true;
@@ -22,6 +22,3 @@ $bd_base    = 'framework3';
 
 # Solicitar autenticação
 $aut_ativar = true;
-
-# Idioma
-$ap_idioma = 'en_US';

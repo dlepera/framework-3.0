@@ -42,7 +42,7 @@ function MarcarValidCampo($c, v){
 } // Fim function MarcarValidCampo
 
 function RemoverRegistro(controle, mensagem){
-    $editar_lista.executar(controle, function(){
+    $el.executar(controle, function(){
         return confirm(mensagem);
     }, function(){
         $('.lista :checkbox:checked').parents('tr').remove();

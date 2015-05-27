@@ -12,7 +12,7 @@
  * classes
  * -----------------------------------------------------------------------------
  */
-define('ABSPATH', dirname(__FILE__));
+define('DL3_ABSPATH', dirname(__FILE__) .'/');
 define('DL3_AMBIENTE', filter_input(INPUT_GET, 'dl3_a'));
 define('DL3_APLICATIVO', filter_input(INPUT_GET, 'dl3_c'));
 define('DL3_URL', filter_input(INPUT_GET, 'dl3_u'));
