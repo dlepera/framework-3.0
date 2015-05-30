@@ -42,10 +42,13 @@ if( !isset($params) )
 
                 foreach( $params['lista'] as $l ): ?>
                 <tr class="tbl-linha">
-                    <td headers="th-id" class="tbl-celula-id"><input type="checkbox" name="id[]" value="<?= $l['tipo_dado_id']; ?>"/></td>
-                    <td headers="th-descr">
+                    <td headers="th-id" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['tipo_dado_id']; ?>"/></td>
+                    <?php if( $params['exibir-id'] ): ?>
+                    <td headers="th-id" class="tbl-celula-id"><?= $l['tipo_dado_id']; ?></td>
+                    <?php endif; ?>
+                    <td headers="th-descr" class="tbl-celula-infos">
                         <?php if( !empty($l['tipo_dado_icone']) ): ?>
-                        <img src="..<?= $l['tipo_dado_icone']; ?>" alt="" class="icone-20"/>
+                        <img src="..<?= $l['tipo_dado_icone']; ?>" alt="" class="tbl-imagem icone-20"/>
                         <?php endif;
                         echo $l['tipo_dado_descr']; ?>
                     </td>

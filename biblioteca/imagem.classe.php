@@ -9,7 +9,7 @@
 
 class Imagem{
     # Propriedades dessa imagem
-    private $arquivo, $imagem, $l, $a, $tipo;
+    private $arquivo, $imagem, $largura, $altura, $tipo;
 
     # Parâmetros de edição
     private $qlde_jpeg = 100, $qlde_png = 9;
