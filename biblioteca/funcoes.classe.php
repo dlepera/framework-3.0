@@ -200,7 +200,8 @@ class Funcoes{
     public static function _ucwords($string, array $exceto = array(), $idioma = 'pt_BR'){
         # Alterar o idioma (locale) para o pt_BR para
         # evitar problemas com acentuação
-        setlocale(LC_CTYPE, $idioma);
+        if( mb_internal_encoding() == 'UTF-8' )
+            setlocale(LC_CTYPE, $idioma);
 
         # Esse trecho foi inspirado numa função postada por Paulo Freitas
         # em: http://forum.wmonline.com.br/topic/188764-transformar-primeira-letra-de-cada-palavra-em-maiuscula/
@@ -213,7 +214,7 @@ class Funcoes{
     } // Fim do método _ucwords
 
 
-    
+
     /**
      *  Transformar um valor booleano em valor compreensível para os humanos
      * -------------------------------------------------------------------------
