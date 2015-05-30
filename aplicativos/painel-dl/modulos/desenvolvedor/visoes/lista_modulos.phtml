@@ -12,9 +12,7 @@ if( !isset($params) )
 // echo '<pre>', var_dump($params), '</pre>';
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php if( $params['perm-inserir?'] ): ?>
     <!-- Inserir um novo registro -->
     <a href="desenvolvedor/modulos/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_MODULO; ?></a>
@@ -55,7 +53,7 @@ if( !isset($params) )
                         <a href="javascript:;" onclick="SelecionarLinha(this); AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
                             <?= $p ? TXT_LINK_OCULTAR : TXT_LINK_PUBLICAR; ?>
                         </a>
-                        
+
                         <a href="desenvolvedor/modulos/editar/<?= $l['modulo_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
@@ -98,4 +96,4 @@ if( !isset($params) )
     </form>
 
     <div id="paginacao"></div>
-</section>
+[/DL3-CONTEUDO]

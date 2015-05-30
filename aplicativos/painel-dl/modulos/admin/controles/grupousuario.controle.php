@@ -61,11 +61,11 @@ class GrupoUsuario extends \Geral\Controle\PainelDL{
      * @param int $id - ID do registro a ser selecionado
      * @param bool $tr - define se serão carregados o topo e rodapá da visão
      */
-    protected function _mostrarform($id=null,$tr=true){
+    protected function _mostrarform($id=null,$mst=null){
         $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $id);
 
         # Visão
-        $this->_carregarhtml('form_grupo', is_null($tr) ? true : $tr);
+        $this->_carregarhtml('form_grupo', $mst);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO : TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO;
 
         # Sub-módulos

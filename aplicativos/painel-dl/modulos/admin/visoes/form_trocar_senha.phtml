@@ -12,9 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <p class="msg-info"><?= MSG_RESET_SENHA_PROX_LOGIN; ?></p>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
@@ -38,4 +36,4 @@ if( !isset($params) )
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]

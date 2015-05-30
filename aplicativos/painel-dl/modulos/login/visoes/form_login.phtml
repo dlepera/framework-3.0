@@ -14,11 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
+[DL3-CONTEUDO]
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <p class="form-paragr">
             <label for="txt-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
@@ -38,4 +34,4 @@ $mod = $params['modelo'];
             </a>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]

@@ -9,25 +9,25 @@
 
 ?>
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.onload = function(){
-        $el = $('#form-editar-lista')._dlformulario({
-            cktodos : [true, 'thead :checkbox', 'tbody :checkbox'],
-            depois  : function(){
-                // Remover o item da lista
-                $el.find('tbody :checked').parents('tr').remove();
-            },
-            aparencia: { tema: '<?= DL3::$plugin_formulario_tema; ?>', estilo: null }
-        });
+    $el = $('#form-editar-lista')._dlformulario({
+        cktodos : [true, 'thead :checkbox', 'tbody :checkbox'],
+        depois  : function(){
+            // Remover o item da lista
+            $el.find('tbody :checked').parents('tr').remove();
+        },
+        aparencia: { tema: '<?= DL3::$plugin_formulario_tema; ?>', estilo: null }
+    });
 
-        $pg = $('#paginacao')._dlpaginacao({
-            pgtotal     : <?= $params['total-pg']; ?>,
-            mostrar     : 5,
-            aparencia   : { tema: '<?= \DL3::$plugin_paginacao_tema; ?>', estilo: 'paginacao' }
-        });
+    $pg = $('#paginacao')._dlpaginacao({
+        pgtotal     : <?= $params['total-pg']; ?>,
+        mostrar     : 5,
+        aparencia   : { tema: '<?= \DL3::$plugin_paginacao_tema; ?>', estilo: 'paginacao' }
+    });
 
-        $('.com-marcados > *:first-child,.sem-registros > *:first-child').attr({ 'colspan': $('.tbl-conteudo > .tbl-linha:first-child > *').length });
-    };
+    $('.com-marcados > *:first-child,.sem-registros > *:first-child').attr({ 'colspan': $('.tbl-titulos > .tbl-linha:first-child > *').length });
     //]]>
 </script>
+[/DL3-SCRIPTS]

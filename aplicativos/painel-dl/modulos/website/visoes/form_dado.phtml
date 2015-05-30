@@ -14,9 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
@@ -59,35 +57,35 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.addEventListener('load', function(){
-        <?php if( !empty($params['mascara']) ): ?>
-        // Aplicar a máscara
-        $('#txt-descr')._mascara('<?= $params['mascara']; ?>');
-        <?php endif; ?>
+    <?php if( !empty($params['mascara']) ): ?>
+    // Aplicar a máscara
+    $('#txt-descr')._mascara('<?= $params['mascara']; ?>');
+    <?php endif; ?>
 
-        $('#sel-tipo').on('change', function(){
-            var tipo = $(this).val();
+    $('#sel-tipo').on('change', function(){
+        var tipo = $(this).val();
 
-            $.ajax({
-                url     : 'website/tipos-de-dados/opcoes-avancadas',
-                type    : 'post',
-                dataType: 'json',
-                data    : 'id='+ tipo,
-                success : function(j){
-                    var $descr = $('#txt-descr');
+        $.ajax({
+            url     : 'website/tipos-de-dados/opcoes-avancadas',
+            type    : 'post',
+            dataType: 'json',
+            data    : 'id='+ tipo,
+            success : function(j){
+                var $descr = $('#txt-descr');
 
-                    if( j.mascara != '' )
-                        $descr._mascara(j.mascara);
+                if( j.mascara != '' )
+                    $descr._mascara(j.mascara);
 
-                    if( j.expreg != '' )
-                        $descr.attr({ pattern: j.expreg });
-                }
-            });
+                if( j.expreg != '' )
+                    $descr.attr({ pattern: j.expreg });
+            }
         });
     });
     //]]>
 </script>
+[/DL3-SCRIPTS]

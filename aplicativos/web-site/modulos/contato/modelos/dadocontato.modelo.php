@@ -39,6 +39,6 @@ class DadoContato extends \Geral\Modelo\Principal{
      * Desativar os métodos _salvar e _remover
      * -------------------------------------------------------------------------
      */
-    protected function _salvar(){ return; }
-    protected function _remover(){ return; }
+    public function _salvar($s = true, $ci = null, $ce = null, $ipk = false){ return; }
+    public function _remover(){ return; }
 } // Fim do Modelo DadoContato

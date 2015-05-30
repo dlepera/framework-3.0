@@ -81,11 +81,11 @@ $rotas['^(temas/lista|temas)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^temas/novo(/[0-1])?$'] = array(
+$rotas['^temas/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'Tema',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^temas/(editar|alterar)/\d+$'] = array(
@@ -126,11 +126,11 @@ $rotas['^(idiomas/lista|idiomas)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^idiomas/novo(/[0-1])?$'] = array(
+$rotas['^idiomas/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'Idioma',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^idiomas/(editar|alterar)/\d+$'] = array(

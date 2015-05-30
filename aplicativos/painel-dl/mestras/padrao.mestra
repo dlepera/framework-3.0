@@ -1,0 +1,215 @@
+<?php
+
+/*
+ *  @autor: Diego Lepera
+ *  @email: dlepera88@gmail.com
+ *  @projeto: framework-3.0
+ *  @data: 27/05/2015 16:01:32
+ */
+
+# Parâmetros passados para a página
+$params = $this->_obterparams();
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?= "{$params['titulo']} :: ". \DL3::$ap_titulo; ?></title>
+    <meta charset="<?= \DL3::$ap_charset; ?>">
+
+    <!-- Setar a base do HTML -->
+    <base href="<?= \DL3::$ap_base_html; ?>"/>
+
+    <!-- Tamanho do dispositivo -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="<?= \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
+
+    <!-- Aplicar o tema da página -->
+    <?= \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
+
+    <!-- <head> Conteúdo personalizado </head> -->
+    [DL3-HEAD/]
+</head>
+<body>
+    <div id="dl3-grid">
+        <header class="dl3-topo">
+            <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
+
+            <ul class="menu-usuario sem-marcadores">
+                <li class="menu-item">
+                    <a href="javascript:;" class="menu-texto ico-usuario">
+                        <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
+                    </a>
+
+                    <?= $params['usr-foto']; ?>
+
+                    <ul class="sub-menu sem-marcadores">
+                        <?php if( $params['perm-usr-conta?'] ): ?>
+                        <li class="sm-item">
+                            <a href="admin/usuarios/minha-conta" class="sm-texto ico-conta">
+                                <?= TXT_LINK_MINHA_CONTA; ?>
+                            </a>
+                        </li>
+                        <?php endif;
+
+                        if( $params['perm-usr-senha?'] ): ?>
+                        <li class="sm-item">
+                            <a href="admin/usuarios/alterar-minha-senha" class="sm-texto ico-senha">
+                                <?= TXT_LINK_ALTERAR_MINHA_SENHA; ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+
+                        <li class="sm-item">
+                            <a href="javascript:;" onclick="$logout.submit();" class="sm-texto ico-logout">
+                                <?= TXT_LINK_LOGOUT; ?>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+
+        <nav class="dl3-menu">
+            <a class="a-mostrar-menu v-smart v-tablet"></a>
+
+            <ul id="menu-principal" class="menu-principal sem-marcadores">
+                <li class="menu-item">
+                    <a href="" class="menu-texto ico-home">
+                        <?= TXT_LINK_HOME; ?>
+                    </a>
+                </li>
+
+                <?php foreach( $params['menu-modulos'] as $mm ):
+                    # Obter os sub-módulos
+                    $sm_k = array_keys(
+                            preg_grep(
+                                "~^{$mm['modulo_id']}$~",
+                                array_column($params['menu-submodulos'], 'modulo_pai')
+                            ));
+                    if( count($sm_k) > 0 ): ?>
+                    <li class="menu-item">
+                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto ico-modulo">
+                            <?= $mm['modulo_nome']; ?>
+                        </a>
+
+                        <ul class="sub-menu sem-marcadores">
+                            <?php foreach( $sm_k as $k ):
+                                $sm = $params['menu-submodulos'][$k]; ?>
+                            <li class="sm-item">
+                                <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
+                                    <?= $sm['modulo_nome']; ?>
+                                </a>
+
+                                <?php if( !empty($sm['modulo_descr']) ): ?>
+                                <span class="sm-descr">
+                                    <?= nl2br($sm['modulo_descr']); ?>
+                                </span>
+                                <?php endif; ?>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </li>
+                    <?php endif;
+                endforeach; ?>
+            </ul>
+
+            <?php if( $params['mostrar-filtro-menu?'] ): ?>
+            <form id="form-filtro-modulos">
+                <p class="form-paragr">
+                    <label for="txt-bm" class="form-rotulo"><?= TXT_ROTULO_BUSCAR_MODULO; ?></label>
+                    <input type="text" name="bm" id="txt-bm" placeholder="<?= TXT_ROTULO_BUSCAR_MODULO; ?>" class="form-controle"/>
+                </p>
+
+                <ul id="menu-filtro" class="menu-filtro sem-marcadores" style="display:none;">
+                    <?php foreach( $params['menu-modulos'] as $mm ):
+                        # Obter os sub-módulos
+                        $sm_k = array_keys(
+                                preg_grep(
+                                    "~^{$mm['modulo_id']}$~",
+                                    array_column($params['menu-submodulos'], 'modulo_pai')
+                                ));
+                        if( count($sm_k) > 0 ): ?>
+                        <li class="menu-item" style="display:none;">
+                            <ul class="sub-menu sem-marcadores">
+                                <?php foreach( $sm_k as $k ):
+                                    $sm = $params['menu-submodulos'][$k]; ?>
+                                <li class="sm-item" style="display:none;">
+                                    <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
+                                        <?= "{$mm['modulo_nome']} > {$sm['modulo_nome']}"; ?>
+                                    </a>
+
+                                    <?php if( !empty($sm['modulo_descr']) ): ?>
+                                    <span class="sm-descr">
+                                        <?= nl2br($sm['modulo_descr']); ?>
+                                    </span>
+                                    <?php endif; ?>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                        <?php endif;
+                    endforeach; ?>
+                </ul>
+                <?php endif; ?>
+            </form>
+        </nav>
+
+        <section class="dl3-conteudo">
+            <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
+
+            [DL3-CONTEUDO/]
+        </section>
+
+        <footer class="dl3-rodape">
+            <?= \DL3::$ap_titulo .' v'. \DL3::$ap_versao .' &copy; '. date('Y'); ?>
+
+            [DL3-RODAPE/]
+        </footer>
+    </div>
+
+    <!-- Formulário para fazer logout -->
+    <form id="form-logout" method="post" action="login/fazer-logout"></form>
+
+    <!-- Javascripts -->
+    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?= \DL3::$ap_versao_jquery; ?>-min.js"></script>
+    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.0.plugin.js"></script>
+    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.0.plugin.js"></script>
+    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
+
+    <script>
+        //<![CDATA[
+        $logout = $('#form-logout')._dlformulario({
+            depois: function(){
+                window.location.reload();
+            },
+            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+        });
+
+        <?php if( $params['mostrar-filtro-menu?'] ): ?>
+        $('#form-filtro-modulos #txt-bm').on('input', function(){
+            var $th = $(this);
+            var $mf = $('#menu-filtro');
+            var vlr = $th.val();
+
+            if( vlr !== (false || '') )
+                $mf.slideDown('fast');
+            else
+                $mf.slideUp('fast');
+
+            $mf.find('> *, .menu-item, .sm-item').css({ display: 'none' });
+            $mf.find('.sm-item:contains('+ vlr +')').css({ display: 'block' }).parents('.menu-item').css({ display: 'block' });
+        }).on('blur', function(){
+            var $mf = $('#menu-filtro');
+            $mf.slideUp('slow');
+        });
+        <?php endif; ?>
+        //]]>
+    </script>
+
+    [DL3-SCRIPTS/]
+</body>
+</html>

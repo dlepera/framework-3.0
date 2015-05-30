@@ -12,8 +12,12 @@ namespace Geral\Controle;
 abstract class Principal{
     protected $modelo, $visao, $nome;
 
-    # Templates
-    private $tpl_topo = 'comum/visoes/topo', $tpl_rodape = 'comum/visoes/rodape';
+    /**
+     * 'Gets' e 'Sets' das propriedades
+     * -------------------------------------------------------------------------
+     */
+    public function __get($n){ return m_get($this, $n); } // Fim do método __get
+    public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
 
 
@@ -33,38 +37,15 @@ abstract class Principal{
 
 
     /**
-     * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
-     */
-    public function __get($n){ return m_get($this, $n); } // Fim do método __get
-    public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
-
-    public function _tpl_topo($v=null){
-        return is_null($v) ? (string)$this->tpl_topo
-        : $this->tpl_topo = (string)$v;
-    } // Fim do método _tpl_topo
-
-    public function _tpl_rodape($v=null){
-        return is_null($v) ? (string)$this->tpl_rodape
-        : $this->tpl_rodape = (string)$v;
-    } // Fim do método _tpl_topo
-
-
-
-    /**
      * Carregar conteúdo HTML através da classe Visao
      * -------------------------------------------------------------------------
      *
      * @param string $tpl - nome do template a ser carregado
-     * @param string $tr  - define se devem ser carregado também o topo e o rodapé
      * @param int $o - define a ordem que a exibição deve ser organizada
      */
-    protected function _carregarhtml($tpl, $tr = true, $o = 0){
-        if( $tr ) $this->visao->_adtemplate($this->tpl_topo, true, 0);
-
+    protected function _carregarhtml($tpl, $mst=null, $o=0){
         $this->visao->_adtemplate($tpl, true, $o);
-
-        if( $tr ) $this->visao->_adtemplate($this->tpl_rodape, true, 99);
+        $this->visao->pg_mestra = !$mst ? null : $mst;
     } // Fim do método _carregarhtml
 
 

@@ -1,6 +1,6 @@
 # Configurar URLs amigáveis
 RewriteEngine On
-RewriteBase /
+RewriteBase /framework-3.0
 
 # Condições
 RewriteCond %{SCRIPT_FILENAME} !-d

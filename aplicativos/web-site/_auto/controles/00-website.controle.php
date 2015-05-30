@@ -25,10 +25,10 @@ class WebSite extends \Geral\Controle\Principal{
 
         # Listar dados para contato
         $ldc = $mdc->_listar('dado_contato_publicar AND NOT tipo_dado_rede_social', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
-        
+
         # Selecionar as configurações para o website
         $mcf = new \Geral\Modelo\ConfiguracaoSite();
-        $lcf = end($mcf->_listar(null, null, 'tema_diretorio, formato_data_data, formato_data_hora, formato_data_completo'));
+        $lcf = $mcf->_listar(null, null, 'tema_diretorio, formato_data_data, formato_data_hora, formato_data_completo', 0, 1, -1);
 
         # Parâmetros
         $this->visao->_adparam('ga-configs', $lga);

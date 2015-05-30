@@ -29,7 +29,7 @@
         // Carregar o tema para o formulário e seus elementos
         if( opcoes.aparencia !== null ){
             if( typeof(CarregarCSS) === "function" )
-                CarregarCSS(dir_raiz +"/aplicacao/js/dl-autocompletar/css/"+ opcoes.aparencia.tema +"/"+ opcoes.aparencia.estilo +".css");
+                CarregarCSS('aplicacao/js/dl-autocompletar/css/'+ opcoes.aparencia.tema +'/'+ opcoes.aparencia.estilo +'.css');
         } // if( opcoes.aparencia !== null )
         
         return this.each(function(){

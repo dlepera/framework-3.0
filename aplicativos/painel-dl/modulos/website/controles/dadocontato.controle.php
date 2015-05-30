@@ -59,11 +59,11 @@ class DadoContato extends \Geral\Controle\PainelDL{
      *
      * @param int $id - ID do registro a ser selecionado
      */
-    protected function _mostrarform($id=null,$tr=true){
+    protected function _mostrarform($id=null,$mst=null){
         $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $id);
 
         # Visão
-        $this->_carregarhtml('form_dado', is_null($tr) ? true : $tr);
+        $this->_carregarhtml('form_dado', $mst);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
         $m_td = new \WebSite\Modelo\TipoDadoContato();

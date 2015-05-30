@@ -23,12 +23,12 @@ class Login extends \Geral\Controle\Principal{
     public function _mostrarform(){
         $this->_formpadrao('login', 'fazer-login', null, filter_input(INPUT_GET, 'url'));
 
-        $this->_carregarhtml('form_login');
+        $this->_carregarhtml('form_login', 'login');
         $this->visao->titulo = TXT_PAGINA_TITULO_LOGIN;
 
         # Selecionar o tema padrão
         $mtm = new \Desenvolvedor\Modelo\Tema();
-        $ltm = end($mtm->_listar('tema_padrao = 1', null, 'tema_diretorio'));
+        $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -43,12 +43,12 @@ class Login extends \Geral\Controle\Principal{
     public function _mostraresqueci(){
         $this->_formpadrao('login', 'recuperar-senha', null);
 
-        $this->_carregarhtml('form_esqueci');
+        $this->_carregarhtml('form_esqueci', 'login');
         $this->visao->titulo = TXT_PAGINA_TITULO_ESQUECI_MINHA_SENHA;
 
         # Selecionar o tema padrão
         $mtm = new \Desenvolvedor\Modelo\Tema();
-        $ltm = end($mtm->_listar('tema_padrao = 1', null, 'tema_diretorio'));
+        $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -121,7 +121,7 @@ class Login extends \Geral\Controle\Principal{
         $this->_formpadrao('login', 'resetar-senha-usuario', null, \DL3::$ap_base_html);
 
         # Visão
-        $this->_carregarhtml('form_reset');
+        $this->_carregarhtml('form_reset', 'login');
         $this->visao->titulo = TXT_PAGINA_TITULO_MOSTRARRESETSENHA;
 
         # Parâmetros

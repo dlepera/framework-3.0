@@ -112,7 +112,7 @@ class FrameworkDL3{
             $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
 
     # Diretórios usados para montar as páginas HTML
-    public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/', $dir_imgs = 'aplicacao/imgs/';
+    public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/', $dir_imgs = 'aplicacao/imgs/', $dir_relativo = '';
 
     # Configurações do banco de dados
     private $bd_ativar = false, $bd_driver = 'mysql', $bd_host = 'localhost', $bd_porta = 3306,
@@ -149,10 +149,12 @@ class FrameworkDL3{
         # Alterar o diretório atual
         self::$ap_base_html = ( $this->ap_raiz != '/' ? "/{$this->ap_raiz}" : '/' ) . ($h = trim(self::$ap_home, '/')) . ( empty($h) ? '' : '/' );
         chdir(($this->ap_raiz != '/' ? $this->ap_raiz : DL3_ABSPATH). self::$ap_home);
-        
+
         # Definir o timezone
         date_default_timezone_set($this->ap_timezone);
 
+        # Obter o diretório relativo
+        $this->_caminhorelativo();
 
         # Se o sistema requer autenticação, iniciar a classe de autenticação e
         # utilizar preferências pós login
@@ -556,11 +558,17 @@ class FrameworkDL3{
             $css = "{$dcss}{$a}";
 
             if( is_file("./{$css}") )
-                $tema .= '<link rel="stylesheet" media="all" href="'. (!empty(self::$ap_home) ? '../' : '') . str_repeat('../', count(explode('/', self::$ap_home))-1) . $css .'"/>';
+                $tema .= '<link rel="stylesheet" media="all" href="'. self::$dir_relativo . $css .'"/>';
         endforeach;
 
         return $tema;
     } // Fim do método _carregartema
+
+
+
+    public function _caminhorelativo(){
+        return self::$dir_relativo = (!empty(self::$ap_home) ? '../' : './') . str_repeat('../', count(explode('/', self::$ap_home))-1);
+    } // Fim do método _caminho relativo
 } // Fim da classe FrameworkDL3
 
 # Simular um alias para a classe FrameworkDL3

@@ -14,15 +14,11 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
     <?php if( $params['msg-usuario-bloq?'] ): ?>
-    <p class="msg-atencao">
-        <?= MSG_USUARIO_BLOQUEADO; ?>
-    </p>
+    <p class="msg-atencao"><?= MSG_USUARIO_BLOQUEADO; ?></p>
     <?php endif; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>" enctype="multipart/form-data">
@@ -35,11 +31,11 @@ $mod = $params['modelo'];
             <?php if( $params['usuario-logado?'] ): ?>
             <input type="file" name="perfil_foto" id="perfil-foto" class="form-controle"/>
             <label for="perfil-foto">
-                <?= $mod->_mostrarfoto('..', 'g'); ?>
+                <?= $mod->_mostrarfoto(\DL3::$dir_relativo, 'g'); ?>
                 <span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
             </label>
             <?php else:
-                echo $mod->_mostrarfoto('..', 'g');
+                echo $mod->_mostrarfoto(\DL3::$dir_relativo, 'g');
             endif; ?>
         </p>
 
@@ -218,4 +214,15 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]
+
+[DL3-SCRIPTS]
+<script>
+    //<![CDATA[
+    $('#info-telefone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');
+    //]]>
+</script>
+[/DL3-SCRIPTS]
+
+[DL3-HEAD]
+[/DL3-HEAD]

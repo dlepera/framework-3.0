@@ -14,9 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
@@ -48,7 +46,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="perfil-id" class="form-rotulo"><?= TXT_ROTULO_PERFIL; ?>:</label><br/>
-                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000" max="99999" class="form-controle form-numero"/>
+                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000" max="999999999" class="form-controle form-numero"/>
             </p>
 
             <p class="form-paragr">
@@ -74,4 +72,4 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]

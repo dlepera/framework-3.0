@@ -66,11 +66,11 @@ class TipoDadoContato extends \Geral\Controle\PainelDL{
      * @param int $id - ID do registro a ser selecionado
      * @param bool $tr - define se serão carregados o topo e rodapá da visão
      */
-    protected function _mostrarform($id=null,$tr=true){
+    protected function _mostrarform($id=null,$mst=null){
         $inc = $this->_formpadrao('tipo-dado', 'tipos-de-dados/salvar', 'tipos-de-dados/salvar', 'website/tipos-de-dados', $id);
 
         # Visão
-        $this->_carregarhtml('form_tipo_dado',$tr);
+        $this->_carregarhtml('form_tipo_dado', $mst);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_TIPO_DADO : TXT_PAGINA_TITULO_EDITAR_TIPO_DADO;
     } // Fim do método _mostrarform
 

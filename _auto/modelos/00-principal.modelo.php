@@ -249,7 +249,7 @@ abstract class Principal{
                 $bit .= ", {$a}{$c_nomes[$k]}+0 AS {$c_nomes[$k]}";
         endif;
 
-        $lis_m = $this->_listar("{$a}{$this->bd_prefixo}{$c} = ". var_export($v), null, "{$a}*{$bit}", 0, 1, 0);
+        $lis_m = $this->_listar("{$a}{$this->bd_prefixo}{$c} = ". var_export($v, true), null, "{$a}*{$bit}", 0, 1, 0);
 
         # Carregar os dados obtidos do banco de dados
         # nas propriedades da classe

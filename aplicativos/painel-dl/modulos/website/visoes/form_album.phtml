@@ -14,9 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>" enctype="multipart/form-data">
@@ -104,9 +102,10 @@ $mod = $params['modelo'];
         <?php endforeach; ?>
     </form>
     <?php endif; ?>
-</section>
+[/DL3-CONTEUDO]
 
 <?php if( !$params['incluindo'] ): ?>
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
     window.addEventListener('load', function(){
@@ -126,4 +125,5 @@ $mod = $params['modelo'];
     });
     //]]>
 </script>
+[/DL3-SCRIPTS]
 <?php endif; ?>

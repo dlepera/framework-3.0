@@ -148,7 +148,7 @@ class Usuario extends \Geral\Modelo\Principal{
         $r = parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
 
         if( $this->id == $_SESSION['usuario_id'] && $r && $s )
-            \DL3::$aut_o->_carregarsessao($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos, 0, 1, 0)));
+            \DL3::$aut_o->_carregarsessao($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos), 0, 1, 0));
 
         return $r;
     } // Fim do método _salvar

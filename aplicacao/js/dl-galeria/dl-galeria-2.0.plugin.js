@@ -67,8 +67,8 @@
         
         // Aplicar o tema do plugin
         if( typeof(CarregarCSS) === 'function' ){
-            CarregarCSS(dir_raiz +'/aplicacao/js/dl-galeria/css/'+ opcoes.aparencia.tema +'/'+ opcoes.aparencia.estilo +'.css');
-            CarregarCSS(dir_raiz +'/aplicacao/js/dl-galeria/css/'+ opcoes.aparencia.tema +'/animacoes.css');
+            CarregarCSS('aplicacao/js/dl-galeria/css/'+ opcoes.aparencia.tema +'/'+ opcoes.aparencia.estilo +'.css');
+            CarregarCSS('aplicacao/js/dl-galeria/css/'+ opcoes.aparencia.tema +'/animacoes.css');
         } // Fim if( typeof(CarregarCSS) === 'function' )
         
         $this.addClass(opcoes.aparencia.tema);

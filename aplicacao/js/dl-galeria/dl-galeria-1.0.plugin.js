@@ -100,7 +100,7 @@
             // Carregar o tema para a galeria e seus elementos
             if( opcoes.aparencia !== null ){
                 if( typeof(CarregarCSS) === "function" )
-                    CarregarCSS(dir_raiz +"/aplicacao/js/dl-galeria/css/"+ opcoes.aparencia.tema +"/"+ opcoes.aparencia.estilo +".css");
+                    CarregarCSS('aplicacao/js/dl-galeria/css/'+ opcoes.aparencia.tema +'/'+ opcoes.aparencia.estilo +'.css');
 
                 // Incluir a classe para o formulário
                 $_this.addClass(opcoes.aparencia.tema);

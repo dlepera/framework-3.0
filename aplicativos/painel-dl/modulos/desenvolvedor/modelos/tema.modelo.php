@@ -21,7 +21,7 @@ class Tema extends \Geral\Modelo\Principal{
     } // Fim do módulo _descr
 
     public function _diretorio($v=null){
-        return $this->diretorio = trim(filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/') .'/';
+        return $this->diretorio = trim(filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do módulo _diretorio
 
     public function _padrao($v=null){

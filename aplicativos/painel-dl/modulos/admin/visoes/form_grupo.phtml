@@ -14,9 +14,7 @@ $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
@@ -118,26 +116,26 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
         </p>
     </form>
-</section>
+[/DL3-CONTEUDO]
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.addEventListener('load', function(){
-        // Selecionar todos os checkbox de um determinado sub-módulo
-        $(':checkbox[id^="selc-todos-"]').on('change', function(){
-            $(this).each(function(){
-                var $th = $(this);
-                var chk = this.checked;
+    // Selecionar todos os checkbox de um determinado sub-módulo
+    $(':checkbox[id^="selc-todos-"]').on('change', function(){
+        $(this).each(function(){
+            var $th = $(this);
+            var chk = this.checked;
 
-                $th.prev().find(':checkbox').each(function(){
-                    this.checked = chk;
-                });
+            $th.prev().find(':checkbox').each(function(){
+                this.checked = chk;
             });
         });
+    });
 
-        $('.grp-submodulo :checkbox').not(':checked').parents('.grp-submodulo').each(function(){
-            $(this).next()[0].checked = false;
-        });
+    $('.grp-submodulo :checkbox').not(':checked').parents('.grp-submodulo').each(function(){
+        $(this).next()[0].checked = false;
     });
     //]]>
 </script>
+[/DL3-SCRIPTS]

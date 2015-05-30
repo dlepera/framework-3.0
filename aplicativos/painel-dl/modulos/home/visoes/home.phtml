@@ -7,11 +7,12 @@
  * @Data	: 05/01/2015 15:34:08
  */
 
+if( !isset($params) )
+    $params = $this->_obterparams();
+
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= \DL3::$ap_titulo; ?></h1>
-
+[DL3-CONTEUDO]
     <div class="widgets flexivel">
         <div class="widget hm-usuario col-2">
             <h2 class="wg-titulo"><?= TXT_WIDGET_TITULO_MINHA_CONTA; ?></h2>
@@ -45,7 +46,8 @@
         <div class="widget hm-analytics col-2">
             <h2 class="wg-titulo"><?= TXT_RELATORIO_TITULO_ACESSOS_MENSAIS; ?></h2>
 
-            <ul id="ga" class="wg-conteudo">
+            <p class="wg-conteudo msg-atencao">As estatísticas do Google Analytics estão temporáriamente fora de funcionamento.</p>
+            <!-- ul id="ga" class="wg-conteudo">
                 <li class="ga-valor atras-2">
                     <h3><?= MSG_MES; ?></h3>
                     <div class="visitas"></div>
@@ -60,7 +62,7 @@
                     <h3><?= MSG_MES; ?></h3>
                     <div class="visitas"></div>
                 </li>
-            </ul>
+            </ul -->
 
             <p class="wg-conteudo">
                 <a href="website/google-analytics" class="wg-link com-icone ico-detalhes">
@@ -69,22 +71,11 @@
             </p>
         </div>
     </div>
-</section>
+[/DL3-CONTEUDO]
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.addEventListener('load', function(){
-        // Acessos mensais
-        // Mês atual
-        GoogleAnalytics('<?= date('Y-m-01'); ?>', '<?= date('Y-m-t'); ?>', 'month', null, $('#ga > .atual'));
-
-        // Mês passado
-        GoogleAnalytics('<?= date('Y-m-01', strtotime('-1 month')); ?>', '<?= date('Y-m-t', strtotime('-1 month')); ?>', 'month', null, $('#ga > .atras-1'));
-
-        // 2 meses atrás
-        GoogleAnalytics('<?= date('Y-m-01', strtotime('-2 month')); ?>', '<?= date('Y-m-t', strtotime('-2 month')); ?>', 'month', null, $('#ga > .atras-2'));
-    });
-
     function GoogleAnalytics(dt_inicio, dt_fim, dimensao, metricas, $objeto){
         $.ajax({
             url     : 'home/google-analytics/acessos/'+ dt_inicio +'/'+ dt_fim +'/'+ dimensao,
@@ -98,9 +89,20 @@
                     /* Tamanho */
                     width: 'auto',
                     height: '20px'
-                }).attr({ src: '../<?= \DL3::$dir_temas . 'painel-dl/css/imagens/loading-min.gif'; ?>' }).appendTo($objeto.find('> .visitas'));
+                }).attr({ src: '<?= \DL3::$dir_relativo . \DL3::$dir_temas . 'painel-dl/css/imagens/loading-min.gif'; ?>' }).appendTo($objeto.find('> .visitas'));
             }
         });
     }
+
+    // Acessos mensais
+    // Mês atual
+    // GoogleAnalytics('<?= date('Y-m-01'); ?>', '<?= date('Y-m-t'); ?>', 'month', null, $('#ga > .atual'));
+
+    // Mês passado
+    // GoogleAnalytics('<?= date('Y-m-01', strtotime('-1 month')); ?>', '<?= date('Y-m-t', strtotime('-1 month')); ?>', 'month', null, $('#ga > .atras-1'));
+
+    // 2 meses atrás
+    // GoogleAnalytics('<?= date('Y-m-01', strtotime('-2 month')); ?>', '<?= date('Y-m-t', strtotime('-2 month')); ?>', 'month', null, $('#ga > .atras-2'));
     //]]>
 </script>
+[/DL3-SCRIPTS]

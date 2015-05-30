@@ -63,12 +63,12 @@ function $_IRPARA(pg){
         var opcoes = $.extend({}, padroes, opcoes);
         
         // Carregar a aparência do plugin
-        CarregarCSS(dir_raiz +"/aplicacao/js/dl-paginacao/css/"+ opcoes.aparencia.tema +"/"+ opcoes.aparencia.estilo +".css");
+        CarregarCSS('/aplicacao/js/dl-paginacao/css/'+ opcoes.aparencia.tema +'/'+ opcoes.aparencia.estilo +'.css');
         
         if( opcoes.pgtotal <= 1 ) return false;
 
         // Configurar esse objeto
-        $this.attr({ "id": "dl-paginacao" });
+        $this.attr({ 'id': 'dl-paginacao' });
 
         /* =============================================================
          *  CRIAR E CONFIGURAR OS BOTÕES DE NAVEGAÇÃO
@@ -76,7 +76,7 @@ function $_IRPARA(pg){
             // Ir para primeira página
             if( opcoes.btn_primeira ){
                 // Criar o botão
-                $(document.createElement("a")).text("|<<").attr({
+                $(document.createElement('a')).text('|<<').attr({
                     href: "javascript:;",
                     id  : "dl-paginacao-btnprimeira"
                 }).click(function(){ return $_IRPARA(1); }).appendTo($this);

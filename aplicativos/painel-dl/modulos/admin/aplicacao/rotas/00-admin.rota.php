@@ -23,11 +23,11 @@ $rotas['^(grupos-de-usuarios/lista|grupos-de-usuarios)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^grupos-de-usuarios/novo(/[0-1])?$'] = array(
+$rotas['^grupos-de-usuarios/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'GrupoUsuario',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^grupos-de-usuarios/(editar|alterar)/\d+'] = array(

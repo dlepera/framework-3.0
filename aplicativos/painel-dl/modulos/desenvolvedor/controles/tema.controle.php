@@ -66,11 +66,11 @@ class Tema extends \Geral\Controle\PainelDL{
      * @param int $id - ID do registro a ser selecionado
      * @param bool $tr - define se serão carregados o topo e rodapá da visão
      */
-    protected function _mostrarform($id=null,$tr=true){
+    protected function _mostrarform($id=null,$mst=null){
         $inc = $this->_formpadrao('tema', 'temas/instalar-tema', 'temas/atualizar-tema', 'desenvolvedor/temas', $id);
 
         # Visão
-        $this->_carregarhtml('form_tema', is_null($tr) ? true : $tr);
+        $this->_carregarhtml('form_tema', $mst);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_TEMA : TXT_PAGINA_TITULO_EDITAR_TEMA;
     } // Fim di método _mostrarform
 } // Fim do Controle Tema

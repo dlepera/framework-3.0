@@ -5,14 +5,20 @@
  * @Data	: 20/05/2014 11:43:08
  */
 
-var dir_raiz                    = '/framework-3.0/';
-var plugin_formulario_tema      = 'painel-dl';
+var plugin_formulario_tema = 'painel-dl';
 
+/**
+ * Carregar arquivo CSS
+ * -----------------------------------------------------------------------------
+ * 
+ * @param {type} arquivo_css Caminho do arquivo CSS a ser carregado
+ * @returns {Boolean}
+ */
 function CarregarCSS(arquivo_css){
     if( /null.css$/.test(arquivo_css) ) return true;
     
     // Tratar o nome do arquivo CSS
-    arquivo_css = dir_raiz.replace(/\/$/, '') +'/'+ arquivo_css.replace(dir_raiz, '').replace(/^\//, '');
+    arquivo_css = dir_relativo + arquivo_css.replace(/^\//, '');
     
     $(document).ready(function(){
         // Verificar se o arquivo CSS já não foi carregado
@@ -27,7 +33,6 @@ function CarregarCSS(arquivo_css){
         // em seguida à última
         $(document.createElement('link')).attr({
             rel     : 'stylesheet',
-            type    : 'text/css',
             media   : 'all',
             href    : arquivo_css
         }).insertAfter('html head link:last-of-type');
@@ -89,20 +94,22 @@ function SelecionarLinha(obj,u){
 
 /**
  * Carregar trecho HTML
+ * -----------------------------------------------------------------------------
  * 
  * @param {string} controle - caminho para o HTML a ser carregado
  * @param {string} id_html - ID a ser atribuído ao HTML
  * @returns {jQuery|CarregarHTML.$html}
  */
 function CarregarHTML(controle, id_html){
-    // Definir o ID
-    var id = id_html || 'html-'+ ($('.sobre-tela').length-1);
+    // Definir valores padrão
+    var id  = id_html || 'html-'+ ($('.sobre-tela').length-1);
+    var mst = mst || 'conteudo';
     
     // Criar a DIV
     var $html = $(document.createElement('div')).addClass('sobre-tela').attr('id', id).appendTo($('body'));
     
     $.ajax({
-        url     : controle.replace(/^\/+|\/+$/g, '') + '/0',
+        url     : controle.replace(/^\/+|\/+$/g, '') +'/'+ mst,
         dataType: 'html',
         async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o conteúdo HTML
         success : function(html){

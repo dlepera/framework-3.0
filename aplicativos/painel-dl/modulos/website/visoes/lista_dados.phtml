@@ -12,9 +12,7 @@ if( !isset($params) )
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <?php if( $params['perm-inserir?'] ): ?>
     <!-- Inserir um novo registro -->
     <a href="website/dados-para-contato/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_DADOCONTATO; ?></a>
@@ -99,4 +97,4 @@ if( !isset($params) )
     </form>
 
     <div id="paginacao"></div>
-</section>
+[/DL3-CONTEUDO]

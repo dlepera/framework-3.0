@@ -7,11 +7,12 @@
  * @Data	: 03/02/2015 11:35:30
  */
 
+if( !isset($params) )
+    $params = $this->_obterparams();
+
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <div class="albuns">
         <?php foreach( $params['lista'] as $l ): ?>
         <a href="albuns-de-fotos/fotos/<?= $l['album_id']; ?>">
@@ -26,4 +27,4 @@
         </a>
         <?php endforeach; ?>
     </div>
-</section>
+[/DL3-CONTEUDO]

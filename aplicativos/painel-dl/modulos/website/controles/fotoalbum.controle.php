@@ -42,7 +42,7 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
      * @param int $id - ID do registro a ser selecionado
      * @param bool $tr - define se serão carregados o topo e rodapá da visão
      */
-    protected function _mostrarform($id=null, $tr=true){
+    protected function _mostrarform($id=null, $mst=null){
         $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $id);
 
         # Visão

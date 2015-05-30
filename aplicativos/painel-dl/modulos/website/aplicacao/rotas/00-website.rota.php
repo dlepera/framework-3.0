@@ -45,11 +45,11 @@ $rotas['^(assuntos-contato/lista|assuntos-contato)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^assuntos-contato/novo(/[0-1]{1})?$'] = array(
+$rotas['^assuntos-contato/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'AssuntoContato',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^assuntos-contato/(editar|alterar)/\d+$'] = array(
@@ -85,11 +85,11 @@ $rotas['^(tipos-de-dados/lista|tipos-de-dados)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^tipos-de-dados/novo(/[0-1]{1})?$'] = array(
+$rotas['^tipos-de-dados/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'TipoDadoContato',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^tipos-de-dados/(editar|alterar)/\d+'] = array(
@@ -135,11 +135,11 @@ $rotas['^(google-analytics/lista|google-analytics)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^google-analytics/novo(/[0-1]{1})?$'] = array(
+$rotas['^google-analytics/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'GoogleAnalytics',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^google-analytics/(editar|alterar)/\d+'] = array(
@@ -175,11 +175,11 @@ $rotas['^(dados-para-contato/lista|dados-para-contato)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^dados-para-contato/novo(/[0-1]{1})?$'] = array(
+$rotas['^dados-para-contato/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'DadoContato',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^dados-para-contato/(editar|alterar)/\d+$'] = array(
@@ -215,11 +215,11 @@ $rotas['^(albuns-de-fotos/lista|albuns-de-fotos)$'] = array(
     'acao'      =>  'mostrarlista'
 );
 
-$rotas['^albuns-de-fotos/novo(/[0-1]{1})?$'] = array(
+$rotas['^albuns-de-fotos/novo(/[a-z]+)?$'] = array(
     'controle'  =>  'Album',
     'acao'      =>  'mostrarform',
     'id'        =>  null,
-    'params'    =>  '/-/-/:tr'
+    'params'    =>  '/-/-/:mst'
 );
 
 $rotas['^albuns-de-fotos/(editar|alterar)/\d+$'] = array(

@@ -11,25 +11,21 @@ if( !isset($params) )
     $params = $this->_obterparams();
 
 ?>
-
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
     <div id="album" class="widget"></div>
-</section>
+[/DL3-CONTEUDO]
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.addEventListener('load', function(){
-        $('#album')._dlgaleria({
-            minis: true,
-            naveg: true,
-            fotos: [
-                <?php foreach( $params['fotos'] as $f ): ?>
-                { src: './<?= $f['foto_album_imagem']; ?>', titulo: '<?= $f['foto_album_titulo']; ?>', descr: '<?= $f['foto_album_descr']; ?>' },
-                <?php endforeach; ?>
-            ]
-        });
+    $('#album')._dlgaleria({
+        minis: true,
+        naveg: true,
+        fotos: [
+            <?php foreach( $params['fotos'] as $f ): ?>
+            { src: './<?= $f['foto_album_imagem']; ?>', titulo: '<?= $f['foto_album_titulo']; ?>', descr: '<?= $f['foto_album_descr']; ?>' },
+            <?php endforeach; ?>
+        ]
     });
-    //]]>
 </script>
+[/DL3-SCRIPTS]

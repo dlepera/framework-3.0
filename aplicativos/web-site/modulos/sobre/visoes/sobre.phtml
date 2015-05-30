@@ -7,25 +7,31 @@
  * @Data	: 07/01/2015 14:18:37
  */
 
-if( isset($params) )
+if( !isset($params) )
     $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
 ?>
 
-<section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
-
+[DL3-CONTEUDO]
+    <?php if( $mod->historia != '' ): ?>
     <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_HISTORIA; ?></h2>
     <p class="instit-historia"><?= nl2br($mod->historia); ?></p>
+    <?php endif;
 
+    if( $mod->missao != '' ): ?>
     <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_MISSAO; ?></h2>
     <p class="instit-missao"><?= nl2br($mod->missao); ?></p>
+    <?php endif;
 
+    if( $mod->visao != '' ): ?>
     <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_VISAO; ?></h2>
     <p class="instit-visao"><?= nl2br($mod->visao); ?></p>
+    <?php endif;
 
+    if( $mod->valores != '' ): ?>
     <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_VALORES; ?></h2>
     <p class="instit-valores"><?= nl2br($mod->valores); ?></p>
-</section>
+    <?php endif; ?>
+[/DL3-CONTEUDO]

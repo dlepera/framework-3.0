@@ -96,7 +96,7 @@ class ContatoSite extends \Geral\Modelo\Principal{
                 . '<td>'. TXT_ROTULO_TOTAL .'</td>'
                 . "<td>{$num} (100%)</td>"
                 . '</tr></tfoot></table>';
-
+                
         return $tabela;
     } // Fim do método _rel_contar_por_assuntos
 } // Fim do Modelo ContatoSite

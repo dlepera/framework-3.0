@@ -9,15 +9,15 @@
 
 ?>
 
+[DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.onload = function(){
-        $sf = $('#form-<?= $params['form-id']; ?>')._dlformulario({
-            depois: function(){
-                window.location = '<?= $params['url-depois']; ?>';
-            },
-            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
-        });
-    };
+    $sf = $('#form-<?= $params['form-id']; ?>')._dlformulario({
+        depois: function(){
+            window.location = '<?= $params['url-depois']; ?>';
+        },
+        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+    });
     //]]>
 </script>
+[/DL3-SCRIPTS]

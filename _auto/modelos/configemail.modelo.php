@@ -119,17 +119,19 @@ class ConfigEmail extends Principal{
      * Salvar determinado registro
      * -------------------------------------------------------------------------
      *
-     * @param boolean $salvar - define se o registro será salvo ou apenas
-     * será gerada a query de insert/update
+     * @param boolean $s - define se o registro será salvo ou apenas será gerada a query de insert/update
+     * @param array $ci - vetor com os campos a serem considerados
+     * @param array $ce - vetor com os campos a serem desconsiderados
+     * @param bool $ipk - define se o campo PK será considerado para inserção
      */
-    protected function _salvar($salvar=true){
+    protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         # Apenas 1 configuração pode ser definida como principal.
         # Portanto caso a configuração atual esteja sendo configurada
         # como principal, deve-se remover a flag de qualquer outro registro
-        if( $this->principal === 1 && $salvar )
+        if( $this->principal === 1 && $s )
             \DL3::$bd_pdo->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0 WHERE {$this->bd_prefixo}principal = 1");
 
-        return parent::_salvar($salvar);
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 

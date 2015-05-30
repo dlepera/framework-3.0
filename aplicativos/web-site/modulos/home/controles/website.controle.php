@@ -16,6 +16,7 @@ class WebSite extends \Geral\Controle\WebSite{
 
     public function _index(){
         $this->_carregarhtml('home');
+        $this->visao->titulo = \DL3::$ap_titulo;
     } // Fim do método _index
 
     public function _institucional($n){

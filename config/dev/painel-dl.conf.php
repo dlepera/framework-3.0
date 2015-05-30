@@ -8,7 +8,7 @@
  */
 
 # Configurações da aplicação
-$ap_raiz    = '';
+$ap_raiz    = 'framework-3.0';
 $ap_nome    = 'painel-dl';
 $ap_home    = 'painel-dl';
 $ap_titulo  = 'Painel-DL';

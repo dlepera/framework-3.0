@@ -16,7 +16,6 @@ class Controle{
      * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
-
     public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
 
     public function _modulo($v=null){

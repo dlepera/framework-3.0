@@ -26,7 +26,7 @@ class Sobre extends \Geral\Controle\WebSite{
 
         $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
         $this->modelo->_selecionarID($id['ID']);
-
+        
         /* Parâmetros */
         $this->visao->_adparam('modelo', $this->modelo);
     } // Fim do método _historia

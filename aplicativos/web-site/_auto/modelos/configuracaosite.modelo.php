@@ -45,7 +45,7 @@ class ConfiguracaoSite extends \Geral\Modelo\Principal{
      *
      * @return void
      */
-    public function _salvar(){ return; }
+    public function _salvar($s = true, $ci = null, $ce = null, $ipk = false){ return; }
     public function _remover(){ return; }
     public function _alternarpublicacao(){ return; }
 } // Fim do Modelo ConfiguracaoSite
