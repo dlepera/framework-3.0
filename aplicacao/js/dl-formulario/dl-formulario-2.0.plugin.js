@@ -44,6 +44,19 @@ function TratarResposta(r){
 
 
 
+function AplicarMascara(v,m){
+        var sem_mask    = v.replace(new RegExp(m, 'g'), '').replace(/_/g, '');
+        var com_mask    = m;
+        var qtde_sm     = sem_mask.length;
+        
+        for(var i = 0; i < qtde_sm; i++)
+            com_mask = com_mask.replace('_', sem_mask[i]);
+        
+        return com_mask;
+} // Fim do método _AplicarMascara
+
+
+
 (function($){
     $.fn._serialize = function(){
         var s = new Array();
@@ -342,7 +355,7 @@ function TratarResposta(r){
      */
     $.fn._mascara = function(mascara){
         return this.each(function(){
-            var $this = $(this);
+            var $th = $(this);
             
             // Mostrar formato da máscara
             var mask_f = mascara.replace(/#/g, '_');
@@ -354,35 +367,46 @@ function TratarResposta(r){
             // Configurar os eventos do campo
             // Obs: primeiro o evento é removido para evitar que seja executado
             // várias funções repetidas
-            $this.unbind('keypress').on('keypress', function(event){
-                var kc = event.keyCode > 0 ? event.keyCode : event.charCode;
+            $th.unbind('keydown').on('keydown', function(){
+                var evt         = window.event || event;
+                var kc          = evt.keyCode || evt.charCode || evt.which; //event.keyCode > 0 ? event.keyCode : event.charCode;
+                var mod         = evt.metaKey || evt.ctrlKey;
+                var sem_mask    = $th.val().replace(new RegExp(mask_e, 'g'), '').replace(/_/g, '');
                 
-                if( kc > 47 && kc < 123 ){
-                    // var sem_mask    = $this.val().replace(new RegExp('['+ mask_e +']', 'g'), '').replace(/_/g, '') + String.fromCharCode(kc);
-                    var sem_mask    = $this.val().replace(new RegExp(mask_e, 'g'), '').replace(/_/g, '') + String.fromCharCode(kc);;
-                    var com_mask    = mask_f;
-                    var qtde_sm     = sem_mask.length;
+                // CTRL + V
+                // Permitir e facilitar a colagem de valores
+                if( mod && kc === 86 ){
+                    // Considerar apenas o valor sem a máscara
+                    this.value = sem_mask;
                     
-                    for(var i = 0; i < qtde_sm; i++)
-                        com_mask = com_mask.replace('_', sem_mask[i]);
-
-                    $this.val(com_mask);
-
-                    // Mover o cursor
+                    // Colar o conteúdo da área de transferência
+                    document.execCommand('paste');
+                } // if( mod && kc === 86 )
+                
+                if( !mod && kc > 47 && kc < 90 ){
+                    sem_mask += String.fromCharCode(kc);
+                    var com_mask = AplicarMascara(sem_mask, mask_f);
+                    
+                    $th.val(com_mask);
+                    
                     if( com_mask.indexOf('_') > -1 )
                         MoverCursor(this, com_mask.indexOf('_'));
                 } // Fim if( kc )
             }).on('focus', function(){
-                if( this.value == '' )
+                if( this.value === '' )
                     this.value = mask_f;
             }).on('blur', function(){
-                if( this.value == mask_f )
+                var $th = $(this);
+                
+                if( this.value === mask_f )
                     this.value = '';
+                else if( this.value !== '' )
+                    $th.val(AplicarMascara($th.val().replace(new RegExp(mask_e, 'g'), '').replace(/_/g, ''), mask_f));
             }).attr({
                 maxlength: mask_f.length
             });
             
-            return $this;
+            return $th;
         });
     };
     
