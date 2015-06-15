@@ -40,13 +40,13 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
      * -------------------------------------------------------------------------
      *
      * @param int $id - ID do registro a ser selecionado
-     * @param bool $tr - define se serão carregados o topo e rodapá da visão
+     * @param bool $mst - página mestra a ser carregada
      */
     protected function _mostrarform($id=null, $mst=null){
         $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $id);
 
         # Visão
-        $this->_carregarhtml('form_foto', is_null($tr) ? true :$tr);
+        $this->_carregarhtml('form_foto', $mst);
         $this->visao->titulo = TXT_PAGINA_TITULO_EDITAR_FOTO;
     } // Fim do método _mostrarform
 

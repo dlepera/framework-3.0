@@ -52,14 +52,14 @@ $mod = $params['modelo'];
 
     <?php if( !$params['incluindo'] ): ?>
     <form id="form-fotos" method="post" action="website/albuns-de-fotos/incluir-fotos" enctype="multipart/form-data" class="form-upload-simples">
-        <input type="hidden" name="foto_album" value="<?= $mod->id; ?>" multiple/>
+        <input type="hidden" name="foto_album" value="<?= $mod->id; ?>"/>
 
         <fieldset class="form-grupo">
             <legend class="form-legenda"><?= TXT_LEGENDA_FOTOS; ?></legend>
 
             <p class="form-paragr">
-                <label for="arq-fotos" class="form-rotulo"  ><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
-                <input type="file" name="fotos" id="arq-fotos" class="form-controle" multiple required/>
+                <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
+                <input type="file" name="fotos[]" id="arq-fotos" class="form-controle" multiple required/>
             </p>
         </fieldset>
 

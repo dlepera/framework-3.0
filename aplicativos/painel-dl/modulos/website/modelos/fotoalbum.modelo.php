@@ -58,7 +58,7 @@ class FotoAlbum extends \Geral\Modelo\Principal{
     public function _upload(){
         # Fotos enviadas
         $fs = $_FILES['fotos'];
-
+        
         if( !file_exists(is_array($fs['tmp_name']) ? $fs['tmp_name'][0] : $fs['tmp_name']) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_NENHUM_ARQUIVO_ENVIADO, 1404);
 

@@ -248,10 +248,10 @@ $rotas['^albuns-de-fotos/salvar-foto$'] = array(
     'acao'      =>  'salvar'
 );
 
-$rotas['^albuns-de-fotos/editar-foto/\d+(/[0-1{1}])?$'] = array(
+$rotas['^albuns-de-fotos/editar-foto/\d+(/[a-z]+)?$'] = array(
     'controle'  =>  'FotoAlbum',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id/:tr'
+    'params'    =>  '/-/-/:id/:mst'
 );
 
 $rotas['^albuns-de-fotos/excluir-fotos$'] = array(
