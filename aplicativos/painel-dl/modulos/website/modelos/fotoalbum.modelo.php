@@ -90,7 +90,7 @@ class FotoAlbum extends \Geral\Modelo\Principal{
         # o registro atual esteja sendo definido como capa, a flag deve ser
         # desmarcada nas demais fotos
         if( $this->capa == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 AND foto_album = {$this->foto_album}");
+            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 WHERE foto_album = {$this->foto_album}");
 
         return parent::_salvar($s);
     } // Fim do método _salvar
