@@ -58,7 +58,7 @@ class FotoAlbum extends \Geral\Modelo\Principal{
     public function _upload(){
         # Fotos enviadas
         $fs = $_FILES['fotos'];
-        
+
         if( !file_exists(is_array($fs['tmp_name']) ? $fs['tmp_name'][0] : $fs['tmp_name']) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_NENHUM_ARQUIVO_ENVIADO, 1404);
 
@@ -90,7 +90,7 @@ class FotoAlbum extends \Geral\Modelo\Principal{
         # o registro atual esteja sendo definido como capa, a flag deve ser
         # desmarcada nas demais fotos
         if( $this->capa == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0");
+            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 AND foto_album = {$this->foto_album}");
 
         return parent::_salvar($s);
     } // Fim do método _salvar
