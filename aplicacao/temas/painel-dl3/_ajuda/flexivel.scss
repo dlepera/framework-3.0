@@ -72,8 +72,8 @@
             }
             
             /* Config das margens */
-            .col-#{$qc}:nth-child(#{$qc}n+1){ margin-left: 0; }
-            .col-#{$qc}:nth-child(#{$qc}n+#{$qc}){ margin-right: 0; }
+            .col-#{$i}:nth-child(#{$qc}n+1){ margin-left: 0; }
+            .col-#{$i}:nth-child(#{$qc}n+#{$qc}){ margin-right: 0; }
         }
     }
 }
