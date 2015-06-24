@@ -7,12 +7,12 @@
 
 // Receber os arquivo para upload e gravar os nomes dos
 // campos para não perder a referência
-var up_nomes    = new Array();
-var up_arquivos = new Array();
+var up_nomes    = [];
+var up_arquivos = [];
 
 // Gravar o tempo de exibição da mensagem
-var tempo_msg   = new Object();
-var tempo_cont  = new Object();
+var tempo_msg   = {};
+var tempo_cont  = {};
 
 
 
@@ -58,7 +58,7 @@ function AplicarMascara(v, m){
 
 (function($){
 	$.fn._serialize = function(){
-		var s = new Array();
+		var s = [];
 
 		$(this).find('input, select, textarea').each(function(){
 			var n = this.name;
@@ -373,6 +373,7 @@ function AplicarMascara(v, m){
 	 * -------------------------------------------------------------------------
 	 *
 	 * @param {string} mascara - string contendo o formato a ser aplicado
+	 *
 	 * @returns {dl-formulario-2.0.plugin_L63.$.fn@call;each}
 	 */
 	$.fn._mascara = function(mascara){

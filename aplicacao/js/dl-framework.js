@@ -11,8 +11,9 @@ var plugin_formulario_tema = 'painel-dl';
  * Carregar arquivo CSS
  * -----------------------------------------------------------------------------
  * 
- * @param {type} arquivo_css Caminho do arquivo CSS a ser carregado
- * @returns {Boolean}
+ * @param {string} arquivo_css Caminho do arquivo CSS a ser carregado
+ *
+ * @returns {bool}
  */
 function CarregarCSS(arquivo_css){
     if( /null.css$/.test(arquivo_css) ) return true;
@@ -98,6 +99,7 @@ function SelecionarLinha(obj,u){
  * 
  * @param {string} controle - caminho para o HTML a ser carregado
  * @param {string} id_html - ID a ser atribuído ao HTML
+ *
  * @returns {jQuery|CarregarHTML.$html}
  */
 function CarregarHTML(controle, id_html){
