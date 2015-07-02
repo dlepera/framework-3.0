@@ -43,11 +43,10 @@ class Roteamento{
 
     /**
      * Validar as rotas configuradas
-     * -------------------------------------------------------------------------
-     * Verificar se a propriedade $this->rotas é um vetor se há pelo menos mais
-     * de uma rota configurada
      *
-     * @return bool - true se a propriedade $this->rotas é válida e false se não
+     * Verificar se a propriedade $this->rotas é um vetor se há pelo menos mais de uma rota configurada
+     *
+     * @return bool true se a propriedade $this->rotas é válida e false se não
      */
     private function _validarrotas(){
         return is_array($this->rotas) || (bool)(count($this->rotas));
@@ -55,15 +54,14 @@ class Roteamento{
 
 
 
-    /**
-     * Obter os parâmetros da rota
-     * -------------------------------------------------------------------------
-     *
-     * @param string $r - Rota a ser analizada
-     *
-     * @return mixed - Retorna um array associativo com os parâmetros localizados
-     *  ou null se nenhum parâmetro foi configurado para a rota
-     */
+	/**
+	 * Obter os parâmetros da rota
+	 *
+	 * @param string $r - Rota a ser analizada
+	 *
+	 * @return mixed - Retorna um array associativo com os parâmetros localizados ou null se nenhum parâmetro foi
+	 *               configurado para a rota
+	 */
     private function _obterparams($r){
         # String de parâmetros
         $sp = is_array($r) ? $r['params'] : $r;
@@ -93,14 +91,12 @@ class Roteamento{
 
 
 
-    /**
-     * Obter a rota atual e indicar qual será o controle, a ação e os parâmetros
-     * utilizados
-     * -------------------------------------------------------------------------
-     *
-     * @return mixed - Retorna o objeto Controle configurado ou false se a rota
-     *  não foi localizada
-     */
+	/**
+	 * Obter a rota atual e indicar qual será o controle, a ação e os parâmetros utilizados
+	 *
+	 * @return bool|Controle
+	 * @throws Exception
+	 */
     public function _obterrota(){
         if( !$this->_validarrotas() )
             throw new Exception('Nenhuma rota foi configurada!', 1404);

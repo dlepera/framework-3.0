@@ -9,12 +9,13 @@
 
 namespace Desenvolvedor\Modelo;
 
-class Modulo extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Modulo extends GeralM\Principal{
     protected $id, $pai, $nome, $descr, $menu = 1, $link, $ordem = 0, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _pai($v=null){
         return $this->pai = filter_var(is_null($v) ? $this->pai : $v, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
@@ -42,7 +43,7 @@ class Modulo extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_modulos', 'modulo_');
 
         $this->bd_select = 'SELECT %s'
@@ -50,45 +51,48 @@ class Modulo extends \Geral\Modelo\Principal{
                 . " LEFT JOIN {$this->bd_tabela} AS S ON( S.{$this->bd_prefixo}id = M.{$this->bd_prefixo}pai )"
                 . ' WHERE M.%sdelete = 0';
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Selecionar um registro pelo ID informado
-     * -------------------------------------------------------------------------
-     *
-     * Substituir o método _selecionarID para informar o alias de forma
-     * automática. Assim não é necessário informar a cada chamada do método
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param string $a - alias da tabela principal
-     */
-    protected function _selecionarID($id, $a='M'){
-        return parent::_selecionarID($id, $a);
-    } // Fim do método _selecionarID
+	/**
+	 * Selecionar um registro através da chave primária (PK - Primary Key)
+	 *
+	 * @param string $v Valor a ser pesquisado na PK
+	 * @param string $a Alias da tabela principal configurado na consulta
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+	protected function _selecionarPK($v, $a = 'M'){
+        return parent::_selecionarPK($v, $a);
+    } // Fim do método _selecionarPK
 
 
 
-    /**
-     * Selcionar Menu
-     * -------------------------------------------------------------------------
-     *
-     * Selecionar apenas os itens que devem aparecer no menu
-     */
-    public function _listarmenu($filtro=null, $ordem=null, $campos='*', $pagina=0, $qtde=20){
+	/**
+	 * Selecionar apenas os itens que devem aparecer no menu
+	 *
+	 * @param string $flt Parte do filtro a ser aplicado na consulta
+	 * @param string $ord Ordenação dos registros a ser aplicada na consulta
+	 * @param string $cmp Lista de campos a ser retornada
+	 * @param int    $pgn Número da página de registros
+	 * @param int    $qtd Quantidade de registros a serem exibidos na paginação
+	 *
+	 * @return array
+	 */
+    public function _listarmenu($flt = null, $ord = null, $cmp = '*', $pgn = 0, $qtd = 20){
         $q = $this->bd_select;
 
         $this->bd_select = 'SELECT DISTINCT %s'
                 . ' FROM dl_painel_grupos_funcs AS GF'
                 . ' INNER JOIN dl_painel_modulos_funcs AS FM ON( FM.func_modulo_id = GF.func_modulo_id )'
                 . " INNER JOIN %s AS M ON( M.{$this->bd_prefixo}id = FM.func_modulo )"
-                . " INNER JOIN dl_painel_funcs_metodos AS MF ON( MF.metodo_func = FM.func_modulo_id AND MF.metodo_func_descr = '_mostrarlista' )"
+                . " INNER JOIN dl_painel_funcs_metodos AS MF ON( MF.metodo_func = FM.func_modulo_id AND (MF.metodo_func_descr = '_mostrarlista' OR MF.metodo_func_descr = '_mostrarmenu')  )"
                 . " WHERE M.%sdelete = 0 AND M.{$this->bd_prefixo}menu = 1 AND GF.grupo_usuario_id = {$_SESSION['usuario_info_grupo']}";
 
-        $l = $this->_listar($filtro, $ordem, $campos, $pagina, $qtde);
+        $l = $this->_listar($flt, $ord, $cmp, $pgn, $qtd);
 
         $this->bd_select = $q;
 

@@ -87,13 +87,13 @@ function $_IRPARA(pg){
          * Obs.: Os itens são inseridos na mesma ordem que devem aparecer por padrão
          * ----------------------------------------------------------------------------------------------------------------- */
         if( opcoes.btn_primeira ){
-            $(document.createElement("a")).attr("href", "javascript:;").addClass("btn-primeira").bind("click", function(){
+            $(document.createElement("a")).attr("href", "javascript:void;").addClass("btn-primeira").bind("click", function(){
                 $_IRPARA(1);
             }).text("|<<").appendTo($this);
         } // Fim do método opcoes.btn_primeira
         
         if( opcoes.btn_anterior ){
-            $(document.createElement("a")).attr("href", "javascript:;").addClass("btn-anterior").bind("click", function(){
+            $(document.createElement("a")).attr("href", "javascript:void;").addClass("btn-anterior").bind("click", function(){
                 if( opcoes.pgatual == 1 ){
                     if( opcoes.loop )
                         $_IRPARA(opcoes.pgtotal);
@@ -119,7 +119,7 @@ function $_IRPARA(pg){
                 
             while( minicio <= mfinal ){
                 $(document.createElement("a")).attr({
-                    "href"  : "javascript:;",
+                    "href"  : "javascript:void;",
                     "class" : minicio == opcoes.pgatual ? "pg-atual" : ""
                 }).text(minicio++).bind("click", function(){
                     var ir = parseInt($(this).text());
@@ -133,7 +133,7 @@ function $_IRPARA(pg){
         } // Fim if( opcoes.btn_numeros )
         
         if( opcoes.btn_proxima ){
-            $(document.createElement("a")).attr("href", "javascript:;").addClass("btn-proxima").bind("click", function(){
+            $(document.createElement("a")).attr("href", "javascript:void;").addClass("btn-proxima").bind("click", function(){
                 if( opcoes.pgatual == opcoes.pgtotal ){
                     if( opcoes.loop )
                         $_IRPARA(1);
@@ -144,7 +144,7 @@ function $_IRPARA(pg){
         } // Fim do método opcoes.btn_ultima
         
         if( opcoes.btn_ultima ){
-            $(document.createElement("a")).attr("href", "javascript:;").addClass("btn-ultima").bind("click", function(){
+            $(document.createElement("a")).attr("href", "javascript:void;").addClass("btn-ultima").bind("click", function(){
                 $_IRPARA(opcoes.pgtotal);
             }).text(">>|").appendTo($this);
         } // Fim do método opcoes.btn_ultima

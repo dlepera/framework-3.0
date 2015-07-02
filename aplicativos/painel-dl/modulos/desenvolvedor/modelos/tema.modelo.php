@@ -9,12 +9,13 @@
 
 namespace Desenvolvedor\Modelo;
 
-class Tema extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Tema extends GeralM\Principal{
     protected $id, $descr, $diretorio, $padrao = 0, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
         return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
@@ -36,20 +37,23 @@ class Tema extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Salvar o registro em banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $s - define se o registro será salvo no banco de dados ou se
-     *  a consulta deve ser retornada em forma de string
-     */
-    protected function _salvar($s=true){
-        # Apenas um registro pode ter a flag 'padrao' marcada. Por tanto, caso
-        # o registro atual tenha essa flag a mesma deve ser desmarcados do
-        # outro registro, se houver
-        if( $this->padrao == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}padrao = 0");
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+		# Apenas um registro pode ter a flag 'padrao' marcada. Por tanto, caso
+		# o registro atual tenha essa flag a mesma deve ser desmarcados do
+		# outro registro, se houver
+        $this->padrao AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}padrao = 0");
 
-        return parent::_salvar($s);
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 } // Fim do Modelo Tema

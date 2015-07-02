@@ -165,7 +165,7 @@
                     // Botão Primeiro
                     $(document.createElement("a")).text("|<").attr({ 
                         title   : "Primeiro",
-                        href    : "javascript:;"
+                        href    : "javascript:void;"
                     }).click(function(){
                         // Ir para o primeiro item
                         $itens._dltrocaitem(0, opcoes.loop);
@@ -174,7 +174,7 @@
                     // Botão Anterior
                     $(document.createElement("a")).text("<").attr({ 
                         title   : "Anterior",
-                        href    : "javascript:;"
+                        href    : "javascript:void;"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -186,7 +186,7 @@
                     // Botão Próximo
                     $(document.createElement("a")).text(">").attr({ 
                         title   : "Próximo",
-                        href    : "javascript:;"
+                        href    : "javascript:void;"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -198,7 +198,7 @@
                     // Botão Último
                     $(document.createElement("a")).text(">|").attr({ 
                         title   : "Último",
-                        href    : "javascript:;"
+                        href    : "javascript:void;"
                     }).click(function(){
                         // Ir para o último item
                         return $itens._dltrocaitem($itens.length-1, opcoes.loop);
@@ -221,13 +221,13 @@
                 // Criar o indicador
                 if( opcoes.indicador ){
                     // DIV do indicador
-                    $indic 		= $(document.createElement("div")).addClass("dl-galeria-indicador").appendTo($this);
+                    var $indic 		= $(document.createElement("div")).addClass("dl-galeria-indicador").appendTo($this);
 
-                    qtde_itens 	= $itens.length;
+                    var qtde_itens 	= $itens.length;
 
-                    for(i=0; i<qtde_itens; i++){
+                    for(var i=0; i<qtde_itens; i++){
                             $(document.createElement("a")).text(i+1).attr({
-                                    href: "javascript:;"
+                                    href: "javascript:void;"
                             }).bind("click", function(){
                                     // Obter a index desse link
                                     var index = $(this).index();

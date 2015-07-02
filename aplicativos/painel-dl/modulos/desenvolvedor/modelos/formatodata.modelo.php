@@ -9,12 +9,13 @@
 
 namespace Desenvolvedor\Modelo;
 
-class FormatoData extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class FormatoData extends GeralM\Principal{
     protected $id, $descr, $completo, $data, $hora, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
         return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);

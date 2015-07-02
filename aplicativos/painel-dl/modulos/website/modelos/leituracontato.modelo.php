@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class LeituraContato extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class LeituraContato extends GeralM\Principal{
     protected $leitura_contato, $id, $usuario, $data;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _leitura_contato($v=null){
         return $this->leitura_contato = filter_var(is_null($v) ? $this->leitura_contato : $v, FILTER_VALIDATE_INT);
@@ -30,7 +31,7 @@ class LeituraContato extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_contatos_leitura', 'leitura_contato_');
 
         $this->bd_select = 'SELECT %s'
@@ -38,36 +39,36 @@ class LeituraContato extends \Geral\Modelo\Principal{
                 . " INNER JOIN dl_site_contatos AS CS ON( CS.contato_site_id = LC.leitura_contato )"
                 . " LEFT JOIN dl_painel_usuarios AS U ON ( U.usuario_id = LC.{$this->bd_prefixo}usuario )";
 
-        if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     *  Salvar registro no banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * Só será permitido a inclusão de registros
-     *
-     * @param bool $s - define se o registro será salvo no BD ou se será retornada a consulta SQL
-     * @param array $ci - vetor com os campos a serem considerados
-     * @param array $ce - vetor com os campos a serem desconsiderados
-     */
-    protected function _salvar($s=true, $ci=null, $ce=null){
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         if( !$this->reg_vazio || $this->_verificarleitura() ) return 0;
 
         # Obter a data atual
         $this->_data(date(\DL3::$bd_dh_formato_completo));
 
-        return parent::_salvar($s, $ci, $ce);
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 
 
     /**
      *  Verificar se determinado usuário já leu o contato
-     * -------------------------------------------------------------------------
+     *
      * @param int $c - ID do contato
      * @param int $u - ID do usuário
      *

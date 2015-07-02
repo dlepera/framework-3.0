@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class TipoDadoContato extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class TipoDadoContato extends GeralM\Principal{
     protected $id, $descr, $icone, $rede_social = 0, $mascara, $expreg, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
         return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
@@ -38,49 +39,42 @@ class TipoDadoContato extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_dados_contato_tipos', 'tipo_dado_');
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro em banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * Antes de salvar o arquivo será salvo
-     *
-     * @param bool $s - Define se o registro será salvo automaticamente no banco
-     *  de dados ou se será retornada uma string com a instrção SQL
-     */
-    protected function _salvar($s=true){
-        if( file_exists($_FILES['icone']['tmp_name']) ):
-            # Em caso de edição do registro, remover o ícone anterior
-            if( !is_null($this->id) )
-                unlink(".{$this->icone}");
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+		# Fazer upload da imagem
+        $oup = new \Upload('aplicacao/uploads/contatos', 'icone');
+		$oup->_salvar($this->descr, true) AND $this->icone = preg_replace('~^\.~', '', $oup->arquivos_salvos[0]);
 
-            $o_up = new \Upload('/aplicacao/uploads/contatos');
-
-            if( $o_up->_salvar(\Funcoes::_removeracentuacao(str_replace('-', '', strtolower($this->nome)))) )
-                $this->icone = preg_replace('~^\.~', '', $o_up->arquivos_salvos[0]);
-        endif;
-
-        return parent::_salvar($s);
+		# Salvar registro
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 
 
     /**
      * Remover registro do banco de dados
-     * -------------------------------------------------------------------------
      */
     protected function _remover(){
         # Remover o ícone
-        if( !empty($this->icone) )
-            unlink(".{$this->icone}");
+        !empty($this->icone) AND unlink(".{$this->icone}");
 
         return parent::_remover();
     } // Fim do método _remover

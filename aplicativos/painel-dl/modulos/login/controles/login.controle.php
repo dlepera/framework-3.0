@@ -9,7 +9,12 @@
 
 namespace Login\Controle;
 
-class Login extends \Geral\Controle\Principal{
+use \Geral\Controle as GeralC;
+use \Desenvolvedor\Modelo as DevM;
+use \Admin\Modelo as AdminM;
+use \Login\Modelo as LoginM;
+
+class Login extends GeralC\Principal{
     public function __construct() {
         parent::__construct(null, 'login', null);
     } // Fim do método __construct
@@ -18,7 +23,6 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Mostrar o formulário de login
-     * -------------------------------------------------------------------------
      */
     public function _mostrarform(){
         $this->_formpadrao('login', 'fazer-login', null, filter_input(INPUT_GET, 'url'));
@@ -27,7 +31,7 @@ class Login extends \Geral\Controle\Principal{
         $this->visao->titulo = TXT_PAGINA_TITULO_LOGIN;
 
         # Selecionar o tema padrão
-        $mtm = new \Desenvolvedor\Modelo\Tema();
+        $mtm = new DevM\Tema();
         $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
 
         /* Parâmetros */
@@ -38,7 +42,6 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Mostrar o formulário para recuperação da senha
-     * -------------------------------------------------------------------------
      */
     public function _mostraresqueci(){
         $this->_formpadrao('login', 'recuperar-senha', null);
@@ -47,7 +50,7 @@ class Login extends \Geral\Controle\Principal{
         $this->visao->titulo = TXT_PAGINA_TITULO_ESQUECI_MINHA_SENHA;
 
         # Selecionar o tema padrão
-        $mtm = new \Desenvolvedor\Modelo\Tema();
+        $mtm = new DevM\Tema();
         $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
 
         /* Parâmetros */
@@ -58,31 +61,30 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Recuperar senha
-     * -------------------------------------------------------------------------
      *
      * Enviar um e-mail ao usuário com um link para resetar a senha
      */
     public function _recuperarsenha(){
         $le = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
-        $mu = new \Admin\Modelo\Usuario();
+        $mu = new AdminM\Usuario();
         $lu = end($mu->_listar("usuario_info_login = '{$le}' OR usuario_info_email = '{$le}'", null, 'usuario_id, usuario_info_nome, usuario_info_email'));
 
         if( $lu === false )
             throw new \Exception(ERRO_LOGIN_RECUPERARSENHA_USUARIO_NAO_LOCALIZADO, 1404);
 
-        $mr = new \Login\Modelo\Recuperacao();
+        $mr = new LoginM\Recuperacao();
 
         # Verificar se o usuário solicitou recentemente a alteração da senha,
         # pois em caso positivo será usada a mesma hash
-        $lr = end($mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id'));
+        $lr = $mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id', 0, 1, 0);
 
         if( $lr === false ):
             $mr->usuario = $lu['usuario_id'];
             $mr->hash    = date(\DL3::$bd_dh_formato_completo);
             $mr->_salvar();
         else:
-            $mr->_selecionarID($lr['recuperacao_id']);
+            $mr->_selecionarPK($lr['recuperacao_id']);
         endif;
 
         # Link de recuperação da senha
@@ -102,17 +104,18 @@ class Login extends \Geral\Controle\Principal{
 
 
 
-    /**
-     * Mostrar formulário para reset de senha
-     * -------------------------------------------------------------------------
-     *
-     * @param string $h - Hash MD5 da recuperação
-     */
+	/**
+	 * Mostrar formulário para reset de senha
+	 *
+	 * @param $h Hash MD5 da recuperação
+	 *
+	 * @throws \Exception
+	 */
     public function _mostrarresetsenha($h){
         $hs = filter_var($h, FILTER_DEFAULT);
 
         # Selecionar a recuperação
-        $mr = new \Login\Modelo\Recuperacao();
+        $mr = new LoginM\Recuperacao();
         $lr = end($mr->_listar("recuperacao_hash = '{$hs}' AND recuperacao_status = 'E'", null, 'recuperacao_id, usuario_info_nome'));
 
         if( $lr === false )
@@ -133,17 +136,16 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Realizar o reset da senha
-     * -------------------------------------------------------------------------
      */
     public function _resetarsenha(){
         # Tratar os dados
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
-        $mr = new \Login\Modelo\Recuperacao($id);
-        $mu = new \Admin\Modelo\Usuario($mr->usuario);
+        $mr = new LoginM\Recuperacao($id);
+        $mu = new AdminM\Usuario($mr->usuario);
 
         # Alterar a senha do usuário
-        $mu->_alterarsenha(true);
+        $mu->_alterarsenha(null, null, null, true);
 
         # Alterar o status
         $mr->status = 'R';
@@ -156,7 +158,6 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Realizar o login no sistema
-     * -------------------------------------------------------------------------
      */
     public function _fazerlogin(){
         $u = filter_input(INPUT_POST, 'login');
@@ -171,7 +172,6 @@ class Login extends \Geral\Controle\Principal{
 
     /**
      * Realozar o logout do sistema
-     * -------------------------------------------------------------------------
      */
     public function _fazerlogout(){
         return \DL3::$aut_o->_fazerlogout() ?

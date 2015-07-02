@@ -9,12 +9,13 @@
 
 namespace Modulo\Modelo;
 
-class Modelo extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Modelo extends GeralM\Principal{
     protected $id, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _campo($v=null){
         return $this->campo = filter_var(is_null($v) ? $this->campo : $v, FILTER_DEFAULT);
@@ -22,10 +23,9 @@ class Modelo extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
-        parent::__construct($tabela, $prefixo);
+    public function __construct($pk = ''){
+        parent::__construct('tabela', 'prefixo');
 
-        if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 } // Fim do Modelo Modelo

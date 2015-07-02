@@ -9,15 +9,16 @@
 
 namespace Admin\Modelo;
 
-class Usuario extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Usuario extends GeralM\Principal{
     protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo = 'M', $info_login, $info_senha,
             $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20, $pref_exibir_id = 1,
             $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
             $ultimo_login, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _info_grupo($v=null){
         return $this->info_grupo = filter_var(is_null($v) ? $this->info_grupo : $v, FILTER_VALIDATE_INT);
@@ -89,7 +90,7 @@ class Usuario extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_usuarios', 'usuario_');
 
         $this->bd_select = 'SELECT %s'
@@ -100,52 +101,53 @@ class Usuario extends \Geral\Modelo\Principal{
                 . ' INNER JOIN dl_painel_formatos_data FD ON( FD.formato_data_id = U.usuario_pref_formato_data )'
                 . ' WHERE %sdelete = 0';
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro no banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @params bool $s - define se o registro será salvo no banco de dados ou
-     *  deverá ser retornada a consulta SQL
-     */
-    protected function _salvar($s=true){
-        $and_id = !$this->id ? '' : " AND {$this->bd_prefixo}id <> {$this->id}";
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s    Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array $ci     Vetor com os campos a serem considerados
+	 * @param array $ce     Vetor com os campos a serem desconsiderados
+	 * @param bool $ipk     Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	    $and_id = $this->reg_vazio ? '' : " AND {$this->bd_prefixo}id <> {$this->id}";
 
-        # Aplicar validações
-        if( $s ):
-            # Verificar se o login já está cadastrado
-            if( $this->_qtde_registros("{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}") > 0 )
-                throw new \Exception(ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO, 1500);
+	    # Aplicar validações
+	    if( $s ){
+		    # Verificar se o login já está cadastrado
+		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}" ) > 0 ) throw new \Exception( ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO, 1500 );
 
-            # Verificar se o login já está cadastrado
-            if( $this->_qtde_registros("{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}") > 0 )
-                throw new \Exception(ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500);
+		    # Verificar se o login já está cadastrado
+		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}" ) > 0 ) throw new \Exception( ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500 );
 
-            # Salvar a foto do usuário
-            if( file_exists($_FILES['perfil_foto']['tmp_name']) && $this->id == $_SESSION['usuario_id'] ):
-                $oup = new \Upload('/aplicacao/uploads/usuarios');
-                $oup->_extensoes(array('jpg', 'jpeg', 'gif', 'png'));
+		    # Salvar a foto do usuário
+		    if( $this->id == $_SESSION[ 'usuario_id' ] ){
+		    }
+		    $oup = new \Upload( 'aplicacao/uploads/usuarios', 'foto' );
+		    $oup->_extensoes( array('jpg', 'jpeg', 'gif', 'png') );
 
-                if( $oup->_salvar(\Funcoes::_removeracentuacao(strtolower(str_replace(' ', '-', $this->info_nome))), true) ):
-                    $this->_perfil_foto(preg_replace('~^.~', '', $oup->arquivos_salvos[0]));
+		    if( $oup->_salvar( $this->info_nome, true ) ){
+			    $this->perfil_foto = preg_replace( '~^.~', '', $oup->arquivos_salvos[ 0 ] );
 
-                    # Recortar a foto
-                    $tim = 200;
-                    $oim = new \Imagem($oup->arquivos_salvos[0]);
-                    $oim->_redimensionar($tim);
-                    $oim->_redimensionar(null, $tim);
-                    $oim->_recortar($tim, $tim);
-                    $oim->_salvar($oup->arquivos_salvos[0]);
-                endif;
-            endif;
-        endif;
+			    # Recortar a foto
+			    $tim = 200;
+			    $oim = new \Imagem( $oup->arquivos_salvos[ 0 ] );
+			    $oim->_redimensionar( $tim );
+			    $oim->_redimensionar( null, $tim );
+			    $oim->_recortar( $tim, $tim );
+			    $oim->_salvar( $oup->arquivos_salvos[ 0 ] );
+		    } // Fim if( $oup->_salvar( $this->info_nome, true ) )
+	    } // Fim if( $s )
 
-        $r = parent::_salvar($s,null,!$this->id ? null : array('usuario_info_login','usuario_info_senha'));
+        $r = parent::_salvar($s, $ci, $this->reg_vazio ? $ce : array('usuario_info_login','usuario_info_senha'), $ipk);
 
         if( $this->id == $_SESSION['usuario_id'] && $r && $s )
             \DL3::$aut_o->_carregarsessao($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos), 0, 1, 0));
@@ -155,27 +157,32 @@ class Usuario extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Alterar a senha do usuário logado
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $r - define se a senha está sendo redefinida por reset ou
-     *  não
-     */
-    public function _alterarsenha($sn, $sc, $sa=null, $r=false){
-        if( !$r ):
+
+	/**
+	 * Alterar a senha do usuário logado
+	 *
+	 * @param string $sn Senha nova, escolhida pelo usuário
+	 * @param string $sc Confirmação da senha nova
+	 * @param string $sa Senha atual informada pelo usuário
+	 * @param bool   $rt Se false, permite que o usuário altere a senha sem estar autenticado. É utilizado para resets
+	 *                   de senhas
+	 *
+	 * @throws \Exception
+	 */
+    public function _alterarsenha($sn, $sc, $sa=null, $rt=false){
+        if( !$rt ):
             # Verificar se a sessão foi iniciada
             if( session_status() !== PHP_SESSION_ACTIVE )
                 throw new \Exception(ERRO_PADRAO_SESSAO_NAO_INICIADA, 1403);
 
-            $this->_selecionarID($_SESSION['usuario_id']);
+            $this->_selecionarPK($_SESSION['usuario_id']);
         endif;
 
         if( is_null($this->id) )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
 
         # Comparar a senha atual
-        if( !(bool)$this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'", 0, 1, 0) && !$r )
+        if( !(bool)$this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'", 0, 1, 0) && !$rt )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_SENHA_ATUAL_INCORRETA, 1000);
 
         # Comparar as senhas infromadas
@@ -186,7 +193,8 @@ class Usuario extends \Geral\Modelo\Principal{
         $sn_c = md5(md5($sn));
 
         # Alterar a senha no banco de dados
-        \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = '{$sn_c}', {$this->bd_prefixo}conf_reset = 0 WHERE {$this->bd_prefixo}id = {$this->id}");
+        $sql = \DL3::$bd_conex->prepare("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = :senha, {$this->bd_prefixo}conf_reset = 0 WHERE {$this->bd_prefixo}id = :id");
+	    $sql->execute(array(':senha' => $sn_c, ':id' => $this->id));
 
         $_SESSION['usuario_conf_reset'] = 0;
     } // Fim do método _alterarsenha
@@ -195,9 +203,8 @@ class Usuario extends \Geral\Modelo\Principal{
 
     /**
      * Bloquear ou desbloquear o acesso ao sistema desse usuário
-     * -------------------------------------------------------------------------
      *
-     * @param int $vlr - Valor que define se o usuário será bloqueado ou desbloquado
+     * @param int $vlr Valor que define se o usuário será bloqueado ou desbloquado
      */
     protected function _bloquear($vlr){
         $this->_conf_bloq($vlr);
@@ -206,18 +213,18 @@ class Usuario extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Selecionar um usuário de acordo com o usuário e senha
-     * -------------------------------------------------------------------------
-     *
-     * @param string $u - nome de usuário
-     * @param string $s - senha do usuário
-     * @param string $c - campos a serem selecionados para a sessão
-     * @param string $m - define se a senha deverá passar pela rotina de criptografia
-     *
-     * @return array - vetor associativo com as informações do usuário
-     */
-    public function _fazerlogin($u,$s,$c='*',$m=true){
+	/**
+	 * Selecionar um usuário pelo usuário e senha
+	 *
+	 * @param string $u Nome de usuário
+	 * @param string $s Senha do usuário
+	 * @param string $c Campos a serem selecionados para a sessão
+	 * @param bool   $m Se true, a senha passará pela rotina de criptografia MD5
+	 *
+	 * @return array Vetor associativo com as informações do usuário
+	 * @throws \Exception
+	 */
+    public function _fazerlogin($u, $s, $c = '*', $m = true){
         $this->_info_login($u);
         $m ? $this->_info_senha($s) : $this->info_senha = $s;
 
@@ -234,7 +241,7 @@ class Usuario extends \Geral\Modelo\Principal{
 
         if( $m ):
             # Registrar a data desse login
-            $this->_selecionarID($d['usuario_id']);
+            $this->_selecionarPK($d['usuario_id']);
             $this->ultimo_login = date(\DL3::$bd_dh_formato_completo);
             $this->_salvar();
         endif;
@@ -244,13 +251,15 @@ class Usuario extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     *  Mostrar a foto de perfil do usuário
-     * -------------------------------------------------------------------------
-     *
-     * @param string $dr - diretório relativo da foto
-     * @param string $tm - tamanho da foto
-     */
+
+	/**
+	 * Mostrar a foto de perfil do usuário
+	 *
+	 * @param string $dr Diretório relativo da foto
+	 * @param string $tm Tamanho da foto
+	 *
+	 * @return string Trecho HTML para exibir a foto de perfil
+	 */
     public function _mostrarfoto($dr = '.', $tm = 'm'){
         $pf = "{$dr}{$this->perfil_foto}";
 

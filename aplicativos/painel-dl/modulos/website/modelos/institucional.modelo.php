@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class Institucional extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Institucional extends GeralM\Principal{
     protected $id, $historia, $missao, $visao, $valores, $publicar = 1;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _historia($v=null){
         return $this->historia = filter_var(is_null($v) ? $this->historia : $v);
@@ -40,14 +41,13 @@ class Institucional extends \Geral\Modelo\Principal{
         $this->bd_select = 'SELECT %s FROM %s';
 
         if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+            $this->_selecionarPK((int)$id);
     } // Fim do método __construct
 
 
 
     /**
      * Desativar o método _remover
-     * -------------------------------------------------------------------------
      */
     public function _remover(){ return; }
 } // Fim do Modelo Institucional

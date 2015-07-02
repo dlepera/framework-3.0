@@ -9,9 +9,12 @@
 
 namespace Desenvolvedor\Controle;
 
-class Tema extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Desenvolvedor\Modelo as DevM;
+
+class Tema extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \Desenvolvedor\Modelo\Tema(), 'desenvolvedor', TXT_MODELO_TEMA);
+        parent::__construct(new DevM\Tema(), 'desenvolvedor', TXT_MODELO_TEMA);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -26,7 +29,7 @@ class Tema extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -36,7 +39,6 @@ class Tema extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de temas
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('tema_id, tema_descr, ( CASE tema_padrao'
@@ -59,15 +61,15 @@ class Tema extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Formulário de inclusão e edição do tema
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param bool $tr - define se serão carregados o topo e rodapá da visão
-     */
-    protected function _mostrarform($id=null,$mst=null){
-        $inc = $this->_formpadrao('tema', 'temas/instalar-tema', 'temas/atualizar-tema', 'desenvolvedor/temas', $id);
+	/**
+	 * Formulário de inclusão e edição do tema
+	 * -------------------------------------------------------------------------
+	 *
+	 * @param int  $pk  PK do registro a ser selecionado
+	 * @param bool $mst Nome da página mestra a ser carregada
+	 */
+    protected function _mostrarform($pk = null, $mst = null){
+        $inc = $this->_formpadrao('tema', 'temas/instalar-tema', 'temas/atualizar-tema', 'desenvolvedor/temas', $pk);
 
         # Visão
         $this->_carregarhtml('form_tema', $mst);

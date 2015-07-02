@@ -9,12 +9,13 @@
 
 namespace AlbunsDeFotos\Modelo;
 
-class FotoAlbum extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class FotoAlbum extends GeralM\Principal{
     protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _foto_album(){ return filter_var($this->foto_album, FILTER_VALIDATE_INT); } // Fim do método _foto_album
     public function _titulo(){ return filter_var($this->titulo, FILTER_SANITIZE_STRING); } // Fim do método _titulo
@@ -24,7 +25,7 @@ class FotoAlbum extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_albuns_fotos', 'foto_album_');
 
         $this->bd_select = 'SELECT %s'
@@ -32,15 +33,13 @@ class FotoAlbum extends \Geral\Modelo\Principal{
                 . ' INNER JOIN dl_site_albuns AS A ON( A.album_id = F.foto_album )'
                 . ' WHERE F.%sdelete = 0';
 
-        if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+	    $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
     /**
      *  Desativar os método _salvar e _remover
-     * -------------------------------------------------------------------------
      */
     public function _salvar(){ return; } // Fim do método _salvar
     public function _remover(){ return; } // Fim do método _remover

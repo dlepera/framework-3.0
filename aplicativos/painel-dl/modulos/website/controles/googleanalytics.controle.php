@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class GoogleAnalytics extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class GoogleAnalytics extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\GoogleAnalytics(), 'website', TXT_MODELO_GOOGLEANALYTICS);
+        parent::__construct(new WebM\GoogleAnalytics(), 'website', TXT_MODELO_GOOGLEANALYTICS);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -29,7 +32,7 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -39,7 +42,6 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('ga_id, ga_apelido, ga_usuario, ga_perfil_id, ( CASE ga_principal'
@@ -63,12 +65,11 @@ class GoogleAnalytics extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      *
-     * @param int $id - ID do registro a ser selecionado
+     * @param int $pk Valor da PK do registro a ser selecionado
      */
-    protected function _mostrarform($id=null){
-        $inc = $this->_formpadrao('ga', 'google-analytics/salvar', 'google-analytics/salvar', 'website/google-analytics', $id);
+    protected function _mostrarform($pk = null){
+        $inc = $this->_formpadrao('ga', 'google-analytics/salvar', 'google-analytics/salvar', 'website/google-analytics', $pk);
 
         # Visão
         $this->_carregarhtml('form_ga');

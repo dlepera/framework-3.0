@@ -9,7 +9,10 @@
 
 namespace Home\Controle;
 
-class WebSite extends \Geral\Controle\PainelDL{
+use \Geral\Controle as Geral;
+use \Website\Modelo as WebM;
+
+class WebSite extends Geral\PainelDL{
     public function __construct($m=null) {
         parent::__construct($m, 'home', '');
     } // Fim do método __construct
@@ -20,7 +23,7 @@ class WebSite extends \Geral\Controle\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_PAINELDL_HOME;
 
         # Carregar informações sobre contatos recebidos
-        $mc = new \WebSite\Modelo\ContatoSite();
+        $mc = new WebM\ContatoSite();
 
         # Parâmetros
         $this->visao->_adparam('rel-contatos', $mc->_rel_contar_por_assuntos());
@@ -28,13 +31,20 @@ class WebSite extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Obter informações do Google Analytics
-     * -------------------------------------------------------------------------
-     */
+
+	/**
+	 * Obter informações do Google Analytics
+	 *
+	 * @param        $dt_inicio
+	 * @param        $dt_fim
+	 * @param string $dimensao
+	 * @param array  $metricas
+	 *
+	 * @throws \Exception
+	 */
     public function _ganalytics($dt_inicio, $dt_fim, $dimensao = 'day', $metricas = array('visits')){
         # Selecionar as configurações do Google Analytics
-        $m_ga = new \WebSite\Modelo\GoogleAnalytics();
+        $m_ga = new WebM\GoogleAnalytics();
         $m_ga->_selecionar_principal();
 
         # Conectar ao Google Analytics

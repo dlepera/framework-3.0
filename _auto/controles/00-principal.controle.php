@@ -12,9 +12,8 @@ namespace Geral\Controle;
 abstract class Principal{
     protected $modelo, $visao, $nome;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
@@ -36,13 +35,13 @@ abstract class Principal{
 
 
 
-    /**
-     * Carregar conteúdo HTML através da classe Visao
-     * -------------------------------------------------------------------------
-     *
-     * @param string $tpl - nome do template a ser carregado
-     * @param int $o - define a ordem que a exibição deve ser organizada
-     */
+	/**
+	 * Carregar conteúdo HTML através da classe Visao
+	 *
+	 * @param string $tpl Nome do template a ser carregado
+	 * @param string $mst Nome da página mestra a ser utilizada
+	 * @param int    $o   Ordem de exibição do template na compilação final
+	 */
     protected function _carregarhtml($tpl, $mst=null, $o=0){
         $this->visao->_adtemplate($tpl, true, $o);
         $this->visao->pg_mestra = !$mst ? null : $mst;
@@ -52,7 +51,6 @@ abstract class Principal{
 
     /**
      * Salvar um registro através do modelo
-     * -------------------------------------------------------------------------
      */
     protected function _salvar(){
         $this->modelo->_salvar();
@@ -63,7 +61,6 @@ abstract class Principal{
 
     /**
      * Remover um ou mais registros
-     * -------------------------------------------------------------------------
      */
     protected function _remover(){
         $qt = $this->_executaremlote('_remover');
@@ -76,38 +73,37 @@ abstract class Principal{
 
 
 
-    /**
-     * Selecionar dados para carregar um campo select
-     * -------------------------------------------------------------------------
-     *
-     * @param string $f - filtro a ser aplicado
-     * @param bool $e - Define se o resultado da consulta será escrito
-     *  ou retornado pela função
-     */
+
+	/**
+	 * Selecionar dados para carregar um campo select
+	 *
+	 * @param string $f Filtro a ser aplicado
+	 * @param bool   $e Define se o resultado da consulta será escrito ou retornado pela função
+	 */
     public function _carregarselect($f=null,$e=true){
-        $this->modelo->_carregarselect($f,$e);
+        return $this->modelo->_carregarselect($f,$e);
     } // Fim do método _carregarselect
 
 
 
-    /**
-     * Incluir informações e parâmetros padrões para os formulários
-     * -------------------------------------------------------------------------
-     *
-     * @param string $form_id - ID do formulário
-     * @param string $form_ia - ação do formulário a ser executado no caso de inclusào de registros
-     * @param string $form_ea - ação do formulário a ser executado no caso de alteraçao de registros
-     * @param string $url - URL para onde o formulário redicionará
-     * @param int $id - ID do registro a ser selecionado
-     * @param bool $ajax - define se o formulário será submetido via AJAX
-     */
-    protected function _formpadrao($form_id, $form_ia, $form_ea, $url=null, $id=null, $ajax=true){
-        if( !empty($id) )
-            $this->modelo->_selecionarID((int)$id);
+	/**
+	 * Incluir informações e parâmetros padrões para os formulários
+	 *
+	 * @param string $form_id ID do formulário
+	 * @param string $form_ia Ação do formulário a ser executado no caso de inclusão de registros
+	 * @param string $form_ea Ação do formulário a ser executado no caso de edição de registros
+	 * @param string $url     URL de redirecionamento após o submit do formulário
+	 * @param mixed  $pk      Valor a ser pesquisado na PK para selecionar o registro
+	 * @param bool   $ajax    Se true, faz o formulário ser submetido via ajax (jQuery). Se false, submete da forma
+	 *                        tradicional
+	 *
+	 * @return bool
+	 */
+    protected function _formpadrao($form_id, $form_ia, $form_ea, $url = null, $pk = null, $ajax = true){
+        is_object($this->modelo) AND $this->modelo->_selecionarPK($pk);
 
         # Incluir o script AJAX
-        if( $ajax )
-            $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
+        $ajax AND $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
 
         # Verificar se o registro será alterado ou incluído
         $inc = is_null($this->modelo->id);
@@ -125,7 +121,6 @@ abstract class Principal{
 
             $this->visao->_adparam('u-alt', $this->modelo->mod_lr->usuario_nome_alteracao);
             $this->visao->_adparam('dt-alt', $this->modelo->mod_lr->data_alteracao);
-            // echo '<pre>', var_dump($this->modelo->mod_lr), '</pre>';
         endif;
 
         return $inc;
@@ -133,17 +128,19 @@ abstract class Principal{
 
 
 
-    /**
-     * Carregar informações e parâmetros padrões para uma lista de registros
-     * -------------------------------------------------------------------------
-     *
-     * @param string $c - lista de campos a serem selecionados para criar a lista de registro
-     * @param string $o - ordenção inicial
-     * @param int $q - quantidade de registros a serem exibidos em modo de paginação
-     * @param string $m - método do modelo a ser usado para gerar a lista
-     * @param bool $a - define se a lista será editada via AJAX
-     * @param string $fa - filtro alternativo a ser aplicado na consulta
-     */
+
+	/**
+	 * Carregar informações e parâmetros padrões para uma lista de registros
+	 *
+	 * @param string $c  Lista de campos a serem selecionados para criar a lista de registro
+	 * @param string $o  Ordenção inicial
+	 * @param int    $q  Quantidade de registros a serem exibidos em modo de paginação
+	 * @param string $m  Método do modelo a ser usado para gerar a lista
+	 * @param bool   $a  Define se a lista será editada via AJAX
+	 * @param string $fa Filtro alternativo a ser aplicado na consulta
+	 *
+	 * @throws \Exception
+	 */
     protected function _listapadrao($c, $o = '', $q = 20, $m = '_listar', $a=true, $fa=''){
         # Verificar se o método informado existe
         if( !method_exists($this->modelo, $m) )
@@ -193,7 +190,16 @@ abstract class Principal{
     } // Fim do método _listapadrao
 
 
-    protected function _alternarpublicacao($a){
+
+
+	/**
+	 * Alternar a FLAG publicar do registro (se houver)
+	 *
+	 * @param string $a Ação realizada: 'publicar' => publica o registro | 'ocultar' => oculta o registro
+	 *
+	 * @throws \Exception
+	 */
+	protected function _alternarpublicacao($a){
         $qt = $this->_executaremlote('_alternarpublicacao');
 
         $msg = array(
@@ -209,15 +215,14 @@ abstract class Principal{
 
 
 
-    /**
-     * Executar uma ação em lote através dos IDs dos registros
-     * -------------------------------------------------------------------------
-     *
-     * @param string $m - nome do método a ser executado no modelo
-     * @param array $a - vetor contendo os argumentos necessários para a execução do método
-     * @return object
-     * @throws \Exception
-     */
+	/**
+	 * Executar uma ação em lote através das PKs dos registros
+	 *
+	 * @param string $m Nome do método presente no modelo referente a esse controle a ser executado
+	 *
+	 * @return object
+	 * @throws \Exception
+	 */
     protected function _executaremlote($m){
         $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
@@ -225,11 +230,12 @@ abstract class Principal{
             throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
 
         # Quantidade total de registros e quantidade excluída
+	    $qt = (object)'';
         $qt->t = count($tid);
         $qt->e = 0;
 
         foreach( $tid as $id ):
-            $this->modelo->_selecionarID($id);
+            $this->modelo->_selecionarPK($id);
             $qt->e += (int)$this->modelo->{$m}();
         endforeach;
 

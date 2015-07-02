@@ -14,7 +14,7 @@ $rotas['^(home|index|)$'] = array(
 
 
 
-/**
+/*
  * Grupos de usuários
  * -----------------------------------------------------------------------------
  */
@@ -33,7 +33,7 @@ $rotas['^grupos-de-usuarios/novo(/[a-z]+)?$'] = array(
 $rotas['^grupos-de-usuarios/(editar|alterar)/\d+'] = array(
     'controle'  =>  'GrupoUsuario',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 );
 
 $rotas['^grupos-de-usuarios/salvar$'] = array(
@@ -59,7 +59,7 @@ $rotas['^grupos-de-usuarios/alternar-publicacao/(publicar|ocultar)$'] = array(
 
 
 
-/**
+/*
  * Usuários
  * -----------------------------------------------------------------------------
  */
@@ -76,7 +76,7 @@ $rotas['^usuarios/novo$'] = array(
 $rotas['^usuarios/(editar|alterar)/\d+$'] = array(
     'controle'  =>  'Usuario',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 );
 
 $rotas['^usuarios/salvar$'] = array(
@@ -118,7 +118,7 @@ $rotas['^usuarios/desbloquear-usuarios$'] = array(
 
 
 
-/**
+/*
  * Configuração de envio de e-mails
  * -----------------------------------------------------------------------------
  */
@@ -135,7 +135,7 @@ $rotas['^envio-de-emails/novo$'] = array(
 $rotas['^envio-de-emails/(editar|alterar)/\d+'] = array(
     'controle'  =>  'ConfigEmail',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 );
 
 $rotas['^envio-de-emails/salvar$'] = array(
@@ -151,5 +151,5 @@ $rotas['^envio-de-emails/excluir-configuracao$'] = array(
 $rotas['^envio-de-emails/testar-configuracao/\d+$'] = array(
     'controle'  =>  'ConfigEmail',
     'acao'      =>  'testar',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 );

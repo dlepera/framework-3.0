@@ -7,8 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -84,7 +83,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:void;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_IDIOMA; ?>
                 </a>
                 <?php endif; ?>
@@ -103,7 +102,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-tema?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:void;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_TEMA; ?>
                 </a>
                 <?php endif; ?>
@@ -160,7 +159,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:void;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
                 </a>
                 <?php endif; ?>
@@ -196,15 +195,15 @@ $mod = $params['modelo'];
 
             if( !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
-                <input type="checkbox" name="conf_reset" id="conf-reset"<?= $mod->conf_reset ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="conf_reset" id="conf-reset"<?php $mod->conf_reset AND print(' CHECKED'); ?>/>
                 <label for="conf-reset"><?= TXT_ROTULO_RESET; ?></label><br/>
-                <sapn class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
+                <span class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
             </p>
 
             <p class="form-paragr">
-                <input type="checkbox" name="conf_bloq" id="conf-bloq"<?= $mod->conf_bloq  ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="conf_bloq" id="conf-bloq"<?php $mod->conf_bloq  AND print(' CHECKED'); ?>/>
                 <label for="conf-bloq"><?= TXT_ROTULO_BLOQ; ?></label><br/>
-                <sapn class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
+                <span class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
             </p>
             <?php endif; ?>
         </fieldset>

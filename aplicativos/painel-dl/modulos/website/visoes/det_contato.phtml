@@ -7,8 +7,7 @@
  * @Data	: 10/01/2015 18:33:40
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 $le  = $params['log-email'];

@@ -9,9 +9,13 @@
 
 namespace WebSite\Controle;
 
-class ContatoSite extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Geral\Modelo as GeralM;
+use \WebSite\Modelo as WebM;
+
+class ContatoSite extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\ContatoSite(), 'website', TXT_MODELO_CONTATOSITE);
+        parent::__construct(new WebM\ContatoSite(), 'website', TXT_MODELO_CONTATOSITE);
     } // Fim do método __construct
 
 
@@ -44,14 +48,15 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Mostrar detalhes do registro
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     */
-    protected function _mostrardetalhes($id){
-        $this->modelo->_selecionarID($id);
+	/**
+	 * Mostrar detalhes do registro
+	 *
+	 * @param int $pk Valor da PK do registro a ser selecionado
+	 *
+	 * @throws \Exception
+	 */
+    protected function _mostrardetalhes($pk){
+        $this->modelo->_selecionarPK($pk);
 
         if( is_null($this->modelo->id) )
             throw new \Exception(ERRO_CONTATOSITE_MOSTRADETALHES_NAO_ENCONTRADO, 1404);
@@ -62,14 +67,14 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
         # Assunto do contato
         if( !is_null($this->modelo->assunto) ):
-            $ma = new \WebSite\Modelo\AssuntoContato($this->modelo->assunto);
+            $ma = new WebM\AssuntoContato($this->modelo->assunto);
 
             $this->visao->_adparam('assunto-descr', $ma->descr);
             $this->visao->_adparam('assunto-cor', $ma->cor);
         endif;
 
         # Registrar a leitura desse contato e obter a lista de quem já leu
-        $mlc = new \WebSite\Modelo\LeituraContato();
+        $mlc = new WebM\LeituraContato();
         $mlc->leitura_contato   = $this->modelo->id;
         $mlc->usuario           = $_SESSION['usuario_id'];
         $mlc->_salvar();
@@ -77,7 +82,7 @@ class ContatoSite extends \Geral\Controle\PainelDL{
 
         # Parâmetro
         $this->visao->_adparam('modelo', $this->modelo);
-        $this->visao->_adparam('log-email', new \Geral\Modelo\LogEmail($this->modelo->bd_tabela, $id));
+        $this->visao->_adparam('log-email', new GeralM\LogEmail($this->modelo->bd_tabela, $pk));
         $this->visao->_adparam('leituras', $llc);
     } // Fim do método _mostrardetalhes
 } // Fim do Controle ContatoSite

@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class DadoContato extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class DadoContato extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\DadoContato(), 'website', TXT_MODELO_DADOCONTATO);
+        parent::__construct(new WebM\DadoContato(), 'website', TXT_MODELO_DADOCONTATO);
 
         $post = filter_input_array(INPUT_POST, array(
             'id'        =>  FILTER_VALIDATE_INT,
@@ -24,7 +27,7 @@ class DadoContato extends \Geral\Controle\PainelDL{
         \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
         # Selecionar as informações atuais
-        $this->modelo->_selecionarID($post['id']);
+        $this->modelo->_selecionarPK($post['id']);
 
         \Funcoes::_vetor2objeto($post, $this->modelo);
     } // Fim do método __construct
@@ -33,7 +36,6 @@ class DadoContato extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr, ( CASE dado_contato_publicar'
@@ -53,24 +55,24 @@ class DadoContato extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Mostrar formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     */
-    protected function _mostrarform($id=null,$mst=null){
-        $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $id);
+	/**
+	 * Mostrar formulário de inclusão e edição do registro
+	 *
+	 * @param int    $pk  Valor da PK do registro a ser selecionado
+	 * @param string $mst Nome da página mestra a ser carregada
+	 */
+    protected function _mostrarform($pk = null, $mst = null){
+        $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $pk);
 
         # Visão
         $this->_carregarhtml('form_dado', $mst);
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
-        $m_td = new \WebSite\Modelo\TipoDadoContato();
+        $m_td = new WebM\TipoDadoContato();
         $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);
 
         if( !is_null($this->modelo->id) ):
-            $m_td->_selecionarID($this->modelo->tipo);
+            $m_td->_selecionarPK($this->modelo->tipo);
             $this->visao->_adparam('macara', $m_td->mascara);
             $this->visao->_adparam('expreg', $m_td->expreg);
         endif;

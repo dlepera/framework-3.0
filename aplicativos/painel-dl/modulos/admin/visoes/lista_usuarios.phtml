@@ -7,8 +7,7 @@
  * @Data	: 07/01/2015 16:51:21
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 ?>
 
@@ -52,11 +51,11 @@ if( !isset($params) )
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-bloquear?'] ):
                             if( $l['usuario_conf_bloq'] == 0 ): ?>
-                            <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
+                            <a href="javascript:void;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
                                 <?= TXT_LINK_BLOQUEAR; ?>
                             </a>
                             <?php else: ?>
-                            <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
+                            <a href="javascript:void;" onclick="SelecionarLinha(this); $el.executar('admin/usuarios/desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
                                 <?= TXT_LINK_DESBLOQUEAR; ?>
                             </a>
                             <?php endif;
@@ -69,7 +68,7 @@ if( !isset($params) )
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -83,17 +82,17 @@ if( !isset($params) )
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-bloquear?'] ): ?>
-                        <a href="javascript:;" onclick="$el.executar('admin/usuarios/bloquear-usuarios');" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="$el.executar('admin/usuarios/bloquear-usuarios');" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
                             <?= TXT_LINK_BLOQUEAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="$el.executar('admin/usuarios/desbloquear-usuarios');" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="$el.executar('admin/usuarios/desbloquear-usuarios');" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
                             <?= TXT_LINK_DESBLOQUEAR; ?>
                         </a>
                         <?php endif; ?>

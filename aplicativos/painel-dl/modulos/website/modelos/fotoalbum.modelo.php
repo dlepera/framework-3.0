@@ -9,13 +9,14 @@
 
 namespace WebSite\Modelo;
 
-class FotoAlbum extends \Geral\Modelo\Principal{
-    protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0,
-            $publicar = 1, $delete = 0;
+use \Geral\Modelo as GeralM;
+use \WebSite\Modelo as WebM;
 
-    /**
+class FotoAlbum extends GeralM\Principal{
+    protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0, $publicar = 1, $delete = 0;
+
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _foto_album($v=null){
         return $this->foto_album = filter_var(is_null($v) ? $this->foto_album : $v, FILTER_VALIDATE_INT);
@@ -39,36 +40,32 @@ class FotoAlbum extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_albuns_fotos', 'foto_album_');
 
-        if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
     /**
      * Fazer o upload das fotos e salvá-las no diretório do álbum
-     * -------------------------------------------------------------------------
      *
      * É feito o upload das fotos e as salva no diretório de fotos do álbum.
      * Depois é criado o registro das fotos salvas na base de dados.
      */
     public function _upload(){
-        # Fotos enviadas
-        $fs = $_FILES['fotos'];
+	    # Informações do álbum
+	    $maf = new WebM\Album($this->foto_album);
 
-        if( !file_exists(is_array($fs['tmp_name']) ? $fs['tmp_name'][0] : $fs['tmp_name']) )
-            throw new \Exception(ERRO_FOTOALBUM_UPLOAD_NENHUM_ARQUIVO_ENVIADO, 1404);
+	    # Fazer o upload das fotos
+        $oup = new \Upload("aplicacao/uploads/albuns/{$this->foto_album}", 'fotos');
+        $oup->_extensoes(array('png', 'jpg', 'jpeg', 'gif'));
 
-        $o_up = new \Upload("/aplicacao/uploads/albuns/{$this->foto_album}");
-        $o_up->_extensoes(array('png', 'jpg', 'jpeg', 'gif'));
-
-        if( !$o_up->_salvar('foto') )
+        if( !$oup->_salvar($maf->nome) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_SALVAR, 1500);
 
-        foreach( $o_up->arquivos_salvos as $f ):
+        foreach( $oup->arquivos_salvos as $f ):
             $this->id       = null;
             $this->imagem   = preg_replace('~^\.~', '', $f);
             $this->publicar = 1;
@@ -78,33 +75,33 @@ class FotoAlbum extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Salvar o registro no banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $s - define se o registro será salvo automaticamente ou se
-     *  será retornada a consulta SQL
-     */
-    protected function _salvar($s=true){
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         # Apenas uma foto pode ser definida como capa de um álbum, portanto, caso
         # o registro atual esteja sendo definido como capa, a flag deve ser
         # desmarcada nas demais fotos
-        if( $this->capa == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 WHERE foto_album = {$this->foto_album}");
+        $this->capa == 1 AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 WHERE foto_album = {$this->foto_album}");
 
-        return parent::_salvar($s);
+        return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 
 
     /**
      * Remover o registro e a foto vinculada a ele
-     * -------------------------------------------------------------------------
      */
     protected function _remover(){
         # Excluir a foto vinculada
-        unlink(".{$this->imagem}");
-
-        return parent::_remover();
+        return unlink(".{$this->imagem}") AND parent::_remover();
     } // Fim do método _remover
 } // Fim do Modelo FotoAlbum

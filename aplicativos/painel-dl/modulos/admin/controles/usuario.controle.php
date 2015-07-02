@@ -7,11 +7,19 @@
  * @Data	: 09/01/2015 15:33:07
  */
 
+/*
+ * TAREFA: melhorar o algorítmo de salvamento da foto de perfil
+ */
+
 namespace Admin\Controle;
 
-class Usuario extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Admin\Modelo as AdminM;
+use \Desenvolvedor\Modelo as DevM;
+
+class Usuario extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \Admin\Modelo\Usuario(), 'admin', TXT_MODELO_USUARIO);
+        parent::__construct(new AdminM\Usuario(), 'admin', TXT_MODELO_USUARIO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -37,7 +45,7 @@ class Usuario extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -47,10 +55,9 @@ class Usuario extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('usuario_id, usuario_info_nome, usuario_info_email, grupo_usuario_descr, usuario_conf_bloq+0 AS usuario_conf_bloq',
+        $this->_listapadrao('usuario_id, usuario_info_nome, usuario_info_email, grupo_usuario_descr, usuario_conf_bloq',
                 'usuario_info_nome, usuario_info_sexo', null);
 
         # Visão
@@ -68,35 +75,35 @@ class Usuario extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param string $rd - para onde redirecionar após salvar o registro
-     */
-    protected function _mostrarform($id=null,$rd='admin/usuarios'){
-        $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', $rd, $id);
+
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro\
+	 *
+	 * @param int    $pk PK do registro a ser selecionado
+	 * @param string $rd URL para onde será redirecionado depois do salvamento do registro
+	 */
+    protected function _mostrarform($pk = null, $rd = 'admin/usuarios'){
+        $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', $rd, $pk);
 
         # Visão
         $this->_carregarhtml('form_usuario');
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_USUARIO : TXT_PAGINA_TITULO_EDITAR_USUARIO;
 
-        $m_gu = new \Admin\Modelo\GrupoUsuario();
+        $m_gu = new AdminM\GrupoUsuario();
         $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar = 1', false);
 
-        $m_id = new \Desenvolvedor\Modelo\Idioma();
+        $m_id = new DevM\Idioma();
         $l_id = $m_id->_carregarselect('idioma_publicar = 1', false);
 
-        $m_te = new \Desenvolvedor\Modelo\Tema();
+        $m_te = new DevM\Tema();
         $l_te = $m_te->_listar('tema_publicar = 1', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
 
-        $m_fd = new \Desenvolvedor\Modelo\FormatoData();
+        $m_fd = new DevM\FormatoData();
         $l_fd = $m_fd->_carregarselect('formato_data_publicar = 1', false);
 
         if( !$inc ):
             # Grupo de usuário
-            $mgu = new \Admin\Modelo\GrupoUsuario($this->modelo->info_grupo);
+            $mgu = new AdminM\GrupoUsuario($this->modelo->info_grupo);
             $this->visao->_adparam('grupo-descr', $mgu->descr);
         endif;
 
@@ -116,7 +123,6 @@ class Usuario extends \Geral\Controle\PainelDL{
 
     /**
      * Minha conta
-     * -------------------------------------------------------------------------
      *
      * Mostrar as informações do usuário logado
      */
@@ -128,7 +134,6 @@ class Usuario extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário para alteração de senhas desse usuário
-     * -------------------------------------------------------------------------
      */
     protected function _formalterarsenha(){
         $this->_formpadrao('senha', null, 'usuarios/alterar-senha-usuario', 'admin/usuarios/minha-conta', $_SESSION['usuario_id']);
@@ -145,7 +150,6 @@ class Usuario extends \Geral\Controle\PainelDL{
 
     /**
      * Executar a ação de alterar a senha do usuário
-     * -------------------------------------------------------------------------
      */
     protected function _alterarsenha(){
         # Obter as senhas informadas
@@ -153,19 +157,20 @@ class Usuario extends \Geral\Controle\PainelDL{
         $sn = filter_input(INPUT_POST, 'senha_nova');
         $sc = filter_input(INPUT_POST, 'senha_nova_conf');
 
-        $this->modelo->_selecionarID($_SESSION['usuario_id']);
+        $this->modelo->_selecionarPK($_SESSION['usuario_id']);
         $this->modelo->_alterarsenha($sn, $sc, $sa);
         return \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
     } // Fim do método _alterarsenha
 
 
 
-    /**
-     * Bloquear ou desbloquear os usuários selecionados
-     * -------------------------------------------------------------------------
-     *
-     * @param int $vlr - define se os usuário serão bloqueados ou desbloqueados
-     */
+	/**
+	 * Bloquear ou desbloquear os usuários selecionado
+	 *
+	 * @param int $vlr 0 => bloqueia o(s) usuário(2) | 1 => desbloqueia o(s) usuário(s)
+	 *
+	 * @throws \Exception
+	 */
     protected function _bloquear($vlr){
         $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
@@ -177,21 +182,11 @@ class Usuario extends \Geral\Controle\PainelDL{
         $qe = 0;
 
         foreach( $tid as $id ):
-            $this->modelo->_selecionarID($id);
+            $this->modelo->_selecionarPK($id);
             $this->modelo->conf_bloq = $vlr;
             $qe = $this->modelo->_salvar();
         endforeach;
 
-        if( $vlr == 1 ):
-            return \Funcoes::_retornar(
-                !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf($qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt),
-                !$qe ? 'msg-erro' : 'msg-sucesso'
-            );
-        else:
-            return \Funcoes::_retornar(
-                !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf($qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt),
-                !$qe ? 'msg-erro' : 'msg-sucesso'
-            );
-        endif;
+	    return $vlr == 1 ? \Funcoes::_retornar( !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' ) : \Funcoes::_retornar( !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' );
     } // Fim do método _bloquear
 } // Fim do Controle Usuario

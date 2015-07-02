@@ -7,13 +7,16 @@
  * @Data    : 04/01/2015 22:26:00
  */
 
-
+/*
+ * TAREFA: melhorar a exibição de páginas de erros
+ */
 
 /**
- * Auto carregar arquivos de classes
- * -----------------------------------------------------------------------------
+ * Auto carregar classes
+ *
+ * @param string $c Nome da classe a ser carregada
  */
-function __autoload($c){
+function carregar_classe($c){
     list($m, $t, $n) = explode('\\', $c);
 
     $md = preg_replace('~^\-~', '', preg_replace_callback('~[A-Z]+~', function($m){
@@ -31,10 +34,6 @@ function __autoload($c){
     $na = "{$dc}{$nl}.{$tl}.php";
 
     if( !file_exists($na) ):
-        //echo "<pre>O arquivo <b>{$na}</b> não foi encontrado!\n<b>{$c}</b>\n";
-        // var_dump(get_included_files());
-        //throw new Exception("O arquivo <b>{$na}</b> não foi encontrado!", 1404);
-
         echo '<h1>Desculpe, não consegui executar a ação que você pediu! :(</h1>',
             '<p>Tem certeza que o caminho digitado aqui em cima está correto?</p>',
             '<details>',
@@ -45,19 +44,18 @@ function __autoload($c){
             '    <b>Arquivo:</b> ', $na,
             '  </p>',
             '</details>';
-        // throw new Exception("O arquivo <b>{$na}</b> não foi encontrado!", 1404);
     endif;
 
     require_once $na;
 } // Fim da função __autoload
 
+spl_autoload_register('carregar_classe');
+
 /**
  * 'Get' e 'Set' padrão
- * -----------------------------------------------------------------------------
  *
- * @param object $o - objeto a ser reflexionado
- * @param string $p - nome da propriedade a ser obtida ou alterada
- * @param mixed $v - valor a ser atribuído à propriedade
+ * @param object $o Objeto a ser reflexionado
+ * @param string $p Nome da propriedade a ser obtida ou alterada
  */
 function m_get($o, $p){
     $g = "_{$p}";
@@ -66,6 +64,15 @@ function m_get($o, $p){
         return $o->{$g}();
 } // Fim da função m_get
 
+
+
+/**
+ * 'Get' e 'Set' padrão
+ *
+ * @param object $o Objeto a ser reflexionado
+ * @param string $p Nome da propriedade a ser obtida ou alterada
+ * @param mixed $v  Valor a ser atribuído à propriedade
+ */
 function m_set($o,$p,$v){
     $s = "_{$p}";
 
@@ -77,13 +84,11 @@ function m_set($o,$p,$v){
 
 /**
  * FrameworkDL3.0
- * Classe que fará todo o processamento do sistema
- * -----------------------------------------------------------------------------
+ * Classe que fará o processamento do sistema
  *
  * - Configurações de bancos de dados são definidas como private por segurança
  *
- * - Configurações gerais serão definidas como estáticas para facilitar o
- *  acesso
+ * - Configurações gerais serão definidas como estáticas para facilitar o acesso
  */
 
 class FrameworkDL3{
@@ -156,6 +161,9 @@ class FrameworkDL3{
         # Obter o diretório relativo
         $this->_caminhorelativo();
 
+	    # Conectar ao banco de dados se for necessário
+	    $this->_conectarbd();
+
         # Se o sistema requer autenticação, iniciar a classe de autenticação e
         # utilizar preferências pós login
         if( $this->aut_ativar ):
@@ -177,9 +185,6 @@ class FrameworkDL3{
         # Carregar módulo atual
         $this->_carregarmodulo();
 
-        # Conectar ao banco de dados se for necessário
-        $this->_conectarbd();
-
         # Carregar o conteúdo
         $this->_carregarconteudo();
     } // Fim do método __construct
@@ -192,9 +197,8 @@ class FrameworkDL3{
 
 
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
@@ -262,16 +266,15 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Verificar se o ambiente solicitado foi criado
-     * -------------------------------------------------------------------------
-     *
-     * É verificado se o ambiente foi informado e se o diretório existe dentro
-     * do diretório que contém os arquivos de configuração
-     * (definido por self::DIR_CONFIG) foi criado o diretório do ambiente
-     *
-     * @throws Exception
-     */
+
+	/**
+	 * Verificar se o ambiente solicitado foi criado
+	 *
+	 * É verificado se o ambiente foi informado e se o diretório existe dentro do diretório que contém os arquivos de
+	 * configuração (definido por self::DIR_CONFIG) foi criado o diretório do ambiente
+	 *
+	 * @throws Exception
+	 */
     private function _validarambiente(){
         if( empty(DL3_AMBIENTE) )
             throw new Exception('Por favor, informe qual ambiente será utilizado!', 1500);
@@ -289,12 +292,11 @@ class FrameworkDL3{
 
     /**
      * Verificar o arquivo de configuração
-     * -------------------------------------------------------------------------
      *
      * É verificado se o arquivo de configuração solicitado existe
      */
     private function _validarconfig(){
-        if( empty($this->a_config['diretorio']) ) $this->_validarambiente ();
+        if( empty($this->a_config['diretorio']) ) $this->_validarambiente();
 
         if( empty(DL3_APLICATIVO) )
             throw new Exception('Por favor, informe qual arquivo de configuração será utilizado!', 1500);
@@ -311,10 +313,8 @@ class FrameworkDL3{
 
     /**
      * Carregar o arquivo de configuração
-     * -------------------------------------------------------------------------
      *
-     * Verifica e carrega o arquivo de configuração e sobrepõe a configuração padrão da
-     * classe
+     * Verifica e carrega o arquivo de configuração e sobrepõe a configuração padrão da classe
      */
     private function _carregarconfig(){
         $this->_validarconfig();
@@ -342,11 +342,9 @@ class FrameworkDL3{
 
     /**
      * Carregar as classes da biblioteca
-     * -------------------------------------------------------------------------
      *
      * Carregar todos os arquivos contidos no diretório de bibliotecas.
-     * São classes que poderão ser utilizadas a qualquer momento por qualquer
-     * classe, página, aplicação, etc.
+     * São classes que poderão ser utilizadas a qualquer momento por qualquer classe, página, aplicação, etc.
      *
      * Obs.: O diretório de bibliotecas pode ser definido por self::DIR_BIBL
      */
@@ -361,10 +359,8 @@ class FrameworkDL3{
 
     /**
      * Carregar o pacote de idioma de acordo com o módulo informado
-     * -------------------------------------------------------------------------
      *
-     * @param string $m - nome do módulo onde será procurado o pacote de idiomas.
-     *  Quando vazio será carregado o pacote de idiomas padrão do sistema
+     * @param string $m - nome do módulo onde será procurado o pacote de idiomas. Quando vazio será carregado o pacote de idiomas padrão do sistema
      */
     public function _carregaridioma($m = ''){
         $di = (empty($m) ? '' : $this->dir_modulo) . self::DIR_IDIOMAS . $this->ap_idioma;
@@ -376,13 +372,13 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Carregar rotas de acordo com o módulo informado
-     * -------------------------------------------------------------------------
-     *
-     * @param string $m - nome do módulo onde serão procurados os arquivos de
-     *  rotas. Quando vazio serão carregados os arquivos de rota do sistema
-     */
+
+	/**
+	 * Carregar rotas de acordo com o módulo informado
+	 *
+	 * @param string $m Nome do módulo onde serão procurados os arquivos de rotas. Quando vazio serão carregados os
+	 *                  arquivos de rota do sistema
+	 */
     public function _carregarrotas($m = ''){
         $dr = (empty($m) ? '' : $this->dir_modulo) . self::DIR_ROTAS;
         $ar = $this->_filtrarprefixo($dr, self::PRFIX_ROTAS);
@@ -399,32 +395,26 @@ class FrameworkDL3{
 
     /**
      * Conectar ao banco de dados
-     * -------------------------------------------------------------------------
      *
      * Conectar ao banco de dados via PDO e disponibilizar a conexão para
      * que outras classes a utilizem
      */
     private function _conectarbd(){
-        if( $this->bd_ativar ):
-            try{
-                self::$bd_conex = new PDODL(
-                    "{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}",
-                    $this->bd_usuario, $this->bd_senha
-                );
+        if( $this->bd_ativar ){
+	        try{
+		        self::$bd_conex = new PDODL( "{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}", $this->bd_usuario, $this->bd_senha );
 
-                if( $this->bd_driver == 'mysql' )
-                    self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
-            } catch(PDOException $e){
-                echo '<pre>', var_dump($e), '</pre>';
-            }
-        endif;
+		        if( $this->bd_driver == 'mysql' ) self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
+	        } catch( PDOException $e ){
+		        echo '<pre>', var_dump( $e ), '</pre>';
+	        } // Fim try catch
+        } // Fim if( $this->bd_ativar )
     } // Fim do método _conectarbd
 
 
 
     /**
      * Identificar o módulo atual
-     * -------------------------------------------------------------------------
      *
      * O módulo atual será informado na URL logo após a 'home' do aplicativo
      * Ex: framewrok3.0/admin/ => módulo 'admin'
@@ -448,7 +438,6 @@ class FrameworkDL3{
 
     /**
      * Carregar módulo
-     * -------------------------------------------------------------------------
      *
      * Serão carregados o pacote de idiomas e as rotas do módulo atual
      */
@@ -472,29 +461,23 @@ class FrameworkDL3{
 
     /**
      * Carregar o conteúdo
-     * -------------------------------------------------------------------------
      *
-     * Carregar o conteúdo a ser exibido de acordo com a rota identificada
-     * através da URL
+     * Carregar o conteúdo a ser exibido de acordo com a rota identificada através da URL
      */
     private function _carregarconteudo(){
         $obj_r = new Roteamento($this->ap_rotas, $this->dir_modulo, $this->ap_modulo);
         $obj_c = $obj_r->_obterrota();
 
-        if( $obj_c !== false )
-            $obj_c->_executar();
+        $obj_c !== false AND $obj_c->_executar();
     } // Fim do método _carregarconteudo
 
 
 
     /**
-     * Carregar automaticamente os controles e modelos que estiverem dentro
-     * do diretório _auto (que pode ser definido através de self::DIR_AUTO)
-     * -------------------------------------------------------------------------
+     * Carregar automaticamente os controles e modelos que estiverem dentro do diretório _auto (que pode ser definido através de self::DIR_AUTO)
      *
-     * @param string $m - Módulo a ser considerado para o carregamento
-     * @param bool $a - define se o diretório _auto a ser carregado é do aplicativo
-     *  e não de um módulo
+     * @param string $m Módulo a ser considerado para o carregamento
+     * @param bool $a   Define se o diretório _auto a ser carregado é do aplicativo e não de um módulo
      */
     private function _carregarauto($m = '', $a = false){
         $a ? $da = 'aplicativos/'. DL3_APLICATIVO . '/' . self::DIR_AUTO
@@ -525,15 +508,15 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Obter todos os arquivos de um diretório de acordo com o seu prefixo
-     * -------------------------------------------------------------------------
-     *
-     * @params string $d - diretório a ser lido
-     * @params string $p - prefixo a ser considerado
-     *
-     * @return array - vetor contendo os nomes dos arquivos correspondentes
-     */
+	/**
+	 * Obter todos os arquivos de um diretório de acordo com o seu prefixo
+	 *
+	 * @param string $d    Diretório a ser escaneado
+	 * @param string $p    Prefixo de filtro dos arquivos
+	 *
+	 * @return array    Vetor contendo apenas os arquivos que correspondem ao prefixo informado
+	 * @throws Exception
+	 */
     private function _filtrarprefixo($d, $p){
         if( !file_exists($d) || !is_dir($d) )
             throw new Exception("O diretório <b>{$d}</b> não foi encontrado!", 1404);
@@ -549,7 +532,13 @@ class FrameworkDL3{
 
 
 
-    public static function _carregartema($d){
+
+	/**
+	 * @param string $d Parte do diretório do tema a ser carregado
+	 *
+	 * @return string   Trecho HTML responsável pela inclusão dos arquvios CSS
+	 */
+	public static function _carregartema($d){
         $dcss = self::$dir_temas . trim($d, '/') .'/css/';
         $acss = preg_grep('~^[^\.]~', scandir($dcss));
         $tema = '';

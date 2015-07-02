@@ -23,4 +23,4 @@ $PHPMAILER_LANG['recipients_failed'] = 'SMTP éè¯¯ï¼ ä¸é¢ç
 //$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() failed.';
 //$PHPMAILER_LANG['smtp_error']           = 'SMTP server error: ';
 //$PHPMAILER_LANG['variable_set']         = 'Cannot set or reset variable: ';
-?>
+

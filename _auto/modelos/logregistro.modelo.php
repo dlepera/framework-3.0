@@ -15,117 +15,85 @@ class LogRegistro extends Principal{
             $usuario_alteracao, $usuario_nome_alteracao, $usuario_exclusao, $usuario_nome_exclusao, $ip_criacao,
             $ip_alteracao, $ip_exclusao;
 
-    public function __construct($tbl=null, $idreg=null){
+	/*
+     * 'Gets' e 'Sets' das propriedades
+     */
+	public function _tabela($v=null){
+		return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
+	} // Fim do método _tabela
+
+	public function _idreg($v=null){
+		return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v);
+	} // Fim do método _idreg
+
+	public function _data_criacao($v=null){
+		return is_null($v) ? \Funcoes::_formatardatahora($this->data_criacao, $_SESSION['formato_data_completo'])
+			: $this->data_criacao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
+	} // Fim do método _data_criacao
+
+	public function _data_alteracao($v=null){
+		return is_null($v) ? \Funcoes::_formatardatahora($this->data_alteracao, $_SESSION['formato_data_completo'])
+			: $this->data_alteracao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
+	} // Fim do método _data_alteracao
+
+	public function _data_exclusao($v=null){
+		return is_null($v) ? \Funcoes::_formatardatahora($this->data_exclusao, $_SESSION['formato_data_completo'])
+			: $this->data_exclusao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
+	} // Fim do método _data_exclusao
+
+	public function _usuario_criacao($v=null){
+		return $this->usuario_criacao = filter_var(is_null($v) ? $this->usuario_criacao : $v, FILTER_VALIDATE_INT);
+	} // Fim do método _usuario_criacao
+
+	public function _usuario_nome_criacao($v=null){
+		return $this->usuario_nome_criacao = filter_var(is_null($v) ? $this->usuario_nome_criacao : $v, FILTER_SANITIZE_STRING);
+	} // Fim do método _usuario_nome_criacao
+
+	public function _usuario_alteracao($v=null){
+		return $this->usuario_alteracao = filter_var(is_null($v) ? $this->usuario_alteracao : $v, FILTER_VALIDATE_INT);
+	} // Fim do método _usuario_alteracao
+
+	public function _usuario_nome_alteracao($v=null){
+		return $this->usuario_nome_alteracao = filter_var(is_null($v) ? $this->usuario_nome_alteracao : $v, FILTER_SANITIZE_STRING);
+	} // Fim do método _usuario_nome_alteracao
+
+	public function _usuario_exclusao($v=null){
+		return $this->usuario_exclusao = filter_var(is_null($v) ? $this->usuario_exclusao : $v, FILTER_VALIDATE_INT);
+	} // Fim do método _usuario_exclusao
+
+	public function _usuario_nome_exclusao($v=null){
+		return $this->usuario_nome_exclusao = filter_var(is_null($v) ? $this->usuario_nome_exclusao : $v, FILTER_SANITIZE_STRING);
+	} // Fim do método _usuario_nome_exclusao
+
+
+
+    public function __construct($tbl = null, $idreg = null){
         parent::__construct('dl_painel_registros_logs', 'log_registro_');
 
         # Query de seleção
         $this->bd_select = 'SELECT %s FROM %s';
 
-        if( !is_null($tbl) && !is_null($idreg) )
-            $this->_selecionarID($tbl, $idreg);
+        $this->_selecionarPK(array($tbl, $idreg));
     } // Fim do método mágico de construção da classe
 
-    /**
-     * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
-     */
-    public function _tabela($v=null){
-        return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
-    } // Fim do método _tabela
-
-    public function _idreg($v=null){
-        return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v, FILTER_VALIDATE_INT);
-    } // Fim do método _idreg
-
-    public function _data_criacao($v=null){
-        return is_null($v) ? \Funcoes::_formatardatahora($this->data_criacao, $_SESSION['formato_data_completo'])
-        : $this->data_criacao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
-    } // Fim do método _data_criacao
-
-    public function _data_alteracao($v=null){
-        return is_null($v) ? \Funcoes::_formatardatahora($this->data_alteracao, $_SESSION['formato_data_completo'])
-        : $this->data_alteracao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
-    } // Fim do método _data_alteracao
-
-    public function _data_exclusao($v=null){
-        return is_null($v) ? \Funcoes::_formatardatahora($this->data_exclusao, $_SESSION['formato_data_completo'])
-        : $this->data_exclusao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
-    } // Fim do método _data_exclusao
-
-    public function _usuario_criacao($v=null){
-        return $this->usuario_criacao = filter_var(is_null($v) ? $this->usuario_criacao : $v, FILTER_VALIDATE_INT);
-    } // Fim do método _usuario_criacao
-
-    public function _usuario_nome_criacao($v=null){
-        return $this->usuario_nome_criacao = filter_var(is_null($v) ? $this->usuario_nome_criacao : $v, FILTER_SANITIZE_STRING);
-    } // Fim do método _usuario_nome_criacao
-
-    public function _usuario_alteracao($v=null){
-        return $this->usuario_alteracao = filter_var(is_null($v) ? $this->usuario_alteracao : $v, FILTER_VALIDATE_INT);
-    } // Fim do método _usuario_alteracao
-
-    public function _usuario_nome_alteracao($v=null){
-        return $this->usuario_nome_alteracao = filter_var(is_null($v) ? $this->usuario_nome_alteracao : $v, FILTER_SANITIZE_STRING);
-    } // Fim do método _usuario_nome_alteracao
-
-    public function _usuario_exclusao($v=null){
-        return $this->usuario_exclusao = filter_var(is_null($v) ? $this->usuario_exclusao : $v, FILTER_VALIDATE_INT);
-    } // Fim do método _usuario_exclusao
-
-    public function _usuario_nome_exclusao($v=null){
-        return $this->usuario_nome_exclusao = filter_var(is_null($v) ? $this->usuario_nome_exclusao : $v, FILTER_SANITIZE_STRING);
-    } // Fim do método _usuario_nome_exclusao
 
 
-
-    /**
-     * Selecionar um registro desse modelo pelo ID
-     * -------------------------------------------------------------------------
-     * Obs.: No caso desse modelo a chave é composta: tabela e id do registro
-     *
-     * @param string $tbl
-     * @param int $idreg - ID do registro a ser selecionado
-     *
-     * @return void
-     */
-    public function _selecionarID($tbl, $idreg){
-        if( !method_exists($this, '_listar') )
-            throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
-
-        # Garantir que o ID seja um número inteiro
-        # e a tabela uma string
-        $idreg  = (int)$idreg;
-        $tbl    = (string)$tbl;
-
-        $lis_m = $this->_listar("{$this->bd_prefixo}tabela = '{$tbl}' AND {$this->bd_prefixo}idreg = {$idreg}", null, '*', 0, 1, 0);
-
-        $this->reg_vazio = !(bool)$lis_m;
-
-        # Carregar os dados obtidos do banco de dados
-        # nas propriedades da classe
-        foreach( $lis_m as $c => $m ):
-            $p = preg_replace("~^{$this->bd_prefixo}~", '', $c);
-
-            if( property_exists($this, $p) )
-               $this->{$p} = $m;
-        endforeach;
-    } // Fim do método _selecionarID
-
-
-
-    /**
-     * Salvar determinado registro
-     * -------------------------------------------------------------------------
-     * @param bool $salvar - define se o registro será salvo ou apenas
-     * será gerada a query de insert/update
-     */
-    public function _salvar($rmv=false, $salvar=true){
-        $this->_selecionarID($this->tabela, $this->idreg);
+	/**
+	 * Salvar registro no banco de dados
+	 *
+	 * @param bool $r Se true, registra a remoção do registro
+	 * @param bool $s Se true, salva o registro no banco de dados. Se false, retorna a string da consulta gerada
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+    public function _salvar($r = false, $s = true){
+        $this->_selecionarPK(array($this->tabela, $this->idreg));
 
         # Obter o ID do usuário
-        $vl = \DL3::$aut_o instanceof \Autenticacao ? \DL3::$aut_o->_verificarlogin(false) : false;
-        $id_u = $vl ? $_SESSION['usuario_id'] : 0;
-        $nm_u = $vl ? $_SESSION['usuario_info_nome'] : null;
+        $vl     = \DL3::$aut_o instanceof \Autenticacao ? \DL3::$aut_o->_verificarlogin(false) : false;
+        $id_u   = $vl ? $_SESSION['usuario_id'] : 0;
+        $nm_u   = $vl ? $_SESSION['usuario_info_nome'] : null;
 
         if( $this->reg_vazio ):
             # Complementar informações de inserção
@@ -139,7 +107,7 @@ class LogRegistro extends Principal{
                     . " {$this->bd_prefixo}idreg, {$this->bd_prefixo}tabela) VALUES ("
                     . " {$this->usuario_criacao}, '{$this->usuario_nome_criacao}', '{$this->data_criacao}', '{$this->ip_criacao}', {$this->idreg}, '{$this->tabela}')";
         else:
-            if( !$rmv ):
+            if( !$r ):
                 # Complementar os dados de atualização
                 $this->usuario_alteracao        = $id_u;
                 $this->usuario_nome_alteracao   = $nm_u;
@@ -168,8 +136,7 @@ class LogRegistro extends Principal{
             endif;
         endif;
 
-        if( !$salvar )
-            return $query;
+        if( !$s ) return $query;
 
         if( ($exec = \DL3::$bd_conex->exec($query)) === false )
             throw new \Exception(

@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class DadoContato extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class DadoContato extends GeralM\Principal{
     protected $id, $tipo, $descr, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _tipo($v=null){
         return $this->tipo = filter_var(is_null($v) ? $this->tipo : $v, FILTER_SANITIZE_STRING);
@@ -26,7 +27,7 @@ class DadoContato extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_dados_contato', 'dado_contato_');
 
         $this->bd_select = 'SELECT %s'
@@ -34,7 +35,6 @@ class DadoContato extends \Geral\Modelo\Principal{
                 . " INNER JOIN {$this->bd_tabela}_tipos AS TD ON( TD.tipo_dado_id = DC.dado_contato_tipo )"
                 . ' WHERE DC.%sdelete = 0';
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 } // Fim do Modelo DadoContato

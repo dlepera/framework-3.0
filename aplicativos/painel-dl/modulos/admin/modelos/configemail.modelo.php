@@ -9,12 +9,14 @@
 
 namespace Admin\Modelo;
 
-class ConfigEmail extends \Geral\Modelo\Principal{
-    protected $id, $titulo, $host, $porta = 25, $autent = 0, $cripto, $conta, $senha,
-            $de_email, $de_nome, $responder_para, $html = 0, $principal = 0, $delete = 0;
+use \Geral\Modelo as GeralM;
 
-    /**
-     * 'Gets' e 'Sets' das senhariedades
+class ConfigEmail extends GeralM\Principal{
+    protected $id, $titulo, $host, $porta = 25, $autent = 0, $cripto, $conta, $senha, $de_email, $de_nome, $responder_para,
+	    $html = 0, $principal = 0, $delete = 0;
+
+    /*
+     * 'Gets' e 'Sets' das propriedades
      * -------------------------------------------------------------------------
      */
     public function _titulo($v=null){
@@ -67,28 +69,30 @@ class ConfigEmail extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_email_config', 'config_email_');
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro em banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param int $s - Define se o registro será salvo automaticamente ou se
-     *  o método deve retornar a consulta SQL criada
-     */
-    protected function _salvar($s = true){
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         # Apenas um registro pode ter a flag 'principal' marcada. Portanto, caso
         # o registro atual tenha a flag, a mesma deve ser desmarcada em qualquer
         # outro registro
-        if( $this->principal && $s )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
+        $this->principal && $s AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
 
         return parent::_salvar($s);
     } // Fim do método _salvar

@@ -9,16 +9,18 @@
 
 namespace AlbunsDeFotos\Controle;
 
-class Foto extends \Geral\Controle\WebSite{
+use \Geral\Controle as GeralM;
+use \AlbunsDeFotos\Modelo as AlbumM;
+
+class Foto extends GeralM\WebSite{
     public function __construct(){
-        parent::__construct(new \AlbunsDeFotos\Modelo\FotoAlbum(), 'albuns-de-fotos', TXT_MODELO_FOTO);
+        parent::__construct(new AlbumM\FotoAlbum(), 'albuns-de-fotos', TXT_MODELO_FOTO);
     } // Fim do método __construct
 
 
 
     /**
      *  Mostrar a lista de fotos de um determinado álbum
-     * -------------------------------------------------------------------------
      *
      * @param int $a - ID do álbum a ser exibido
      */

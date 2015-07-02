@@ -8,8 +8,7 @@
 var plugin_formulario_tema = 'painel-dl';
 
 /**
- * Carregar arquivo CSS
- * -----------------------------------------------------------------------------
+ * Carregar arquivo CSS\
  * 
  * @param {string} arquivo_css Caminho do arquivo CSS a ser carregado
  *
@@ -42,29 +41,27 @@ function CarregarCSS(arquivo_css){
     return true;
 } // Fim function CarregarCSS
 
-function MarcarValidCampo($c, v){
-    $c.find('+ span').remove();
-    $c.removeClass('sucesso').removeClass('erro').addClass(v).after('<span class="valid-campo '+ v +'"></span>');
-} // Fim function MarcarValidCampo
 
-function RemoverRegistro(controle, mensagem){
-    $el.executar(controle, function(){
-        return confirm(mensagem);
-    }, function(){
-        $('.lista :checkbox:checked').parents('tr').remove();
-    });
-} // Fim function RemoverRegistro
 
-function MoverCursor(objeto, posicao){
-    return objeto.setSelectionRange(posicao, posicao);
+å/**
+ * Mover o cursor para uma posição 'p'
+ *
+ * @param object o Objeto DOM
+ * @param int p    Novo posicionamento do cursor
+ * @returns {*}
+ * @constructor
+ */
+function MoverCursor(o, p){
+    return o.setSelectionRange(p, p);
 } // Fim AlterarCursor(objeto, posicao)
+
+
 
 /**
  * Selecionar uma linha em uma lista de resultados
- * -----------------------------------------------------------------------------
- * 
- * @param {DOM} obj - objeto que está dentro da linha ou a linha própriamente dita
- * @param {bool} u - define se essa é a única linha que deve ser selecionada
+ *
+ * @param DOM obj Objeto que está dentro da linha ou a linha própriamente dita
+ * @param bool u Define se essa é a única linha que deve ser selecionada
  */
 function SelecionarLinha(obj,u){
     var tag = obj.tagName;
@@ -93,12 +90,13 @@ function SelecionarLinha(obj,u){
     return true;
 } // Fim function SelecionaLinha(obj)
 
+
+
 /**
  * Carregar trecho HTML
- * -----------------------------------------------------------------------------
  * 
- * @param {string} controle - caminho para o HTML a ser carregado
- * @param {string} id_html - ID a ser atribuído ao HTML
+ * @param {string} controle Caminho para o HTML a ser carregado
+ * @param {string} id_html ID a ser atribuído ao HTML
  *
  * @returns {jQuery|CarregarHTML.$html}
  */
@@ -113,7 +111,8 @@ function CarregarHTML(controle, id_html){
     $.ajax({
         url     : controle.replace(/^\/+|\/+$/g, '') +'/'+ mst,
         dataType: 'html',
-        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o conteúdo HTML
+        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o
+						 // conteúdo HTML
         success : function(html){
             // Carregar o conteúdo HTML
             $html.html(html);
@@ -170,7 +169,6 @@ function CarregarForm(form, id_html, func_depois){
 
 /**
  * Carregar informações para popular <select>
- * -----------------------------------------------------------------------------
  * 
  * @param {jQuery} $s - instância jQuery do select a ser populado
  * @param {type} c - controle a ser executado para obter os dados
@@ -195,6 +193,8 @@ function CarregarSelect($s, c){
     });
 } // Fim function CarregarSelect($select, controle)
 
+
+
 // Adicionar o suporte ao trim
 // Necessário para o IE (óbvio!!) 8 ou mais antigo
 if( typeof String.prototype.trim !== 'function' ){
@@ -207,7 +207,6 @@ if( typeof String.prototype.trim !== 'function' ){
 
 /**
  * Alternar a publicação de um registro
- * -----------------------------------------------------------------------------
  * 
  * @param {string} url - URL do controle a ser executado
  * @param {bool} chk - define se os registros serão marcados ou não
@@ -230,6 +229,8 @@ $.expr[':'].contains = $.expr.createPseudo(function(arg){
     };
 });
 
+
+
 /**
  * Configuração da execução do AJAX
  */
@@ -249,16 +250,6 @@ $.ajaxSetup({
 
 $(document).ready(function(){
     if( window.location.toString().indexOf('/painel-dl') > -1 ){
-        // Configurar o menu fixo
-        /* $(window).on('scroll', function(){
-            var $topo       = $('header.dl');
-            var pos_y       = window.scrollY;
-            var fim_topo    = $('section.dl').position().top - $('nav.dl').height();
-            
-            if( pos_y >= fim_topo ) $topo.addClass('fixo');
-            else $topo.removeClass('fixo');
-        }); */
-        
         // Configurar o evento 'reset' dos formulários
         $('form').on('reset', function(){
             history.back();

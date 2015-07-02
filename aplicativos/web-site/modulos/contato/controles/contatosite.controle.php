@@ -9,9 +9,12 @@
 
 namespace Contato\Controle;
 
-class ContatoSite extends \Geral\Controle\WebSite{
+use \Geral\Controle as GeralM;
+use \Contato\Modelo as ContatoM;
+
+class ContatoSite extends GeralM\WebSite{
     public function __construct(){
-        parent::__construct(new \Contato\Modelo\ContatoSite(), 'contato', TXT_MODELO_CONTATOSITE);
+        parent::__construct(new ContatoM\ContatoSite(), 'contato', TXT_MODELO_CONTATOSITE);
 
         # Tratar dados do _POST
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
@@ -31,7 +34,6 @@ class ContatoSite extends \Geral\Controle\WebSite{
 
     /**
      * Mostrar o formulário de contato
-     * -------------------------------------------------------------------------
      */
     public function _mostrarform(){
         $this->_formpadrao('contato', 'enviar', null, 'contato', null);
@@ -41,7 +43,7 @@ class ContatoSite extends \Geral\Controle\WebSite{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONTATO;
 
         # Selecionar os assuntos de contatos
-        $ma = new \Contato\Modelo\AssuntoContato();
+        $ma = new ContatoM\AssuntoContato();
         $la = $ma->_carregarselect('assunto_contato_publicar = 1', false);
 
         # Parâmetros
@@ -53,7 +55,6 @@ class ContatoSite extends \Geral\Controle\WebSite{
 
     /**
      * Salvar e enviar o registro de contato
-     * -------------------------------------------------------------------------
      */
     public function _enviar(){
         $this->_salvar();
@@ -61,7 +62,7 @@ class ContatoSite extends \Geral\Controle\WebSite{
         # Enviar por e-mail
         if( class_exists('Email') ):
             if( !empty($this->modelo->assunto) ):
-                $ma = new Contato\Modelo\AssuntoContato();
+                $ma = new ContatoM\AssuntoContato();
                 $la = end($ma->_listar("assunto_contato_id = {$this->modelo->assunto}", null, 'assunto_contato_descr, assunto_contato_email'));
                 $as = $la['assunto_contato_descr'];
                 $pa = $la['assunto_contato_email'];

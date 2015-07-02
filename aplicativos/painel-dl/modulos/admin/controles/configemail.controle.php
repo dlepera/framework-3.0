@@ -9,9 +9,12 @@
 
 namespace Admin\Controle;
 
-class ConfigEmail extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Admin\Modelo as AdminM;
+
+class ConfigEmail extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \Admin\Modelo\ConfigEmail(), 'admin', TXT_MODELO_CONFIGEMAIL);
+        parent::__construct(new AdminM\ConfigEmail(), 'admin', TXT_MODELO_CONFIGEMAIL);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -34,7 +37,7 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -44,12 +47,10 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('config_email_id, config_email_titulo, config_email_host, ( CASE config_email_principal'
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) AS PRINCIPAL", 'config_email_titulo', null);
 
         # Visão
@@ -68,12 +69,11 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      *
-     * @param int $id - ID do registro a ser selecionado
+     * @param int $pk PK do registro a ser selecionado
      */
-    protected function _mostrarform($id=null){
-        $inc = $this->_formpadrao('email', 'envio-de-emails/salvar', 'envio-de-emails/salvar', 'admin/envio-de-emails', $id);
+    protected function _mostrarform($pk = null){
+        $inc = $this->_formpadrao('email', 'envio-de-emails/salvar', 'envio-de-emails/salvar', 'admin/envio-de-emails', $pk);
 
         # Visão
         $this->_carregarhtml('form_email');
@@ -86,10 +86,12 @@ class ConfigEmail extends \Geral\Controle\PainelDL{
 
 
     /**
-     * Testar uma determinada configuração de envio de e-mail
-     * -------------------------------------------------------------------------
+     * Testar uma determinada configuração de envio de e-mail]
      *
-     * @param int $id - ID da configuração a ser testada
+     * @param int $id ID da configuração a ser testada
+     *
+     * @return mixed
+     * @throws \Exception
      */
     protected function _testar($id){
         if( !class_exists('Email') )

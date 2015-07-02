@@ -9,9 +9,12 @@
 
 namespace Desenvolvedor\Controle;
 
-class Modulo extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Desenvolvedor\Modelo as DevM;
+
+class Modulo extends GeralC\PainelDL{
     public function __construct() {
-        parent::__construct(new \Desenvolvedor\Modelo\Modulo(), 'desenvolvedor', TXT_MODELO_MODULO);
+        parent::__construct(new DevM\Modulo(), 'desenvolvedor', TXT_MODELO_MODULO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -29,7 +32,7 @@ class Modulo extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -46,8 +49,7 @@ class Modulo extends \Geral\Controle\PainelDL{
                 . " WHEN 0 THEN M.modulo_nome"
                 . " ELSE CONCAT(S.modulo_nome, ' > ', M.modulo_nome) "
                 . " END ) AS NOME_COMPLETO, M.modulo_link, ( CASE M.modulo_publicar"
-                . " WHEN 0 THEN 'Não'"
-                . " WHEN 1 THEN 'Sim'"
+                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
                 . " END ) AS PUBLICADO", 'NOME_COMPLETO', null);
 
         # Visão
@@ -65,10 +67,11 @@ class Modulo extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
+     *
+     * @param int $pk PK do registro a ser selecionado
      */
-    protected function _mostrarform($id=null){
-        $inc = $this->_formpadrao('modulo', 'modulos/instalar-modulo',  'modulos/atualizar-modulo', 'desenvolvedor/modulos', $id);
+    protected function _mostrarform($pk = null){
+        $inc = $this->_formpadrao('modulo', 'modulos/instalar-modulo',  'modulos/atualizar-modulo', 'desenvolvedor/modulos', $pk);
 
         # Visão
         $this->_carregarhtml('form_modulo');
@@ -85,7 +88,7 @@ class Modulo extends \Geral\Controle\PainelDL{
 
         if( !$inc ):
             # Funcionalidades
-            $m_mf = new \Desenvolvedor\Modelo\ModuloFunc();
+            $m_mf = new DevM\ModuloFunc();
             $l_mf = $m_mf->_carregarselect("func_modulo = {$this->modelo->id}", false);
 
             if( !is_null($this->modelo->pai) ):
@@ -103,10 +106,9 @@ class Modulo extends \Geral\Controle\PainelDL{
 
     /**
      * Incluir uma nova funcionalidade
-     * -------------------------------------------------------------------------
      */
     protected function _novafunc(){
-        $of = new \Desenvolvedor\Modelo\ModuloFunc();
+        $of = new DevM\ModuloFunc();
 
         $post = filter_input_array(INPUT_POST, array(
             'id'            =>  FILTER_VALIDATE_INT,
@@ -130,10 +132,9 @@ class Modulo extends \Geral\Controle\PainelDL{
 
     /**
      * Remover uma funcionalidade
-     * -------------------------------------------------------------------------
      */
     protected function _removerfunc(){
-        $of = new \Desenvolvedor\Modelo\ModuloFunc();
+        $of = new DevM\ModuloFunc();
 
         $ids = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
@@ -142,7 +143,7 @@ class Modulo extends \Geral\Controle\PainelDL{
         $qe = 0;
 
         foreach( $ids as $id ):
-            $of->_selecionarID($id);
+            $of->_selecionarPK($id);
             $qe += $of->_remover();
         endforeach;
 
@@ -154,18 +155,18 @@ class Modulo extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     *  Filtrar menu
-     * -------------------------------------------------------------------------
-     *
-     * @param string $bm - termo a ser buscado no cadastro de modulos
-     * @param boolean $e - define se a pesquisa retornada será escrita ou será retornada
-     */
+	/**
+	 *  Filtrar menu
+	 *
+	 * @param string  $bm Termo a ser buscado no cadastro de modulos
+	 * @param boolean $e  Define se a pesquisa retornada será escrita ou será retornada
+	 *
+	 * @return array
+	 */
     public function _filtromenu($bm, $e=true){
         $r = json_encode($this->modelo->_listarmenu("M.modulo_nome LIKE '%{$bm}%' OR M.modulo_descr LIKE '%{$bm}%'", 'M.modulo_nome', 'M.modulo_nome, M.modulo_descr'));
 
-        # Escrever ou retornar o resultado
-        if( $e ) echo $r;
-        else return $r;
+	    $e AND print($r);
+	    return $r;
     } // Fim do método _filtromenu
 } // Fim do Controle Modulo

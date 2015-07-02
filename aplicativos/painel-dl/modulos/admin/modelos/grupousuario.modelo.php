@@ -9,12 +9,13 @@
 
 namespace Admin\Modelo;
 
-class GrupoUsuario extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class GrupoUsuario extends GeralM\Principal{
     protected $id, $descr, $funcs = array(), $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
         return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
@@ -26,31 +27,35 @@ class GrupoUsuario extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_grupos_usuarios', 'grupo_usuario_');
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro do banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $s - define se o registro será salvo no banco de dados ou
-     *  se seráo retornada a consulta SQL
-     */
-    protected function _salvar($s=true){
-        $r = parent::_salvar($s);
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+        $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $s && $this->id != $_SESSION['usuario_info_grupo'] ):
             # Salvar o permissionamento atual e remover o antigo
-            \DL3::$bd_conex->exec("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = {$this->id}");
+            $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
+	        $sql->execute(array(':id' => $this->id));
 
-            foreach( $this->funcs as $f )
-                \DL3::$bd_conex->exec("INSERT INTO dl_painel_grupos_funcs VALUES ({$this->id}, $f)");
+	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_grupos_funcs VALUES (:id, :func)");
+            foreach( $this->funcs as $f ) $sql->execute(array(':id' => $this->id, ':func' => $f));
         endif;
 
         return $r;
@@ -58,41 +63,49 @@ class GrupoUsuario extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Selecionar um registro pelo ID
-     * -------------------------------------------------------------------------
-     *
-     * @params int $id - ID do registro a ser selecionado
-     * @params string $alias - alias configurado na consulta do registro a ser
-     *  selecionado
-     */
-    protected function _selecionarID($id,$alias=null){
-        parent::_selecionarID($id, $alias);
+	/**
+	 * Selecionar um registro através da chave primária (PK - Primary Key)
+	 *
+	 * @param string $v Valor a ser pesquisado na PK
+	 * @param string $a Alias da tabela principal configurado na consulta
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+    protected function _selecionarPK($v, $a = null){
+        parent::_selecionarPK($v, $a);
 
-        $sql = \DL3::$bd_conex->query("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = {$this->id}");
+        $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
+	    $sql->execute(array(':id' => $this->id));
 
         if( $sql === false ) return;
 
         while( $rs = $sql->fetch(\PDO::FETCH_ASSOC) )
             $this->funcs[] = $rs['func_modulo_id'];
-    } // Fim do método _selecionarID
+    } // Fim do método _selecionarPK
 
 
 
-    /**
-     * Verificar permissionamento do grupo
-     * -------------------------------------------------------------------------
-     */
-    public function _verificarperm($m,$a){
+
+	/**
+	 * Verificar a permissão desse grupo para executar determinada ação
+	 *
+	 * @param string $c Nome da classe
+	 * @param string $m Nome do método / ação a ser executada
+	 *
+	 * @return bool true se a o grupo possui permissão para executar a ação ou false se não tem
+	 */
+    public function _verificarperm($c, $m){
         $q = "SELECT COUNT(DISTINCT MF.metodo_func_descr) AS PERM"
                 . " FROM dl_painel_grupos_funcs AS GF"
                 . " INNER JOIN dl_painel_modulos_funcs FM ON( FM.func_modulo_id = GF.func_modulo_id )"
                 . " LEFT JOIN dl_painel_funcs_metodos MF ON( MF.metodo_func = FM.func_modulo_id )"
-                . " WHERE GF.{$this->bd_prefixo}id = {$this->id}"
-                . " AND FM.func_modulo_classe = '". addslashes($m) ."'"
-                . " AND MF.metodo_func_descr = '{$a}'";
+                . " WHERE GF.{$this->bd_prefixo}id = :id"
+                . " AND FM.func_modulo_classe = :classe"
+                . " AND MF.metodo_func_descr = :metodo";
 
-        $sql = \DL3::$bd_conex->query($q);
+        $sql = \DL3::$bd_conex->prepare($q);
+	    $sql->execute(array(':id' => $this->id, ':classe' => $c, ':metodo' => $m));
         $rs  = $sql->fetch(\PDO::FETCH_ASSOC);
 
         return (bool)$rs['PERM'];

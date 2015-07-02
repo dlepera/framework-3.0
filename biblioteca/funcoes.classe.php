@@ -26,14 +26,17 @@ class Funcoes{
         endforeach;
     } // Fim do método _post2objeto
 
-    /**
-     * Formatar data e hora
-     *
-     * @param string $data_hora - string contendo uma representação de data ou
-     * 	hora
-     * @param string $formato - string contendo o formtado da data e/ou hora
-     * 	desejado. O farmato deve ser aceito pela função date();
-     */
+
+
+	/**
+	 * Formatar data e hora
+	 *
+	 * @param string $data_hora string contendo uma representação de data ou hora
+	 * @param string $formato   string contendo o formtado da data e/ou hora desejado. O farmato deve ser aceito pela
+	 *                          função date();
+	 *
+	 * @return bool|mixed|string
+	 */
     public static function _formatardatahora($data_hora, $formato){
         # Se $formato estiver em branco retornar a data sem nenhum alteração
         if( empty($formato) )
@@ -63,10 +66,9 @@ class Funcoes{
     /**
      * Exibir o conteúdo em formato JSON para que o sistema possa exibi-lo
      * ao usuário
-     * -------------------------------------------------------------------------
      *
-     * @param string $msg - mensagem a ser exibida na tela
-     * @param string $tipo - define parte da aparência da mensagens exibida
+     * @param string $msg Mensagem a ser exibida na tela
+     * @param string $tipo Define parte da aparência da mensagens exibida
      */
     public static function _retornar($msg, $tipo){
         \DL3::$tmp_buffer_resposta[] = array(
@@ -77,12 +79,14 @@ class Funcoes{
 
 
 
-    /**
-     * Converter o encoding de uma variável
-     * -------------------------------------------------------------------------
-     *
-     * @param string $var - variável a ser convertida
-     */
+
+	/**
+	 * Converter o encoding de uma variável
+	 *
+	 * @param var    $var         Variável a ser convertida
+	 * @param string $para_encode Novo encode a ser utilizado
+	 * @param string $de_encode   Encode atual da variável
+	 */
     public static function _converterencode(&$var, $para_encode, $de_encode = 'UTF-8'){
         if( is_null($var) ) return;
 
@@ -96,12 +100,16 @@ class Funcoes{
         endif;
     } // Fim do método _converterencode
 
-    /**
-     * Remover acentuação de uma string
-     *
-     * @param string $string - string a ter a acentuação removida
-     * @returns string - string com a acentuação removida
-     */
+
+
+
+	/**
+	 * Remover acentuação de uma string
+	 *
+	 * @param string $string string a ter a acentuação removida
+	 *
+	 * @returns string string com a acentuação removida
+	 */
     public static function _removeracentuacao($string){
         # Obter o encoding interno do submit do form
         preg_match("#^(.+);\s.+\=(.+)$#", filter_input(INPUT_SERVER, 'CONTENT_TYPE'), $content_type);

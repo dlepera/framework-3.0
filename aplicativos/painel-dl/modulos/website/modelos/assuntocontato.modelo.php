@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class AssuntoContato extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class AssuntoContato extends GeralM\Principal{
     protected $id, $descr, $email, $cor = '#000', $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _descr($v=null){
         return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
@@ -30,10 +31,9 @@ class AssuntoContato extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_assuntos_contato', 'assunto_contato_');
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 } // Fim do Modelo AssuntoContato

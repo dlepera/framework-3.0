@@ -7,8 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -39,7 +38,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar AND print(' CHECKED'); ?>/>
                 <label for="chk-publicar"></label>
             </p>
         </fieldset>
@@ -89,7 +88,7 @@ $mod = $params['modelo'];
                     <span class="af-capa"><?= MSG_CAPA; ?></span>
                     <?php endif; ?>
 
-                    <a href="javascript:;" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>');" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
+                    <a href="javascript:void;" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>');" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
                         <?= TXT_LINK_EDITAR; ?>
                     </a>
 
@@ -108,20 +107,18 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    window.addEventListener('load', function(){
-        $ff = $('#form-fotos')._dlformulario({
-            depois: function(){
-                window.location.reload();
-            },
-            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
-        });
+    $ff = $('#form-fotos')._dlformulario({
+        depois: function(){
+            window.location.reload();
+        },
+        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
+    });
 
-        $fr = $('#form-remover-fotos')._dlformulario({
-            depois: function(){
-                window.location.reload();
-            },
-            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
-        });
+    $fr = $('#form-remover-fotos')._dlformulario({
+        depois: function(){
+            window.location.reload();
+        },
+        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
     });
     //]]>
 </script>

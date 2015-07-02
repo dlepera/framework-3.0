@@ -17,8 +17,7 @@ var tempo_cont  = {};
 
 
 /**
- * Função que será utilizada para tratar a resposta
- * -----------------------------------------------------------------------------
+ * Função que será utilizada para tratar a resposta]
  *
  * @param {string} r resposta do servidor após o envio da requisição
  */
@@ -135,8 +134,8 @@ function AplicarMascara(v, m){
 
 			//
 			if( opcoes.cktodos[0] ){
-				$selecionador   = $(opcoes.cktodos[1]);
-				$selecionaveis  = $(opcoes.cktodos[2]);
+				var $selecionador   = $(opcoes.cktodos[1]);
+				var $selecionaveis  = $(opcoes.cktodos[2]);
 
 				$selecionador.click(function(){
 					$selecionaveis.each(function(){
@@ -159,7 +158,6 @@ function AplicarMascara(v, m){
 
 			/**
 			 * Executar a validação adicional dos campos
-			 * ---------------------------------------------------------------------------------------------------------
 			 */
 			$this.find('[data-vld-func]').on('change', function(){
 				var $th = $(this);
@@ -370,11 +368,10 @@ function AplicarMascara(v, m){
 
 	/**
 	 * Aplicar uma máscara em um campo
-	 * -------------------------------------------------------------------------
 	 *
 	 * @param {string} mascara - string contendo o formato a ser aplicado
 	 *
-	 * @returns {dl-formulario-2.0.plugin_L63.$.fn@call;each}
+	 * @returns object
 	 */
 	$.fn._mascara = function(mascara){
 		return this.each(function(){

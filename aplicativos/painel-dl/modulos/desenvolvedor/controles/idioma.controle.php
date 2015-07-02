@@ -9,9 +9,12 @@
 
 namespace Desenvolvedor\Controle;
 
-class Idioma extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \Desenvolvedor\Modelo as DevM;
+
+class Idioma extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \Desenvolvedor\Modelo\Idioma(), 'desenvolvedor', TXT_MODELO_IDIOMA);
+        parent::__construct(new DevM\Idioma(), 'desenvolvedor', TXT_MODELO_IDIOMA);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -29,7 +32,6 @@ class Idioma extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla, ( CASE idioma_publicar'
@@ -51,13 +53,12 @@ class Idioma extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário de inclusão e edição
-     * -------------------------------------------------------------------------
      *
-     * @param int $id - ID do registro a ser selecionado
-     * @param bool $mst - define a página mestra a ser utilizada
+     * @param int $pk PK do registro a ser selecionado
+     * @param string $mst Nome da página mestra a ser carregada
      */
-    protected function _mostrarform($id=null,$mst='padrao'){
-        $inc = $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $id);
+    protected function _mostrarform($pk = null, $mst = 'padrao'){
+        $inc = $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $pk);
 
         # Visão
         $this->_carregarhtml('form_idioma', $mst);

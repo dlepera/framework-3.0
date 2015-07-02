@@ -7,8 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -32,7 +31,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar AND print(' CHECKED'); ?>/>
                 <label for="chk-publicar"></label>
             </p>
         </fieldset>
@@ -68,13 +67,13 @@ $mod = $params['modelo'];
                                         $fc = $params['funcs'][$k2]; ?>
                                         <li class="grp-func col-3">
                                             <input type="checkbox" name="funcs[]" id="func-mod-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"
-                                                <?= in_array($fc['func_modulo_id'], $mod->funcs) ? ' CHECKED' : ''; ?>/>
+                                                <?php in_array($fc['func_modulo_id'], $mod->funcs) AND print(' CHECKED'); ?>/>
                                             <label for="func-mod-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
 
-                                <input type="checkbox" id="selc-todos-<?= $k1; ?>"<?= !$params['incluindo'] ? ' CHECKED' : ''; ?>/>
+                                <input type="checkbox" id="selc-todos-<?= $k1; ?>"<?php !$params['incluindo'] AND print(' CHECKED'); ?>/>
                                 <label for="selc-todos-<?= $k1; ?>" class="form-rotulo"><?= TXT_ROTULO_SELECIONAR_TODOS; ?></label>
                                 <?php endif;
                             endforeach; ?>

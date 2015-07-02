@@ -9,12 +9,13 @@
 
 namespace Desenvolvedor\Modelo;
 
-class ModuloFunc extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class ModuloFunc extends GeralM\Principal{
     protected $id, $func_modulo, $descr, $classe, $metodos, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _func_modulo($v=null){
         return $this->func_modulo = filter_var(is_null($v) ? $this->func_modulo : $v, FILTER_VALIDATE_INT);
@@ -34,29 +35,32 @@ class ModuloFunc extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_modulos_funcs', 'func_modulo_');
 
-        if( !empty((int)$id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro no banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $s - define se o registro será salvo ou deve ser retornada a
-     *  consulta SQL
-     */
-    protected function _salvar($s=true){
-        $r = parent::_salvar($s);
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+        $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $r && $s ):
             foreach( $this->metodos as $m ):
-                \DL3::$bd_conex->exec("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr)"
-                    . " VALUES ({$this->id}, '{$m}')");
+                $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
+                $sql->execute(array(':id' => $this->id, ':metodo' => $m));
             endforeach;
         endif;
 
@@ -65,23 +69,26 @@ class ModuloFunc extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Selecionar um registro pelo ID
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param string $alias - alias a ser aplicada na consulta
-     */
-    protected function _selecionarID($id, $alias=null){
-        parent::_selecionarID($id, $alias);
+	/**
+	 * Selecionar um registro através da chave primária (PK - Primary Key)
+	 *
+	 * @param string $v Valor a ser pesquisado na PK
+	 * @param string $a Alias da tabela principal configurado na consulta
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+	protected function _selecionarPK($v, $a = null){
+        parent::_selecionarPK($v, $a);
 
-        if( !is_null($this->id) ):
-            $sql = \DL3::$bd_conex->query("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = {$this->id}");
+        if( !$this->reg_vazio ):
+            $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
+	        $sql->execute(array(':id' => $this->id));
 
             if( $sql === false ) return;
 
             while( $rs = $sql->fetch(\PDO::FETCH_ASSOC) )
                 $this->metodos[] = $rs['metodo_func_descr'];
         endif;
-    } // Fim do método _selecionarID
+    } // Fim do método _selecionarPK
 } // Fim do Modelo ModuloFunc

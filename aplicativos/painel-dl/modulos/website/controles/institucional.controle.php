@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class Institucional extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class Institucional extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\Institucional(), 'website', TXT_MODELO_SOBRE);
+        parent::__construct(new WebM\Institucional(), 'website', TXT_MODELO_SOBRE);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -27,7 +30,7 @@ class Institucional extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -37,7 +40,6 @@ class Institucional extends \Geral\Controle\PainelDL{
 
     /**
      *  Mostrar as informações institucionais do site
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarinfos(){
         # Visão
@@ -46,7 +48,7 @@ class Institucional extends \Geral\Controle\PainelDL{
 
         # Obter o ID das informações
         $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
-        $this->modelo->_selecionarID($id['ID']);
+        $this->modelo->_selecionarPK($id['ID']);
 
         # Parâmetros
         $this->visao->_adparam('modelo', $this->modelo);
@@ -56,7 +58,6 @@ class Institucional extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarform(){
         $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);

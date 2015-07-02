@@ -43,7 +43,7 @@ define('MSG_EMAIL_CORPO_RECUPERAR_SENHA', '<h1>Olá %s!</h1>'
 
 
 /**
- * \Admin\Modelo\Usuario
+ * AdminM\Usuario
  * -----------------------------------------------------------------------------
  */
 # Erros

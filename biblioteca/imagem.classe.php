@@ -31,41 +31,39 @@ class Imagem{
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método mágico __get
 
-    /**
-     * Editar as propriedades da classe
-     *
-     * @param string $nome - nome da propriedade a ser editada
-     * @param mixed $valor - valor a ser atribuído Ã  propriedade
-     *
-     * @return void
-     */
-    public function __set($nome, $valor){
-        switch($nome):
+
+
+	/**
+	 * Editar as propriedades da classe
+	 *
+	 * @param string $n Nome da propriedade a ser editada
+	 * @param mixed  $v Valor a ser atribuído a propriedade
+	 *
+	 * @throws Exception
+	 */
+    public function __set($n, $v){
+        switch($n):
             case 'arquivo':
-                if( empty($valor) || !file_exists($valor) )
+                if( empty($v) || !file_exists($v) )
                     throw new Exception(ERRO_IMAGEM_NAO_ENCONTRADA, 1500);
 
-                $this->arquivo = (string)$valor;
+                $this->arquivo = filter_var($v, FILTER_SANITIZE_STRING);
 
                 # Obter as dimensões do arquivo original
                 list($this->largura, $this->altura, $this->tipo,) = getimagesize($this->arquivo);
                 break;
 
             case 'qldejpeg':
-                if( $valor < 0 || $valor > 100 )
-                    throw new Exception(ERRO_IMAGEM_VALOR_DE_QLDE_INVALIDO, 1500);
-
-                $this->qlde_jpeg = (float)$valor;
+	            $this->qlde_jpeg = filter_var($v, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 100)));
                 break;
 
             case 'qldepng':
-                if( $valor < 0 || $valor > 9 )
-                    throw new Exception(ERRO_IMAGEM_VALOR_DE_QLDE_INVALIDO, 1500);
-
-                $this->qlde_png = (int)$valor;
+                $this->qlde_png = filter_var($v, FILTER_VALIDATE_INT, array('options' => array('min_range' => 0, 'max_range' => 9)));
                 break;
         endswitch;
     } // Fim do método mágico __set
+
+
 
     /**
      * Tranparência da imagem
@@ -76,9 +74,10 @@ class Imagem{
         imagesavealpha($this->imagem, true);
     } // Fim do método _transparencia
 
+
+
     /**
      * Preparar a imagem para ser exibida ou salva
-     * -------------------------------------------------------------------------
      */
     public function _preparar(){
         # Recriar a imagem de acordo com o tipo
@@ -90,17 +89,19 @@ class Imagem{
         endswitch;
     } // Fim do método _preparar
 
-    /**
-     * Redimensionar a imagem
-     * -------------------------------------------------------------------------
-     *
-     * PS.: Se um dos 2 parâmetros não forem informados a imagem usará
-     * tamanho relativo
-     *
-     * @param float $l - largura da imagem redimensionada (em píxels)
-     * @param float $a - altura da imagem redimensionada (em píxels)
-     *
-     */
+
+
+	/**
+	 * Redimensionar a imagem
+	 *
+	 * PS.: Se um dos 2 parâmetros não forem informados a imagem usará tamanho relativo
+	 *
+	 * @param int $l Nova largura da imagem
+	 * @param int $a Nova altura da imagem
+	 *
+	 * @return resource
+	 * @throws Exception
+	 */
     public function _redimensionar($l = null, $a = null){
         if( empty($l) && empty($a) )
             throw new Exception(ERRO_IMAGEM_REDIMENSIONAR_INFORME_ALTURA_X_LARGURA, 1500);
@@ -126,14 +127,19 @@ class Imagem{
         return $this->imagem;
     } // Fim do método _redimensionar
 
-    /**
-     * Recortar a imagem
-     *
-     * @param float $l - nova largura da imagem
-     * @param float $a - nova altura da imagem
-     * @param int $coord_x - coordenada do eixo X onde será o ínicio da imagem
-     * @param int $coord_y - coordenada do eixo Y onde será o início da imagem
-     */
+
+
+	/**
+	 * Recortar a imagem
+	 *
+	 * @param int $l Nova largura da imagem
+	 * @param int $a Nova altura da imagem
+	 * @param int  $coord_x Coordenada do eixo X para início do recorte
+	 * @param int  $coord_y Coordenada do eixo Y para fim do recorte
+	 *
+	 * @return resource
+	 * @throws Exception
+	 */
     public function _recortar($l = null, $a = null, $coord_x=0, $coord_y=0){
         if( empty($l) && empty($a) )
             throw new Exception(ERRO_IMAGEM_REDIMENSIONAR_INFORME_ALTURA_X_LARGURA, 1500);
@@ -155,11 +161,16 @@ class Imagem{
         return $this->imagem;
     } // Fim do método _recortar
 
-    /**
-     * Rotacionar a imagem
-     *
-     * @param {float} $graus - Graus Ã  rotação
-     */
+
+
+	/**
+	 * Rotacionar a imagem
+	 *
+	 * @param int $graus Quantidade de graus a rotacionar a imagem
+	 *
+	 * @return resource
+	 * @throws Exception
+	 */
     public function _rotacionar($graus){
         if( empty($graus) || !is_numeric($graus) )
             throw new Exception(ERRO_IMAGEM_ROTACIONAR_GRAUS_INVALIDOS, 1500);
@@ -176,11 +187,16 @@ class Imagem{
         return $this->imagem;
     } // Fim do método _rotacionar
 
-    /**
-     * Salvar a imagem em um arquivo
-     *
-     * @param {string} $arquivo - nome do arquivo a ser salvo
-     */
+
+
+	/**
+	 * Salvar a imagem em um arquivo
+	 *
+	 * @param string $arquivo Nome do arquivo a ser salvo
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
     public function _salvar($arquivo){
         if( empty($arquivo) )
             throw new Exception(ERRO_IMAGEM_SALVAR_POR_FAVOR_INFORME_NOME_ARQUIVO, 1500);
@@ -204,6 +220,8 @@ class Imagem{
         # Destruir essa imagem e liberar o espaço em memória
         return imagedestroy($this->imagem);
     } // Fim do método _salvar
+
+
 
     /**
      * Salvar a imagem em um arquivo

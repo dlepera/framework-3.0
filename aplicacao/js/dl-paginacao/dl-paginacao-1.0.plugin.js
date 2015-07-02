@@ -77,7 +77,7 @@ function $_IRPARA(pg){
             if( opcoes.btn_primeira ){
                 // Criar o botão
                 $(document.createElement('a')).text('|<<').attr({
-                    href: "javascript:;",
+                    href: "javascript:void;",
                     id  : "dl-paginacao-btnprimeira"
                 }).click(function(){ return $_IRPARA(1); }).appendTo($this);
             } // Fim if( opcoes.btn_primeira )
@@ -86,7 +86,7 @@ function $_IRPARA(pg){
             if( opcoes.btn_anterior ){
                 // Criar o botão
                 $(document.createElement("a")).text("<<").attr({
-                    href: "javascript:;",
+                    href: "javascript:void;",
                     id  : "dl-paginacao-btnanterior"
                 }).click(function(){ 
                     if( opcoes.pgatual == 1 ){
@@ -112,10 +112,10 @@ function $_IRPARA(pg){
                 minicio = minicio == mfinal ? 1 : minicio;
 
             // Criar os botões
-            for(i=minicio; i<=mfinal; i++){
+            for(var i=minicio; i<=mfinal; i++){
                 // Criar os botões
                 $(document.createElement("a")).attr({
-                    href	: "javascript:;",
+                    href	: "javascript:void;",
                     "class"	: ( i == opcoes.pgatual )? "atual" : ""
                 }).text(i).click(function(){
                     var ir = parseInt($(this).text());
@@ -132,7 +132,7 @@ function $_IRPARA(pg){
         if( opcoes.btn_proxima ){
             // Criar o botão
             $(document.createElement("a")).text(">>").attr({
-                href: "javascript:;",
+                href: "javascript:void;",
                 id  : "dl-paginacao-btnproxima"
             }).click(function(){
                 if(  opcoes.pgatual == opcoes.pgtotal ){
@@ -149,7 +149,7 @@ function $_IRPARA(pg){
         if( opcoes.btn_ultima ){
             // Criar o botão
             $(document.createElement("a")).text(">>|").attr({
-                href: "javascript:;",
+                href: "javascript:void;",
                 id  : "dl-paginacao-btnultima"
             }).click(function(){
                 return $_IRPARA(opcoes.pgtotal);

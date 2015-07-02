@@ -232,6 +232,7 @@ var sh = {
 		 * @param {MouseEvent}	event			Original mouse event object.
 		 * @param {String}		highlighterId	Highlighter DIV element ID.
 		 * @param {String}		commandName		Name of the command to execute.
+		 * @param {mixed}		args
 		 * @return {Object} Passes out return value from command execution.
 		 */
 		executeCommand : function(sender, event, highlighterId, commandName, args)
@@ -560,7 +561,7 @@ var sh = {
 				obj[type + func] = function()
 				{
 					obj['e' + type + func](window.event);
-				}
+				};
 				obj.attachEvent('on' + type, obj[type + func]);
 			}
 			else 
@@ -1000,7 +1001,7 @@ var sh = {
 		 * matches that are found.
 		 * 
 		 * @param {String} code    Code to execute regular expression on.
-		 * @param {Object} regex   Regular expression item info from <code>regexList</code> collection.
+		 * @param {Object} regexInfo   Regular expression item info from <code>regexList</code> collection.
 		 * @return {Array}         Returns a list of Match objects.
 		 */ 
 		getMatches: function(code, regexInfo)
@@ -1208,7 +1209,7 @@ sh.HtmlScript.prototype.highlight = function(code, params)
 {
 	this.xmlBrush.highlight(code, params);
 	this.div = this.xmlBrush.div;
-}
+};
 
 /**
  * Main Highlither class.

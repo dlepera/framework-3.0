@@ -33,9 +33,8 @@ class Visao{
 
 
 
-    /**
+    /*
      * 'Gets'e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this,$n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
@@ -65,15 +64,14 @@ class Visao{
 
 
 
-    /**
-     * Incluir template para compor a visão
-     * -------------------------------------------------------------------------
-     *
-     * @param string $tpl - nome do template a ser carregado
-     * @param bool $p - Define se o teplate será procurado níveis acima
-     * @param int $o - Ordenação do template
-     */
-    public function _adtemplate($tpl, $p=false, $o = 0){
+	/**
+	 * Incluir template para compor a visão
+	 *
+	 * @param string $tpl Nome do template a ser carregado
+	 * @param bool   $p   Define se o teplate será procurado níveis acima
+	 * @param int    $o   Ordenação do template
+	 */
+    public function _adtemplate($tpl, $p = false, $o = 0){
         # Definir a ordenação
         $ch = array_keys($this->templates);
 
@@ -87,7 +85,6 @@ class Visao{
 
     /**
      * Carregar conteúdo de uma página mestra
-     * -------------------------------------------------------------------------
      *
      * @return mixed Conteúdo da página mestra carregada
      * @throws \Exception
@@ -109,7 +106,15 @@ class Visao{
 
 
 
-    private function _area_dl3($c, $a='DL3-CONTEUDO'){
+	/**
+	 * Separar uma determinada área de layout do DL3
+	 *
+	 * @param string $c Conteúdo a ser analizado
+	 * @param string $a Nome da área a ser separada
+	 *
+	 * @return string
+	 */
+	private function _area_dl3($c, $a = 'DL3-CONTEUDO'){
         preg_match_all(
                 "~(?s)\[{$a}\](.*?)\[/{$a}\]~",
                 $c, $html
@@ -122,7 +127,6 @@ class Visao{
 
     /**
      * Carregar o conteúdo do template em buffer
-     * -------------------------------------------------------------------------
      *
      * O conteúdo é lido e armazenado em buffer. Em seguida o conteúdo que está
      * no buffer é transferido para a propriedade $this->conteudo que poderá
@@ -152,11 +156,17 @@ class Visao{
 
 
 
-    /**
-     * Mostrar o conteúdo obtido
-     * -------------------------------------------------------------------------
-     */
-    public function _mostrarconteudo($r=false){
+
+	/**
+	 * Mostrar o conteúdo dessa visão
+	 *
+	 * @param bool $r Se true, o conteúdo é retornado pelo método. Se false, o conteúdo é exibido ao usuário
+	 *                imediatamente
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
+    public function _mostrarconteudo($r = false){
         # Carregar o conteúdo da página
         if( empty($this->conteudo) ) $this->_carregarconteudo();
 
@@ -170,21 +180,20 @@ class Visao{
                 $mst = str_replace("[{$a}/]", $this->_area_dl3($this->conteudo, $a), $mst);
         endif;
 
-        if( $r ) return $mst;
-        echo $mst;
+	    !$r AND print($mst);
+	    return $mst;
     } // Fim do método _mostrarconteudo
 
 
 
-    /**
-     * Adicionar um parâmetro para ser mostrado na visão
-     * -------------------------------------------------------------------------
-     * O parâmetro á adicionado a um vetor e a visão pode acessá-lo através
-     * do método $this->_obterparams()
-     *
-     * @param string $n Nome do parâmetro
-     * @param mixed $v Valor atribuído ao parâmetro
-     */
+	/**
+	 * Adicionar um parâmetro para ser mostrado na visão\
+	 *
+	 * O parâmetro á adicionado a um vetor e a visão pode acessá-lo através do método $this->_obterparams()
+	 *
+	 * @param string $n Nome do parâmetro
+	 * @param mixed  $v Valor atribuído ao parâmetro
+	 */
     public function _adparam($n,$v){
         $this->params[$n] = is_scalar($v) && !is_bool($v) ?
             filter_var($v, FILTER_DEFAULT)
@@ -193,15 +202,15 @@ class Visao{
 
 
 
-    /**
-     * Obter um ou todos os parâmetros
-     * -------------------------------------------------------------------------
-     * @param string $n - nome do parâmetro a ser obtido. Quando nulo ou em branco
-     *  retorna um vetor associativo com todos os parâmetros configurados
-     *
-     * @return mixed - Retorna o valor do parâmetro solicitado ou um vetor com
-     *  todos os parâmetros
-     */
+
+	/**
+	 * Obter um ou todos os parâmetros
+	 *
+	 * @param string $n Nome do parâmetro a ser obtido. Quando nulo ou em branco retorna um vetor associativo com todos
+	 *                  os parâmetros configurados
+	 *
+	 * @return mixed Valor do parâmetro solicitado ou um vetor com todos os parâmetros
+	 */
     public function _obterparams($n=null){
         if( is_null($n) ) return (array)$this->params;
 
@@ -214,16 +223,14 @@ class Visao{
 
 
 
-    /**
-     * Procurar determinado template até $num níveis acima
-     * -------------------------------------------------------------------------
-     *
-     * @param string $tpl - nome do template a ser procurado
-     * @param string $num - qtde de níveis a subir durante a procura
-     *
-     * @return mixed - Retorna a string com o caminho para o template ou false
-     *  caso o template não seja localizado
-     */
+	/**
+	 * Procurar determinado template até $num níveis acima
+	 *
+	 * @param string $tpl Nome do template a ser procurado
+	 * @param int    $num Qtde de níveis a subir durante a procura
+	 *
+	 * @return bool|string String com o caminho para o template ou false caso o template não seja localizado
+	 */
     public function _procurartemplate($tpl, $num = 5){
         $qtde = 0;
 

@@ -7,6 +7,11 @@
  *  @data: 27/05/2015 16:01:32
  */
 
+/*
+ * TAREFA #1: incluir link nas redes sociais
+ * TAREFA #2: incluir mídias sociais
+ */
+
 # Parâmetros passados para a página
 $params = $this->_obterparams();
 

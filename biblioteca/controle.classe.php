@@ -7,6 +7,7 @@
  * @Data	: 05/01/2015 01:50:57
  */
 
+use \Admin\Controle as AdminC;
 
 class Controle{
     private $modulo, $controle, $acao, $params = array();
@@ -32,7 +33,7 @@ class Controle{
     } // Fim do método _acao
 
     public function _params($v=null){
-        // Não funcionou dessa maneira
+        // CORRIGIR: Não funcionou dessa maneira
         // return $this->params = filter_var(is_null($v) ? $this->params : $v, null, FILTER_REQUIRE_ARRAY);
         return is_null($v) ? (array)$this->params : $this->params = (array)$v;
     } // Fim do método _params
@@ -48,12 +49,10 @@ class Controle{
 
     /**
      * Validar o controle
-     * -------------------------------------------------------------------------
-     * Verificar se o controle foi carregado e se o método / ação existe dentro
-     * dele
      *
-     * @return bool - Retorna true se o controle e ação são válidos ou false
-     *  caso contrário
+     * Verificar se o controle foi carregado e se o método / ação existe dentro dele
+     *
+     * @return bool Retorna true se o controle e ação são válidos ou false caso contrário
      */
     public function _validar(){
         return class_exists($this->controle) || method_exists($this->controle, $this->acao);
@@ -63,7 +62,6 @@ class Controle{
 
     /**
      * Exceutar o controle solicitado
-     * -------------------------------------------------------------------------
      */
     public function _executar(){
         if( !$this->_validar() )
@@ -75,7 +73,7 @@ class Controle{
             ($this->modulo != 'admin' && $this->controle != '\Admin\Controle\Usuario' && $this->acao != '_alterarsenha') ):
 
             return  call_user_func_array(
-                array(new \Admin\Controle\Usuario(), '_formalterarsenha'), array()
+                array(new AdminC\Usuario(), '_formalterarsenha'), array()
             );
         endif;
 

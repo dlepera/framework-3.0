@@ -7,8 +7,7 @@
  * @Data	: 07/01/2015 16:51:21
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 ?>
 
@@ -51,7 +50,7 @@ if( !isset($params) )
                     <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-testar?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return; });" class="so-icone ico-email">
+                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return null; });" class="so-icone ico-email">
                             <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
                         </a>
                         <?php endif;
@@ -63,7 +62,7 @@ if( !isset($params) )
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -77,7 +76,7 @@ if( !isset($params) )
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

@@ -47,7 +47,6 @@ div.dl-formulario-mensagem.colorido.alerta{
     max-width: 96%;
     
     /* Posicionamento */
-    position: absolute;
     position: fixed;
     top     : 1%;
     left    : 25%;

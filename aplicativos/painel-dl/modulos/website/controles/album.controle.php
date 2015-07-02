@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class Album extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class Album extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\Album(), 'website', TXT_MODELO_ALBUM);
+        parent::__construct(new WebM\Album(), 'website', TXT_MODELO_ALBUM);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -24,7 +27,7 @@ class Album extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -55,12 +58,11 @@ class Album extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      *
-     * @param int $id - ID do registro a ser selecionado
+     * @param int $pk Valor da PK do registro a ser selecionado
      */
-    public function _mostrarform($id=null){
-        $inc = $this->_formpadrao('album', 'albuns-de-fotos/salvar', 'albuns-de-fotos/salvar', 'website/albuns-de-fotos', $id);
+    public function _mostrarform($pk = null){
+        $inc = $this->_formpadrao('album', 'albuns-de-fotos/salvar', 'albuns-de-fotos/salvar', 'website/albuns-de-fotos', $pk);
 
         # Visão
         $this->_carregarhtml('form_album');
@@ -68,9 +70,9 @@ class Album extends \Geral\Controle\PainelDL{
 
         if( !$inc ):
             # Lista de fotos
-            $mf = new \WebSite\Modelo\FotoAlbum();
-            $lf = $mf->_listar("foto_album = {$this->modelo->id} AND foto_album_publicar = 1", 'foto_album_capa DESC, foto_album_id DESC',
-                    'foto_album_id, foto_album_titulo, foto_album_descr, foto_album_capa+0 AS foto_album_capa, foto_album_imagem');
+            $mf = new WebM\FotoAlbum();
+            $lf = $mf->_listar("foto_album = {$this->modelo->id} AND foto_album_publicar", 'foto_album_capa DESC, foto_album_id DESC',
+                    'foto_album_id, foto_album_titulo, foto_album_descr, foto_album_capa, foto_album_imagem');
 
             # Parâmetros
             $this->visao->_adparam('fotos', $lf);

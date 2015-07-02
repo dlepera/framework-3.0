@@ -38,7 +38,7 @@ class Email{
      */
     public function _carregarconf($id=null){
         # Selecionar as configurações principais ou definida pelo ID
-        is_null($id) ? $this->mod_ce->_selecionarprincipal() : $this->mod_ce->_selecionarID($id);
+        is_null($id) ? $this->mod_ce->_selecionarprincipal() : $this->mod_ce->_selecionarPK($id);
 
         # Definir servidor como SMTP
         $this->obj_pm->IsSMTP();

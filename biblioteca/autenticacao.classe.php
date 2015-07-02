@@ -7,46 +7,45 @@
  * @Data	: 21/01/2015 15:13:37
  */
 
+use \Admin\Modelo as AdminM;
+
 class Autenticacao{
     protected $sessao_prefixo, $sessao_nome = 'PHPSESSID', $sessao_id = 11;
     protected $usuario;
 
     # Configurações do usuário root
     private $root = array(
-        'usuario_id'            =>  -1,
-        'usuario_info_grupo'    =>  -1,
-        'grupo_usuario_descr'   =>  'Super Admin',
-        'usuario_info_nome'     =>  'Super Admin',
-        'usuario_info_email'    =>  'dlepera88@gmail.com',
-        'usuario_info_telefone' =>  '',
-        'usuario_info_sexo'     =>  'M',
-        'usuario_info_login'    =>  'root',
-        'usuario_info_senha'    =>  '64eedda5e60fdb52fc29aa903ce9002a', /* MD5 x 2 */
-        'idioma_sigla'          =>  'pt_BR',
-        'tema_diretorio'        =>  'painel-dl/',
-        'formato_data_completo' =>  'd/m/Y H:i',
-        'formato_data_data'     =>  'd/m/Y',
-        'formato_data_hora'     =>  'H:i',
-        'usuario_pref_num_registros' => 20,
-        'usuario_pref_exibir_id+0 AS usuario_pref_exibir_id'        =>  1,
-        'usuario_pref_filtro_menu+0 AS usuario_pref_filtro_menu'    =>  1,
-        'usuario_conf_reset+0 AS usuario_conf_reset'                =>  0,
-        'usuario_conf_bloq+0 AS usuario_conf_bloq'                  =>  0
+        'usuario_id'                    =>  -1,
+        'usuario_info_grupo'            =>  -1,
+        'grupo_usuario_descr'           =>  'Super Admin',
+        'usuario_info_nome'             =>  'Super Admin',
+        'usuario_info_email'            =>  'dlepera88@gmail.com',
+        'usuario_info_telefone'         =>  '',
+        'usuario_info_sexo'             =>  'M',
+        'usuario_info_login'            =>  'root',
+        'usuario_info_senha'            =>  '64eedda5e60fdb52fc29aa903ce9002a', /* MD5 x 2 */
+        'idioma_sigla'                  =>  'pt_BR',
+        'tema_diretorio'                =>  'painel-dl/',
+        'formato_data_completo'         =>  'd/m/Y H:i',
+        'formato_data_data'             =>  'd/m/Y',
+        'formato_data_hora'             =>  'H:i',
+        'usuario_pref_num_registros'    => 20,
+        'usuario_pref_exibir_id'        =>  1,
+        'usuario_pref_filtro_menu'      =>  1,
+        'usuario_conf_reset'            =>  0,
+        'usuario_conf_bloq'             =>  0
     );
 
     # Informações dos usuários a serem carregados no login
     public $usr_infos = array(
-        'usuario_id', 'usuario_info_grupo', 'grupo_usuario_descr', 'usuario_info_nome',
-        'usuario_info_email', 'usuario_info_telefone', 'usuario_info_login', 'idioma_sigla',
-        'tema_diretorio', 'formato_data_completo', 'formato_data_data', 'formato_data_hora',
-        'usuario_pref_num_registros', 'usuario_pref_exibir_id+0 AS usuario_pref_exibir_id',
-        'usuario_pref_filtro_menu+0 AS usuario_pref_filtro_menu', 'usuario_conf_reset+0 AS usuario_conf_reset',
-        'usuario_conf_bloq+0 AS usuario_conf_bloq', 'usuario_ultimo_login'
+        'usuario_id', 'usuario_info_grupo', 'grupo_usuario_descr', 'usuario_info_nome', 'usuario_info_email', 'usuario_info_telefone',
+	    'usuario_info_login', 'idioma_sigla', 'tema_diretorio', 'formato_data_completo', 'formato_data_data', 'formato_data_hora',
+        'usuario_pref_num_registros', 'usuario_pref_exibir_id', 'usuario_pref_filtro_menu', 'usuario_conf_reset', 'usuario_conf_bloq',
+	    'usuario_ultimo_login'
     );
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _sessao_prefixo($v=null){
         return $this->sessao_prefixo = filter_var(is_null($v) ? $this->sessao_prefixo : $v, FILTER_SANITIZE_STRING);
@@ -82,7 +81,7 @@ class Autenticacao{
         $this->_verificarlogin( !preg_match('~/?login~', DL3_URL) );
 
         # Iniciar o modelo de usuário
-        $this->usuario = new \Admin\Modelo\Usuario();
+        $this->usuario = new AdminM\Usuario();
     } // Fim do método __construct
 
 
@@ -139,15 +138,17 @@ class Autenticacao{
 
 
 
-    /**
-     * Realizar o login no sistema
-     * -------------------------------------------------------------------------
-     *
-     * @param string $u - nome de usuário
-     * @param string $s - senha do usuário
-     * @param string $c - define se a senha deve ser criptografada
-     */
-    public function _fazerlogin($u,$s,$c=true){
+	/**
+	 * Realizar o login no sistema
+	 *
+	 * @param string $u Nome de usuário
+	 * @param string $s Senha do usuário
+	 * @param bool   $c Define se a senha deve ser criptografada
+	 *
+	 * @return bool
+	 * @throws Exception
+	 */
+    public function _fazerlogin($u, $s, $c = true){
         # Login do Super Admin ou login de usuário do sistema
         if( $u == $this->root['usuario_info_login'] && ($c ? md5(md5($s)) : $s) == $this->root['usuario_info_senha'] ):
             $i = $this->usr_infos;
@@ -176,20 +177,14 @@ class Autenticacao{
 
     public function _carregarsessao($d){
         # Carregar os dados na sessão
-        foreach( $d as $ch => $vr ):
-            if( preg_match('~\sAS\s([a-z_-]+)~', $ch, $nm) ):
-                $ch = end($nm);
-            endif;
-
+        foreach( $d as $ch => $vr )
             $_SESSION[$ch] = $vr;
-        endforeach;
     } // Fim do método _carregarsessao
 
 
 
     /**
      * Realizar o logout
-     * -------------------------------------------------------------------------
      *
      * Remover todos os dados de sessão e sair do sistema
      */
@@ -210,7 +205,6 @@ class Autenticacao{
 
     /**
      * Verificar o permissionamento do usuário logado
-     * -------------------------------------------------------------------------
      *
      * @params string $m - nome da classe que está sendo executada
      * @params string $a - nome da ação que será executada
@@ -219,7 +213,7 @@ class Autenticacao{
         # Permitir para o Super Admin
         if( $_SESSION['usuario_id'] == -1 ) return true;
 
-        $mgu = new \Admin\Modelo\GrupoUsuario($_SESSION['usuario_info_grupo']);
+        $mgu = new AdminM\GrupoUsuario($_SESSION['usuario_info_grupo']);
         return (bool)$mgu->_verificarperm($m,$a);
     } // Fim do método _verificarperm
 } // Fim da classe Autenticacao

@@ -9,12 +9,11 @@
 
 namespace Geral\Modelo;
 
-class ConfiguracaoSite extends \Geral\Modelo\Principal{
+class ConfiguracaoSite extends Principal{
     protected $id, $tema = 1, $formato_data = 1;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _tema($v=null){
         return $this->tema = filter_var(is_null($v) ? $this->tema : $v, FILTER_VALIDATE_INT);
@@ -34,18 +33,17 @@ class ConfiguracaoSite extends \Geral\Modelo\Principal{
                 . ' INNER JOIN dl_painel_temas AS T ON( T.tema_id = C.configuracao_tema )'
                 . ' INNER JOIN dl_painel_formatos_data AS F ON( F.formato_data_id = C.configuracao_formato_data )';
 
-        $this->_selecionarID(0);
+        $this->_selecionarPK(0);
     } // Fim do método __construct
 
 
 
     /**
      * Desabilitar os métodos de edição
-     * -------------------------------------------------------------------------
      *
      * @return void
      */
-    public function _salvar($s = true, $ci = null, $ce = null, $ipk = false){ return; }
+    public function _salvar(){ return; }
     public function _remover(){ return; }
     public function _alternarpublicacao(){ return; }
 } // Fim do Modelo ConfiguracaoSite

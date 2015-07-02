@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class FotoAlbum extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class FotoAlbum extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\FotoAlbum(), 'website', TXT_MODELO_FOTO);
+        parent::__construct(new WebM\FotoAlbum(), 'website', TXT_MODELO_FOTO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -27,7 +30,7 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -35,15 +38,14 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param bool $mst - página mestra a ser carregada
-     */
-    protected function _mostrarform($id=null, $mst=null){
-        $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $id);
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro
+	 *
+	 * @param int  $pk  Valor da PK do registro a ser selecionado
+	 * @param bool $mst Nome da página mestra a ser carregada
+	 */
+    protected function _mostrarform($pk = null, $mst = null){
+        $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $pk);
 
         # Visão
         $this->_carregarhtml('form_foto', $mst);
@@ -54,7 +56,6 @@ class FotoAlbum extends \Geral\Controle\PainelDL{
 
     /**
      * Realizar o upload das fotos
-     * -------------------------------------------------------------------------
      */
     protected function _upload(){
         $this->modelo->_upload();

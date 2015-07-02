@@ -9,12 +9,13 @@
 
 namespace WebSite\Modelo;
 
-class GoogleAnalytics extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class GoogleAnalytics extends GeralM\Principal{
     protected $id, $apelido, $usuario, $senha, $perfil_id, $codigo_ua, $principal = 0, $publicar = 1, $delete = 0;
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _apelido($v=null){
         return $this->apelido = filter_var(is_null($v) ? $this->apelido : $v, FILTER_SANITIZE_STRING);
@@ -42,30 +43,30 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_google_analytics', 'ga_');
 
-        if( !empty($id) )
-            $this->_selecionarID((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Salvar o registro no banco de dados
-     * -------------------------------------------------------------------------
-     *
-     * @param boolean $s - define se o registro será salvo ou apenas será gerada a query de insert/update
-     * @param array $ci - vetor com os campos a serem considerados
-     * @param array $ce - vetor com os campos a serem desconsiderados
-     * @param bool $ipk - define se o campo PK será considerado para inserção
-     */
-    public function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	/**
+	 * Salvar determinado registro
+	 *
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         # Apenas um registro pode conter a Flag 'principal' marcada, portanto, caso
         # a flag do registro atual esteja marcada, deve-se desmarcar a flag de
         # qualquer outro registro
-        if( $this->principal == 1 )
-            \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
+        $this->principal AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
 
         return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
@@ -74,7 +75,6 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
 
     /**
      * Selecionar a configuração principal
-     * -------------------------------------------------------------------------
      */
     public function _selecionar_principal(){
         $l = $this->_listar("{$this->bd_prefixo}principal", null, "{$this->bd_prefixo}id AS ID", 0, 1, -1);
@@ -82,6 +82,6 @@ class GoogleAnalytics extends \Geral\Modelo\Principal{
         if( $l === false )
             throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);
 
-        return $this->_selecionarID($l['ID']);
+        return $this->_selecionarPK($l['ID']);
     } // Fim do método _selecionar_principal
 } // Fim do Modelo GoogleAnalytics

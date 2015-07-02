@@ -9,7 +9,9 @@
 
 namespace WebSite\Modelo;
 
-class ContatoSite extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class ContatoSite extends GeralM\Principal{
     protected $id, $nome, $email, $telefone, $assunto, $mensagem, $delete = 0;
 
     public function __construct($id=null){
@@ -22,14 +24,13 @@ class ContatoSite extends \Geral\Modelo\Principal{
                 . ' WHERE CS.%sdelete = 0';
 
         if( empty($id) )
-            $this->_selecionarID((int)$id);
+            $this->_selecionarPK((int)$id);
     } // Fim do método __construct
 
 
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function _nome($v=null){
         return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
@@ -53,11 +54,9 @@ class ContatoSite extends \Geral\Modelo\Principal{
 
 
 
-    /**
-     * Salvar o registro
-     * -------------------------------------------------------------------------
-     *
-     * Impedir que o contato recebido do site seja alterado
+
+	/**
+	 * Impedir que o contato recebido do site seja alterado
      */
     protected function _salvar(){ return; } // Fim do método _salvar
 
@@ -65,12 +64,11 @@ class ContatoSite extends \Geral\Modelo\Principal{
 
     /**
      * Relatório de contatos recebidos por assunto
-     * -------------------------------------------------------------------------
      *
      * Gerar um relatório simples para mostrar quantos contatos foram recebidos
      * para cada assunto
      *
-     * @return string [HTML] tabela demosntrando o resultado do relatório
+     * @return string Trecho HTML demosntrando o resultado do relatório
      */
     public function _rel_contar_por_assuntos(){
         $num = $this->_qtde_registros();

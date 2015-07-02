@@ -7,8 +7,7 @@
  * @Data	: 05/01/2015 17:31:20
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+!isset($params) AND $params = $this->_obterparams();
 
 ?>
 
@@ -24,8 +23,8 @@ if( !isset($params) )
             <input type="email" name="email" id="mail-email" class="form-controle" required/>
         </p>
 
-        <p class="form-paragr" class="form-rotulo">
-            <label for="tel-telefone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
+        <p class="form-paragr form-rotulo">
+            <label for="tel-fone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
 
             <span class="form-dica">
                 <!-- Alternar a mácara do telefone -->
@@ -68,7 +67,6 @@ if( !isset($params) )
     $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
 
     $('#alt-mask-fone').on('change', function(){
-        var $th = $(this);
         var chk = this.checked;
 
         if( chk ) $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');

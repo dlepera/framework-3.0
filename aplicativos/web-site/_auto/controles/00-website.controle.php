@@ -9,16 +9,20 @@
 
 namespace Geral\Controle;
 
-class WebSite extends \Geral\Controle\Principal{
+use \Geral\Modelo as GeralM;
+use \Contato\Modelo as ContatoM;
+use \Home\Modelo as HomeM;
+
+class WebSite extends Principal{
     public function __construct($m, $nm, $nc){
         parent::__construct($m, $nm, $nc);
 
         # Selecionar a configuração do Google Analytics ativa
-        $mga = new \Home\Modelo\GoogleAnalytics();
+        $mga = new HomeM\GoogleAnalytics();
         $lga = $mga->_listar('ga_publicar = 1', null, 'ga_codigo_ua');
 
         # Informações para contato
-        $mdc = new \Contato\Modelo\DadoContato();
+        $mdc = new ContatoM\DadoContato();
 
         # Listar as redes sociais
         $lrs = $mdc->_listar('dado_contato_publicar AND tipo_dado_rede_social', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
@@ -27,7 +31,7 @@ class WebSite extends \Geral\Controle\Principal{
         $ldc = $mdc->_listar('dado_contato_publicar AND NOT tipo_dado_rede_social', 'tipo_dado_descr', 'tipo_dado_descr, tipo_dado_icone, dado_contato_descr');
 
         # Selecionar as configurações para o website
-        $mcf = new \Geral\Modelo\ConfiguracaoSite();
+        $mcf = new GeralM\ConfiguracaoSite();
         $lcf = $mcf->_listar(null, null, 'tema_diretorio, formato_data_data, formato_data_hora, formato_data_completo', 0, 1, -1);
 
         # Parâmetros

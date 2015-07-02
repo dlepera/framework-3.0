@@ -9,31 +9,32 @@
 
 namespace Login\Modelo;
 
-class Recuperacao extends \Geral\Modelo\Principal{
+use \Geral\Modelo as GeralM;
+
+class Recuperacao extends GeralM\Principal{
     # Propriedades desse modelo
     protected $id, $usuario, $hash, $status = 'E';
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
-    public function _usuario($valor=null){
+    public function _usuario($v=null){
         return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario
 
-    public function _hash($valor=null){
-        return is_null($valor) ? (string)$this->hash
-        : $this->hash = (string)md5(crypt($valor));
+    public function _hash($v=null){
+        return is_null($v) ? (string)$this->hash
+        : $this->hash = (string)md5(crypt($v));
     } // Fim do método _hash
 
-    public function _status($valor=null){
+    public function _status($v=null){
         return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '~^[ACRX]{1}$~')));
     } // Fim do método _status
 
 
 
 
-    public function __construct($id=0){
+    public function __construct($pk=0){
         parent::__construct('dl_painel_usuarios_recuperacoes', 'recuperacao_');
 
         # Query de seleção
@@ -41,7 +42,6 @@ class Recuperacao extends \Geral\Modelo\Principal{
                 . ' FROM %s AS R'
                 . ' INNER JOIN dl_painel_usuarios AS U ON( U.usuario_id = R.recuperacao_usuario )';
 
-        if( !empty($id) )
-            $this->_selecionarID($id);
+        $this->_selecionarPK($pk);
     } // Fim do método mágico __construct
 } // Fim do modelo Recuperacao

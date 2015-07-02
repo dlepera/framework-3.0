@@ -9,9 +9,12 @@
 
 namespace WebSite\Controle;
 
-class AssuntoContato extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+
+class AssuntoContato extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\AssuntoContato(), 'website', TXT_MODELO_ASSUNTOCONTATO);
+        parent::__construct(new WebM\AssuntoContato(), 'website', TXT_MODELO_ASSUNTOCONTATO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -26,7 +29,7 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -36,7 +39,6 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor, ( CASE assunto_contato_publicar'
@@ -58,12 +60,11 @@ class AssuntoContato extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      *
-     * @param int $id - ID do registro a ser selecionado
+     * @param int $pk - PK do registro a ser selecionado
      */
-    protected function _mostrarform($id=null){
-        $inc = $this->_formpadrao('assunto', 'assuntos-contato/salvar', 'assuntos-contato/salvar', 'website/assuntos-contato', $id);
+    protected function _mostrarform($pk = null){
+        $inc = $this->_formpadrao('assunto', 'assuntos-contato/salvar', 'assuntos-contato/salvar', 'website/assuntos-contato', $pk);
 
         # Visão
         $this->_carregarhtml('form_assunto');

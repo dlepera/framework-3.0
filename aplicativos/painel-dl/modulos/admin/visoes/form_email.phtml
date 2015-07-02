@@ -7,8 +7,11 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-if( !isset($params) )
-    $params = $this->_obterparams();
+/*
+ * CORRIGIR: O recurso 'Testar configuração' deve levar em consideração o que está no formulário e não o que está salvo no banco de dados
+ */
+
+!isset($params) AND $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -42,7 +45,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_REQUER_AUTENT; ?></span><br/>
-                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?= $mod->autent ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?php $mod->autent AND print(' CHECKED'); ?>/>
                 <label for="chk-autent"></label>
             </p>
 
@@ -50,8 +53,8 @@ $mod = $params['modelo'];
                 <label for="sel-cripto" class="form-rotulo"><?= TXT_ROTULO_TIPO_CRIPTO; ?>:</label><br/>
                 <select name="cripto" id="sel-cripto" class="form-controle">
                     <option value=""><?= TXT_OPCAO_NENHUMA; ?></option>
-                    <option value="tls"<?= $mod->cripto == 'tls' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_TLS; ?></option>
-                    <option value="ssl"<?= $mod->cripto == 'ssl' ? ' SELECTED' : ''; ?>><?= TXT_OPCAO_SSL; ?></option>
+                    <option value="tls"<?php $mod->cripto == 'tls' AND print(' SELECTED'); ?>><?= TXT_OPCAO_TLS; ?></option>
+                    <option value="ssl"<?php $mod->cripto == 'ssl' AND print(' SELECTED'); ?>><?= TXT_OPCAO_SSL; ?></option>
                 </select>
             </p>
 
@@ -87,7 +90,7 @@ $mod = $params['modelo'];
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_HTML; ?></span><br/>
                 <span class="form-dica"><?= MSG_DICA_EMAIL_HTML; ?></span><br/>
-                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?= $mod->html ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?php $mod->html AND print(' CHECKED'); ?>/>
                 <label for="chk-html"></label>
             </p>
         </fieldset>
@@ -95,7 +98,7 @@ $mod = $params['modelo'];
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
             <span class="form-dica"><?= MSG_DICA_EMAIL_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?= $mod->principal ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal AND print(' CHECKED'); ?>/>
             <label for="chk-principal"></label>
         </p>
 
@@ -104,7 +107,7 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
 
             <?php if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
-            <a href="javascript:;" onclick="$sf.executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
+            <a href="javascript:void;" onclick="$sf.executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
                 <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
             </a>
             <?php endif; ?>

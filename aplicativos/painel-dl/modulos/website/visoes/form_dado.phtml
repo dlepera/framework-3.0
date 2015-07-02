@@ -35,7 +35,7 @@ $mod = $params['modelo'];
             </select>
 
             <?php if( $params['novo-tipo?'] ): ?>
-            <a href="javascript:;" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
+            <a href="javascript:void;" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
                 <?= TXT_LINK_NOVO_TIPO_DADO; ?>
             </a>
             <?php endif; ?>
@@ -43,12 +43,12 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?= !empty($params['expreg']) ? ' pattern="'. $params['expreg'] .'"': ''; ?> class="form-controle" required/>
+            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?php !empty($params['expreg']) AND print(' pattern="'. $params['expreg'] .'"'); ?> class="form-controle" required/>
         </p>
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?= $mod->publicar ? ' CHECKED' : ''; ?>/>
+            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar AND print(' CHECKED'); ?>/>
             <label for="chk-publicar"></label>
         </p>
 

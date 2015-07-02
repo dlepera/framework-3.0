@@ -9,7 +9,9 @@
 
 namespace Modulo\Controle;
 
-class Controle extends \Geral\Controle\Principal{
+use \Geral\Controle as GeralC;
+
+class Controle extends GeralC\Principal{
     public function __construct(){
         parent::__construct(new \Modelo, '', TXT_MODELO_);
 
@@ -23,7 +25,7 @@ class Controle extends \Geral\Controle\Principal{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -33,10 +35,9 @@ class Controle extends \Geral\Controle\Principal{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     public function _mostrarlista(){
-        $this->_listapadrao($c, $o, null);
+        $this->_listapadrao('[campos]', '[ordem]', null);
 
         # Visão
         $this->_carregarhtml('lista_');
@@ -50,15 +51,14 @@ class Controle extends \Geral\Controle\Principal{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID do registro a ser selecionado
-     * @param bool $tr - define se serão carregados o topo e rodapé da página
-     */
-    public function _mostrarform($id=null,$mst=null){
-        $inc = $this->_formpadrao($form_id, $form_ia, $form_ea, $url, $id);
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro
+	 *
+	 * @param int  $pk  Valor da PK do registro a ser selecionado
+	 * @param bool $mst Nome da página mestra a ser carregada
+	 */
+    public function _mostrarform($pk = null, $mst = null){
+        $inc = $this->_formpadrao('[id formulario]', '[acao de inclusao]', '[acao de edicao]', '[url de redirecionamento]', $pk);
 
         # Visão
         $this->_carregarhtml('form_', $mst);

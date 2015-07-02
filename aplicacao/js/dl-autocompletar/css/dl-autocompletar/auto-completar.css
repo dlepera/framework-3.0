@@ -50,8 +50,7 @@
     line-height: 25px;
     
     /* Aparência */
-    background          : url('icones/pesquisar-16x16.png') no-repeat;
-    background-position : left 4.5px top 4.5px;
+    background          : url('icones/pesquisar-16x16.png') no-repeat left 4.5px top;
     border              : none;
     border-bottom       : 1px solid #CCC; 
     
@@ -68,8 +67,8 @@
     opacity: 0;
     
     /* Tamanho */
-    width   : 0px;
-    height  : 0px;
+    width   : 0;
+    height  : 0;
     
     /* Posicionamento */
     position: absolute;

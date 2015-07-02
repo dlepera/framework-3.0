@@ -9,9 +9,13 @@
 
 namespace WebSite\Controle;
 
-class ConfiguracaoSite extends \Geral\Controle\PainelDL{
+use \Geral\Controle as GeralC;
+use \WebSite\Modelo as WebM;
+use \Desenvolvedor\Modelo as DevM;
+
+class ConfiguracaoSite extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new \WebSite\Modelo\ConfiguracaoSite(), 'website', TXT_MODELO_CONFIGURACAOSITE);
+        parent::__construct(new WebM\ConfiguracaoSite(), 'website', TXT_MODELO_CONFIGURACAOSITE);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
             $post = filter_input_array(INPUT_POST, array(
@@ -24,7 +28,7 @@ class ConfiguracaoSite extends \Geral\Controle\PainelDL{
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
             # Selecionar as informações atuais
-            $this->modelo->_selecionarID($post['id']);
+            $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -34,7 +38,6 @@ class ConfiguracaoSite extends \Geral\Controle\PainelDL{
 
     /**
      * Mostrar o formulário de inclusão e edição do registro
-     * -------------------------------------------------------------------------
      */
     public function _mostrarform(){
         $this->_formpadrao('config', null, 'configuracoes/salvar', 'website/configuracoes', 1);
@@ -44,11 +47,11 @@ class ConfiguracaoSite extends \Geral\Controle\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACAOSITE;
 
         # Selecionar os temas
-        $mtm = new \Desenvolvedor\Modelo\Tema();
+        $mtm = new DevM\Tema();
         $ltm = $mtm->_carregarselect('tema_publicar = 1', false);
 
         # Selecionar os formatos de datas
-        $mfd = new \Desenvolvedor\Modelo\FormatoData();
+        $mfd = new DevM\FormatoData();
         $lfd = $mfd->_carregarselect('formato_data_publicar = 1', false);
 
         # Parâmetros
