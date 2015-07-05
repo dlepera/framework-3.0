@@ -55,8 +55,8 @@ class PainelDL extends Principal{
         endif;
 
         return call_user_func_array(
-            array($this, $n),
-            !empty($a) ? $a : array()
+            [$this, $n],
+            !empty($a) ? $a : []
         );
     } // Fim do método __call
 } // Fim do Controle PainelDL

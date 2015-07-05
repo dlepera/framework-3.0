@@ -73,7 +73,7 @@ class LogRegistro extends Principal{
         # Query de seleção
         $this->bd_select = 'SELECT %s FROM %s';
 
-        $this->_selecionarPK(array($tbl, $idreg));
+        $this->_selecionarPK([$tbl, $idreg]);
     } // Fim do método mágico de construção da classe
 
 
@@ -88,7 +88,7 @@ class LogRegistro extends Principal{
 	 * @throws \Exception
 	 */
     public function _salvar($r = false, $s = true){
-        $this->_selecionarPK(array($this->tabela, $this->idreg));
+        $this->_selecionarPK([$this->tabela, $this->idreg]);
 
         # Obter o ID do usuário
         $vl     = \DL3::$aut_o instanceof \Autenticacao ? \DL3::$aut_o->_verificarlogin(false) : false;

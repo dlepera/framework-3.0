@@ -10,7 +10,7 @@
 use \Admin\Controle as AdminC;
 
 class Controle{
-    private $modulo, $controle, $acao, $params = array();
+    private $modulo, $controle, $acao, $params = [];
 
     /**
      * 'Gets' e 'Sets' das propriedades
@@ -38,7 +38,7 @@ class Controle{
         return is_null($v) ? (array)$this->params : $this->params = (array)$v;
     } // Fim do método _params
 
-    public function __construct($m, $c, $a, array $p = array()){
+    public function __construct($m, $c, $a, array $p = []){
         $this->_modulo($m);
         $this->_controle($c);
         $this->_acao($a);
@@ -73,13 +73,13 @@ class Controle{
             ($this->modulo != 'admin' && $this->controle != '\Admin\Controle\Usuario' && $this->acao != '_alterarsenha') ):
 
             return  call_user_func_array(
-                array(new AdminC\Usuario(), '_formalterarsenha'), array()
+                [new AdminC\Usuario(), '_formalterarsenha'], []
             );
         endif;
 
         return call_user_func_array(
-            array($c, $this->acao),
-            !empty($this->params) ? $this->params : array()
+            [$c, $this->acao],
+            !empty($this->params) ? $this->params : []
         );
     } // Fim do método _executar
 } // Fim da classe Controle

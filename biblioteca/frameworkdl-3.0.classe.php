@@ -105,14 +105,14 @@ class FrameworkDL3{
     public static $modulo_atual;
 
     # Arquivo de configuração
-    private $a_config = array('diretorio' => '', 'arquivo' => '');
+    private $a_config = ['diretorio' => '', 'arquivo' => ''];
 
     # Prefixos de extensão de arquivos
     const PRFIX_CONFIG = 'conf', PRFIX_ROTAS = 'rota', PRFIX_IDIOMAS = 'idioma', PRFIX_MODELOS = 'modelo',
             PRFIX_BIBL = 'classe', PRFIX_TEMAS = 'tema', PRFIX_CONTROLES = 'controle';
 
     # Configurações da aplicação
-    private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = array(), $ap_timezone = 'America/Sao_Paulo';
+    private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = [], $ap_timezone = 'America/Sao_Paulo';
     public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8',
             $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
 
@@ -402,11 +402,12 @@ class FrameworkDL3{
     private function _conectarbd(){
         if( $this->bd_ativar ){
 	        try{
-		        self::$bd_conex = new PDODL( "{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}", $this->bd_usuario, $this->bd_senha );
+		        self::$bd_conex = new PDODL("{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}", $this->bd_usuario, $this->bd_senha);
+		        self::$bd_conex->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		        if( $this->bd_driver == 'mysql' ) self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
 	        } catch( PDOException $e ){
-		        echo '<pre>', var_dump( $e ), '</pre>';
+		        var_dump($e);
 	        } // Fim try catch
         } // Fim if( $this->bd_ativar )
     } // Fim do método _conectarbd
@@ -486,12 +487,12 @@ class FrameworkDL3{
         if( !file_exists($da) ) return;
 
         # Lista de diretórios a serem inclusos automaticamente
-        $dir = array(
+        $dir = [
             self::PRFIX_CONTROLES => $da . self::DIR_CONTROLES,
             self::PRFIX_MODELOS => $da . self::DIR_MODELOS,
             self::PRFIX_IDIOMAS => $da . self::DIR_IDIOMAS,
             self::PRFIX_ROTAS => $da . self::DIR_ROTAS
-        );
+        ];
 
         foreach( $dir as $ch => $d ):
             if( $ch == self::PRFIX_IDIOMAS )

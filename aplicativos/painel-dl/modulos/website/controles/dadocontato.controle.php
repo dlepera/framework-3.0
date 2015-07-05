@@ -16,12 +16,12 @@ class DadoContato extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\DadoContato(), 'website', TXT_MODELO_DADOCONTATO);
 
-        $post = filter_input_array(INPUT_POST, array(
+        $post = filter_input_array(INPUT_POST, [
             'id'        =>  FILTER_VALIDATE_INT,
             'tipo'      =>  FILTER_VALIDATE_INT,
             'descr'     =>  FILTER_SANITIZE_STRING,
             'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-        ));
+        ]);
 
         # Converter o encode
         \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -47,10 +47,10 @@ class DadoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_DADOS_CONTATO;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'dado_contato_descr', 'texto' => TXT_ROTULO_DESCR),
-            array('valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'dado_contato_descr', 'texto' => TXT_ROTULO_DESCR],
+            ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO]
+        ]);
     } // Fim do método _mostrarlista
 
 
@@ -69,7 +69,7 @@ class DadoContato extends GeralC\PainelDL{
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
         $m_td = new WebM\TipoDadoContato();
-        $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);
+        $l_td = $m_td->_carregarselect('tipo_dado_publicar', false);
 
         if( !is_null($this->modelo->id) ):
             $m_td->_selecionarPK($this->modelo->tipo);

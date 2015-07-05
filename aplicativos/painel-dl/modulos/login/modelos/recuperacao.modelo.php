@@ -28,7 +28,7 @@ class Recuperacao extends GeralM\Principal{
     } // Fim do método _hash
 
     public function _status($v=null){
-        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '~^[ACRX]{1}$~')));
+        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[ACRX]{1}$~']]);
     } // Fim do método _status
 
 

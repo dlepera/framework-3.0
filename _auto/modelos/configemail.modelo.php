@@ -86,7 +86,7 @@ class ConfigEmail extends Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
 		# Apenas um registro pode ter a flag 'principal' marcada. Portanto, caso
 		# o registro atual tenha a flag, a mesma deve ser desmarcada em qualquer
 		# outro registro

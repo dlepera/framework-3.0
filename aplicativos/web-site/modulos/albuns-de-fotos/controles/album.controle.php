@@ -22,16 +22,15 @@ class Album extends GeralC\WebSite{
      * Mostrar a lista de registros
      */
     public function _mostrarlista(){
-        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao, foto_album_imagem', 'log_registro_data_criacao DESC', 20,
-                '_listar', false);
+        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao, foto_album_imagem', 'log_registro_data_criacao DESC', 20, '_listar', false);
 
         # Visão
         $this->_carregarhtml('lista_albuns');
         $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => '', 'texto' => '')
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME]
+        ]);
     } // Fim do método _mostrarlista
 } // Fim do Controle Controle

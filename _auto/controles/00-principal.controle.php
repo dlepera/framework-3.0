@@ -28,8 +28,8 @@ abstract class Principal{
 
     public function __call($n,$a){
         return call_user_func_array(
-            array($this, $n),
-            !empty($a) ? $a : array()
+            [$this, $n],
+            !empty($a) ? $a : []
         );
     } // Fim do método __call
 
@@ -156,7 +156,7 @@ abstract class Principal{
         $this->visao->_adparam('get-pg', $get_pg = filter_input(INPUT_GET, 'pg', FILTER_VALIDATE_INT));
 
         # Filtro
-        $fl = array();
+        $fl = [];
 
         if( !empty($fa) ) $fl[] = $fa;
         if( !empty($get_t) && !empty($get_c) ) $fl[] = "{$get_c} LIKE '%{$get_t}%'";
@@ -202,10 +202,10 @@ abstract class Principal{
 	protected function _alternarpublicacao($a){
         $qt = $this->_executaremlote('_alternarpublicacao');
 
-        $msg = array(
-            'publicar'  =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_PUBLICAR),
-            'ocultar'   =>  array(ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR)
-        );
+        $msg = [
+            'publicar'  =>  [ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_PUBLICAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_PUBLICAR],
+            'ocultar'   =>  [ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR]
+        ];
 
         return \Funcoes::_retornar(
             !$qt->e ? $msg[$a][0] : $qt->e == 1 ? $msg[$a][1] : sprintf($msg[$a][2], $qt->e, $qt->t),

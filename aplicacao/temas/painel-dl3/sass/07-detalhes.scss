@@ -16,11 +16,11 @@
     /* Margens */
     margin-top: 2em;
     
-    > .det-grupo{
+    .det-grupo{
         
     }
     
-    > .det-titulo{
+    .det-titulo{
         /* Texto */
         color       : $c-mnnv-fundo;
         line-height : 2.5em;
@@ -32,11 +32,11 @@
         margin-bottom: 1em;
     }
     
-    > .det-paragr{
+    .det-paragr{
         /* Margens */
         padding: .5em 0;
         
-        > .det-rotulo{
+        .det-rotulo{
             /* Texto */
             color       : #AAA;
             line-height : 1.5em;

@@ -17,11 +17,11 @@ class Album extends GeralC\PainelDL{
         parent::__construct(new WebM\Album(), 'website', TXT_MODELO_ALBUM);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'nome'      =>  FILTER_SANITIZE_STRING,
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -37,7 +37,6 @@ class Album extends GeralC\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('album_id, album_nome, foto_album_imagem, ( CASE album_publicar'
@@ -49,9 +48,9 @@ class Album extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME]
+        ]);
     } // Fim do método _mostrarlista
 
 

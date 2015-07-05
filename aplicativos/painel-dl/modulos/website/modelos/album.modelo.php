@@ -12,13 +12,15 @@ namespace WebSite\Modelo;
 use \Geral\Modelo as GeralM;
 
 class Album extends GeralM\Principal{
+	# Diretório onde serão salvos as fotos desse álbum
+	const DIR_UPLOAD = 'aplicacao/uploads/albuns/%d';
     protected $id, $nome, $publicar = 1, $delete = 0;
 
     /*
      * 'Gets' e 'Sets' das propriedades
      */
     public function _nome($v=null){
-        return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
+        return $this->nome = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del']);
     } // Fim do método _nome
 
 
@@ -52,10 +54,14 @@ class Album extends GeralM\Principal{
 
         # Criar diretório do álbum
         if( !is_null($this->id) && $s ):
-            $d = "aplicacao/uploads/albuns/{$this->id}";
-
+            $d = sprintf(self::DIR_UPLOAD, $this->id);
             !file_exists($d) AND mkdir($d);
         endif;
+
+		# Salvar as fotos enviadas
+		$mfa = new FotoAlbum();
+		$mfa->foto_album = $this->id;
+		$mfa->_upload();
 
         return $r;
     } // Fim do método _salvar
@@ -66,6 +72,6 @@ class Album extends GeralM\Principal{
      * Remover o registro do banco de dados
      */
     protected function _remover(){
-	    unlink("aplicacao/uploads/{$this->id}") AND parent::_remover();
+		return \Arquivos::_removerdir(sprintf(self::DIR_UPLOAD, $this->id), true) AND parent::_remover();
     } // Fim do método _remover
 } // Fim do Modelo Album

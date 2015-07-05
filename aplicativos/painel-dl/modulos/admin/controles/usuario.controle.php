@@ -22,7 +22,7 @@ class Usuario extends GeralC\PainelDL{
         parent::__construct(new AdminM\Usuario(), 'admin', TXT_MODELO_USUARIO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'                =>  FILTER_VALIDATE_INT,
                 'info_grupo'        =>  FILTER_VALIDATE_INT,
                 'info_nome'         =>  FILTER_SANITIZE_STRING,
@@ -39,7 +39,7 @@ class Usuario extends GeralC\PainelDL{
                 'pref_filtro_menu'  =>  FILTER_VALIDATE_BOOLEAN,
                 'conf_reset'        =>  FILTER_VALIDATE_BOOLEAN,
                 'conf_bloq'         =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -65,11 +65,11 @@ class Usuario extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_USUARIOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_GRUPO),
-            array('valor' => 'usuario_info_nome', 'texto' => TXT_ROTULO_NOME),
-            array('valor' => 'usuario_info_email', 'texto' => TXT_ROTULO_EMAIL)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_GRUPO],
+            ['valor' => 'usuario_info_nome', 'texto' => TXT_ROTULO_NOME],
+            ['valor' => 'usuario_info_email', 'texto' => TXT_ROTULO_EMAIL]
+        ]);
         $this->visao->_adparam('perm-bloquear?', \DL3::$aut_o->_verificarperm(get_called_class(), '_bloquear'));
     } // Fim do método _mostrarlista
 
@@ -77,7 +77,7 @@ class Usuario extends GeralC\PainelDL{
 
 
 	/**
-	 * Mostrar o formulário de inclusão e edição do registro\
+	 * Mostrar o formulário de inclusão e edição do registro
 	 *
 	 * @param int    $pk PK do registro a ser selecionado
 	 * @param string $rd URL para onde será redirecionado depois do salvamento do registro
@@ -90,16 +90,16 @@ class Usuario extends GeralC\PainelDL{
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_USUARIO : TXT_PAGINA_TITULO_EDITAR_USUARIO;
 
         $m_gu = new AdminM\GrupoUsuario();
-        $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar = 1', false);
+        $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar', false);
 
         $m_id = new DevM\Idioma();
-        $l_id = $m_id->_carregarselect('idioma_publicar = 1', false);
+        $l_id = $m_id->_carregarselect('idioma_publicar', false);
 
         $m_te = new DevM\Tema();
-        $l_te = $m_te->_listar('tema_publicar = 1', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
+        $l_te = $m_te->_listar('tema_publicar', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
 
         $m_fd = new DevM\FormatoData();
-        $l_fd = $m_fd->_carregarselect('formato_data_publicar = 1', false);
+        $l_fd = $m_fd->_carregarselect('formato_data_publicar', false);
 
         if( !$inc ):
             # Grupo de usuário

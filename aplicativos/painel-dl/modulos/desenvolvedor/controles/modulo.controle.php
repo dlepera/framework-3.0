@@ -17,7 +17,7 @@ class Modulo extends GeralC\PainelDL{
         parent::__construct(new DevM\Modulo(), 'desenvolvedor', TXT_MODELO_MODULO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'pai'       =>  FILTER_VALIDATE_INT,
                 'nome'      =>  FILTER_SANITIZE_STRING,
@@ -26,7 +26,7 @@ class Modulo extends GeralC\PainelDL{
                 'link'      =>  FILTER_SANITIZE_STRING,
                 'ordem'     =>  FILTER_VALIDATE_INT,
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -57,10 +57,10 @@ class Modulo extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_MODULOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'M.modulo_nome', 'texto' => TXT_ROTULO_NOME),
-            array('valor' => 'M.modulo_link', 'texto' => TXT_ROTULO_LINK)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'M.modulo_nome', 'texto' => TXT_ROTULO_NOME],
+            ['valor' => 'M.modulo_link', 'texto' => TXT_ROTULO_LINK]
+        ]);
     } // Fim do método _mostrarlista
 
 
@@ -110,13 +110,13 @@ class Modulo extends GeralC\PainelDL{
     protected function _novafunc(){
         $of = new DevM\ModuloFunc();
 
-        $post = filter_input_array(INPUT_POST, array(
+        $post = filter_input_array(INPUT_POST, [
             'id'            =>  FILTER_VALIDATE_INT,
             'func_modulo'   =>  FILTER_VALIDATE_INT,
             'descr'         =>  FILTER_SANITIZE_STRING,
             'classe'        =>  FILTER_SANITIZE_STRING,
-            'metodos'       =>  array('filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY)
-        ));
+            'metodos'       =>  ['filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY]
+        ]);
 
         # Converter o encode
         \Funcoes::_converterencode($post, \DL3::$ap_charset);

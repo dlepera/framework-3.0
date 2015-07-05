@@ -26,7 +26,7 @@ class AssuntoContato extends GeralM\Principal{
     } // Fim do método _email
 
     public function _cor($v=null){
-        return $this->cor = filter_var(is_null($v) ? $this->cor : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => EXPREG_COR_HEXA)));
+        return $this->cor = filter_var(is_null($v) ? $this->cor : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => EXPREG_COR_HEXA]]);
     } // Fim do método _email
 
 

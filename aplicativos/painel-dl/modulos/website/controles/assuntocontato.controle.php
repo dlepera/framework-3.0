@@ -17,13 +17,13 @@ class AssuntoContato extends GeralC\PainelDL{
         parent::__construct(new WebM\AssuntoContato(), 'website', TXT_MODELO_ASSUNTOCONTATO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'descr'     =>  FILTER_SANITIZE_STRING,
                 'email'     =>  FILTER_VALIDATE_EMAIL,
-                'cor'       =>  array('filter' => FILTER_VALIDATE_REGEXP, 'options' => array('regexp' => EXPREG_COR_HEXA)),
+                'cor'       =>  ['filter' => FILTER_VALIDATE_REGEXP, 'options' => ['regexp' => EXPREG_COR_HEXA]],
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -50,10 +50,10 @@ class AssuntoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_ASSUNTOS_CONTATO;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_DESCR),
-            array('valor' => 'assunto_contato_email', 'texto' => TXT_ROTULO_EMAIL)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_DESCR],
+            ['valor' => 'assunto_contato_email', 'texto' => TXT_ROTULO_EMAIL]
+        ]);
     } // Fim do método _mostrarlista
 
 

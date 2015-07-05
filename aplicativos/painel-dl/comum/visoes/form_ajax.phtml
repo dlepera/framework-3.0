@@ -17,7 +17,7 @@
             window.location = '<?= $params['url-depois']; ?>';
         },
         aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
-    });
+    }).on('reset', function(){ history.back(); });
     //]]>
 </script>
 [/DL3-SCRIPTS]

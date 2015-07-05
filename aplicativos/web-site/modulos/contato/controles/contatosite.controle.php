@@ -18,13 +18,13 @@ class ContatoSite extends GeralM\WebSite{
 
         # Tratar dados do _POST
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'nome'      =>  FILTER_SANITIZE_STRING,
                 'email'     =>  FILTER_VALIDATE_EMAIL,
                 'telefone'  =>  FILTER_SANITIZE_STRING,
                 'assunto'   =>  FILTER_VALIDATE_INT,
                 'mensagem'  =>  FILTER_DEFAULT
-            ));
+            ]);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;

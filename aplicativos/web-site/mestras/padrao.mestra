@@ -118,6 +118,7 @@ $params = $this->_obterparams();
     <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.0.plugin.js"></script>
     <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-galeria/dl-galeria-2.0.plugin.js"></script>
     <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
+    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes.js"></script>
 
     <!-- Google Analytics -->
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/google_analytics.phtml'; ?>

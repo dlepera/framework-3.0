@@ -9,11 +9,11 @@
 
 
 class Upload{
-    # Propriedades do upload
-    private $diretorio, $extensoes = array(), $campo;
+	# Propriedades do upload
+	private $diretorio, $extensoes  = [], $campo;
 
-    # Registro dos arquivos que foram salvos
-    public $arquivos_salvos = array();
+	# Registro dos arquivos que foram salvos
+	public $arquivos_salvos  = [];
 
 	/*
 	 * 'Gets' e 'Sets' das propriedades
@@ -32,10 +32,10 @@ class Upload{
 
 
 
-    public function __construct($dir = '', $cmp = null){
-        $this->_diretorio($dir);
-	    $this->_campo($cmp);
-    } // Fim do método de construção da classe
+	public function __construct($dir = '', $cmp = null){
+		$this->_diretorio($dir);
+		$this->_campo($cmp);
+	} // Fim do método de construção da classe
 
 
 
@@ -43,8 +43,10 @@ class Upload{
 		foreach( $_FILES as $k => $a ){
 			if( !empty($this->campo) && $k != $this->campo ) continue;
 
-			foreach( $a['tmp_name'] as $k2 => $a2 )
-				yield array('tmp' => $a2, 'nome' => $a['name'][$k2], 'erro' => $a['error'][$k2]);
+			if( is_array($a['tmp_name']) ){
+				foreach( $a['tmp_name'] as $k2 => $a2 )
+					yield ['tmp' => $a2, 'nome' => $a['name'][$k2], 'erro' => $a['error'][$k2]];
+			} else yield ['tmp' => $a['tmp_name'], 'nome' => $a['name'], 'erro' => $a['error']];
 		} // Fim foreach
 	} // Fim do método _obter_arquivos
 
@@ -63,7 +65,7 @@ class Upload{
 		return preg_replace('~\.[a-z0-9]{1,4}$~', '',
 			\Funcoes::_removeracentuacao(
 				strtolower(str_replace(' ', '-',
-					is_null($n) ? $o : $n)
+						is_null($n) ? $o : $n)
 				)
 			)
 		);

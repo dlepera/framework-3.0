@@ -22,9 +22,8 @@ require_once 'biblioteca/frameworkdl-3.0.classe.php';
 try{
     $__dl3 = new FrameworkDL3();
 } catch (Exception $ex) {
-    // echo '<pre>', var_dump($ex), '</pre>';
-    echo json_encode(array(
+    echo json_encode([
         'mensagem'  =>  $ex->getMessage(),
         'tipo'      =>  'msg-erro'
-    ));
+    ]);
 }

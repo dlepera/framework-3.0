@@ -7,23 +7,21 @@
  * @Data	: 03/02/2015 11:00:17
  */
 
-/**
+/*
  * Mostrar todos os álbuns de fotos
- * -----------------------------------------------------------------------------
  */
-$rotas['^(home|index|)$'] = array(
+$rotas['^(home|index|)$'] = [
     'controle'  =>  'Album',
     'acao'      =>  'mostrarlista'
-);
+];
 
 
 
-/**
+/*
  * Mostrar as fotos de um determinado álbum
- * -----------------------------------------------------------------------------
  */
-$rotas['^fotos/\d+$'] = array(
+$rotas['^fotos/\d+$'] = [
     'controle'  =>  'Foto',
     'acao'      =>  'mostrarfotos',
     'params'    =>  '/-/:a'
-);
+];

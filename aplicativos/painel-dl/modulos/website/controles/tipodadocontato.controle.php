@@ -17,14 +17,14 @@ class TipoDadoContato extends GeralC\PainelDL{
         parent::__construct(new WebM\TipoDadoContato(), 'website', TXT_MODELO_TIPODADOCONTATO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'            =>  FILTER_VALIDATE_INT,
                 'descr'         =>  FILTER_SANITIZE_STRING,
                 'rede_social'   =>  FILTER_VALIDATE_BOOLEAN,
                 'mascara'       =>  FILTER_DEFAULT,
                 'expreg'        =>  FILTER_DEFAULT,
                 'publicar'      =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -54,9 +54,9 @@ class TipoDadoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_TIPOS_DADO_CONTATO;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_DESCR)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_DESCR]
+        ]);
     } // Fim do método _mostrarlista
 
 
@@ -83,9 +83,9 @@ class TipoDadoContato extends GeralC\PainelDL{
     public function _opcoesavancadas(){
         $this->modelo->_selecionarPK(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT));
 
-        echo json_encode(array(
+        echo json_encode([
             'mascara'   =>  $this->modelo->mascara,
             'expreg'    =>  $this->modelo->expreg
-        ));
+        ]);
     } // Fim do método _opcoesavancadas
 } // Fim do Controle TipoDadoContato

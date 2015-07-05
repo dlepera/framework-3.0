@@ -17,12 +17,12 @@ class Idioma extends GeralC\PainelDL{
         parent::__construct(new DevM\Idioma(), 'desenvolvedor', TXT_MODELO_IDIOMA);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'descr'     =>  FILTER_SANITIZE_STRING,
                 'sigla'     =>  FILTER_SANITIZE_STRING,
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
         endif;
@@ -43,10 +43,10 @@ class Idioma extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_IDIOMAS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'idioma_descr', 'texto' => TXT_ROTULO_DESCRICAO),
-            array('valor' => 'idioma_sigla', 'texto' => TXT_ROTULO_SIGLA)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'idioma_descr', 'texto' => TXT_ROTULO_DESCRICAO],
+            ['valor' => 'idioma_sigla', 'texto' => TXT_ROTULO_SIGLA]
+        ]);
     } // Fim do método _mostrarlista
 
 

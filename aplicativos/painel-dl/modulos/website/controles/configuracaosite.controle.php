@@ -18,11 +18,11 @@ class ConfiguracaoSite extends GeralC\PainelDL{
         parent::__construct(new WebM\ConfiguracaoSite(), 'website', TXT_MODELO_CONFIGURACAOSITE);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'            =>  FILTER_VALIDATE_INT,
                 'tema'          =>  FILTER_VALIDATE_INT,
                 'formato_data'  =>  FILTER_VALIDATE_INT
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);

@@ -37,7 +37,7 @@ class Usuario extends GeralM\Principal{
     } // Fim do método _info_telefone
 
     public function _info_sexo($v=null){
-        return $this->info_sexo = filter_var(is_null($v) ? $this->info_sexo : $v, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => '~^[MF]{1}$~')));
+        return $this->info_sexo = filter_var(is_null($v) ? $this->info_sexo : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[MF]{1}$~']]);
     } // Fim do método _info_sexo
 
     public function _info_login($v=null){
@@ -129,25 +129,25 @@ class Usuario extends GeralM\Principal{
 		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}" ) > 0 ) throw new \Exception( ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500 );
 
 		    # Salvar a foto do usuário
-		    if( $this->id == $_SESSION[ 'usuario_id' ] ){
-		    }
-		    $oup = new \Upload( 'aplicacao/uploads/usuarios', 'foto' );
-		    $oup->_extensoes( array('jpg', 'jpeg', 'gif', 'png') );
+		    if( $this->id == $_SESSION['usuario_id'] ){
+			    $oup = new \Upload('aplicacao/uploads/usuarios', 'foto');
+			    $oup->_extensoes(['jpg', 'jpeg', 'gif', 'png']);
 
-		    if( $oup->_salvar( $this->info_nome, true ) ){
-			    $this->perfil_foto = preg_replace( '~^.~', '', $oup->arquivos_salvos[ 0 ] );
+			    if( $oup->_salvar($this->info_nome, true) ){
+				    $this->perfil_foto = preg_replace('~^.~', '', $oup->arquivos_salvos[0]);
 
-			    # Recortar a foto
-			    $tim = 200;
-			    $oim = new \Imagem( $oup->arquivos_salvos[ 0 ] );
-			    $oim->_redimensionar( $tim );
-			    $oim->_redimensionar( null, $tim );
-			    $oim->_recortar( $tim, $tim );
-			    $oim->_salvar( $oup->arquivos_salvos[ 0 ] );
-		    } // Fim if( $oup->_salvar( $this->info_nome, true ) )
+				    # Recortar a foto
+				    $tim = 200;
+				    $oim = new \Imagem($oup->arquivos_salvos[0]);
+				    $oim->_redimensionar($tim);
+				    $oim->_redimensionar(null, $tim);
+				    $oim->_recortar($tim, $tim);
+				    $oim->_salvar($oup->arquivos_salvos[0]);
+			    } // Fim if( $oup->_salvar( $this->info_nome, true ) )
+		    } // Fim if( $this->id == $_SESSION[ 'usuario_id' ] )
 	    } // Fim if( $s )
 
-        $r = parent::_salvar($s, $ci, $this->reg_vazio ? $ce : array('usuario_info_login','usuario_info_senha'), $ipk);
+        $r = parent::_salvar($s, $ci, $this->reg_vazio ? $ce : ['usuario_info_login','usuario_info_senha'], $ipk);
 
         if( $this->id == $_SESSION['usuario_id'] && $r && $s )
             \DL3::$aut_o->_carregarsessao($this->_listar("usuario_id = {$this->id}", null, implode(',', \DL3::$aut_o->usr_infos), 0, 1, 0));
@@ -194,7 +194,7 @@ class Usuario extends GeralM\Principal{
 
         # Alterar a senha no banco de dados
         $sql = \DL3::$bd_conex->prepare("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = :senha, {$this->bd_prefixo}conf_reset = 0 WHERE {$this->bd_prefixo}id = :id");
-	    $sql->execute(array(':senha' => $sn_c, ':id' => $this->id));
+	    $sql->execute([':senha' => $sn_c, ':id' => $this->id]);
 
         $_SESSION['usuario_conf_reset'] = 0;
     } // Fim do método _alterarsenha

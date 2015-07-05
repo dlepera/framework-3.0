@@ -20,7 +20,7 @@ class AssuntoContato extends GeralM\Principal{
     public function _descr(){ return filter_var($this->descr, FILTER_SANITIZE_STRING); } // Fim do método _descr
     public function _email(){ return filter_var($this->email, FILTER_VALIDATE_EMAIL); } // Fim do método _email
     public function _cor(){
-        return filter_var($this->cor, FILTER_VALIDATE_REGEXP, array('options' => array('regexp' => EXPREG_COR_HEXA)));
+        return filter_var($this->cor, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => EXPREG_COR_HEXA]]);
     } // Fim do método _email
 
 

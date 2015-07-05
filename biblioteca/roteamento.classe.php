@@ -12,7 +12,7 @@ class Roteamento{
     const CONF_SEPARADOR_DIR = '/';
 
     # Rotas configuradas
-    private $rotas = array();
+    private $rotas = [];
 
     # URL recebida, home do sistema e diretório a serem analizados
     private $url, $dir, $home, $modulo;
@@ -73,7 +73,7 @@ class Roteamento{
         if( !preg_match('~/\:[a-z_]+~', $sp) && !$op ) return null;
 
         # Vetor a ser retornado
-        $vp = array();
+        $vp = [];
 
         # Obter os outros parâmetros
         foreach( $op as $p )

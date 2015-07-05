@@ -23,7 +23,7 @@ class FotoAlbum extends GeralM\Principal{
     } // Fim do método _foto_album
 
     public function _titulo($v=null){
-        return $this->titulo = filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
+        return $this->titulo = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del', 'na', 'no']);
     } // Fim do método _titulo
 
     public function _descr($v=null){
@@ -59,8 +59,8 @@ class FotoAlbum extends GeralM\Principal{
 	    $maf = new WebM\Album($this->foto_album);
 
 	    # Fazer o upload das fotos
-        $oup = new \Upload("aplicacao/uploads/albuns/{$this->foto_album}", 'fotos');
-        $oup->_extensoes(array('png', 'jpg', 'jpeg', 'gif'));
+        $oup = new \Upload(sprintf($maf::DIR_UPLOAD, $this->foto_album), 'fotos');
+        $oup->_extensoes(['png', 'jpg', 'jpeg', 'gif']);
 
         if( !$oup->_salvar($maf->nome) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_SALVAR, 1500);
@@ -69,7 +69,8 @@ class FotoAlbum extends GeralM\Principal{
             $this->id       = null;
             $this->imagem   = preg_replace('~^\.~', '', $f);
             $this->publicar = 1;
-            $this->_salvar();
+            // $this->_salvar();
+	        $this->__call('_salvar');
         endforeach;
     } // Fim do método _upload
 
@@ -86,7 +87,7 @@ class FotoAlbum extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         # Apenas uma foto pode ser definida como capa de um álbum, portanto, caso
         # o registro atual esteja sendo definido como capa, a flag deve ser
         # desmarcada nas demais fotos

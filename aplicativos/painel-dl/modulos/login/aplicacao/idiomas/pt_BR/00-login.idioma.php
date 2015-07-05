@@ -42,7 +42,7 @@ define('MSG_EMAIL_CORPO_RECUPERAR_SENHA', '<h1>Olá %s!</h1>'
 
 
 
-/**
+/*
  * AdminM\Usuario
  * -----------------------------------------------------------------------------
  */
@@ -52,7 +52,7 @@ define('ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO', 'Esse usuário está bloquea
 
 
 
-/**
+/*
  * \Login\Controle\Login
  * -----------------------------------------------------------------------------
  */
@@ -60,8 +60,10 @@ define('ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO', 'Esse usuário está bloquea
 define('SUCESSO_LOGIN_FAZERLOGIN', 'Você entrou no sistema!');
 define('SUCESSO_LOGIN_FAZERLOGOUT', 'Você saiu do sistema!');
 define('SUCESSO_LOGIN_RESETARSENHA', '<b>Senha alterada com sucesso!</b><p>Você precisa fazer o login no sistema.</p>');
+define('SUCESSO_LOGIN_RECUPERARSENHA', 'Foi enviado um e-mail para <b>%s</b> com informações de como recuperar o acesso ao sistema.');
 
 # Erros
 define('ERRO_LOGIN_FAZERLOGIN', '<b>Erro desconhecido!</b><p>Não foi possível fazer o login.</p>');
 define('ERRO_LOGIN_FAZERLOGOUT', '<b>Erro desconhecido!</b><p>Não foi possível sair do sistema.</p>');
 define('ERRO_LOGIN_MOSTRARRESETSENHA', '<b>Erro!</b><p>Hash de recuperação inválida.</p>');
+define('ERRO_LOGIN_RECUPERARSENHA_USUARIO_NAO_LOCALIZADO', 'Login ou e-mail informado não foi localizado!');

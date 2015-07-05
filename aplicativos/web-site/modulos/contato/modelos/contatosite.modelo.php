@@ -27,7 +27,7 @@ class ContatoSite extends GeralM\Principal{
      * 'Gets' e 'Sets' das propriedades
      */
     public function _nome($v=null){
-        return $this->nome = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), array('da', 'de', 'di', 'do', 'du', 'das', 'dos', 'e'));
+        return $this->nome = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'e']);
     } // Fim do método _nome
 
     public function _email($v=null){

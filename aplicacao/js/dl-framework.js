@@ -43,10 +43,10 @@ function CarregarCSS(arquivo_css){
 
 
 
-å/**
+/**
  * Mover o cursor para uma posição 'p'
  *
- * @param object o Objeto DOM
+ * @param mixed o Objeto DOM
  * @param int p    Novo posicionamento do cursor
  * @returns {*}
  * @constructor
@@ -81,8 +81,7 @@ function SelecionarLinha(obj,u){
     if( obj.type !== 'checkbox' ){
         // Selecionar o checkbox dentro da linha
         $linha.find('td:first-child :checkbox').each(function() {
-            this.checked = true;
-
+            $(this).prop('checked', true);
             return true;
         });
     } // Fim if( obj.type != 'checkbox' )
@@ -195,6 +194,32 @@ function CarregarSelect($s, c){
 
 
 
+/**
+ * Mostrar ou ocultar um determinado campo de acordo com a seleção de um checkbox
+ *
+ * @param {DOM} cbx Checkbox a ser testado
+ * @param {jQuery} $j Campo(s) a ser(em) exibido(s) ou escondido(s)
+ * @returns {void}
+ */
+function MostrarCampo(cbx, $j){
+	$j.each(function(){
+		var $th = $(this);
+		var tag = this.tagName;
+
+		if( cbx.checked ){
+			$th.fadeIn('fast');
+
+			if( tag === 'input' ) $th.focus();
+		} else {
+			$th.fadeOut('fast');
+
+			if( tag === 'input' ) $th.val('');
+		} // Fim if( cbx.checked )
+	});
+} // Fim function MostrarCampo(cbx, $j)
+
+
+
 // Adicionar o suporte ao trim
 // Necessário para o IE (óbvio!!) 8 ou mais antigo
 if( typeof String.prototype.trim !== 'function' ){
@@ -249,59 +274,18 @@ $.ajaxSetup({
 });
 
 $(document).ready(function(){
-    if( window.location.toString().indexOf('/painel-dl') > -1 ){
-        // Configurar o evento 'reset' dos formulários
-        $('form').on('reset', function(){
-            history.back();
-        });
-    } // Fim if( window.location.toString().indexOf('/painel-dl') > -1 )
-});
+	// Alterar o comportamento dos campos do tipo 'number'
+	// Substituir a ',' por '.' automaticamente
+	$('[type="number"]').on('keydown', function(){
+		var $th = $(this);
+		var kc 	= event.keyCode || event.charCode || event.which;
+		var vl 	= $th.val().replace('.', '');
 
-/**
- * Validação de CPF
- *  - Dígitos verificadores e tamanho
- *  
- * @param {string} cpf_sujo - Pode receber o CPF puro (apenas números) ou com máscara
- * @returns {Boolean}
- */
-function ValidaCPF(cpf_sujo){
-    var soma = 0, mod, dv_1, dv_2;
-    var cpf = cpf_sujo.replace(/[\.\-]/g, '');
-    
-    // Validar o tamanho da string recebida após a limpeza dos
-    // caracteres
-    if( cpf.length != 11 ){
-        console.log('Esse CPF possui muitos caracteres!');
-        return false;
-    }
-    
-    // Primeiro dígito
-    for(var i = 10; i > 1; i--){
-        soma += parseInt(cpf[(10-i)]) * i;
-    }
-    
-    // Calcular o MOD 11 da soma para o primeiro DV
-    mod = soma%11;
-    
-    // Se o MOD for menor ou igual a 2 então o DV é 0;
-    // senão contrário o DV é igual a 11-MOD
-    dv_1 = mod < 3 ? 0 : 11-mod;
-    
-    soma = 0;
-    
-    // Segundo dígito
-    for(var i = 11; i > 1; i--){
-        soma += parseInt(cpf[(11-i)]) * i;
-    }
-    
-    mod   = soma%11;
-    dv_2  = mod < 3 ? 0 : 11-mod;
-    
-    if( cpf[cpf.length-2] != dv_1 || cpf[cpf.length-1] != dv_2 ){
-        console.log('CPF invávlido!');
-        return false;
-    } else {
-        console.log('CPF válido!');
-        return true;
-    }
-}
+		if( kc == 188 ){
+			$th.val(vl +'.');
+			return false;
+		} // Fim if( kc == 188 )
+
+		return true;
+	});
+});

@@ -17,22 +17,17 @@ class GrupoUsuario extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new AdminM\GrupoUsuario(), 'admin', TXT_MODELO_GRUPOUSUARIO);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
-                'id'        =>  FILTER_VALIDATE_INT,
-                'descr'     =>  FILTER_SANITIZE_STRING,
-                'funcs'     =>  array('filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY),
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
+	        $post = filter_input_array(INPUT_POST, ['id' => FILTER_VALIDATE_INT, 'descr' => FILTER_SANITIZE_STRING, 'funcs' => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY], 'publicar' => FILTER_VALIDATE_BOOLEAN]);
 
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
+	        # Converter o encode
+	        \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
+	        # Selecionar as informações atuais
+	        $this->modelo->_selecionarPK($post['id']);
 
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+	        \Funcoes::_vetor2objeto($post, $this->modelo);
+        } // Fim if( filter_input_array )
     } // Fim do método __construct
 
 
@@ -50,9 +45,9 @@ class GrupoUsuario extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_GRUPOS_USUARIOS;
 
         # Parâmetro
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_DESCR)
-        ));
+        $this->visao->_adparam('campos',[
+            ['valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_DESCR]
+        ]);
     } // Fim do método _mostrarlista
 
 

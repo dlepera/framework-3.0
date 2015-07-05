@@ -1,0 +1,40 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 15/01/2015 11:58:21
+ */
+
+/* Tela --------------------------------------------------------------------- */
+$tela-smart     : 800px;
+$tela-tablet    : 1000px;
+$grid-tamanho-x : 90%;
+$grid-tamanho-y : auto;
+
+/* Grade Flexivel ----------------------------------------------------------- */
+$flex-qtde-cols: 6;
+
+/* Visual ------------------------------------------------------------------- */
+$borda-suave    : 1px solid #EFEFEF;
+$sombra-padrao  : 0 0 5px rgba(0,0,0,4/10);
+
+/* Menu de navegacao -------------------------------------------------------- */
+$cf-mnnv-altura: 3em;
+
+/* Ícones -------------------------------------------------------------------- */
+/**
+ *  Vetor com todos os ícones as serem criados
+ * -----------------------------------------------------------------------------
+ *  @format - classe cor icone
+ */
+$icos: 'inserir' green '\ea0a',
+'editar' orange '\e906',
+'remover' red '\ea0f',
+'detalhes' purple '\e923',
+'email' #aabbff '\ea84',
+'bloquear' #900 '\e98f',
+'desbloquear' green '\e990',
+'voltar' #900 '\e967',
+'duvida' #069 '\ea09',
+'publicar' green '\e9c6',
+'nao-publicar' #BBB '\e9c5';

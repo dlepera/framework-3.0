@@ -16,10 +16,10 @@ class Controle extends GeralC\Principal{
         parent::__construct(new \Modelo, '', TXT_MODELO_);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -44,9 +44,9 @@ class Controle extends GeralC\Principal{
         $this->visao->titulo = TXT_PAGINA_TITULO_;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => '', 'texto' => '')
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => '', 'texto' => '']
+        ]);
     } // Fim do método _mostrarlista
 
 

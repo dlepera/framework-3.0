@@ -32,7 +32,7 @@ $mod = $params['modelo'];
             <?php if( $params['incluindo'] ): ?>
             <p class="form-paragr">
                 <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
-                <input type="file" name="fotos" id="arq-fotos" class="form-controle" multiple/>
+                <input type="file" name="fotos[]" id="arq-fotos" class="form-controle" multiple/>
             </p>
             <?php endif; ?>
 
@@ -88,7 +88,7 @@ $mod = $params['modelo'];
                     <span class="af-capa"><?= MSG_CAPA; ?></span>
                     <?php endif; ?>
 
-                    <a href="javascript:void;" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>');" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
+                    <a href="javascript:void;" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>', function(){ return true; }, function(){ window.location.reload(); });" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
                         <?= TXT_LINK_EDITAR; ?>
                     </a>
 

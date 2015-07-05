@@ -127,7 +127,7 @@ class PDODL extends PDO{
 
 	    $sql = $this->prepare($this->driver == 'MYSQL' ? str_replace(':tbl', $tbl, $q) : $q);
 
-	    if( !$sql->execute(array(':cpo' => $cpo)) )
+	    if( !$sql->execute([':cpo' => $cpo]) )
 		    var_dump($sql->errorInfo());
 		    // throw new \Exception($sql->errorInfo(), 1500);
 
@@ -153,31 +153,43 @@ class PDODL extends PDO{
 
 		if( !defined($c) ) throw new \Exception(ERRO_PDODL_SGBD_NAO_SUPORTADO);
 
-		$sql = $this->prepare(constant($c), array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-		$sql->execute(array(':base' => $this->bd,  ':tbl' => $tbl));
+		$sql = $this->prepare(constant($c), [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
+		$sql->execute([':base' => $this->bd,  ':tbl' => $tbl]);
 
 		return array_column($sql->fetchAll(\PDO::FETCH_ASSOC), 'NOME_COLUNA');
 	} // Fim do método _identifica_pk
 
 
 
-	/**
-	 * Identificar os campos do tipo BIT e facilitar a sua busca
-	 *
-	 * @param string     $tbl Nome da tabela a ser pesquisada
-	 * @param array|null $flt Vetor com os nomes dos campos a serem considerados
-	 *
-	 * @return string|void  String concatendada dos campos BIT já tratados
-	 * @throws Exception
-	 */
-	public function _identifica_bit($tbl, $flt = null){
-		if( !$this->_tabela_existe($tbl) ) return;
+	public function _alterar_tipos_campos($tbls = [], $tp1, $tp2){
+		# Query para alterar tipo do campo
+		$qa = 'ALTER TABLE %s MODIFY %s %s';
 
-		$ic = $this->_campos($tbl);
-		$tp = array_column(array_intersect_key($ic, preg_grep('~^bit~i', array_column($ic, 'Type'))), 'Field');
+		# Contar quantidade de campos alterados
+		$qt = 0;
 
-		return implode(',', array_map(function($v){
-			return "{$v}+0 AS $v";
-		}, is_null($flt) ? $tp : array_intersect($tp, $flt)));
-	} // Fim do método _identifica_bit
+		$sql = $this->query("SHOW TABLES");
+
+		while( $tb = $sql->fetchColumn(0) ){
+			if( !empty($tbls) && !in_array($tb, $tbls) ) continue;
+
+			# Todos os campos da tabela
+			$tcs = $this->_campos($tb);
+
+			# Campos a serem alteradas
+			$cps = array_intersect_key($tcs, preg_grep("~{$tp1}~i", array_column($tcs, 'Type')));
+
+			foreach( $cps as $c ){
+				$o = [
+					$c['Null'] == 'No' ? ' NULL' : ' NOT NULL',
+					!is_null($c['Default']) ? "DEFAULT '{$c['Default']}'" : ''
+				];
+
+				$qt += $this->exec(sprintf($qa, $tb, $c['Field'], $tp2) . implode(' ', $o));
+			} // Fim foreach
+
+		} // Fim while
+
+		return $qt;
+	} // Fim do método _alterarcampos
 } // Fim da classe PDODL

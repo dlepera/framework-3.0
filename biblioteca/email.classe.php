@@ -11,6 +11,8 @@
 require_once 'phpmailer/class.phpmailer.php';
 require_once 'phpmailer/class.smtp.php';
 
+use \Geral\Modelo as GeralM;
+
 class Email{
     # Instâncias utilizadas
     private $obj_pm, $mod_ce, $mod_le;
@@ -21,22 +23,22 @@ class Email{
         $this->obj_pm->SetLanguage('br');
 
         # Instanciar o modelo ConfigEmail
-        $this->mod_ce = new \Geral\Modelo\ConfigEmail();
+        $this->mod_ce = new GeralM\ConfigEmail();
 
         # Instanciar o modelo LogEmail
-        $this->mod_le = new \Geral\Modelo\LogEmail();
+        $this->mod_le = new GeralM\LogEmail();
     } // Fim do método mágico __construct
 
 
 
-    /**
-     * Carregar as configurações
-     * -------------------------------------------------------------------------
-     *
-     * @param int $id - ID da configuração a ser carregada. Se não for informado
-     *  será carregada a configuração flagada como 'Principal'
-     */
-    public function _carregarconf($id=null){
+
+	/**
+	 * Carregar as configurações
+	 *
+	 * @param int $id ID da configuração a ser carregada. Se não for informado será carregada a configuração flagada
+	 *                como 'Principal'
+	 */
+    public function _carregarconf($id = null){
         # Selecionar as configurações principais ou definida pelo ID
         is_null($id) ? $this->mod_ce->_selecionarprincipal() : $this->mod_ce->_selecionarPK($id);
 
@@ -58,17 +60,17 @@ class Email{
 
 
 
-    /**
-     * Enviar o e-mail
-     * -------------------------------------------------------------------------
-     *
-     * @param string $dest - email ou emails do destinatário separados por ; (ponto e vírgula)
-     * @param string $assunto - assunto do e-mail
-     * @param string $corpo - corpo do e-mail
-     * @param int $config - ID da configuração a ser carregada
-     *
-     * @return boolean - false em caso de falha e true em caso de sucesso
-     */
+
+	/**
+	 * Enviar o e-mail
+	 *
+	 * @param string $dest    Email ou emails do destinatário separados por ; (ponto e vírgula)
+	 * @param string $assunto Assunto do e-mail
+	 * @param string $corpo   Corpo do e-mail
+	 * @param int    $config  ID da configuração a ser carregada
+	 *
+	 * @return boolean false em caso de falha e true em caso de sucesso
+	 */
     public function _enviar($dest, $assunto, $corpo, $config = null){
         # Carregar as configurações
         $this->_carregarconf($config);
@@ -97,16 +99,17 @@ class Email{
 
 
 
-    /**
-     * Gravar o log da tentativa/envio do e-mail
-     * -------------------------------------------------------------------------
-     *
-     * @param string $classe - nome da classe que fez o envio do e-mail
-     * @param string $tabela - nome da tabela que contém o registro referenciado
-     * pelo envio do e-mail
-     * @param int $idreg - ID do registro, contido em $tabela que referencia esse envio de
-     * e-mail
-     */
+
+	/**
+	 * Gravar o log da tentativa/envio do e-mail
+	 *
+	 * @param string $classe Nome da classe que fez o envio do e-mail
+	 * @param string $tabela Nome da tabela que contém o registro referenciado pelo envio do e-mail
+	 * @param int    $idreg  ID do registro, contido em $tabela que referencia esse envio de e-mail
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
     public function _gravarlog($classe = null, $tabela = null, $idreg = null){
         # Informações do Log
         $this->mod_le->config         = $this->mod_ce->id;
@@ -121,10 +124,11 @@ class Email{
 
 
 
-    /**
-     * Exibir o log caso haja
-     * -------------------------------------------------------------------------
-     */
+	/**
+	 * Exibir o log caso haja
+	 *
+	 * @return string Trecho HTML para exibição do LOG
+	 */
     public function _exibirlog(){
         return (
             "<p style='text-align: left !important;'><b>Data:</b> {$this->mod_le->data_criacao}<br>"

@@ -17,7 +17,7 @@ class ConfigEmail extends GeralC\PainelDL{
         parent::__construct(new AdminM\ConfigEmail(), 'admin', TXT_MODELO_CONFIGEMAIL);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'                =>  FILTER_VALIDATE_INT,
                 'titulo'            =>  FILTER_SANITIZE_STRING,
                 'host'              =>  FILTER_SANITIZE_STRING,
@@ -31,7 +31,7 @@ class ConfigEmail extends GeralC\PainelDL{
                 'responder_para'    =>  FILTER_VALIDATE_EMAIL,
                 'html'              =>  FILTER_VALIDATE_BOOLEAN,
                 'principal'         =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -58,10 +58,10 @@ class ConfigEmail extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_ENVIO_EMAIL;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'config_email_titulo', 'texto' => TXT_ROTULO_TITULO),
-            array('valor' => 'config_email_host', 'texto' => TXT_ROTULO_HOST)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'config_email_titulo', 'texto' => TXT_ROTULO_TITULO],
+            ['valor' => 'config_email_host', 'texto' => TXT_ROTULO_HOST]
+        ]);
         $this->visao->_adparam('perm-testar?', \DL3::$aut_o->_verificarperm(get_called_class(), '_testar'));
     } // Fim do método _mostrarlista
 

@@ -8,12 +8,12 @@
  */
 
 
-$rotas['^(index|home|)$'] = array(
+$rotas['^(index|home|)$'] = [
     'controle'  =>  'ContatoSite',
     'acao'      =>  'mostrarform'
-);
+];
 
-$rotas['^enviar$'] = array(
+$rotas['^enviar$'] = [
     'controle'  =>  'ContatoSite',
     'acao'      =>  'enviar'
-);
+];

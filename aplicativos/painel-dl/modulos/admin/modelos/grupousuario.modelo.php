@@ -12,7 +12,7 @@ namespace Admin\Modelo;
 use \Geral\Modelo as GeralM;
 
 class GrupoUsuario extends GeralM\Principal{
-    protected $id, $descr, $funcs = array(), $publicar = 1, $delete = 0;
+    protected $id, $descr, $funcs = [], $publicar = 1, $delete = 0;
 
     /*
      * 'Gets' e 'Sets' das propriedades
@@ -52,10 +52,10 @@ class GrupoUsuario extends GeralM\Principal{
         if( $s && $this->id != $_SESSION['usuario_info_grupo'] ):
             # Salvar o permissionamento atual e remover o antigo
             $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
-	        $sql->execute(array(':id' => $this->id));
+	        $sql->execute([':id' => $this->id]);
 
 	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_grupos_funcs VALUES (:id, :func)");
-            foreach( $this->funcs as $f ) $sql->execute(array(':id' => $this->id, ':func' => $f));
+            foreach( $this->funcs as $f ) $sql->execute([':id' => $this->id, ':func' => $f]);
         endif;
 
         return $r;
@@ -76,7 +76,7 @@ class GrupoUsuario extends GeralM\Principal{
         parent::_selecionarPK($v, $a);
 
         $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
-	    $sql->execute(array(':id' => $this->id));
+	    $sql->execute([':id' => $this->id]);
 
         if( $sql === false ) return;
 
@@ -105,9 +105,8 @@ class GrupoUsuario extends GeralM\Principal{
                 . " AND MF.metodo_func_descr = :metodo";
 
         $sql = \DL3::$bd_conex->prepare($q);
-	    $sql->execute(array(':id' => $this->id, ':classe' => $c, ':metodo' => $m));
-        $rs  = $sql->fetch(\PDO::FETCH_ASSOC);
+	    $sql->execute([':id' => $this->id, ':classe' => $c, ':metodo' => $m]);
 
-        return (bool)$rs['PERM'];
+        return (bool)$sql->fetchColumn(0);
     } // Fim do método _verificarperm
 } // Fim do Modelo GrupoUsuario

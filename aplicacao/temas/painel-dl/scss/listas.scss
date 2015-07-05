@@ -15,7 +15,7 @@
  * -------------------------------------------------------------------------- */
 $ttr: 2.5em; /* tamanho da tag tr */
 
-table.lista{
+table.lista-registros{
     /* Margens */
     margin: 2em 0;
     
@@ -188,7 +188,7 @@ table.lista{
 
 /* Desktops */
 @media screen and (min-width:$tela-tablet + 1px){
-    table.lista{
+    table.lista-registros{
         > thead{ }
         
         > tbody{ }
@@ -201,7 +201,7 @@ table.lista{
 
 /* Tablets e smartphones */
 @media screen and (max-width:$tela-tablet){
-    table.lista{
+    table.lista-registros{
         > thead{
             
         }

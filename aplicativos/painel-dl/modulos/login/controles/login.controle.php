@@ -32,7 +32,7 @@ class Login extends GeralC\Principal{
 
         # Selecionar o tema padrão
         $mtm = new DevM\Tema();
-        $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
+        $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -51,7 +51,7 @@ class Login extends GeralC\Principal{
 
         # Selecionar o tema padrão
         $mtm = new DevM\Tema();
-        $ltm = end($mtm->_listar('tema_padrao', null, 'tema_diretorio'));
+	    $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -68,7 +68,7 @@ class Login extends GeralC\Principal{
         $le = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
         $mu = new AdminM\Usuario();
-        $lu = end($mu->_listar("usuario_info_login = '{$le}' OR usuario_info_email = '{$le}'", null, 'usuario_id, usuario_info_nome, usuario_info_email'));
+        $lu = $mu->_listar("usuario_info_login = '{$le}' OR usuario_info_email = '{$le}'", null, 'usuario_id, usuario_info_nome, usuario_info_email', 0, 1, 0);
 
         if( $lu === false )
             throw new \Exception(ERRO_LOGIN_RECUPERARSENHA_USUARIO_NAO_LOCALIZADO, 1404);
@@ -99,7 +99,7 @@ class Login extends GeralC\Principal{
         $obj_e->_enviar($lu['usuario_info_email'], TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA, sprintf(MSG_EMAIL_CORPO_RECUPERAR_SENHA, $lu['usuario_info_nome'], $lk, $lk));
         $obj_e->_gravarlog(__CLASS__, 'dl_painel_usuarios_recuperacoes', $mr->id);
 
-        return \Funcoes::_retornar(SUCESSO_USUARIO_ESQUECISENHA, 'msg-sucesso');
+        return \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');
     } // Fim do método _recuperarsenha
 
 
@@ -107,7 +107,7 @@ class Login extends GeralC\Principal{
 	/**
 	 * Mostrar formulário para reset de senha
 	 *
-	 * @param $h Hash MD5 da recuperação
+	 * @param string $h Hash MD5 da recuperação
 	 *
 	 * @throws \Exception
 	 */
@@ -116,7 +116,7 @@ class Login extends GeralC\Principal{
 
         # Selecionar a recuperação
         $mr = new LoginM\Recuperacao();
-        $lr = end($mr->_listar("recuperacao_hash = '{$hs}' AND recuperacao_status = 'E'", null, 'recuperacao_id, usuario_info_nome'));
+        $lr = $mr->_listar("recuperacao_hash = '{$hs}' AND recuperacao_status = 'E'", null, 'recuperacao_id, usuario_info_nome', 0, 1, 0);
 
         if( $lr === false )
             throw new \Exception(ERRO_LOGIN_MOSTRARRESETSENHA, 1404);

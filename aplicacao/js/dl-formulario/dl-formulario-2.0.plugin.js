@@ -171,7 +171,7 @@ function AplicarMascara(v, m){
 				} // Fim if( typeof fnc !== 'function' )
 
 				if( this.value != '' ){
-					if( !fnc(this) ) this.setCustomValidity(msg);
+					if( !fnc(this.value) ) this.setCustomValidity(msg);
 					else this.setCustomValidity('');
 				} else this.setCustomValidity('');
 				// Fim if( this.value != '' )

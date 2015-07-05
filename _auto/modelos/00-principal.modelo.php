@@ -37,16 +37,21 @@ abstract class Principal{
 	 * @return int|mixed
 	 * @throws \Exception
 	 */
-    public function __call($n, $a = array()){
+    public function __call($n, $a = []){
         $mod_registro = 'Geral\Modelo\LogRegistro';
 
         switch($n):
             # Gravar log de inserção e alteração do registro
             case '_salvar':
-                $s = call_user_func_array(array($this, '_salvar'), $a);
+                $s = call_user_func_array([$this, '_salvar'], $a);
+
                 if( class_exists($mod_registro) && $s > 0 && !is_null($this->id) ):
-                    $this->mod_lr->tabela  = $this->bd_tabela;
-                    $this->mod_lr->idreg   = $this->id;
+	                $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
+
+	                if( $this->mod_lr->reg_vazio ){
+		                $this->mod_lr->tabela   = $this->bd_tabela;
+		                $this->mod_lr->idreg    = $this->id;
+	                } // Fim if( $this->mod_lr->reg_vazio )
 
                     $this->mod_lr->_salvar();
                 endif;
@@ -56,9 +61,7 @@ abstract class Principal{
             # Gravar log de remoção
             case '_remover':
                 if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) ):
-                    $this->mod_lr->tabela  = $this->bd_tabela;
-                    $this->mod_lr->idreg   = $this->id;
-
+	                $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
                     $this->mod_lr->_salvar(true);
                 endif;
 
@@ -66,10 +69,10 @@ abstract class Principal{
 
             # Selecionar as informações de inclusão e alteração do registro
             case '_selecionarPK':
-                call_user_func_array(array($this, '_selecionarPK'), $a);
+                call_user_func_array([$this, '_selecionarPK'], $a);
 
                 if( !is_null($this->id) && get_called_class() != $mod_registro )
-                    $this->mod_lr->_selecionarPK($this->bd_tabela, $this->id);
+                    $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
             break;
         endswitch;
     } // Fim do método mágico __call
@@ -78,7 +81,6 @@ abstract class Principal{
 
     /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
@@ -132,13 +134,10 @@ abstract class Principal{
 	 *
 	 * @return array
 	 */
-	public function _listar($flt=null, $ord=null, $cpos='*', $pgn=0, $qtde=20, $pos=null){
-		$bit = \DL3::$bd_conex->_identifica_bit($this->bd_tabela, array_map(function($v){ return trim($v); }, $cpos != array('*') ? explode(',', $cpos) : null));
-		$lcp = $cpos . (!empty($bit) ? ", {$bit}" : '');
-
+	public function _listar($flt = null, $ord = null, $cpos = '*', $pgn = 0, $qtde = 20, $pos = null){
 		$query = substr_count($this->bd_select, '%s') == 2 ?
-			sprintf($this->bd_select, $lcp, $this->bd_tabela)
-			: sprintf($this->bd_select, $lcp, $this->bd_tabela, $this->bd_prefixo);
+			sprintf($this->bd_select, $cpos, $this->bd_tabela)
+		: sprintf($this->bd_select, $cpos, $this->bd_tabela, $this->bd_prefixo);
 
 		!empty($flt) AND $query .= stripos($query, 'WHERE') > -1 ? " AND {$flt}" : " WHERE {$flt}";
 
@@ -215,7 +214,7 @@ abstract class Principal{
 
 	    if( is_array($c) ){
 		    $cv = array_combine($c, $v);
-		    $tf = array();
+		    $tf = [];
 
 		    foreach( $cv as $k => $t ) $tf[] = "{$al}{$this->bd_prefixo}{$k} = ". var_export($t, true);
 
@@ -280,10 +279,13 @@ abstract class Principal{
     protected function _remover(){
         if( $this->delete == 1 ) return 1;
 
-        $rem = \DL3::$bd_conex->exec("DELETE FROM {$this->bd_tabela} WHERE {$this->bd_prefixo}id = {$this->id}");
+        $sql = \DL3::$bd_conex->prepare("DELETE FROM {$this->bd_tabela} WHERE {$this->bd_prefixo}id = :id");
+	    $rem = $sql->execute([':id' => $this->id]);
 
-        if( $rem === false && property_exists($this, 'delete') )
-            $rem = \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}delete = 1 WHERE {$this->bd_prefixo}id = {$this->id}");
+        if( $rem === false && property_exists($this, 'delete') ){
+	        $sql = \DL3::$bd_conex->prepare("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}delete = 1 WHERE {$this->bd_prefixo}id = :id");
+	        $rem = $sql->execute([':id' => $this->id]);
+        } // Fim if( $rem === false && property_exists($this, 'delete') )
 
         return (int)$rem;
     } // Fim do método _remover
@@ -304,8 +306,8 @@ abstract class Principal{
         # Informações dos campos
         $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
-        $v_campos   = array();
-        $v_valores  = array();
+        $v_campos   = [];
+        $v_valores  = [];
 
         foreach( $cpos as $c ):
             # Nome da propriedade
@@ -349,8 +351,8 @@ abstract class Principal{
         # Informações dos campos
         $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
-        $v_alterar  = array();
-        $v_where    = array();
+        $v_alterar  = [];
+        $v_where    = [];
 
         foreach( $cpos as $c ):
             # Nome da propriedade
@@ -389,12 +391,13 @@ abstract class Principal{
      * @param string $v     Nome do campo identificado como 'value' (sem prefixo)
      * @param string $t     Nome do campo identificado como 'label' (sem prefixo)
      *
-     * @return array|void
+     * @return array
      */
     public function _carregarselect($f = null, $e = true, $v = 'id', $t = 'descr'){
         $lis = $this->_listar($f, "{$this->bd_prefixo}{$t}", "{$this->bd_prefixo}{$v} AS VALOR, {$this->bd_prefixo}{$t} AS TEXTO");
 
-        if( $e ) echo json_encode($lis); else return $lis;
+        $e AND print(json_encode($lis));
+	    return $lis;
     } // Fim _carregarselect
 
 

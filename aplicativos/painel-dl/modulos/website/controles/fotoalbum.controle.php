@@ -17,14 +17,14 @@ class FotoAlbum extends GeralC\PainelDL{
         parent::__construct(new WebM\FotoAlbum(), 'website', TXT_MODELO_FOTO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'            =>  FILTER_VALIDATE_INT,
                 'foto_album'    =>  FILTER_VALIDATE_INT,
                 'titulo'        =>  FILTER_SANITIZE_STRING,
                 'descr'         =>  FILTER_SANITIZE_STRING,
                 'capa'          =>  FILTER_VALIDATE_BOOLEAN,
                 'publicar'      =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);

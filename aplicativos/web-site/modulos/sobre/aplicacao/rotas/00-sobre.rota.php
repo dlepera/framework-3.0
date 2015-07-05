@@ -8,7 +8,7 @@
  */
 
 
-$rotas['^(index|home|)$'] = array(
+$rotas['^(index|home|)$'] = [
     'controle'  =>  'Sobre',
     'acao'      =>  'historia'
-);
+];

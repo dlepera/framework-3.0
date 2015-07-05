@@ -7,7 +7,7 @@
  * @Data	: 05/01/2015 17:12:08
  */
 
-$rotas['^(index|home|)$'] = array(
+$rotas['^(index|home|)$'] = [
     'controle'  =>  'WebSite',
     'acao'      =>  'index'
-);
+];

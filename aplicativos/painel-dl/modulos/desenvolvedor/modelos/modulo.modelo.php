@@ -90,7 +90,7 @@ class Modulo extends GeralM\Principal{
                 . ' INNER JOIN dl_painel_modulos_funcs AS FM ON( FM.func_modulo_id = GF.func_modulo_id )'
                 . " INNER JOIN %s AS M ON( M.{$this->bd_prefixo}id = FM.func_modulo )"
                 . " INNER JOIN dl_painel_funcs_metodos AS MF ON( MF.metodo_func = FM.func_modulo_id AND (MF.metodo_func_descr = '_mostrarlista' OR MF.metodo_func_descr = '_mostrarmenu')  )"
-                . " WHERE M.%sdelete = 0 AND M.{$this->bd_prefixo}menu = 1 AND GF.grupo_usuario_id = {$_SESSION['usuario_info_grupo']}";
+                . " WHERE NOT M.%sdelete AND M.{$this->bd_prefixo}menu AND GF.grupo_usuario_id = {$_SESSION['usuario_info_grupo']}";
 
         $l = $this->_listar($flt, $ord, $cmp, $pgn, $qtd);
 

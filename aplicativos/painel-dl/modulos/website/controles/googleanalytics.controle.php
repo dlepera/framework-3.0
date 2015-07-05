@@ -17,7 +17,7 @@ class GoogleAnalytics extends GeralC\PainelDL{
         parent::__construct(new WebM\GoogleAnalytics(), 'website', TXT_MODELO_GOOGLEANALYTICS);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        =>  FILTER_VALIDATE_INT,
                 'apelido'   =>  FILTER_SANITIZE_STRING,
                 'usuario'   =>  FILTER_VALIDATE_EMAIL,
@@ -26,7 +26,7 @@ class GoogleAnalytics extends GeralC\PainelDL{
                 'codigo_ua' =>  FILTER_SANITIZE_STRING,
                 'principal' =>  FILTER_VALIDATE_BOOLEAN,
                 'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -55,10 +55,10 @@ class GoogleAnalytics extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_GA;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'ga_usuario', 'texto' => TXT_ROTULO_USUARIO),
-            array('valor' => 'ga_perfil_id', 'texto' => TXT_ROTULO_PERFIL)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'ga_usuario', 'texto' => TXT_ROTULO_USUARIO],
+            ['valor' => 'ga_perfil_id', 'texto' => TXT_ROTULO_PERFIL]
+        ]);
     } // Fim do método _mostrarlista
 
 

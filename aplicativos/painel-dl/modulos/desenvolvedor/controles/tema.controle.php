@@ -17,13 +17,13 @@ class Tema extends GeralC\PainelDL{
         parent::__construct(new DevM\Tema(), 'desenvolvedor', TXT_MODELO_TEMA);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, array(
+            $post = filter_input_array(INPUT_POST, [
                 'id'        => FILTER_VALIDATE_INT,
                 'descr'     => FILTER_SANITIZE_STRING,
                 'diretorio' => FILTER_SANITIZE_STRING,
                 'padrao'    => FILTER_VALIDATE_BOOLEAN,
                 'publicar'  => FILTER_VALIDATE_BOOLEAN
-            ));
+            ]);
 
             # Converter o encode
             \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -53,17 +53,16 @@ class Tema extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_TEMAS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'tema_desc', 'texto' => TXT_ROTULO_DESCRICAO),
-            array('valor' => 'tema_diretorio', 'texto' => TXT_ROTULO_DIRETORIO)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'tema_desc', 'texto' => TXT_ROTULO_DESCRICAO],
+            ['valor' => 'tema_diretorio', 'texto' => TXT_ROTULO_DIRETORIO]
+        ]);
     } // Fim do método _mostrartemas
 
 
 
 	/**
 	 * Formulário de inclusão e edição do tema
-	 * -------------------------------------------------------------------------
 	 *
 	 * @param int  $pk  PK do registro a ser selecionado
 	 * @param bool $mst Nome da página mestra a ser carregada

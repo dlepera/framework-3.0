@@ -8,4 +8,4 @@
  */
 
 
-$rotas = array();
+$rotas = [];

@@ -14,7 +14,7 @@ use \Geral\Modelo as GeralM;
 class ContatoSite extends GeralM\Principal{
     protected $id, $nome, $email, $telefone, $assunto, $mensagem, $delete = 0;
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_contatos', 'contato_site_');
 
         $this->bd_select = 'SELECT %s'
@@ -23,8 +23,7 @@ class ContatoSite extends GeralM\Principal{
                 . " INNER JOIN dl_painel_registros_logs AS LR ON( LR.log_registro_idreg = CS.contato_site_id AND LR.log_registro_tabela = '{$this->bd_tabela}' )"
                 . ' WHERE CS.%sdelete = 0';
 
-        if( empty($id) )
-            $this->_selecionarPK((int)$id);
+        $pk = $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 

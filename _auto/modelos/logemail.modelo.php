@@ -38,12 +38,12 @@ class LogEmail extends Principal{
 
 
 
-    public function __construct($tbl=null, $id=null){
+    public function __construct($tbl = null, $id = null){
         parent::__construct('dl_painel_email_logs', 'log_email_');
 
         $this->bd_select = "SELECT %s FROM %s";
 
-        $this->_selecionarPK(array($tbl, $id));
+        $this->_selecionarUK(['tabela', 'idreg'], [$tbl, $id]);
     } // Fim do método mágico de construção da classe
 
 
@@ -64,7 +64,7 @@ class LogEmail extends Principal{
      */
     public function _status($v=null){
         return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP,
-                array('options' => array('regexp' => '~^[SEF]{1}$~')));
+                [ 'options' => ['regexp' => '~^[SEF]{1}$~'] ]);
     } // Fim do método _status
 
     public function _mensagem($v=null){

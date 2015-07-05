@@ -12,10 +12,10 @@ class Visao{
     const CONF_EXTENSAO_MESTRA  = 'mestra';
     const CONF_EXTENSAO_TPL     = 'phtml';
 
-    private $diretorio, $pg_mestra = 'padrao', $templates = array(), $conteudo, $dl3_areas = array('DL3-HEAD', 'DL3-CONTEUDO', 'DL3-RODAPE', 'DL3-SCRIPTS');
+    private $diretorio, $pg_mestra = 'padrao', $templates = [], $conteudo, $dl3_areas = ['DL3-HEAD', 'DL3-CONTEUDO', 'DL3-RODAPE', 'DL3-SCRIPTS'];
 
     # Parâmetros da página
-    private $params = array(), $exibir_auto = true;
+    private $params = [], $exibir_auto = true;
 
     # Configurações da página
     private $titulo, $cont_mestra;

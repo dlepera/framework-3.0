@@ -35,11 +35,11 @@ class gapi
   const dev_mode = false;
   
   private $auth_token = null;
-  private $account_entries = array();
-  private $account_root_parameters = array();
-  private $report_aggregate_metrics = array();
-  private $report_root_parameters = array();
-  private $results = array();
+  private $account_entries = [];
+  private $account_root_parameters = [];
+  private $report_aggregate_metrics = [];
+  private $report_root_parameters = [];
+  private $results = [];
   
   /**
    * Constructor function for all new gapi instances
@@ -258,8 +258,8 @@ class gapi
     
     $this->results = null;
     
-    $results = array();
-    $account_root_parameters = array();
+    $results = [];
+    $account_root_parameters = [];
     
     //Load root parameters
     
@@ -281,7 +281,7 @@ class gapi
     
     foreach($xml->entry as $entry)
     {
-      $properties = array();
+      $properties = [];
       foreach($entry->children('http://schemas.google.com/analytics/2009')->property as $property)
       {
         $properties[str_replace('ga:','',$property->attributes()->name)] = strval($property->attributes()->value);
@@ -311,10 +311,10 @@ class gapi
     $xml = simplexml_load_string($xml_string);
     
     $this->results = null;
-    $results = array();
+    $results = [];
     
-    $report_root_parameters = array();
-    $report_aggregate_metrics = array();
+    $report_root_parameters = [];
+    $report_aggregate_metrics = [];
     
     //Load root parameters
     
@@ -360,7 +360,7 @@ class gapi
     
     foreach($xml->entry as $entry)
     {
-      $metrics = array();
+      $metrics = [];
       foreach($entry->children('http://schemas.google.com/analytics/2009')->metric as $metric)
       {
         $metric_value = strval($metric->attributes()->value);
@@ -376,7 +376,7 @@ class gapi
         }
       }
       
-      $dimensions = array();
+      $dimensions = [];
       foreach($entry->children('http://schemas.google.com/analytics/2009')->dimension as $dimension)
       {
         $dimensions[str_replace('ga:','',$dimension->attributes()->name)] = strval($dimension->attributes()->value);
@@ -665,7 +665,7 @@ class gapi
  */
 class gapiAccountEntry
 {
-  private $properties = array();
+  private $properties = [];
   
   public function __construct($properties)
   {
@@ -735,8 +735,8 @@ class gapiAccountEntry
  */
 class gapiReportEntry
 {
-  private $metrics = array();
-  private $dimensions = array();
+  private $metrics = [];
+  private $dimensions = [];
   
   public function __construct($metrics,$dimesions)
   {

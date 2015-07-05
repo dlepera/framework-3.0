@@ -22,7 +22,6 @@ class ContatoSite extends GeralC\PainelDL{
 
     /**
      * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
      */
     protected function _mostrarlista(){
         $this->_listapadrao('contato_site_id, contato_site_nome, contato_site_email, log_registro_data_criacao,'
@@ -37,12 +36,12 @@ class ContatoSite extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONTATOS_RECEBIDOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', array(
-            array('valor' => 'contato_site_nome', 'texto' => TXT_ROTULO_NOME),
-            array('valor' => 'contato_site_email', 'texto' => TXT_ROTULO_EMAIL),
-            array('valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_ASSUNTO),
-            array('valor' => 'log_registro_data_criacao', 'texto' => TXT_ROTULO_DATA)
-        ));
+        $this->visao->_adparam('campos', [
+            ['valor' => 'contato_site_nome', 'texto' => TXT_ROTULO_NOME],
+            ['valor' => 'contato_site_email', 'texto' => TXT_ROTULO_EMAIL],
+            ['valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_ASSUNTO],
+            ['valor' => 'log_registro_data_criacao', 'texto' => TXT_ROTULO_DATA]
+        ]);
         $this->visao->_adparam('perm-detalhes?', \DL3::$aut_o->_verificarperm(get_called_class(), '_mostrardetalhes'));
     } // Fim do método _mostrarlista
 
@@ -58,7 +57,7 @@ class ContatoSite extends GeralC\PainelDL{
     protected function _mostrardetalhes($pk){
         $this->modelo->_selecionarPK($pk);
 
-        if( is_null($this->modelo->id) )
+        if( $this->modelo->reg_vazio )
             throw new \Exception(ERRO_CONTATOSITE_MOSTRADETALHES_NAO_ENCONTRADO, 1404);
 
         # Visão

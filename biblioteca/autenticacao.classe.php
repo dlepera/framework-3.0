@@ -14,7 +14,7 @@ class Autenticacao{
     protected $usuario;
 
     # Configurações do usuário root
-    private $root = array(
+    private $root = [
         'usuario_id'                    =>  -1,
         'usuario_info_grupo'            =>  -1,
         'grupo_usuario_descr'           =>  'Super Admin',
@@ -34,15 +34,15 @@ class Autenticacao{
         'usuario_pref_filtro_menu'      =>  1,
         'usuario_conf_reset'            =>  0,
         'usuario_conf_bloq'             =>  0
-    );
+    ];
 
     # Informações dos usuários a serem carregados no login
-    public $usr_infos = array(
+    public $usr_infos = [
         'usuario_id', 'usuario_info_grupo', 'grupo_usuario_descr', 'usuario_info_nome', 'usuario_info_email', 'usuario_info_telefone',
 	    'usuario_info_login', 'idioma_sigla', 'tema_diretorio', 'formato_data_completo', 'formato_data_data', 'formato_data_hora',
         'usuario_pref_num_registros', 'usuario_pref_exibir_id', 'usuario_pref_filtro_menu', 'usuario_conf_reset', 'usuario_conf_bloq',
 	    'usuario_ultimo_login'
-    );
+    ];
 
     /*
      * 'Gets' e 'Sets' das propriedades

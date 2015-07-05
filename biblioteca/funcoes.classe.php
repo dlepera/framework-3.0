@@ -39,15 +39,11 @@ class Funcoes{
 	 */
     public static function _formatardatahora($data_hora, $formato){
         # Se $formato estiver em branco retornar a data sem nenhum alteração
-        if( empty($formato) )
-            return $data_hora;
+        if( empty($formato) ) return $data_hora;
 
         # Essas strings não serão aceitas, por se tratarem de datas
         # e / ou horas inválidas
-        $nao_aceito = array(
-            '0000-00-00',
-            '0000-00-00 00:00:00'
-        );
+        $nao_aceito = ['0000-00-00', '0000-00-00 00:00:00'];
 
         if( empty($data_hora) || in_array($data_hora, $nao_aceito) )
             return '';
@@ -71,10 +67,10 @@ class Funcoes{
      * @param string $tipo Define parte da aparência da mensagens exibida
      */
     public static function _retornar($msg, $tipo){
-        \DL3::$tmp_buffer_resposta[] = array(
+        \DL3::$tmp_buffer_resposta[] = [
             'mensagem'  =>  strtoupper(\DL3::$ap_charset) !== 'UTF-8' ? utf8_encode($msg) : $msg,
             'tipo'      =>  $tipo
-        );
+        ];
     } // Fim do método _retornar
 
 
@@ -116,43 +112,43 @@ class Funcoes{
         list(, $content_type, $encode) = $content_type;
 
         # Caracteres que deverão ser substituídos
-        $acentuacao = array();
+        $acentuacao = [];
 
         # Acentuação na letra 'a' minúscula
-        $acentuacao['a'] = array('á', 'Ã ', 'â', 'ã');
+        $acentuacao['a'] = ['á', 'Ã ', 'â', 'ã'];
 
         # Acentuação na letra 'e' minúscula
-        $acentuacao['e'] = array('é', 'Ã¨', 'ê');
+        $acentuacao['e'] = ['é', 'Ã¨', 'ê'];
 
         # Acentuação na letra 'i' minúscula
-        $acentuacao['i'] = array('í', 'Ã¬', 'Ã®');
+        $acentuacao['i'] = ['í', 'Ã¬', 'Ã®'];
 
         # Acentuação na letra 'o' minúscula
-        $acentuacao['o'] = array('ó', 'Ã²', 'Ã´', 'õ');
+        $acentuacao['o'] = ['ó', 'Ã²', 'Ã´', 'õ'];
 
         # Acentuação na letra 'u' minúscula
-        $acentuacao['u'] = array('ú', 'Ã¹', 'Ã»');
+        $acentuacao['u'] = ['ú', 'Ã¹', 'Ã»'];
 
         # Acentuação na letra 'ç' minúscula
-        $acentuacao['c'] = array('ç');
+        $acentuacao['c'] = ['ç'];
 
         # Acentuação na letra 'A' MAIÃSCULA
-        $acentuacao['A'] = array('Ã', 'Ã', 'Ã', 'Ã');
+        $acentuacao['A'] = ['Ã', 'Ã', 'Ã', 'Ã'];
 
         # Acentuação na letra 'E' MAIÃSCULA
-        $acentuacao['E'] = array('Ã', 'Ã', 'Ã');
+        $acentuacao['E'] = ['Ã', 'Ã', 'Ã'];
 
         # Acentuação na letra 'I' MAIÃSCULA
-        $acentuacao['I'] = array('Ã', 'Ã', 'Ã');
+        $acentuacao['I'] = ['Ã', 'Ã', 'Ã'];
 
         # Acentuação na letra 'O' MAIÃSCULA
-        $acentuacao['O'] = array('Ã', 'Ã', 'Ã', 'Ã');
+        $acentuacao['O'] = ['Ã', 'Ã', 'Ã', 'Ã'];
 
         # Acentuação na letra 'U' MAIÃSCULA
-        $acentuacao['U'] = array('Ã', 'Ã', 'Ã');
+        $acentuacao['U'] = ['Ã', 'Ã', 'Ã'];
 
         # Acentuação na letra 'Ã' MAIÃSCULA
-        $acentuacao['C'] = array('Ã');
+        $acentuacao['C'] = ['Ã'];
 
         # Verificar se o encoding precisa ser ajustado
         if( $content_type != 'multipart/form-data' && !empty($encode) )
@@ -205,7 +201,7 @@ class Funcoes{
      * @param string $idioma - sigla do idioma a ser considerado para a conversão
      * @return string
      */
-    public static function _ucwords($string, array $exceto = array(), $idioma = 'pt_BR'){
+    public static function _ucwords($string, array $exceto = [], $idioma = 'pt_BR'){
         # Alterar o idioma (locale) para o pt_BR para
         # evitar problemas com acentuação
         if( mb_internal_encoding() == 'UTF-8' )
@@ -223,21 +219,21 @@ class Funcoes{
 
 
 
-    /**
-     *  Transformar um valor booleano em valor compreensível para os humanos
-     * -------------------------------------------------------------------------
-     *
-     * @param bool $v - valor booleano a ser testado
-     * @param string $i - sigla do idioma a ser utilizado para a tradução
-     *
-     * @return string - String contendo o valor traduzido para a linguagem humana
-     */
-    public static function _bool2humano($v,$i='pt_BR'){
-        $idiomas = array(
-            'pt_BR' => array('Não', 'Sim'),
-            'en_US' => array('No', 'Yes'),
-            'es_ES' => array('No', 'Sí')
-        );
+
+	/**
+	 *  Transformar um valor booleano em valor compreensível para os humanos
+	 *
+	 * @param bool   $v Valor booleano a ser testado
+	 * @param string $i Sigla do idioma a ser utilizado para a tradução
+	 *
+	 * @return string String contendo o valor traduzido para a linguagem humana
+	 */
+    public static function _bool2humano($v, $i='pt_BR'){
+        $idiomas = [
+            'pt_BR' => ['Não', 'Sim'],
+            'en_US' => ['No', 'Yes'],
+            'es_ES' => ['No', 'Sí']
+        ];
 
         return $idiomas[$i][(int)$v];
     } // Fim do método _bool2humano

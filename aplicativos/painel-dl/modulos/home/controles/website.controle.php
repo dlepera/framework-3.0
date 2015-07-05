@@ -42,7 +42,7 @@ class WebSite extends Geral\PainelDL{
 	 *
 	 * @throws \Exception
 	 */
-    public function _ganalytics($dt_inicio, $dt_fim, $dimensao = 'day', $metricas = array('visits')){
+    public function _ganalytics($dt_inicio, $dt_fim, $dimensao = 'day', $metricas = ['visits']){
         # Selecionar as configurações do Google Analytics
         $m_ga = new WebM\GoogleAnalytics();
         $m_ga->_selecionar_principal();
@@ -57,10 +57,10 @@ class WebSite extends Geral\PainelDL{
         );
 
         # Visitas
-        $infos = array();
+        $infos = [];
 
         foreach( $o_ga->getResults() as $info ):
-            $infos[] = array('dimensao' => (string)$info, 'visitas' => $info->getVisits());
+            $infos[] = ['dimensao' => (string)$info, 'visitas' => $info->getVisits()];
         endforeach;
 
         echo json_encode($infos);

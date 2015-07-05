@@ -60,7 +60,7 @@ class ModuloFunc extends GeralM\Principal{
         if( $r && $s ):
             foreach( $this->metodos as $m ):
                 $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
-                $sql->execute(array(':id' => $this->id, ':metodo' => $m));
+                $sql->execute([':id' => $this->id, ':metodo' => $m]);
             endforeach;
         endif;
 
@@ -83,7 +83,7 @@ class ModuloFunc extends GeralM\Principal{
 
         if( !$this->reg_vazio ):
             $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
-	        $sql->execute(array(':id' => $this->id));
+	        $sql->execute([':id' => $this->id]);
 
             if( $sql === false ) return;
 

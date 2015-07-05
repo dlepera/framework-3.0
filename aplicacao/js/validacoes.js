@@ -1,0 +1,95 @@
+/**
+ * Created by dlepera on 02/07/15.
+ */
+
+/**
+ * Calcular o dígito verificador do CPF ou CNPJ
+ *
+ * @param string v Número de documento a ser calculado (apenas números)
+ * @param array m Vetor contendo os valores multiplicadores
+ * @returns {number}
+ * @constructor
+ */
+function CalcDV(v, m){
+	var qtm = m.length, soma = 0, mod;
+
+	for(var i = 0; i < qtm; i++)
+		soma += m[i] * parseInt(v[i]);
+
+	mod = soma % 11;
+
+	// Encontrar DV
+	return mod < 2 ? 0 : 11 - mod;
+} // Fim function CalcDV(v, m)
+
+
+
+/**
+ * Validação de CPF
+ *  - Dígitos verificadores e tamanho
+ *
+ * @param {string} cpf_sujo - Pode receber o CPF puro (apenas números) ou com máscara
+ * @returns {Boolean}
+ */
+function ValidaCPF(v){
+	var dv_1, dv_2;
+	var mlt1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
+	var mlt2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+	var cpf  = v.replace(/[\.\-]/g, '');
+
+	dv_1 = CalcDV(v, mlt1);
+	dv_2 = CalcDV(v, mlt2);
+
+	return dv_1 === parseInt(cpf[9]) && dv_2 === parseInt(cpf[10]);
+} // Fim function ValidaCPF(cpf_sujo)
+
+
+
+/**
+ * Validar CNPJ
+ *
+ * @param string v Valor de CNPJ a ser verificado
+ * @returns {boolean}
+ * @constructor
+ */
+function ValidaCNPJ(v){
+	var dv_1, dv_2;
+	var mlt1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+	var mlt2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+	var cnpj = v.replace(/[\.\-\\]/g, '');
+
+	dv_1 = CalcDV(cnpj, mlt1);
+	dv_2 = CalcDV(cnpj, mlt2);
+
+	return dv_1 === parseInt(cnpj[12]) && dv_2 === parseInt(cnpj[13]);
+} // Fim function ValidaCNPJ(cnpj)
+
+
+
+/**
+ * Validar EAN 8, EAN 13 e EAN 14 seguindo normas GTIN
+ *
+ * @param Campo a ser validado
+ * @returns {boolean}
+ * @constructor
+ */
+function ValidaEAN(ean){
+	var gtin = [8, 13, 14];
+
+	if( gtin.indexOf(ean.length) < 0 )
+		console.warn('O número informado não segue os padrões: GTIN-'+ gtin.join(', GTIN-'));
+
+	var s = 0, dv, dvo = parseInt(ean.substr(-1)), qt = ean.length, q = ean.length-1, m = 3;
+
+	for(var x=0; x < q; x++){
+		if( qt > 13 )
+			s += x%2 === 0 ? parseInt(ean[x]) * m : parseInt(ean[x]);
+		else
+			s += x%2 === 0 ? parseInt(ean[x]) : parseInt(ean[x]) * m;
+	} // Fim for(x)
+
+	var clc = (1000 + s) % 10;
+	dv = clc === 0 ? 0 : 10 - clc;
+
+	return dv === dvo;
+} // Fim function ValidaEAN()
