@@ -244,7 +244,7 @@ abstract class Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+    protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         $query = $this->reg_vazio ? $this->_criar_insert($ipk, $ci,$ce) : $this->_criar_update($ci,$ce);
 
         if( !$s ) return $query;

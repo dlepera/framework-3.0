@@ -99,6 +99,7 @@ class ConfigEmail extends GeralC\PainelDL{
 
         $oe = new \Email();
         $te = $oe->_enviar(session_status() === PHP_SESSION_ACTIVE ? $_SESSION['usuario_info_email'] : $_SESSION['usuario_info_email'], TXT_EMAIL_ASSUNTO_TESTE, TXT_EMAIL_CONTEUDO_TESTE, $id);
+		$oe->_gravarlog(__CLASS__, $this->modelo->bd_tabela, $this->modelo->id);
 
         if( !$te )
             throw new \Exception(sprintf(ERRO_CONFIGEMAIL_TESTAR, $oe->_exibirlog()), 1500);

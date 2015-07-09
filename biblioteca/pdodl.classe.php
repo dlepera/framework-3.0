@@ -181,8 +181,8 @@ class PDODL extends PDO{
 
 			foreach( $cps as $c ){
 				$o = [
-					$c['Null'] == 'No' ? ' NULL' : ' NOT NULL',
-					!is_null($c['Default']) ? "DEFAULT '{$c['Default']}'" : ''
+					strtoupper($c['Null']) == 'NO' ? ' NULL' : ' NOT NULL',
+					!is_null($c['Default']) ? "DEFAULT {$c['Default']}" : ''
 				];
 
 				$qt += $this->exec(sprintf($qa, $tb, $c['Field'], $tp2) . implode(' ', $o));

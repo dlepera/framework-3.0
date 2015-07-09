@@ -224,7 +224,9 @@ abstract class Principal{
 	 * @throws \Exception
 	 */
     protected function _executaremlote($m){
-        $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+	    $tid = filter_input(INPUT_POST, 'id', FILTER_CALLBACK, ['options' => function($v){
+		    return is_array($v) ? filter_var($v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY) : [filter_var($v, FILTER_VALIDATE_INT)];
+	    }]);
 
         if( is_null($tid) )
             throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
