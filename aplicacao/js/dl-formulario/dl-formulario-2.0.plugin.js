@@ -193,8 +193,11 @@ function AplicarMascara(v, m){
 						obj_fd.append(up_nomes[k],v);
 					});
 
+					/*
+					 * CORRIGIR: checkboxes e radios desmarcados não serializados corretamente
+					 */
 					$this.find('input:not(:checkbox):not(:radio):not(:file), select, textarea, :checkbox:checked, :radio:checked').each(function(){
-						obj_fd.append(this.name,this.value);
+						obj_fd.append(this.name, this.value);
 					});
 				} // Fim if( upload )
 

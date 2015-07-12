@@ -7,6 +7,10 @@
  * @Data	: 15/04/2014
  */
 
+/*
+ * TAREFA: Colocar mensagem de upload bloquado pelo bloqueio por extensão
+ */
+
 
 class Upload{
 	# Propriedades do upload

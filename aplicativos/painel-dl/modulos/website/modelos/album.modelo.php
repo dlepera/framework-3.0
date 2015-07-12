@@ -52,16 +52,21 @@ class Album extends GeralM\Principal{
 	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
-        # Criar diretório do álbum
-        if( !is_null($this->id) && $s ):
-            $d = sprintf(self::DIR_UPLOAD, $this->id);
-            !file_exists($d) AND mkdir($d);
-        endif;
+		if( $s ){
+			# Criar diretório do álbum
+			if( !is_null($this->id) ){
+				$d = sprintf(self::DIR_UPLOAD, $this->id);
+				!file_exists($d) AND mkdir($d);
+			} // Fim if( !is_null($this->id) )
 
-		# Salvar as fotos enviadas
-		$mfa = new FotoAlbum();
-		$mfa->foto_album = $this->id;
-		$mfa->_upload();
+			# Durante a inclusão do registro, fotos podem ser incluídas
+			if( $this->reg_vazio ){
+				# Salvar as fotos enviadas
+				$mfa = new FotoAlbum();
+				$mfa->foto_album = $this->id;
+				$mfa->_upload();
+			} // Fim if( $this->reg_vazio )
+		} // Fim if( $s )
 
         return $r;
     } // Fim do método _salvar

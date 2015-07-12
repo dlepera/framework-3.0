@@ -406,6 +406,7 @@ class FrameworkDL3{
 		        self::$bd_conex->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		        if( $this->bd_driver == 'mysql' ) self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
+		        // self::$bd_conex->_alterar_tipos_campos([], 'bit', 'bool');
 	        } catch( PDOException $e ){
 		        var_dump($e);
 	        } // Fim try catch
