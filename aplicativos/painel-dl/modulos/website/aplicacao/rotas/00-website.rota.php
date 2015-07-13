@@ -232,6 +232,12 @@ $rotas['^albuns-de-fotos/salvar$'] = [
     'acao'      =>  'salvar'
 ];
 
+$rotas['^albuns-de-fotos/alternar-publicacao/(publicar|ocultar)$'] = [
+	'controle'  =>  'Album',
+	'acao'      =>  'alternarpublicacao',
+	'params'    =>  '/-/-/:a'
+];
+
 $rotas['^albuns-de-fotos/incluir-fotos$'] = [
     'controle'  =>  'FotoAlbum',
     'acao'      =>  'upload'
@@ -251,12 +257,6 @@ $rotas['^albuns-de-fotos/editar-foto/\d+(/[a-z]+)?$'] = [
 $rotas['^albuns-de-fotos/excluir-fotos$'] = [
     'controle'  =>  'FotoAlbum',
     'acao'      =>  'remover'
-];
-
-$rotas['^albuns-de-fotos/alternar-publicacao/(publicar|ocultar)$'] = [
-    'controle'  =>  'FotoAlbum',
-    'acao'      =>  'alternarpublicacao',
-    'params'    =>  '/-/-/:a'
 ];
 
 

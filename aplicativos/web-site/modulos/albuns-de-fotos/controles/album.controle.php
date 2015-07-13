@@ -10,10 +10,11 @@
 namespace AlbunsDeFotos\Controle;
 
 use \Geral\Controle as GeralC;
+use \AlbunsDeFotos\Modelo as AlbunsM;
 
 class Album extends GeralC\WebSite{
     public function __construct(){
-        parent::__construct(new \AlbunsDeFotos\Modelo\Album(), 'albuns-de-fotos', TXT_MODELO_ALBUM);
+        parent::__construct(new AlbunsM\Album(), 'albuns-de-fotos', TXT_MODELO_ALBUM);
     } // Fim do método __construct
 
 
@@ -22,7 +23,7 @@ class Album extends GeralC\WebSite{
      * Mostrar a lista de registros
      */
     public function _mostrarlista(){
-        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao, foto_album_imagem', 'log_registro_data_criacao DESC', 20, '_listar', false);
+        $this->_listapadrao('album_id, album_nome, log_registro_data_criacao, foto_album_imagem', 'log_registro_data_criacao DESC', 20, '_listar', false, 'album_publicar');
 
         # Visão
         $this->_carregarhtml('lista_albuns');
