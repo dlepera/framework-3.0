@@ -79,8 +79,13 @@ $rotas['^usuarios/(editar|alterar)/\d+$'] = [
 ];
 
 $rotas['^usuarios/salvar$'] = [
-    'controle'  =>  'Usuario',
-    'acao'      =>  'salvar'
+	'controle'  =>  'Usuario',
+	'acao'      =>  'salvar'
+];
+
+$rotas['^usuarios/salvar-foto$'] = [
+	'controle'  =>  'Usuario',
+	'acao'      =>  'salvar_foto'
 ];
 
 $rotas['^usuarios/excluir-usuarios$'] = [

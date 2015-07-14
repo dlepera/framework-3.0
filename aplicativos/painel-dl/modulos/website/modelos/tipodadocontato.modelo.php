@@ -61,7 +61,7 @@ class TipoDadoContato extends GeralM\Principal{
 	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
 		# Fazer upload da imagem
         $oup = new \Upload('aplicacao/uploads/contatos', 'icone');
-		$oup->_salvar($this->descr, true) AND $this->icone = preg_replace('~^\.~', '', $oup->arquivos_salvos[0]);
+		$oup->_salvar($this->descr, true) AND $this->icone = preg_replace('~^\.~', '', $oup->salvos[0]);
 
 		# Salvar registro
         return parent::_salvar($s, $ci, $ce, $ipk);

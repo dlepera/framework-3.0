@@ -17,6 +17,13 @@ class Usuario extends GeralM\Principal{
             $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
             $ultimo_login, $delete = 0;
 
+	/**
+	 * Vetor com todas as extensões aceitas para upload da foto de perfil
+	 *
+	 * @var array
+	 */
+	public $conf_extensoes_foto_perfil = ['jpg', 'jpeg', 'gif', 'png'];
+
     /*
      * 'Gets' e 'Sets' das propriedades
      */
@@ -123,28 +130,12 @@ class Usuario extends GeralM\Principal{
 	    # Aplicar validações
 	    if( $s ){
 		    # Verificar se o login já está cadastrado
-		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}" ) > 0 ) throw new \Exception( ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO, 1500 );
+		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}" ) > 0 )
+			    throw new \Exception( ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO, 1500 );
 
 		    # Verificar se o login já está cadastrado
-		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}" ) > 0 ) throw new \Exception( ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500 );
-
-		    # Salvar a foto do usuário
-		    if( $this->id == $_SESSION['usuario_id'] ){
-			    $oup = new \Upload('aplicacao/uploads/usuarios', 'foto');
-			    $oup->_extensoes(['jpg', 'jpeg', 'gif', 'png']);
-
-			    if( $oup->_salvar($this->info_nome, true) ){
-				    $this->perfil_foto = preg_replace('~^.~', '', $oup->arquivos_salvos[0]);
-
-				    # Recortar a foto
-				    $tim = 200;
-				    $oim = new \Imagem($oup->arquivos_salvos[0]);
-				    $oim->_redimensionar($tim);
-				    $oim->_redimensionar(null, $tim);
-				    $oim->_recortar($tim, $tim);
-				    $oim->_salvar($oup->arquivos_salvos[0]);
-			    } // Fim if( $oup->_salvar( $this->info_nome, true ) )
-		    } // Fim if( $this->id == $_SESSION[ 'usuario_id' ] )
+		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_email = '{$this->info_email}'{$and_id}" ) > 0 )
+			    throw new \Exception( ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO, 1500 );
 	    } // Fim if( $s )
 
         $r = parent::_salvar($s, $ci, $this->reg_vazio ? $ce : ['usuario_info_login','usuario_info_senha'], $ipk);
@@ -164,12 +155,12 @@ class Usuario extends GeralM\Principal{
 	 * @param string $sn Senha nova, escolhida pelo usuário
 	 * @param string $sc Confirmação da senha nova
 	 * @param string $sa Senha atual informada pelo usuário
-	 * @param bool   $rt Se false, permite que o usuário altere a senha sem estar autenticado. É utilizado para resets
+	 * @param bool   $rt Se true, permite que o usuário altere a senha sem estar autenticado. É utilizado para resets
 	 *                   de senhas
 	 *
 	 * @throws \Exception
 	 */
-    public function _alterarsenha($sn, $sc, $sa=null, $rt=false){
+    public function _alterarsenha($sn, $sc, $sa = null, $rt = false){
         if( !$rt ):
             # Verificar se a sessão foi iniciada
             if( session_status() !== PHP_SESSION_ACTIVE )
@@ -226,10 +217,11 @@ class Usuario extends GeralM\Principal{
 	 */
     public function _fazerlogin($u, $s, $c = '*', $m = true){
         $this->_info_login($u);
+	    $this->_info_email($u);
         $m ? $this->_info_senha($s) : $this->info_senha = $s;
 
         $d = $this->_listar(
-                "usuario_info_login = '{$this->info_login}' AND usuario_info_senha = '{$this->info_senha}'",
+                "(usuario_info_login = '{$this->info_login}' OR usuario_info_email = '{$this->info_email}') AND usuario_info_senha = '{$this->info_senha}'",
                 null, $c, 0, 1, 0
             );
 
@@ -288,4 +280,30 @@ class Usuario extends GeralM\Principal{
                 . '</tbody>'
                 . '</table>';
     } // Fim do método _resumo
+
+
+
+	public function _salvar_foto(){
+		# Salvar a foto do usuário
+		if( $this->id != $_SESSION['usuario_id'] )
+			throw new \Exception(ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO, 1403);
+
+		$oup = new \Upload('aplicacao/uploads/usuarios', 'perfil_foto');
+		$oup->_extensoes($this->conf_extensoes_foto_perfil);
+		$oup->conf_bloq_extensao = true;
+
+		if( $oup->_salvar($this->info_nome, true) ){
+			$this->perfil_foto = preg_replace('~^.~', '', $oup->salvos[0]);
+
+			# Recortar a foto
+			$tim = 200;
+			$oim = new \Imagem($oup->salvos[0]);
+			$oim->_redimensionar($tim);
+			$oim->_redimensionar(null, $tim);
+			$oim->_recortar($tim, $tim);
+			$oim->_salvar($oup->salvos[0]);
+
+			$this->_salvar();
+		} // Fim if( $oup->_salvar( $this->info_nome, true ) )
+	}// Fim do método _salvar_foto
 } // Fim do Modelo Usuario

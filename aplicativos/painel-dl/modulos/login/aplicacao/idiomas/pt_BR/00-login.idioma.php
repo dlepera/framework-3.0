@@ -14,7 +14,7 @@ define('TXT_PAGINA_TITULO_MOSTRARRESETSENHA', 'Resetar senha');
 
 # Formuários
 # -> Campos
-define('TXT_ROTULO_LOGIN', 'Login');
+define('TXT_ROTULO_LOGIN', 'Usuário ou e-mail');
 define('TXT_ROTULO_SENHA', 'Senha');
 define('TXT_ROTULO_SENHA_NOVA', 'Sua nova senha');
 define('TXT_ROTULO_SENHA_CONF', 'Confirme a sua nova senha');
@@ -40,6 +40,8 @@ define('MSG_EMAIL_CORPO_RECUPERAR_SENHA', '<h1>Olá %s!</h1>'
         . '<a href="%s" target="_blank">%s</a>'
         . '</p>');
 
+# Diversos
+define('TXT_DIVERSOS_AVISO_USUARIO_RESET_SENHA', '<b>Atenção!</b> Se você não for <b>%s</b> <span style="text-transform:uppercase;text-decoration:underline;font-weight:bold;">não</span> continue esse procedimento!');
 
 
 /*
@@ -60,7 +62,7 @@ define('ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO', 'Esse usuário está bloquea
 define('SUCESSO_LOGIN_FAZERLOGIN', 'Você entrou no sistema!');
 define('SUCESSO_LOGIN_FAZERLOGOUT', 'Você saiu do sistema!');
 define('SUCESSO_LOGIN_RESETARSENHA', '<b>Senha alterada com sucesso!</b><p>Você precisa fazer o login no sistema.</p>');
-define('SUCESSO_LOGIN_RECUPERARSENHA', 'Foi enviado um e-mail para <b>%s</b> com informações de como recuperar o acesso ao sistema.');
+define('SUCESSO_LOGIN_RECUPERARSENHA', 'Foi enviado um e-mail para <b>%s</b> com as informações necessárias para recuperar o acesso ao sistema.');
 
 # Erros
 define('ERRO_LOGIN_FAZERLOGIN', '<b>Erro desconhecido!</b><p>Não foi possível fazer o login.</p>');

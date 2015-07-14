@@ -13,7 +13,7 @@ $ap_nome    = 'painel-dl';
 $ap_home    = 'painel-dl';
 $ap_titulo  = 'Painel-DL';
 $ap_favicon = 'ico-lepera.png';
-$ap_versao  = '3.2.1';
+$ap_versao  = '3.3';
 
 # Configurações do banco de dados
 $bd_ativar  = true;

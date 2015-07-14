@@ -195,10 +195,16 @@
         opacity         : 0;
         
         /* Margens */
-        padding: 1.7em 0;
+		margin  : 0;
+		padding : 2.5em 0;
         
         @include _transition(opacity .5s);
     }
+	
+	.msg-alterar-foto:hover{
+		/* Visual */
+		cursor: pointer;
+	}
 }
 
 .usr-alterar-foto:hover{

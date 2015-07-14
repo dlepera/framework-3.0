@@ -34,7 +34,7 @@ class Recuperacao extends GeralM\Principal{
 
 
 
-    public function __construct($pk=0){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_usuarios_recuperacoes', 'recuperacao_');
 
         # Query de seleção

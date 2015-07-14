@@ -189,4 +189,11 @@ class Usuario extends GeralC\PainelDL{
 
 	    return $vlr == 1 ? \Funcoes::_retornar( !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' ) : \Funcoes::_retornar( !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' );
     } // Fim do método _bloquear
+
+
+
+	protected function _salvar_foto(){
+		$this->modelo->_salvar_foto();
+		\Funcoes::_retornar(SUCESSO_USUARIOS_SALVAR_FOTO, 'msg-sucesso');
+	} // Fim do método _salvar_foto
 } // Fim do Controle Usuario

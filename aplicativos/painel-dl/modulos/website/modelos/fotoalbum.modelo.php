@@ -65,7 +65,7 @@ class FotoAlbum extends GeralM\Principal{
         if( !$oup->_salvar($maf->nome) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_SALVAR, 1500);
 
-        foreach( $oup->arquivos_salvos as $f ):
+        foreach( $oup->salvos as $f ):
             $this->id       = null;
             $this->imagem   = preg_replace('~^\.~', '', $f);
             $this->publicar = 1;

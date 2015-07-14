@@ -59,11 +59,12 @@ class Login extends GeralC\Principal{
 
 
 
-    /**
-     * Recuperar senha
-     *
-     * Enviar um e-mail ao usuário com um link para resetar a senha
-     */
+
+	/**
+	 * Recuperar senha
+	 *
+	 * Enviar um e-mail ao usuário com um link para resetar a senha
+	 */
     public function _recuperarsenha(){
         $le = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
@@ -78,14 +79,12 @@ class Login extends GeralC\Principal{
         # Verificar se o usuário solicitou recentemente a alteração da senha,
         # pois em caso positivo será usada a mesma hash
         $lr = $mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id', 0, 1, 0);
-
-        if( $lr === false ):
-            $mr->usuario = $lu['usuario_id'];
-            $mr->hash    = date(\DL3::$bd_dh_formato_completo);
-            $mr->_salvar();
-        else:
-            $mr->_selecionarPK($lr['recuperacao_id']);
-        endif;
+		// var_dump($lr);
+        if( is_null($lr) ){
+	        $mr->usuario    = $lu['usuario_id'];
+	        $mr->hash       = date(\DL3::$bd_dh_formato_completo);
+	        $mr->_salvar();
+        } else $mr->_selecionarPK($lr['recuperacao_id']);
 
         # Link de recuperação da senha
         $lk = strtolower(
@@ -127,7 +126,12 @@ class Login extends GeralC\Principal{
         $this->_carregarhtml('form_reset', 'login');
         $this->visao->titulo = TXT_PAGINA_TITULO_MOSTRARRESETSENHA;
 
-        # Parâmetros
+	    # Selecionar o tema padrão
+	    $mtm = new DevM\Tema();
+	    $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
+
+	    # Parâmetros
+	    $this->visao->_adparam('tema', $ltm['tema_diretorio']);
         $this->visao->_adparam('id', $lr['recuperacao_id']);
         $this->visao->_adparam('nome-usuario', $lr['usuario_info_nome']);
     } // Fim do método _mostrarresetsenha
@@ -140,12 +144,14 @@ class Login extends GeralC\Principal{
     public function _resetarsenha(){
         # Tratar os dados
         $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+	    $sn = filter_input(INPUT_POST, 'senha_nova');
+	    $sc = filter_input(INPUT_POST, 'senha_nova_conf');
 
         $mr = new LoginM\Recuperacao($id);
         $mu = new AdminM\Usuario($mr->usuario);
 
         # Alterar a senha do usuário
-        $mu->_alterarsenha(null, null, null, true);
+        $mu->_alterarsenha($sn, $sc, null, true);
 
         # Alterar o status
         $mr->status = 'R';

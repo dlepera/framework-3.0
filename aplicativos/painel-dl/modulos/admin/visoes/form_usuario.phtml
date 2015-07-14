@@ -18,26 +18,31 @@ $mod = $params['modelo'];
 
     <?php if( $params['msg-usuario-bloq?'] ): ?>
     <p class="msg-atencao"><?= MSG_USUARIO_BLOQUEADO; ?></p>
-    <?php endif; ?>
+    <?php endif;
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>" enctype="multipart/form-data">
+    /*
+     * TAREFA: Carregar a foto sem precisar recarregar a página
+     */
+    if( !$params['inserindo'] ): ?>
+	<form id="form-foto-perfil" action="admin/usuarios/salvar-foto" enctype="multipart/form-data" class="usr-alterar-foto">
+		<input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+
+		<?php if( $params['usuario-logado?'] ): ?>
+			<input type="file" name="perfil_foto" id="perfil-foto" class="form-controle"/>
+			<label for="perfil-foto">
+				<?= $mod->_mostrarfoto(\DL3::$dir_relativo, 'g'); ?>
+				<span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
+			</label>
+		<?php else:
+			echo $mod->_mostrarfoto(\DL3::$dir_relativo, 'g');
+		endif; ?>
+	</form>
+	<?php endif; ?>
+
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>
-
-
-        <p class="form-paragr usr-alterar-foto">
-            <?php if( $params['usuario-logado?'] ): ?>
-            <input type="file" name="perfil_foto" id="perfil-foto" class="form-controle"/>
-            <label for="perfil-foto">
-                <?= $mod->_mostrarfoto(\DL3::$dir_relativo, 'g'); ?>
-                <span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
-            </label>
-            <?php else:
-                echo $mod->_mostrarfoto(\DL3::$dir_relativo, 'g');
-            endif; ?>
-        </p>
-
 
         <fieldset class="form-grupo">
             <legend class="form-legenda"><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
@@ -219,6 +224,13 @@ $mod = $params['modelo'];
 <script>
     //<![CDATA[
     $('#info-telefone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');
+
+    $('#form-foto-perfil')._dlformulario({
+	    depois      : function(){ window.location.reload(); },
+	    aparencia   : { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+    }).find(':file').on('change', function(){
+	    $(this).parents('form').submit();
+    });
     //]]>
 </script>
 [/DL3-SCRIPTS]

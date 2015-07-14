@@ -17,6 +17,8 @@ $mod = $params['modelo'];
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <input type="hidden" name="id" value="<?= $params['id']; ?>"/>
 
+	    <p class="msg-atencao"><?php printf(TXT_DIVERSOS_AVISO_USUARIO_RESET_SENHA, $params['nome-usuario']); ?></p>
+
         <p class="form-paragr">
             <label for="txt-senha-nova" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA; ?>:</label><br/>
             <input type="password" name="senha_nova" id="txt-senha-nova" class="form-controle" required/>

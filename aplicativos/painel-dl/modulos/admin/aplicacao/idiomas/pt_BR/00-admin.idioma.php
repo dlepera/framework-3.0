@@ -112,9 +112,8 @@ define('TXT_EMAIL_CONTEUDO_TESTE', 'Este é apenas um teste da configuração.')
 
 
 
-/**
+/*
  * Admin\Modelo\ConfigEmail
- * -----------------------------------------------------------------------------
  */
 # Sucessos
 define('SUCESSO_CONFIGEMAIL_TESTAR', 'A configuração foi testada com sucesso!');
@@ -124,10 +123,9 @@ define('ERRO_CONFIGEMAIL_TESTAR', 'Erro! A configuração não conseguiu enviar 
 
 
 
-/**
+/*
  * Admin\Modelo\Usuario
  * Admin\Controle\Usuario
- * -----------------------------------------------------------------------------
  */
 # Sucessos
 define('SUCESSO_USUARIO_ALTERARSENHA', 'Sua senha foi alterada com sucesso!');
@@ -135,6 +133,7 @@ define('SUCESSO_USUARIO_BLOQUEAR_UM', 'Usuário bloqueado com sucesso!');
 define('SUCESSO_USUARIO_BLOQUEAR_VARIOS', 'Foram bloqueados %d usuários de um total de %d seleccionados!');
 define('SUCESSO_USUARIO_DESBLOQUEAR_UM', 'Usuário desbloqueado com sucesso!');
 define('SUCESSO_USUARIO_DESBLOQUEAR_VARIOS', 'foram desbloqueados %d usuários de um total de %d selecionados!');
+define('SUCESSO_USUARIOS_SALVAR_FOTO', 'Foto de perfil salva com sucesso!');
 
 # Erros
 define('ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO', '<b>Erro ao tentar alterar sua senha</b><p>O usuário não foi localizado.</p>');
@@ -143,3 +142,4 @@ define('ERRO_USUARIO_ALTERSENHA_SENHAS_NAO_COINCIDEM', '<b>Erro ao tentar altera
 define('ERRO_USUARIO_BLOQUEAR', '<b>Erro ao tentar bloquear o(s) usuário(s)</b><p>Nenhum usuário foi bloqueado.</p>');
 define('ERRO_USUARIO_DESBLOQUEAR', '<b>Erro ao tentar desbloquear o(s) usuário(s)</b><p>Nenhum usuário foi desbloqueado.</p>');
 define('ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO', '<b>E-mail inválido!</b><p>O e-mail informado já está sendo usado por outro usuário.</p>');
+define('ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO', 'Você não pode salvar fotos para outro usuário!');

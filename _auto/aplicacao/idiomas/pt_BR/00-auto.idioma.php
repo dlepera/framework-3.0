@@ -36,3 +36,10 @@ define('ERRO_PDODL_SGBD_NAO_SUPORTADO', 'Esse SGBD não é suportado pelo sistem
  */
 # Erros
 define('ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO', 'O campo %s é obrigatório, mas está definido como NULL!');
+
+
+
+/*
+ * Upload
+ */
+define('ERRO_UPLOAD_SALVAR_BLOQ_EXTENSAO', 'O arquivo <b>%s</b> não foi salvo!<br/>Por favor, insira um arquivo com uma das seguintes extensões: %s');
