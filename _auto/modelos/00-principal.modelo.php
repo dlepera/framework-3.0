@@ -122,15 +122,16 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Listar registros de uma tabela
 	 *
-	 * @param string    $flt    Filtro a ser aplicado na listagem
-	 * @param string    $ord    Ordenação a ser aplicada na listagem
-	 * @param string    $cpos   Campos a serem mostrados na listagem
-	 * @param int       $pgn    Número da página, para casos de paginação
-	 * @param int       $qtde   Quantidade de registros a serem exibidos durante a paginação
-	 * @param int       $pos    Posição do registro a ser retornado. Quando null, retorna todos os registros encontrados
+	 * @param string $flt  Filtro a ser aplicado na listagem
+	 * @param string $ord  Ordenação a ser aplicada na listagem
+	 * @param string $cpos Campos a serem mostrados na listagem
+	 * @param int    $pgn  Número da página, para casos de paginação
+	 * @param int    $qtde Quantidade de registros a serem exibidos durante a paginação
+	 * @param int    $pos  Posição do registro a ser retornado. Quando null, retorna todos os registros encontrados
 	 *
 	 * @return array
 	 */
@@ -159,10 +160,11 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Obter a quantidade de registro de uma determinada consulta
 	 *
-	 * @param string $flt   Filtro a ser aplicado na consulta
+	 * @param string $flt Filtro a ser aplicado na consulta
 	 *
 	 * @return int  Quantidade de registros referente à consulta
 	 */
@@ -196,11 +198,12 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Selecionar um registro através da chave primária (UK - Unique Key)
 	 *
-	 * @param mixed $c Nome do campos a ser pesquisado
-	 * @param mixed $v Valor a ser pesquisado na PK
+	 * @param mixed  $c Nome do campos a ser pesquisado
+	 * @param mixed  $v Valor a ser pesquisado na PK
 	 * @param string $a Alias da tabela principal configurado na consulta
 	 *
 	 * @return bool
@@ -228,7 +231,7 @@ abstract class Principal{
 	    \Funcoes::_vetor2objeto($dd, $this);
 
 	    # Indicar que o registro foi selecionado
-	    return $this->reg_vazio = !(bool)$ls;
+	    return !($this->reg_vazio = !(bool)$ls);
     } // Fim do método _selecionarUK
 
 
