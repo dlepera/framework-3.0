@@ -18,7 +18,7 @@ define('MASK_TELEFONE_CELULAR_9', '(##) # ####-####');
 
 # -> Documentos
 define('MASK_CPF', '###.###.###-##');
-define('MASK_CNPJ', '###.###.###/####-##');
+define('MASK_CNPJ', '##.###.###/####-##');
 
 
 
