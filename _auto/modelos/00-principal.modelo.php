@@ -236,6 +236,7 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Salvar determinado registro
 	 *
@@ -295,12 +296,14 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Gerar dinâmicamente o comando SQL INSERT
 	 *
-	 * @param bool  $ipk    Se true, monta a query considerando a PK para inserção mesmo em caso de IDENTITY / AUTO_INCREMENT
-	 * @param array $ci     Vetor com os nomes dos campos a serem considerados para a geração da consulta
-	 * @param array $ce     Vetor com os nomes dos campos a serem DESconsiderados para a geração da consulta
+	 * @param bool  $ipk Se true, monta a query considerando a PK para inserção mesmo em caso de IDENTITY /
+	 *                   AUTO_INCREMENT
+	 * @param array $ci  Vetor com os nomes dos campos a serem considerados para a geração da consulta
+	 * @param array $ce  Vetor com os nomes dos campos a serem DESconsiderados para a geração da consulta
 	 *
 	 * @return string       String da query gerada
 	 * @throws \Exception
@@ -327,8 +330,11 @@ abstract class Principal{
             $pk     = $c['Key'] == 'PRI';
             $obr    = $c['Null'] == 'NO';
 
-            if( is_null($this->{$p}) && $obr && !$pk )
-                throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARINSERT_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+	        if( is_null($this->{$p}) ){
+		        if( $obr && !$pk )
+			        throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+		        else continue;
+	        } // Fim if( is_null($this->{$p}) )
 
             if( !is_null($this->{$p}) && (($ipk && $pk) || !$pk) ):
                 $v_campos[]     = "{$c['Field']}";
@@ -341,11 +347,12 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Criar dinamicamente o comando SQL UPDATE
 	 *
-	 * @param array $ci     Vetor com os nomes dos campos a serem considerados para a geração da consulta
-	 * @param array $ce     Vetor com os nomes dos campos a serem DESconsiderados para a geração da consulta
+	 * @param array $ci Vetor com os nomes dos campos a serem considerados para a geração da consulta
+	 * @param array $ce Vetor com os nomes dos campos a serem DESconsiderados para a geração da consulta
 	 *
 	 * @return string
 	 * @throws \Exception
@@ -372,8 +379,11 @@ abstract class Principal{
             $pk     = $c['Key'] == 'PRI';
             $obr    = $c['Null'] == 'NO';
 
-            if( is_null($this->{$p}) && $obr && !$pk )
-                throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+            if( is_null($this->{$p}) ){
+	            if( $obr && !$pk )
+		            throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+	            else continue;
+            } // Fim if( is_null($this->{$p}) )
 
             if( $pk )
                 $v_where[] = "{$c['Field']} = ". var_export($this->{$p}, true);
