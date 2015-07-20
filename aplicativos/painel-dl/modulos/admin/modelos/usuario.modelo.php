@@ -27,72 +27,72 @@ class Usuario extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _info_grupo($v=null){
-        return $this->info_grupo = filter_var(is_null($v) ? $this->info_grupo : $v, FILTER_VALIDATE_INT);
+    public function _info_grupo($v = null){
+        return $this->info_grupo = filter_var(!isset($v) ? $this->info_grupo : $v, FILTER_VALIDATE_INT);
     } // Fim do método _info_grupo
 
-    public function _info_nome($v=null){
-        return $this->info_nome = filter_var(is_null($v) ? $this->info_nome : $v, FILTER_SANITIZE_STRING);
+    public function _info_nome($v = null){
+        return $this->info_nome = filter_var(!isset($v) ? $this->info_nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_nome
 
-    public function _info_email($v=null){
-        return $this->info_email = filter_var(is_null($v) ? $this->info_email : $v, FILTER_VALIDATE_EMAIL);
+    public function _info_email($v = null){
+        return $this->info_email = filter_var(!isset($v) ? $this->info_email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _info_email
 
-    public function _info_telefone($v=null){
-        return $this->info_telefone = filter_var(is_null($v) ? $this->info_telefone : $v, FILTER_SANITIZE_STRING);
+    public function _info_telefone($v = null){
+        return $this->info_telefone = filter_var(!isset($v) ? $this->info_telefone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_telefone
 
-    public function _info_sexo($v=null){
-        return $this->info_sexo = filter_var(is_null($v) ? $this->info_sexo : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[MF]{1}$~']]);
+    public function _info_sexo($v = null){
+        return $this->info_sexo = filter_var(!isset($v) ? $this->info_sexo : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[MF]{1}$~']]);
     } // Fim do método _info_sexo
 
-    public function _info_login($v=null){
-        return $this->info_login = filter_var(is_null($v) ? $this->info_login : $v, FILTER_SANITIZE_STRING);
+    public function _info_login($v = null){
+        return $this->info_login = filter_var(!isset($v) ? $this->info_login : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _info_login
 
-    public function _info_senha($v=null){
-        return $this->info_senha = filter_var(is_null($v) ? $this->info_senha : md5(md5($v)));
+    public function _info_senha($v = null){
+        return $this->info_senha = filter_var(!isset($v) ? $this->info_senha : md5(md5($v)));
     } // Fim do método _info_senha
 
-    public function _pref_idioma($v=null){
-        return $this->pref_idioma = filter_var(is_null($v) ? $this->pref_idioma : $v, FILTER_VALIDATE_INT);
+    public function _pref_idioma($v = null){
+        return $this->pref_idioma = filter_var(!isset($v) ? $this->pref_idioma : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_idioma
 
-    public function _pref_tema($v=null){
-        return $this->pref_tema = filter_var(is_null($v) ? $this->pref_tema : $v, FILTER_VALIDATE_INT);
+    public function _pref_tema($v = null){
+        return $this->pref_tema = filter_var(!isset($v) ? $this->pref_tema : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_tema
 
-    public function _pref_formato_data($v=null){
-        return $this->pref_formato_data = filter_var(is_null($v) ? $this->pref_formato_data : $v, FILTER_VALIDATE_INT);
+    public function _pref_formato_data($v = null){
+        return $this->pref_formato_data = filter_var(!isset($v) ? $this->pref_formato_data : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_formato_data
 
-    public function _pref_num_registros($v=null){
-        return $this->pref_num_registros = filter_var(is_null($v) ? $this->pref_num_registros : $v, FILTER_VALIDATE_INT);
+    public function _pref_num_registros($v = null){
+        return $this->pref_num_registros = filter_var(!isset($v) ? $this->pref_num_registros : $v, FILTER_VALIDATE_INT);
     } // Fim do método _pref_num_registros
 
-    public function _pref_exibir_id($v=null){
-        return $this->pref_exibir_id = filter_var(is_null($v) ? $this->pref_exibir_id : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _pref_exibir_id($v = null){
+        return $this->pref_exibir_id = filter_var(!isset($v) ? $this->pref_exibir_id : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _pref_exibir_id
 
-    public function _pref_filtro_menu($v=null){
-        return $this->pref_filtro_menu = filter_var(is_null($v) ? $this->pref_filtro_menu : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _pref_filtro_menu($v = null){
+        return $this->pref_filtro_menu = filter_var(!isset($v) ? $this->pref_filtro_menu : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _pref_filtro_menu
 
-    public function _conf_bloq($v=null){
-        return $this->conf_bloq = filter_var(is_null($v) ? $this->conf_bloq : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _conf_bloq($v = null){
+        return $this->conf_bloq = filter_var(!isset($v) ? $this->conf_bloq : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _conf_bloq
 
-    public function _conf_reset($v=null){
-        return $this->conf_reset = filter_var(is_null($v) ? $this->conf_reset : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _conf_reset($v = null){
+        return $this->conf_reset = filter_var(!isset($v) ? $this->conf_reset : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _conf_reset
 
-    public function _perfil_foto($v=null){
-        return $this->perfil_foto = filter_var(is_null($v) ? $this->perfil_foto : $v);
+    public function _perfil_foto($v = null){
+        return $this->perfil_foto = filter_var(!isset($v) ? $this->perfil_foto : $v);
     } // Fim do método _perfil_foto
 
-    public function _ultimo_login($v=null){
-        return $this->ultimo_login = \Funcoes::_formatardatahora(filter_var(is_null($v) ? $this->ultimo_login : $v), \DL3::$bd_dh_formato_completo);
+    public function _ultimo_login($v = null){
+        return $this->ultimo_login = \Funcoes::_formatardatahora(filter_var(!isset($v) ? $this->ultimo_login : $v), \DL3::$bd_dh_formato_completo);
     } // Fim do método _ultimo_login
 
 
@@ -113,22 +113,23 @@ class Usuario extends GeralM\Principal{
 
 
 
+
 	/**
 	 * Salvar determinado registro
 	 *
-	 * @param boolean $s    Define se o registro será salvo ou apenas será gerada a query de insert/update
-	 * @param array $ci     Vetor com os campos a serem considerados
-	 * @param array $ce     Vetor com os campos a serem desconsiderados
-	 * @param bool $ipk     Define se o campo PK será considerado para inserção
+	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+	 * @param array   $ci  Vetor com os campos a serem considerados
+	 * @param array   $ce  Vetor com os campos a serem desconsiderados
+	 * @param bool    $ipk Define se o campo PK será considerado para inserção
 	 *
 	 * @return mixed
 	 * @throws \Exception
 	 */
     protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
-	    $and_id = $this->reg_vazio ? '' : " AND {$this->bd_prefixo}id <> {$this->id}";
-
 	    # Aplicar validações
 	    if( $s ){
+		    $and_id = $this->reg_vazio ? '' : " AND {$this->bd_prefixo}id <> {$this->id}";
+
 		    # Verificar se o login já está cadastrado
 		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}" ) > 0 )
 			    throw new \Exception( ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO, 1500 );
@@ -161,13 +162,13 @@ class Usuario extends GeralM\Principal{
 	 * @throws \Exception
 	 */
     public function _alterarsenha($sn, $sc, $sa = null, $rt = false){
-        if( !$rt ):
-            # Verificar se a sessão foi iniciada
-            if( session_status() !== PHP_SESSION_ACTIVE )
-                throw new \Exception(ERRO_PADRAO_SESSAO_NAO_INICIADA, 1403);
+        if( !$rt ){
+	        # Verificar se a sessão foi iniciada
+	        if( session_status() !== PHP_SESSION_ACTIVE )
+		        throw new \Exception(ERRO_PADRAO_SESSAO_NAO_INICIADA, 1403);
 
-            $this->_selecionarPK($_SESSION['usuario_id']);
-        endif;
+	        $this->_selecionarPK($_SESSION['usuario_id']);
+        } // Fim if( !$rt )
 
         if( is_null($this->id) )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
@@ -192,15 +193,17 @@ class Usuario extends GeralM\Principal{
 
 
 
-    /**
-     * Bloquear ou desbloquear o acesso ao sistema desse usuário
-     *
-     * @param int $vlr Valor que define se o usuário será bloqueado ou desbloquado
-     */
+
+	/**
+	 * Bloquear ou desbloquear o acesso ao sistema desse usuário
+	 *
+	 * @param int $vlr Valor que define se o usuário será bloqueado ou desbloquado
+	 */
     protected function _bloquear($vlr){
         $this->_conf_bloq($vlr);
         $this->_salvar();
     } // Fim do método _bloquear
+
 
 
 
@@ -231,12 +234,12 @@ class Usuario extends GeralM\Principal{
         if( (bool)$d['usuario_conf_bloq'] )
             throw new \Exception(ERRO_USUARIO_FAZERLOGIN_USUARIO_BLOQUEADO, 1403);
 
-        if( $m ):
-            # Registrar a data desse login
-            $this->_selecionarPK($d['usuario_id']);
-            $this->ultimo_login = date(\DL3::$bd_dh_formato_completo);
-            $this->_salvar();
-        endif;
+        if( $m ){
+	        # Registrar a data desse login
+	        $this->_selecionarPK($d['usuario_id']);
+	        $this->ultimo_login = date(\DL3::$bd_dh_formato_completo);
+	        $this->_salvar();
+        } // Fim if( $m )
 
         return $d;
     } // Fim do método _fazerlogin

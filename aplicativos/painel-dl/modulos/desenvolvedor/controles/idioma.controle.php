@@ -30,9 +30,10 @@ class Idioma extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla, ( CASE idioma_publicar'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -51,12 +52,13 @@ class Idioma extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição
-     *
-     * @param int $pk PK do registro a ser selecionado
-     * @param string $mst Nome da página mestra a ser carregada
-     */
+
+	/**
+	 * Mostrar o formulário de inclusão e edição
+	 *
+	 * @param int    $pk  PK do registro a ser selecionado
+	 * @param string $mst Nome da página mestra a ser carregada
+	 */
     protected function _mostrarform($pk = null, $mst = 'padrao'){
         $inc = $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $pk);
 

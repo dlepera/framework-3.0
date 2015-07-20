@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 16:51:21
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 ?>
 
@@ -38,7 +38,8 @@
                 <?php if( !count($params['lista']) )
                     echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
-                foreach( $params['lista'] as $l ): ?>
+                foreach( $params['lista'] as $l ):
+	                $qt = $params['qtdes-fotos'][$l['album_id']]; ?>
                 <tr class="tbl-linha">
                     <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['album_id']; ?>"/></td>
                     <?php if( $params['exibir-id'] ): ?>
@@ -49,9 +50,15 @@
                         <img src="..<?= $l['foto_album_imagem']; ?>" alt="" class="tbl-imagem capa-album v-desk"/>
                         <?php endif;
 
-                        echo $l['album_nome'], '<br/>'; ?>
-                    </th>
-                    <td headers="th-publicado"><?= $l['PUBLICADO']; ?></th>
+                        echo $l['album_nome'], '<br/>';
+
+                        switch($qt){
+	                        case 0: echo TXT_DIVERSOS_NENHUMA_FOTO; break;
+	                        case 1: echo TXT_DIVERSOS_UMA_FOTO; break;
+	                        default: printf(TXT_DIVERSOS_QTDE_FOTOS, $qt);
+                        } ?>
+                    </td>
+                    <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
                         <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
@@ -78,11 +85,11 @@
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_PUBLICAR; ?>
                         </a>
 
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_OCULTAR; ?>
                         </a>
                         <?php endif;

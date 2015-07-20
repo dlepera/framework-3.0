@@ -1,4 +1,4 @@
-@charset 'utf-8';
+@charset "utf-8";
 
 /**
  *  @Autor  : Diego Lepera
@@ -11,7 +11,7 @@
  * DIV principal da mensagem de alerta
  * ----------------------------------------------------------------------------------------------------------------------- */
 div.dl-formulario-mensagem.painel-dl.alerta{
-    /* Margens e espaçamentos */
+    /* Margens */
     padding: 0;
     
     /* Tamanho */
@@ -22,21 +22,21 @@ div.dl-formulario-mensagem.painel-dl.alerta{
     position: fixed;
     top     : 0;
     left    : 0;
-    z-index : 10;
+    z-index : 9;
     
-    /* Formatação do texto */
+    /* Texto */
     text-align: center;
     
-    /* Aparência */
+    /* Visual */
     background: rgba(0,0,0,.6);
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta > p > details{
-    /* Formatação do texto */
+    /* Texto */
     font-size   : .5em;
     text-align  : left;
     
-    /* Margens e espaçamentos */
+    /* Margens */
     margin-top: .5em;
 }
 
@@ -44,12 +44,12 @@ div.dl-formulario-mensagem.painel-dl.alerta > p > details{
  * Contagem regressiva
  * ----------------------------------------------------------------------------------------------------------------------- */
 div.dl-formulario-mensagem.painel-dl.alerta > span.cont-regressiva{
-    /* Formatação da fonte */
+    /* Texto */
     color       : #FFF;
     font-size   : 1.3em;
     line-height : 3.6923007em;
     
-    /* Aparência */
+    /* Visual */
     display: inline-block;
 }
 
@@ -57,23 +57,25 @@ div.dl-formulario-mensagem.painel-dl.alerta > span.cont-regressiva{
  * Parágrafo que contém a mensagem
  * ----------------------------------------------------------------------------------------------------------------------- */
 div.dl-formulario-mensagem.painel-dl.alerta > p{
-    /* Aparência */
+    /* Visual */
     background: #FFF;
     
     /* Tamanho */
-    width: 100%;
+    width       : 100%;
+    max-height  : 60%;
     
     /* Posicionamento */
-    position: absolute;
+    position: relative;
     top     : 50%;
+    z-index : 9;
     
     /* Transformações */
     transform: translateY(-50%);
     
-    /* Margens e espaçamentos */
-    padding: 1%;
+    /* Margens */
+    padding: 1% 10%;
     
-    /* Formatação do texto */
+    /* Texto */
     font-size   : 2em;
     text-align  : center;
     
@@ -87,15 +89,15 @@ div.dl-formulario-mensagem.painel-dl.alerta > p{
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta > p:before{
-    /* Formatação do texto */
+    /* Texto */
     font-family : 'icones';
     font-size   : 4em;
     
-    /* Margens e espaçamentos */
+    /* Margens */
     margin-left : -1em;
     margin-right: .2em;
     
-    /* Aparência */
+    /* Visual */
     opacity: .2;
     
     /* Alinhamento */
@@ -106,7 +108,7 @@ div.dl-formulario-mensagem.painel-dl.alerta > p:before{
  * Botão fechar
  * ----------------------------------------------------------------------------------------------------------------------- */
 div.dl-formulario-mensagem.painel-dl.alerta > p > button{
-    /* Aparência */
+    /* Visual */
     border-radius   : 50%;
     border          : 2px solid #FFF;
     
@@ -118,8 +120,9 @@ div.dl-formulario-mensagem.painel-dl.alerta > p > button{
     position: absolute;
     top     : -1.5em;
     right   : 10%;
+    z-index : 10;
     
-    /* Formatação do texto */
+    /* Texto */
     color: #FFF;
 }
 
@@ -129,19 +132,20 @@ div.dl-formulario-mensagem.painel-dl.alerta > p > button{
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso{ border: none; }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p{
-    /* Formatação do texto */
+    /* Texto */
     color: green;
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p:before{
     /* Conteúdo */
-    content: '\ea10';
+    content: '\e710';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p > button{
-    /* Aparência */
+    /* Visual */
     background: green;
 }
+
 
 
 /* --------------------------------------------------------------------------------------------------------------------------
@@ -150,17 +154,17 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-sucesso > p > button{
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro{ border: none; }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p{
-    /* Formatação do texto */
+    /* Texto */
     color: red;
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p:before{
     /* Conteúdo */
-    content: '\ea0f';
+    content: '\e70f';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p > button{
-    /* Aparência */
+    /* Visual */
     background: red;
 }
 
@@ -169,16 +173,16 @@ div.dl-formulario-mensagem.painel-dl.alerta.msg-erro > p > button{
  * Parágrafo que contém a mensagem e botão fechar: atencao
  * ----------------------------------------------------------------------------------------------------------------------- */
 div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p{
-    /* Formatação do texto */
+    /* Texto */
     color: #069;
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p:before{
     /* Conteúdo */
-    content: '\ea0c';
+    content: '\e70c';
 }
 
 div.dl-formulario-mensagem.painel-dl.alerta.msg-atencao > p > button{
-    /* Aparência */
+    /* Visual */
     background: #069;
 }

@@ -42,7 +42,7 @@ abstract class Principal{
 	 * @param string $mst Nome da página mestra a ser utilizada
 	 * @param int    $o   Ordem de exibição do template na compilação final
 	 */
-    protected function _carregarhtml($tpl, $mst=null, $o=0){
+    protected function _carregarhtml($tpl, $mst = null, $o=0){
         $this->visao->_adtemplate($tpl, true, $o);
         $this->visao->pg_mestra = !$mst ? null : $mst;
     } // Fim do método _carregarhtml
@@ -80,7 +80,7 @@ abstract class Principal{
 	 * @param string $f Filtro a ser aplicado
 	 * @param bool   $e Define se o resultado da consulta será escrito ou retornado pela função
 	 */
-    public function _carregarselect($f=null,$e=true){
+    public function _carregarselect($f = null,$e = true){
         return $this->modelo->_carregarselect($f,$e);
     } // Fim do método _carregarselect
 
@@ -100,10 +100,10 @@ abstract class Principal{
 	 * @return bool
 	 */
     protected function _formpadrao($form_id, $form_ia, $form_ea, $url = null, $pk = null, $ajax = true){
-        is_object($this->modelo) AND $this->modelo->_selecionarPK($pk);
+        is_object($this->modelo) and $this->modelo->_selecionarPK($pk);
 
         # Incluir o script AJAX
-        $ajax AND $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
+        $ajax and $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
 
         # Verificar se o registro será alterado ou incluído
         $inc = is_null($this->modelo->id);
@@ -115,13 +115,13 @@ abstract class Principal{
         $this->visao->_adparam('form-action', \DL3::$modulo_atual .'/'. ($inc ? $form_ia : $form_ea));
         $this->visao->_adparam('url-depois', $url);
 
-        if( !$inc ):
-            $this->visao->_adparam('u-inc', $this->modelo->mod_lr->usuario_nome_criacao);
-            $this->visao->_adparam('dt-inc', $this->modelo->mod_lr->data_criacao);
+        if( !$inc ){
+	        $this->visao->_adparam('u-inc', $this->modelo->mod_lr->usuario_nome_criacao);
+	        $this->visao->_adparam('dt-inc', $this->modelo->mod_lr->data_criacao);
 
-            $this->visao->_adparam('u-alt', $this->modelo->mod_lr->usuario_nome_alteracao);
-            $this->visao->_adparam('dt-alt', $this->modelo->mod_lr->data_alteracao);
-        endif;
+	        $this->visao->_adparam('u-alt', $this->modelo->mod_lr->usuario_nome_alteracao);
+	        $this->visao->_adparam('dt-alt', $this->modelo->mod_lr->data_alteracao);
+        } // Fim if( !$inc )
 
         return $inc;
     } // Fim do método _formpadrao
@@ -147,7 +147,7 @@ abstract class Principal{
             throw new \Exception(sprintf(ERRO_PADRAO_METODO_NAO_ENCONTRADO, $m, get_class($this->modelo)), 1404);
 
         # Carregar o script AJAX
-        if( $a ) $this->_carregarhtml ('comum/visoes/lista_ajax', false, 98);
+        $a and $this->_carregarhtml('comum/visoes/lista_ajax', false, 98);
 
         # Formulário de filtro
         $this->visao->_adparam('get-t', $get_t = filter_input(INPUT_GET, 't'));
@@ -158,11 +158,11 @@ abstract class Principal{
         # Filtro
         $fl = [];
 
-        if( !empty($fa) ) $fl[] = $fa;
-        if( !empty($get_t) && !empty($get_c) ) $fl[] = "{$get_c} LIKE '%{$get_t}%'";
+        !empty($fa) and $fl[] = $fa;
+        !empty($get_t) && !empty($get_c) and $fl[] = "{$get_c} LIKE '%{$get_t}%'";
 
         # Considerar dados de sessão
-        $dsess = is_null($q) && session_status() === PHP_SESSION_ACTIVE;
+        $dsess = !isset($q) && session_status() === PHP_SESSION_ACTIVE;
 
         # Quantidade de registros
         $qr = $dsess ? $_SESSION['usuario_pref_num_registros'] : 20;
@@ -171,7 +171,7 @@ abstract class Principal{
         $eid = $dsess ? $_SESSION['usuario_pref_exibir_id'] : false;
 
         # Lista
-        $l = $this->modelo->{$m}($f = implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, is_null($get_pg) ? 1 : $get_pg, $qr);
+        $l = $this->modelo->{$m}($f = implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, !isset($get_pg) ? 1 : $get_pg, $qr);
 
         # Nome da classe
         $cl = get_called_class();
@@ -182,11 +182,11 @@ abstract class Principal{
         $this->visao->_adparam('filtro?', !empty($get_c));
         $this->visao->_adparam('exibir-id', $eid);
 
-        if( \DL3::$aut_o instanceof \Autenticacao ):
-            $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));
-            $this->visao->_adparam('perm-editar?', $pi);
-            $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
-        endif;
+        if( \DL3::$aut_o instanceof \Autenticacao ){
+	        $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));
+	        $this->visao->_adparam('perm-editar?', $pi);
+	        $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
+        } // Fim if( \DL3::$aut_o instanceof \Autenticacao )
     } // Fim do método _listapadrao
 
 
@@ -215,6 +215,7 @@ abstract class Principal{
 
 
 
+
 	/**
 	 * Executar uma ação em lote através das PKs dos registros
 	 *
@@ -224,9 +225,9 @@ abstract class Principal{
 	 * @throws \Exception
 	 */
     protected function _executaremlote($m){
-		$tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_FORCE_ARRAY);
+		$tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_FORCE_ARRAY | FILTER_NULL_ON_FAILURE);
 
-        if( is_null($tid) )
+        if( !isset($tid) )
             throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
 
         # Quantidade total de registros e quantidade excluída

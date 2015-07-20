@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -37,7 +37,7 @@ $mod = $params['modelo'];
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_CAPA; ?></span><br/>
             <span class="form-dica"><?= MSG_DICA_ALBUMFOTO_CAPA; ?></span><br/>
-            <input type="checkbox" name="capa" id="chk-capa" class="form-alternar"<?php $mod->capa AND print(' CHECKED'); ?>/>
+            <input type="checkbox" name="capa" id="chk-capa" class="form-alternar"<?php $mod->capa and print(' CHECKED'); ?>/>
             <label for="chk-capa"></label>
         </p>
 

@@ -47,12 +47,12 @@ class PainelDL extends Principal{
 	 * @return bool|mixed
 	 */
     public function __call($n,$a){
-        if( !\DL3::$aut_o->_verificarperm(get_called_class(),$n) ):
-            echo '<h1>Você não pode executar essa ação!</h1>'
-                . '<p>Você não tem permissão para acessar essa página, diretório ou funcionalidade.</p>';
+        if( !\DL3::$aut_o->_verificarperm(get_called_class(), $n) ){
+	        echo '<h1>Você não pode executar essa ação!</h1>'
+		        . '<p>Você não tem permissão para acessar essa página, diretório ou funcionalidade.</p>';
 
-            return false;
-        endif;
+	        return false;
+        } // Fim if( !\DL3::$aut_o->_verificarperm(get_called_class(),$n) )
 
         return call_user_func_array(
             [$this, $n],

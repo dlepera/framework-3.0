@@ -29,6 +29,7 @@ class PDODL extends PDO{
 
 
 
+
 	/**
 	 * Identificar as informações de conexão através da string de conexão DSN
 	 *
@@ -46,70 +47,70 @@ class PDODL extends PDO{
 	/**
 	 * Paginação de resultados
 	 *
-	 * @param string $q     Consulta a ser executada
-	 * @param int $pgn      Número da página a ser considerada para o cálculo
-	 * @param int $qtde     Quantidade de registros a ser exibido nessa página
+	 * @param string $q    Consulta a ser executada
+	 * @param int    $pgn  Número da página a ser considerada para o cálculo
+	 * @param int    $qtde Quantidade de registros a ser exibido nessa página
 	 *
 	 * @return PDOStatement
 	 */
     public function _paginacao($q, $pgn = 1, $qtde = 20){
-        if( $qtde > 0 ):
-            switch( $this->driver ):
-                case 'MYSQL':
-                    $inicio = $pgn == 1 ? 0 : ($pgn-1)*$qtde;
+        if( $qtde > 0 ){
+	        switch( $this->driver ){
+		        case 'MYSQL':
+			        $inicio = $pgn == 1 ? 0 : ($pgn - 1) * $qtde;
 
-                    # Verificar se a query foi passada com o LIMIT
-                    if( strpos("LIMIT", $q) > -1 )
-                        $q = preg_replace('~LIMIT\s+[\d\w,]+~i', '', $q);
+			        # Verificar se a query foi passada com o LIMIT
+			        if( strpos("LIMIT", $q) > -1 ) $q = preg_replace('~LIMIT\s+[\d\w,]+~i', '', $q);
 
-                    # Realizar a paginação dos resultados
-                    $q .= " LIMIT {$inicio},{$qtde}";
-                break;
+			        # Realizar a paginação dos resultados
+			        $q .= " LIMIT {$inicio},{$qtde}";
+			        break;
 
-                case 'DBLIB':
-                case 'MSSQL':
-                    $inicio = $pgn == 1 ? 1 : (($pgn-1)*$qtde)+1;
-                    $fim    = $inicio == 1 ? $qtde : $pgn*$qtde;
+		        case 'DBLIB':
+		        case 'MSSQL':
+			        $inicio = $pgn == 1 ? 1 : (($pgn - 1) * $qtde) + 1;
+			        $fim = $inicio == 1 ? $qtde : $pgn * $qtde;
 
-                    $expreg = '~^(SELECT){1}\s+(.+)\s+(FROM){1}\s+(.+)';
-                        $expreg .= stripos($q, " WHERE ") === false ? '' : '\s+(WHERE){1}\s+(.+)';
-                        $expreg .= stripos($q, " GROUP ") === false ? '' : '\s+(GROUP\s+BY){1}\s+(.+)';
-                        $expreg .= stripos($q, " ORDER ") === false ? '' : '\s+(ORDER\s+BY){1}\s+(.+)';
-                        $expreg .= '~i';
-                    preg_match($expreg, $q, $string);
+			        $expreg = '~^(SELECT){1}\s+(.+)\s+(FROM){1}\s+(.+)';
+			        $expreg .= stripos($q, " WHERE ") === false ? '' : '\s+(WHERE){1}\s+(.+)';
+			        $expreg .= stripos($q, " GROUP ") === false ? '' : '\s+(GROUP\s+BY){1}\s+(.+)';
+			        $expreg .= stripos($q, " ORDER ") === false ? '' : '\s+(ORDER\s+BY){1}\s+(.+)';
+			        $expreg .= '~i';
+			        preg_match($expreg, $q, $string);
 
-                    $clausula = array_search("ORDER BY", $string);
-                    if( $clausula === false ) $order = $string[2];
-                    else {
-                        $order = $string[$clausula+1];
+			        $clausula = array_search("ORDER BY", $string);
+			        if( $clausula === false ) $order = $string[2]; else{
+				        $order = $string[$clausula + 1];
 
-                        # Remover a cláusula ORDER BY do vetor string
-                        unset($string[$clausula], $string[$clausula+1]);
-                    } // Fim if( $clausula === false )
+				        # Remover a cláusula ORDER BY do vetor string
+				        unset($string[$clausula], $string[$clausula + 1]);
+			        } // Fim if( $clausula === false )
 
-                    $clausulas = implode(' ', array_slice($string, 2));
+			        $clausulas = implode(' ', array_slice($string, 2));
 
-                    # Adicionar o número da linha na query principal
+			        # Adicionar o número da linha na query principal
 
-                    $q = "{$string[1]} ROW_NUMBER() OVER (ORDER BY ". trim($order) .") AS linha, {$clausulas}";
+			        $q = "{$string[1]} ROW_NUMBER() OVER (ORDER BY " . trim($order) . ") AS linha, {$clausulas}";
 
-                    # Realizar a paginação dos resultados
-                    $q = "WITH paginacao AS ({$q}) SELECT * FROM paginacao WHERE linha BETWEEN {$inicio} AND {$fim}";
-                break;
-            endswitch;
-        endif; // Fim if( $qtde > 0 )
+			        # Realizar a paginação dos resultados
+			        $q = "WITH paginacao AS ({$q}) SELECT * FROM paginacao WHERE linha BETWEEN {$inicio} AND {$fim}";
+			        break;
+	        } // Fim switch
+        } // Fim if( $qtde > 0 )
 
         return $this->query($q);
     } // Fim do método _paginacao
 
 
 
-    /**
-     * Verificar se uma determnada tabela existe no banco de dados
-     *
-     * @param string $tbl - nome da tabela a ser verificada
-     * @return boolean
-     */
+
+	/**
+	 * Verificar se uma determnada tabela existe no banco de dados
+	 *
+	 * @param string $tbl - nome da tabela a ser verificada
+	 *
+	 * @return boolean
+	 */
     public function _tabela_existe($tbl){
         return (bool)$this->query("SELECT 1 FROM {$tbl}");
     } // Fim do método _tabela_existe
@@ -121,7 +122,8 @@ class PDODL extends PDO{
 
 	    $c = 'self::'. $this->driver .'_INFO_CAMPOS';
 
-	    if( !defined($c) ) throw new \Exception(ERRO_PDODL_SGBD_NAO_SUPORTADO);
+	    if( !defined($c) )
+		    throw new \Exception(ERRO_PDODL_SGBD_NAO_SUPORTADO);
 
 	    $q = constant($c);
 
@@ -151,13 +153,15 @@ class PDODL extends PDO{
 
 		$c = 'self::'. $this->driver .'_IDENTIFICA_PK';
 
-		if( !defined($c) ) throw new \Exception(ERRO_PDODL_SGBD_NAO_SUPORTADO);
+		if( !defined($c) )
+			throw new \Exception(ERRO_PDODL_SGBD_NAO_SUPORTADO);
 
 		$sql = $this->prepare(constant($c), [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
 		$sql->execute([':base' => $this->bd,  ':tbl' => $tbl]);
 
 		return array_column($sql->fetchAll(\PDO::FETCH_ASSOC), 'NOME_COLUNA');
 	} // Fim do método _identifica_pk
+
 
 
 
@@ -168,7 +172,7 @@ class PDODL extends PDO{
 		# Contar quantidade de campos alterados
 		$qt = 0;
 
-		$sql = $this->query("SHOW TABLES");
+		$sql = $this->query('SHOW TABLES');
 
 		while( $tb = $sql->fetchColumn(0) ){
 			if( !empty($tbls) && !in_array($tb, $tbls) ) continue;

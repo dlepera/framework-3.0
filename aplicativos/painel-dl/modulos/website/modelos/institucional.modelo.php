@@ -17,31 +17,30 @@ class Institucional extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _historia($v=null){
-        return $this->historia = filter_var(is_null($v) ? $this->historia : $v);
+    public function _historia($v = null){
+        return $this->historia = filter_var(!isset($v) ? $this->historia : $v);
     } // Fim do método _historia
 
-    public function _missao($v=null){
-        return $this->missao = filter_var(is_null($v) ? $this->missao : $v);
+    public function _missao($v = null){
+        return $this->missao = filter_var(!isset($v) ? $this->missao : $v);
     } // Fim do método _missao
 
-    public function _visao($v=null){
-        return $this->visao = filter_var(is_null($v) ? $this->visao : $v);
+    public function _visao($v = null){
+        return $this->visao = filter_var(!isset($v) ? $this->visao : $v);
     } // Fim do método _visao
 
-    public function _valores($v=null){
-        return $this->valores = filter_var(is_null($v) ? $this->valores : $v);
+    public function _valores($v = null){
+        return $this->valores = filter_var(!isset($v) ? $this->valores : $v);
     } // Fim do método _valores
 
 
 
-    public function __construct($id=null){
+    public function __construct($pk = null){
         parent::__construct('dl_site_institucional', 'instit_');
 
         $this->bd_select = 'SELECT %s FROM %s';
 
-        if( !empty((int)$id) )
-            $this->_selecionarPK((int)$id);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 

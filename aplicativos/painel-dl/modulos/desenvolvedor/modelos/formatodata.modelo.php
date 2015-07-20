@@ -17,20 +17,20 @@ class FormatoData extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _completo($v=null){
-        return $this->completo = filter_var(is_null($v) ? $this->completo : $v, FILTER_SANITIZE_STRING);
+    public function _completo($v = null){
+        return $this->completo = filter_var(!isset($v) ? $this->completo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _completo
 
-    public function _data($v=null){
-        return $this->data = filter_var(is_null($v) ? $this->data : $v, FILTER_SANITIZE_STRING);
+    public function _data($v = null){
+        return $this->data = filter_var(!isset($v) ? $this->data : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _data
 
-    public function _hora($v=null){
-        return $this->hora = filter_var(is_null($v) ? $this->hora : $v, FILTER_SANITIZE_STRING);
+    public function _hora($v = null){
+        return $this->hora = filter_var(!isset($v) ? $this->hora : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _hora
 
 

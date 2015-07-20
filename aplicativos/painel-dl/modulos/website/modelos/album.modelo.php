@@ -19,8 +19,8 @@ class Album extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _nome($v=null){
-        return $this->nome = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del']);
+    public function _nome($v = null){
+        return $this->nome = \Funcoes::_ucwords(filter_var(!isset($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del']);
     } // Fim do método _nome
 
 
@@ -30,11 +30,12 @@ class Album extends GeralM\Principal{
 
         $this->bd_select = 'SELECT %s'
                 . ' FROM %s AS A'
-                . " LEFT JOIN {$this->bd_tabela}_fotos AS FC ON ( FC.foto_album = A.album_id AND FC.foto_album_capa = 1 )"
+                . " LEFT JOIN {$this->bd_tabela}_fotos AS FC ON ( FC.foto_album = A.album_id AND FC.foto_album_capa )"
                 . ' WHERE A.%sdelete = 0';
 
         $this->_selecionarPK($pk);
     } // Fim do método __construct
+
 
 
 
@@ -49,14 +50,14 @@ class Album extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
-		if( $s ){
+		if( $s && $r ){
 			# Criar diretório do álbum
-			if( !is_null($this->id) ){
+			if( isset($this->id) ){
 				$d = sprintf(self::DIR_UPLOAD, $this->id);
-				!file_exists($d) AND mkdir($d);
+				!file_exists($d) and mkdir($d);
 			} // Fim if( !is_null($this->id) )
 
 			# Durante a inclusão do registro, fotos podem ser incluídas
@@ -73,10 +74,28 @@ class Album extends GeralM\Principal{
 
 
 
-    /**
-     * Remover o registro do banco de dados
-     */
+
+	/**
+	 * Remover o registro do banco de dados
+	 */
     protected function _remover(){
-		return \Arquivos::_removerdir(sprintf(self::DIR_UPLOAD, $this->id), true) AND parent::_remover();
+		return \Arquivos::_removerdir(sprintf(self::DIR_UPLOAD, $this->id), true) and parent::_remover();
     } // Fim do método _remover
+
+
+
+
+	/**
+	 * Contar quantidade e fotos de um álbum
+	 *
+	 * @param int $id ID do álbum de fotos. Quando esse parâmetro não é passado, é utilizado o ID do álbum carregado no
+	 *                modelo
+	 *
+	 * @return int Quantidade de fotos do álbum especificado
+	 */
+	public function _qtde_fotos($id = null){
+		$id  = isset($id) ? $id : $this->id;
+		$mft = new FotoAlbum();
+		return (int)$mft->_qtde_registros("foto_album = {$id}");
+	} // Fim metódo _qtde_fotos
 } // Fim do Modelo Album

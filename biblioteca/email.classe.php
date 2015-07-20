@@ -40,7 +40,7 @@ class Email{
 	 */
     public function _carregarconf($id = null){
         # Selecionar as configurações principais ou definida pelo ID
-        is_null($id) ? $this->mod_ce->_selecionarprincipal() : $this->mod_ce->_selecionarPK($id);
+        !isset($id) ? $this->mod_ce->_selecionarprincipal() : $this->mod_ce->_selecionarPK($id);
 
         # Definir servidor como SMTP
         $this->obj_pm->IsSMTP();
@@ -56,6 +56,9 @@ class Email{
         $this->obj_pm->FromName     = $this->mod_ce->de_nome;
         $this->obj_pm->AddReplyTo($this->mod_ce->responder_para);
         $this->obj_pm->IsHTML((bool)$this->mod_ce->html);
+
+	    # Habilitar (ou não) o debugger
+	    $this->obj_pm->SMTPDebug = (bool)$this->mod_ce->debug;
     } // Fim do método _carregarconf
 
 
@@ -86,11 +89,12 @@ class Email{
             $this->obj_pm->AddAddress($d);
 
         # Enviar o e-mail
-        if( !$this->obj_pm->Send() ):
-            $this->mod_le->mensagem   = $this->obj_pm->ErrorInfo;
-            $this->mod_le->status     = 'F';
-            return false;
-        endif;
+        if( !$this->obj_pm->Send() ){
+	        $this->mod_le->mensagem = $this->obj_pm->ErrorInfo;
+	        $this->mod_le->status = 'F';
+
+	        return false;
+        } // Fim if( !$this->obj_pm->Send() )
 
         $this->mod_le->status = 'E';
 

@@ -17,33 +17,33 @@ class TipoDadoContato extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _icone($v=null){
-        return $this->icone = filter_var(is_null($v) ? $this->icone : $v, FILTER_SANITIZE_STRING);
+    public function _icone($v = null){
+        return $this->icone = filter_var(!isset($v) ? $this->icone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _icone
 
-    public function _rede_social($v=null){
-        return $this->rede_social = filter_var(is_null($v) ? $this->rede_social : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _rede_social($v = null){
+        return $this->rede_social = filter_var(!isset($v) ? $this->rede_social : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _rede_social
 
-    public function _mascara($v=null){
-        return $this->mascara = filter_var(is_null($v) ? $this->mascara : $v);
+    public function _mascara($v = null){
+        return $this->mascara = filter_var(!isset($v) ? $this->mascara : $v);
     } // Fim do método _mascara
 
-    public function _expreg($v=null){
-        return $this->expreg = filter_var(is_null($v) ? $this->expreg : $v);
+    public function _expreg($v = null){
+        return $this->expreg = filter_var(!isset($v) ? $this->expreg : $v);
     } // Fim do método _expreg
 
 
 
     public function __construct($pk = null){
         parent::__construct('dl_site_dados_contato_tipos', 'tipo_dado_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
+
 
 
 
@@ -61,7 +61,7 @@ class TipoDadoContato extends GeralM\Principal{
 	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
 		# Fazer upload da imagem
         $oup = new \Upload('aplicacao/uploads/contatos', 'icone');
-		$oup->_salvar($this->descr, true) AND $this->icone = preg_replace('~^\.~', '', $oup->salvos[0]);
+		$oup->_salvar($this->descr, true) and $this->icone = preg_replace('~^\.~', '', $oup->salvos[0]);
 
 		# Salvar registro
         return parent::_salvar($s, $ci, $ce, $ipk);
@@ -69,12 +69,13 @@ class TipoDadoContato extends GeralM\Principal{
 
 
 
-    /**
-     * Remover registro do banco de dados
-     */
+
+	/**
+	 * Remover registro do banco de dados
+	 */
     protected function _remover(){
         # Remover o ícone
-        !empty($this->icone) AND unlink(".{$this->icone}");
+        !empty($this->icone) and unlink(".{$this->icone}");
 
         return parent::_remover();
     } // Fim do método _remover

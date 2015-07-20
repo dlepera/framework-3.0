@@ -47,20 +47,20 @@ class Autenticacao{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _sessao_prefixo($v=null){
-        return $this->sessao_prefixo = filter_var(is_null($v) ? $this->sessao_prefixo : $v, FILTER_SANITIZE_STRING);
+    public function _sessao_prefixo($v = null){
+        return $this->sessao_prefixo = filter_var(!isset($v) ? $this->sessao_prefixo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_prefixo
 
-    public function _sessao_nome($v=null){
-        return $this->sessao_nome = filter_var(is_null($v) ? $this->sessao_nome : "sess-{$v}", FILTER_SANITIZE_STRING);
+    public function _sessao_nome($v = null){
+        return $this->sessao_nome = filter_var(!isset($v) ? $this->sessao_nome : "sess-{$v}", FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_nome
 
-    public function _sessao_id($v=null){
-        return $this->sessao_id = filter_var(is_null($v) ? $this->sessao_id : "{$this->sessao_prefixo}-". md5($v), FILTER_SANITIZE_STRING);
+    public function _sessao_id($v = null){
+        return $this->sessao_id = filter_var(!isset($v) ? $this->sessao_id : "{$this->sessao_prefixo}-". md5($v), FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_id
 
-    public function _form_login($v=null){
-        return $this->form_login = trim(filter_var(is_null($v) ? $this->form_login : $v, FILTER_SANITIZE_STRING), '/');
+    public function _form_login($v = null){
+        return $this->form_login = trim(filter_var(!isset($v) ? $this->form_login : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do método _form_login
 
 

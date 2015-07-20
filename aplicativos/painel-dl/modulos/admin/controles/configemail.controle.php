@@ -30,7 +30,8 @@ class ConfigEmail extends GeralC\PainelDL{
                 'de_nome'           =>  FILTER_SANITIZE_STRING,
                 'responder_para'    =>  FILTER_VALIDATE_EMAIL,
                 'html'              =>  FILTER_VALIDATE_BOOLEAN,
-                'principal'         =>  FILTER_VALIDATE_BOOLEAN
+                'principal'         =>  FILTER_VALIDATE_BOOLEAN,
+                'debug'             =>  FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -45,9 +46,10 @@ class ConfigEmail extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('config_email_id, config_email_titulo, config_email_host, ( CASE config_email_principal'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -67,11 +69,12 @@ class ConfigEmail extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar formulário de inclusão e edição do registro
-     *
-     * @param int $pk PK do registro a ser selecionado
-     */
+
+	/**
+	 * Mostrar formulário de inclusão e edição do registro
+	 *
+	 * @param int $pk PK do registro a ser selecionado
+	 */
     protected function _mostrarform($pk = null){
         $inc = $this->_formpadrao('email', 'envio-de-emails/salvar', 'envio-de-emails/salvar', 'admin/envio-de-emails', $pk);
 
@@ -85,14 +88,15 @@ class ConfigEmail extends GeralC\PainelDL{
 
 
 
-    /**
-     * Testar uma determinada configuração de envio de e-mail]
-     *
-     * @param int $id ID da configuração a ser testada
-     *
-     * @return mixed
-     * @throws \Exception
-     */
+
+	/**
+	 * Testar uma determinada configuração de envio de e-mail]
+	 *
+	 * @param int $id ID da configuração a ser testada
+	 *
+	 * @return mixed
+	 * @throws \Exception
+	 */
     protected function _testar($id){
         if( !class_exists('Email') )
             throw new \Exception(sprintf(ERRO_PADRAO_CLASSE_NAO_ENCONTRADA, 'Email'), 1500);

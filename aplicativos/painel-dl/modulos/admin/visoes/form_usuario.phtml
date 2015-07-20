@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -64,10 +64,11 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_SEXO; ?>:</span><br/>
-                <input type="radio" name="info_sexo" id="info-sexo-m" value="M"<?= $mod->info_sexo == 'M' ? ' CHECKED' : ''; ?>/>
+                <input type="radio" name="info_sexo" id="info-sexo-m" value="M"<?php $mod->info_sexo == 'M' and print(' CHECKED'); ?>/>
+
                 <label for="info-sexo-m"><?= TXT_OPCAO_MASCULINO; ?></label>
 
-                <input type="radio" name="info_sexo" id="info-sexo-f" value="F"<?= $mod->info_sexo == 'F' ? ' CHECKED' : ''; ?>/>
+                <input type="radio" name="info_sexo" id="info-sexo-f" value="F"<?php $mod->info_sexo == 'F' and print(' CHECKED'); ?>/>
                 <label for="info-sexo-f"><?= TXT_OPCAO_FEMININO; ?></label>
             </p>
         </fieldset>
@@ -81,7 +82,7 @@ $mod = $params['modelo'];
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['idiomas'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->pref_idioma == $o['VALOR'] ? ' SELECTED' : ''; ?>>
+                    <option value="<?= $o['VALOR']; ?>"<?php $mod->pref_idioma == $o['VALOR'] and print(' SELECTED'); ?>>
                         <?= $o['TEXTO']; ?>
                     </option>
                     <?php endforeach; ?>
@@ -100,7 +101,7 @@ $mod = $params['modelo'];
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['temas'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->pref_tema == $o['VALOR'] ? ' SELECTED' : ''; ?>>
+                    <option value="<?= $o['VALOR']; ?>"<?php $mod->pref_tema == $o['VALOR'] and print(' SELECTED'); ?>>
                         <?= $o['TEXTO']; ?>
                     </option>
                     <?php endforeach; ?>
@@ -119,7 +120,7 @@ $mod = $params['modelo'];
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['formatos-data'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->pref_formato_data == $o['VALOR'] ? ' SELECTED' : ''; ?>>
+                    <option value="<?= $o['VALOR']; ?>"<?php $mod->pref_formato_data == $o['VALOR'] and print(' SELECTED'); ?>>
                         <?= $o['TEXTO']; ?>
                     </option>
                     <?php endforeach; ?>
@@ -135,14 +136,14 @@ $mod = $params['modelo'];
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_EXIBIR_ID; ?></span><br/>
                 <span class="form-dica"><?= TXT_DICA_EXIBIR_ID; ?></span><br/>
-                <input type="checkbox" name="pref_exibir_id" id="chk-exibir-id" class="form-alternar"<?= $mod->pref_exibir_id ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="pref_exibir_id" id="chk-exibir-id" class="form-alternar"<?php $mod->pref_exibir_id and print(' CHECKED'); ?>/>
                 <label for="chk-exibir-id"></label>
             </p>
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_FILTRO_MENU; ?></span><br/>
                 <span class="form-dica"><?= TXT_DICA_FILTRO_MENU; ?></span><br/>
-                <input type="checkbox" name="pref_filtro_menu" id="chk-filtro-menu" class="form-alternar"<?= $mod->pref_filtro_menu ? ' CHECKED' : ''; ?>/>
+                <input type="checkbox" name="pref_filtro_menu" id="chk-filtro-menu" class="form-alternar"<?php $mod->pref_filtro_menu and print(' CHECKED'); ?>/>
                 <label for="chk-filtro-menu"></label>
             </p>
         </fieldset>
@@ -157,7 +158,7 @@ $mod = $params['modelo'];
                     <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                     <?php foreach( $params['grupos-usuarios'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->info_grupo == $o['VALOR'] || ($params['incluindo'] && $mod->padrao) ? ' SELECTED' : ''; ?>>
+                    <option value="<?= $o['VALOR']; ?>"<?php $mod->info_grupo == $o['VALOR'] || ($params['incluindo'] && $mod->padrao) and print(' SELECTED'); ?>>
                         <?= $o['TEXTO']; ?>
                     </option>
                     <?php endforeach; ?>
@@ -200,13 +201,13 @@ $mod = $params['modelo'];
 
             if( !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
-                <input type="checkbox" name="conf_reset" id="conf-reset"<?php $mod->conf_reset AND print(' CHECKED'); ?>/>
+                <input type="checkbox" name="conf_reset" id="conf-reset"<?php $mod->conf_reset and print(' CHECKED'); ?>/>
                 <label for="conf-reset"><?= TXT_ROTULO_RESET; ?></label><br/>
                 <span class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
             </p>
 
             <p class="form-paragr">
-                <input type="checkbox" name="conf_bloq" id="conf-bloq"<?php $mod->conf_bloq  AND print(' CHECKED'); ?>/>
+                <input type="checkbox" name="conf_bloq" id="conf-bloq"<?php $mod->conf_bloq  and print(' CHECKED'); ?>/>
                 <label for="conf-bloq"><?= TXT_ROTULO_BLOQ; ?></label><br/>
                 <span class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
             </p>

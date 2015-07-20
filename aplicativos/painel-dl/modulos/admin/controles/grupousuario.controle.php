@@ -32,9 +32,10 @@ class GrupoUsuario extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('grupo_usuario_id, grupo_usuario_descr, ( CASE grupo_usuario_publicar'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -52,14 +53,15 @@ class GrupoUsuario extends GeralC\PainelDL{
 
 
 
+
 	/**
 	 * Mostrar o formulário de inclusão e edição do registro
 	 *
-	 * @param int  $id  ID do registro a ser selecionado
+	 * @param int  $pk  ID do registro a ser selecionado
 	 * @param bool $mst Nome da página mestra a ser carregada
 	 */
-    protected function _mostrarform($id=null,$mst=null){
-        $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $id);
+    protected function _mostrarform($pk = null, $mst = null){
+        $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $pk);
 
         # Visão
         $this->_carregarhtml('form_grupo', $mst);
@@ -81,13 +83,13 @@ class GrupoUsuario extends GeralC\PainelDL{
         # grupo, exceção apenas para o root
         $this->visao->_adparam('mostrar-perms?', $inc || ($this->modelo->id != $_SESSION['usuario_info_grupo'] || $_SESSION['usuario_id'] == -1));
 
-        if( !$inc ):
-            # Membros do grupo
-            $mu = new AdminM\Usuario();
-            $lu = $mu->_listar("usuario_info_grupo = {$this->modelo->id}", 'usuario_info_nome', 'usuario_info_nome');
+        if( !$inc ){
+	        # Membros do grupo
+	        $mu = new AdminM\Usuario();
+	        $lu = $mu->_listar("usuario_info_grupo = {$this->modelo->id}", 'usuario_info_nome', 'usuario_info_nome');
 
-            # Parâmetros
-            $this->visao->_adparam('membros', $lu);
-        endif;
+	        # Parâmetros
+	        $this->visao->_adparam('membros', $lu);
+        } // Fim if( !$inc )
     } // Fim do método _mostrarform
 } // Fim do Controle GrupoUsuario

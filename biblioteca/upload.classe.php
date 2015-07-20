@@ -28,15 +28,15 @@ class Upload{
 	 * 'Gets' e 'Sets' das propriedades
 	 */
 	public function _diretorio($v = null){
-		return $this->diretorio = '/'. trim(filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/');
+		return $this->diretorio = '/'. trim(filter_var(!isset($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/');
 	} // Fim do método _diretorio
 
 	public function _extensoes($v = null){
-		return $this->extensoes = filter_var(is_null($v) ? $this->extensoes : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+		return $this->extensoes = filter_var(!isset($v) ? $this->extensoes : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
 	} // Fim do método _extensoes
 
 	public function _campo($v = null){
-		return $this->campo = filter_var(is_null($v) ? $this->campo : $v, FILTER_SANITIZE_STRING);
+		return $this->campo = filter_var(!isset($v) ? $this->campo : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _campo
 
 

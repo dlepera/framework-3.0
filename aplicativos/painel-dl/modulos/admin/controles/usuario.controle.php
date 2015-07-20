@@ -101,11 +101,11 @@ class Usuario extends GeralC\PainelDL{
         $m_fd = new DevM\FormatoData();
         $l_fd = $m_fd->_carregarselect('formato_data_publicar', false);
 
-        if( !$inc ):
-            # Grupo de usuário
-            $mgu = new AdminM\GrupoUsuario($this->modelo->info_grupo);
-            $this->visao->_adparam('grupo-descr', $mgu->descr);
-        endif;
+        if( !$inc ){
+	        # Grupo de usuário
+	        $mgu = new AdminM\GrupoUsuario($this->modelo->info_grupo);
+	        $this->visao->_adparam('grupo-descr', $mgu->descr);
+        } // Fim if( !$inc )
 
         # Parâmetros
         $this->visao->_adparam('grupos-usuarios', $l_gu);
@@ -121,20 +121,22 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-    /**
-     * Minha conta
-     *
-     * Mostrar as informações do usuário logado
-     */
+
+	/**
+	 * Minha conta
+	 *
+	 * Mostrar as informações do usuário logado
+	 */
     protected function _minhaconta(){
         return $this->_mostrarform($_SESSION['usuario_id'], '');
     } // Fim do método _minhaconta
 
 
 
-    /**
-     * Mostrar o formulário para alteração de senhas desse usuário
-     */
+
+	/**
+	 * Mostrar o formulário para alteração de senhas desse usuário
+	 */
     protected function _formalterarsenha(){
         $this->_formpadrao('senha', null, 'usuarios/alterar-senha-usuario', 'admin/usuarios/minha-conta', $_SESSION['usuario_id']);
 
@@ -148,9 +150,10 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-    /**
-     * Executar a ação de alterar a senha do usuário
-     */
+
+	/**
+	 * Executar a ação de alterar a senha do usuário
+	 */
     protected function _alterarsenha(){
         # Obter as senhas informadas
         $sa = md5(md5(filter_input(INPUT_POST, 'senha_atual')));
@@ -159,6 +162,7 @@ class Usuario extends GeralC\PainelDL{
 
         $this->modelo->_selecionarPK($_SESSION['usuario_id']);
         $this->modelo->_alterarsenha($sn, $sc, $sa);
+
         return \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
     } // Fim do método _alterarsenha
 
@@ -174,18 +178,18 @@ class Usuario extends GeralC\PainelDL{
     protected function _bloquear($vlr){
         $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
-        if( is_null($tid) )
+        if( !isset($tid) )
             throw new \Exception(MSG_PADRAO_NENHUM_REGISTRO_SELECIONADO, 1404);
 
         # Quantidade total de registros e quantidade excluída
         $qt = count($tid);
         $qe = 0;
 
-        foreach( $tid as $id ):
-            $this->modelo->_selecionarPK($id);
-            $this->modelo->conf_bloq = $vlr;
-            $qe = $this->modelo->_salvar();
-        endforeach;
+        foreach( $tid as $id ){
+	        $this->modelo->_selecionarPK($id);
+	        $this->modelo->conf_bloq = $vlr;
+	        $qe = $this->modelo->_salvar();
+        } // Fim foreach
 
 	    return $vlr == 1 ? \Funcoes::_retornar( !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' ) : \Funcoes::_retornar( !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' );
     } // Fim do método _bloquear

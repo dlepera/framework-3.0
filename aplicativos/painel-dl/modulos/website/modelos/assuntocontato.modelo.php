@@ -17,23 +17,22 @@ class AssuntoContato extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _email($v=null){
-        return $this->email = filter_var(is_null($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL);
+    public function _email($v = null){
+        return $this->email = filter_var(!isset($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL);
     } // Fim do método _email
 
-    public function _cor($v=null){
-        return $this->cor = filter_var(is_null($v) ? $this->cor : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => EXPREG_COR_HEXA]]);
+    public function _cor($v = null){
+        return $this->cor = filter_var(!isset($v) ? $this->cor : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => EXPREG_COR_HEXA]]);
     } // Fim do método _email
 
 
 
     public function __construct($pk = null){
         parent::__construct('dl_site_assuntos_contato', 'assunto_contato_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
 } // Fim do Modelo AssuntoContato

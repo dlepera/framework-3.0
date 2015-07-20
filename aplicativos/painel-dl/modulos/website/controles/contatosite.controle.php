@@ -47,6 +47,7 @@ class ContatoSite extends GeralC\PainelDL{
 
 
 
+
 	/**
 	 * Mostrar detalhes do registro
 	 *
@@ -65,12 +66,12 @@ class ContatoSite extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_DETALHES_CONTATO;
 
         # Assunto do contato
-        if( !is_null($this->modelo->assunto) ):
-            $ma = new WebM\AssuntoContato($this->modelo->assunto);
+        if( isset($this->modelo->assunto) ){
+	        $ma = new WebM\AssuntoContato($this->modelo->assunto);
 
-            $this->visao->_adparam('assunto-descr', $ma->descr);
-            $this->visao->_adparam('assunto-cor', $ma->cor);
-        endif;
+	        $this->visao->_adparam('assunto-descr', $ma->descr);
+	        $this->visao->_adparam('assunto-cor', $ma->cor);
+        } // Fim if( isset($this->modelo->assunto) )
 
         # Registrar a leitura desse contato e obter a lista de quem já leu
         $mlc = new WebM\LeituraContato();

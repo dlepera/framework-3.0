@@ -22,17 +22,17 @@ abstract class Principal{
         $this->_bd_tabela($tbl);
         $this->_bd_prefixo($pfx);
 
-        if( get_called_class() !== 'Geral\Modelo\LogRegistro' )
-            $this->mod_lr = new LogRegistro();
+        get_called_class() !== 'Geral\Modelo\LogRegistro' and $this->mod_lr = new LogRegistro();
     } // Fim do método mágico de construção
+
 
 
 
 	/**
 	 * Ações padrões a serem executadas quando um determinado método é acionado
 	 *
-	 * @param string    $n  Nome do método a ser executado
-	 * @param array     $a  Vetor contendo os argumentos a serem passados para o método
+	 * @param string $n Nome do método a ser executado
+	 * @param array  $a Vetor contendo os argumentos a serem passados para o método
 	 *
 	 * @return int|mixed
 	 * @throws \Exception
@@ -45,7 +45,7 @@ abstract class Principal{
             case '_salvar':
                 $s = call_user_func_array([$this, '_salvar'], $a);
 
-                if( class_exists($mod_registro) && $s > 0 && !is_null($this->id) ):
+                if( class_exists($mod_registro) && $s > 0 && isset($this->id) ){
 	                $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
 
 	                if( $this->mod_lr->reg_vazio ){
@@ -53,17 +53,17 @@ abstract class Principal{
 		                $this->mod_lr->idreg    = $this->id;
 	                } // Fim if( $this->mod_lr->reg_vazio )
 
-                    $this->mod_lr->_salvar();
-                endif;
+	                $this->mod_lr->_salvar();
+                } // Fim if( class_exists($mod_registro) && $s > 0 && !is_null($this->id) )
 
                 return $s;
 
             # Gravar log de remoção
             case '_remover':
-                if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) ):
+                if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) ){
 	                $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
-                    $this->mod_lr->_salvar(true);
-                endif;
+	                $this->mod_lr->_salvar(true);
+                } // Fim if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) )
 
                 return $rem;
 
@@ -71,7 +71,7 @@ abstract class Principal{
             case '_selecionarPK':
                 call_user_func_array([$this, '_selecionarPK'], $a);
 
-                if( !is_null($this->id) && get_called_class() != $mod_registro )
+                isset($this->id) && get_called_class() != $mod_registro and
                     $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
             break;
         endswitch;
@@ -85,32 +85,32 @@ abstract class Principal{
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
-    public function _bd_tabela($v=null){
-        return $this->bd_tabela = filter_var(is_null($v) ? $this->bd_tabela : $v, FILTER_SANITIZE_STRING);
+    public function _bd_tabela($v = null){
+        return $this->bd_tabela = filter_var(!isset($v) ? $this->bd_tabela : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_tabela
 
-    public function _bd_prefixo($v=null){
-        return $this->bd_prefixo = filter_var(is_null($v) ? $this->bd_prefixo : $v, FILTER_SANITIZE_STRING);
+    public function _bd_prefixo($v = null){
+        return $this->bd_prefixo = filter_var(!isset($v) ? $this->bd_prefixo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_tabela
 
-    public function _bd_select($v=null){
-        return $this->bd_select = filter_var(is_null($v) ? $this->bd_select : $v);
+    public function _bd_select($v = null){
+        return $this->bd_select = filter_var(!isset($v) ? $this->bd_select : $v);
     } // Fim do método _bd_select
 
     public function _mod_lr(){
         return $this->mod_lr;
     } // Fim do método _bd_tabela
 
-    public function _id($v=null){
-        if( !property_exists($this, 'id') || (is_null($this->id) && is_null($v)) ) return null;
-        return $this->id = filter_var(is_null($v) ? $this->id : $v);
+    public function _id($v = null){
+        if( !property_exists($this, 'id') || (!isset($this->id) && !isset($v)) ) return null;
+        return $this->id = filter_var(!isset($v) ? $this->id : $v);
     } // Fim do método _id
 
-    public function _publicar($v=null){
+    public function _publicar($v = null){
         if( !property_exists($this, 'publicar') )
             return null;
 
-        return $this->publicar = filter_var(is_null($v) ? $this->publicar : $v, FILTER_VALIDATE_BOOLEAN);
+        return $this->publicar = filter_var(!isset($v) ? $this->publicar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _id
 
     public function _delete(){
@@ -140,9 +140,9 @@ abstract class Principal{
 			sprintf($this->bd_select, $cpos, $this->bd_tabela)
 		: sprintf($this->bd_select, $cpos, $this->bd_tabela, $this->bd_prefixo);
 
-		!empty($flt) AND $query .= stripos($query, 'WHERE') > -1 ? " AND {$flt}" : " WHERE {$flt}";
+		!empty($flt) and $query .= stripos($query, 'WHERE') > -1 ? " AND {$flt}" : " WHERE {$flt}";
 
-		!empty($ord) AND $query .= " ORDER BY {$ord}";
+		!empty($ord) and $query .= " ORDER BY {$ord}";
 
 		// echo $query, '<br>--<br>';
 
@@ -155,7 +155,7 @@ abstract class Principal{
 		# Resultados da consulta
 		$rs = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
-		return !is_null($pos) ? $rs[$pos < 0 ? count($rs) + $pos : $pos] : $rs;
+		return isset($pos) ? $rs[$pos < 0 ? count($rs) + $pos : $pos] : $rs;
 	} // Fim do método _listar
 
 
@@ -209,17 +209,18 @@ abstract class Principal{
 	 * @return bool
 	 * @throws \Exception
 	 */
-    public function _selecionarUK($c, $v, $a=null){
+    public function _selecionarUK($c, $v, $a = null){
 	    if( !method_exists($this, '_listar') )
 		    throw new \Exception(printf(ERRO_PADRAO_METODO_NAO_EXISTE, '_listar'), 1500);
 
-	    $al = is_null($a) ? '' : "{$a}.";
+	    $al = !isset($a) ? '' : "{$a}.";
 
 	    if( is_array($c) ){
 		    $cv = array_combine($c, $v);
 		    $tf = [];
 
-		    foreach( $cv as $k => $t ) $tf[] = "{$al}{$this->bd_prefixo}{$k} = ". var_export($t, true);
+		    foreach( $cv as $k => $t )
+			    $tf[] = "{$al}{$this->bd_prefixo}{$k} = ". var_export($t, true);
 
 		    $flt = implode(' AND ', $tf);
 	    } else $flt = "{$al}{$this->bd_prefixo}{$c} = ". var_export($v, true);
@@ -323,14 +324,14 @@ abstract class Principal{
             # Ignorar campos que NAO estejam no vetor $ci, caso o mesmo não seja nulo
             # Ignorar campos que estejam no vetor $ce, caso o mesmo não seja nulo
             if( $p === 'delete' ||
-                    (!is_null($ci) && !in_array($c['Field'], $ci)) ||
-                    (!is_null($ce) && in_array($c['Field'], $ce)) ) continue;
+                    (isset($ci) && !in_array($c['Field'], $ci)) ||
+                    (isset($ce) && in_array($c['Field'], $ce)) ) continue;
 
             # Obter as informações do campos
             $pk     = $c['Key'] == 'PRI';
             $obr    = $c['Null'] == 'NO';
 
-	        if( is_null($this->{$p}) ){
+	        if( !isset($this->{$p}) ){
 		        if( $obr && !$pk )
 			        throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
 		        else continue;
@@ -372,14 +373,14 @@ abstract class Principal{
             # Ignorar campos que NAO estejam no vetor $ci, caso o mesmo não seja nulo
             # Ignorar campos que estejam no vetor $ce, caso o mesmo não seja nulo
             if( $p === 'delete' ||
-                    (!is_null($ci) && !in_array($c['Field'], $ci)) ||
-                    (!is_null($ce) && in_array($c['Field'], $ce)) ) continue;
+                    (isset($ci) && !in_array($c['Field'], $ci)) ||
+                    (isset($ce) && in_array($c['Field'], $ce)) ) continue;
 
             # Obter as informações do campos
             $pk     = $c['Key'] == 'PRI';
             $obr    = $c['Null'] == 'NO';
 
-            if( is_null($this->{$p}) ){
+            if( !isset($this->{$p}) ){
 	            if( $obr && !$pk )
 		            throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
 	            else continue;
@@ -409,7 +410,7 @@ abstract class Principal{
     public function _carregarselect($f = null, $e = true, $v = 'id', $t = 'descr'){
         $lis = $this->_listar($f, "{$this->bd_prefixo}{$t}", "{$this->bd_prefixo}{$v} AS VALOR, {$this->bd_prefixo}{$t} AS TEXTO");
 
-        $e AND print(json_encode($lis));
+        $e and print(json_encode($lis));
 	    return $lis;
     } // Fim _carregarselect
 

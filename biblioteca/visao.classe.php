@@ -39,18 +39,18 @@ class Visao{
     public function __get($n){ return m_get($this,$n); } // Fim do método __get
     public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
 
-    public function _diretorio($v=null){
-        return $this->diretorio = filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING);
+    public function _diretorio($v = null){
+        return $this->diretorio = filter_var(!isset($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _diretorio
 
-    public function _pg_mestra($v=null){
-        return $this->pg_mestra = filter_var(is_null($v) ? $this->pg_mestra : $v, FILTER_SANITIZE_STRING);
+    public function _pg_mestra($v = null){
+        return $this->pg_mestra = filter_var(!isset($v) ? $this->pg_mestra : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _pg_mestra
 
-    public function _titulo($v=null){
-        $this->titulo = filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
+    public function _titulo($v = null){
+        $this->titulo = filter_var(!isset($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
 
-        if( !is_null($v) ):
+        if( isset($v) ):
             # Incluir parâmetros padrões
             $this->_adparam('titulo', $this->titulo);
         endif;
@@ -58,9 +58,10 @@ class Visao{
         return $this->titulo;
     } // Fim do método _titulo
 
-    public function _exibir_auto($v=null){
-        return $this->exibir_auto = filter_var(is_null($v) ? $this->exibir_auto : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _exibir_auto($v = null){
+        return $this->exibir_auto = filter_var(!isset($v) ? $this->exibir_auto : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _exibir_auto
+
 
 
 
@@ -83,12 +84,13 @@ class Visao{
 
 
 
-    /**
-     * Carregar conteúdo de uma página mestra
-     *
-     * @return mixed Conteúdo da página mestra carregada
-     * @throws \Exception
-     */
+
+	/**
+	 * Carregar conteúdo de uma página mestra
+	 *
+	 * @return mixed Conteúdo da página mestra carregada
+	 * @throws \Exception
+	 */
     private function _carregarmestra(){
         $d = 'aplicativos/'. DL3_APLICATIVO ."/mestras/{$this->pg_mestra}.". self::CONF_EXTENSAO_MESTRA;
 
@@ -125,13 +127,14 @@ class Visao{
 
 
 
-    /**
-     * Carregar o conteúdo do template em buffer
-     *
-     * O conteúdo é lido e armazenado em buffer. Em seguida o conteúdo que está
-     * no buffer é transferido para a propriedade $this->conteudo que poderá
-     * ser lida posteriormente e assim o buffer pode ser liberado.
-     */
+
+	/**
+	 * Carregar o conteúdo do template em buffer
+	 *
+	 * O conteúdo é lido e armazenado em buffer. Em seguida o conteúdo que está
+	 * no buffer é transferido para a propriedade $this->conteudo que poderá
+	 * ser lida posteriormente e assim o buffer pode ser liberado.
+	 */
     private function _carregarconteudo(/* $p=false */){
         if( empty($this->templates) ) return;
 
@@ -168,21 +171,22 @@ class Visao{
 	 */
     public function _mostrarconteudo($r = false){
         # Carregar o conteúdo da página
-        if( empty($this->conteudo) ) $this->_carregarconteudo();
+        empty($this->conteudo) and $this->_carregarconteudo();
 
-        if( !empty($this->conteudo) ):
-            # Carregar a página mestra
-            if( empty($this->cont_mestra) ) $this->_carregarmestra();
+        if( !empty($this->conteudo) ){
+	        # Carregar a página mestra
+	        empty($this->cont_mestra) and $this->_carregarmestra();
 
-            $mst = $this->cont_mestra;
+	        $mst = $this->cont_mestra;
 
-            foreach( $this->dl3_areas as $a )
-                $mst = str_replace("[{$a}/]", $this->_area_dl3($this->conteudo, $a), $mst);
-        endif;
+	        foreach( $this->dl3_areas as $a )
+		        $mst = str_replace("[{$a}/]", $this->_area_dl3($this->conteudo, $a), $mst);
+        } // Fim if( !empty($this->conteudo) )
 
-	    !$r AND print($mst);
+	    !$r and print($mst);
 	    return $mst;
     } // Fim do método _mostrarconteudo
+
 
 
 
@@ -196,8 +200,7 @@ class Visao{
 	 */
     public function _adparam($n,$v){
         $this->params[$n] = is_scalar($v) && !is_bool($v) ?
-            filter_var($v, FILTER_DEFAULT)
-        : $v;
+            filter_var($v, FILTER_DEFAULT) : $v;
     } // Fim do método _adparam
 
 
@@ -211,8 +214,8 @@ class Visao{
 	 *
 	 * @return mixed Valor do parâmetro solicitado ou um vetor com todos os parâmetros
 	 */
-    public function _obterparams($n=null){
-        if( is_null($n) ) return (array)$this->params;
+    public function _obterparams($n = null){
+        if( !isset($n) ) return (array)$this->params;
 
         # Verificar se o parâmetro solicitado existe
         if( !array_key_exists($n, $this->params) )
@@ -220,6 +223,7 @@ class Visao{
 
         return $this->params[$n];
     } // Fim do método _obterparams
+
 
 
 
@@ -232,12 +236,12 @@ class Visao{
 	 * @return bool|string String com o caminho para o template ou false caso o template não seja localizado
 	 */
     public function _procurartemplate($tpl, $num = 5){
-        $qtde = 0;
+	    $qtde = 0;
 
-        while( !file_exists("{$this->diretorio}{$tpl}") && $qtde < $num ):
-            $tpl = "../{$tpl}";
-            $qtde++;
-        endwhile;
+	    while( !file_exists("{$this->diretorio}{$tpl}") && $qtde < $num ){
+		    $tpl = "../{$tpl}";
+		    $qtde++;
+	    } // Fim while
 
         $tpl_r = "{$this->diretorio}{$tpl}";
 

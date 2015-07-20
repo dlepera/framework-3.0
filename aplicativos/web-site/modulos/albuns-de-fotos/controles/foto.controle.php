@@ -19,14 +19,15 @@ class Foto extends GeralM\WebSite{
 
 
 
-    /**
-     *  Mostrar a lista de fotos de um determinado álbum
-     *
-     * @param int $a - ID do álbum a ser exibido
-     */
+
+	/**
+	 *  Mostrar a lista de fotos de um determinado álbum
+	 *
+	 * @param int $a - ID do álbum a ser exibido
+	 */
     public function _mostrarfotos($a){
         # Lista de fotos
-        $l = $this->modelo->_listar("foto_album_publicar = 1 AND foto_album = {$a}", 'foto_album_capa DESC, foto_album_titulo',
+        $l = $this->modelo->_listar("foto_album_publicar AND foto_album = {$a}", 'foto_album_capa DESC, foto_album_titulo',
                 'foto_album_titulo, foto_album_descr, foto_album_capa, foto_album_imagem, album_nome');
 
         # Visão

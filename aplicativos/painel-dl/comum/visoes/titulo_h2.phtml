@@ -9,13 +9,10 @@
 
 if( !$params['incluindo'] ): ?>
 <p class="log-registro">
-    <?php if( !empty($params['dt-inc']) ):
-        printf(MSG_REGISTRO_CRIADO, $params['u-inc'], $params['dt-inc']);
-        echo '<br/>';
-    endif;
+    <?php !empty($params['dt-inc'])
+		and printf(MSG_REGISTRO_CRIADO .'<br/>', $params['u-inc'], $params['dt-inc']);
 
-    if( !empty($params['dt-alt']) ):
-        printf(MSG_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']);
-    endif; ?>
+    !empty($params['dt-alt'])
+        and printf(MSG_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']); ?>
 </p>
 <?php endif;

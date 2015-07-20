@@ -17,16 +17,16 @@ class Tema extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do módulo _descr
 
-    public function _diretorio($v=null){
-        return $this->diretorio = trim(filter_var(is_null($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/');
+    public function _diretorio($v = null){
+        return $this->diretorio = trim(filter_var(!isset($v) ? $this->diretorio : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do módulo _diretorio
 
-    public function _padrao($v=null){
-        return $this->padrao = filter_var(is_null($v) ? $this->padrao : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _padrao($v = null){
+        return $this->padrao = filter_var(!isset($v) ? $this->padrao : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _padrao
 
 

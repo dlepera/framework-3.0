@@ -40,9 +40,10 @@ class Login extends GeralC\Principal{
 
 
 
-    /**
-     * Mostrar o formulário para recuperação da senha
-     */
+
+	/**
+	 * Mostrar o formulário para recuperação da senha
+	 */
     public function _mostraresqueci(){
         $this->_formpadrao('login', 'recuperar-senha', null);
 
@@ -100,6 +101,7 @@ class Login extends GeralC\Principal{
 
         return \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');
     } // Fim do método _recuperarsenha
+
 
 
 

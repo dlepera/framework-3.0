@@ -43,7 +43,7 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?php !empty($params['expreg']) AND print(' pattern="'. $params['expreg'] .'"'); ?> class="form-controle" required/>
+            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?php !empty($params['expreg']) and print(' pattern="'. $params['expreg'] .'"'); ?> class="form-controle" required/>
         </p>
 
         <p class="form-paragr">

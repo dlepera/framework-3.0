@@ -40,10 +40,10 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     * -------------------------------------------------------------------------
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao("M.modulo_id, ( CASE IFNULL(M.modulo_pai, 0)"
                 . " WHEN 0 THEN M.modulo_nome"
@@ -65,11 +65,12 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     *
-     * @param int $pk PK do registro a ser selecionado
-     */
+
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro
+	 *
+	 * @param int $pk PK do registro a ser selecionado
+	 */
     protected function _mostrarform($pk = null){
         $inc = $this->_formpadrao('modulo', 'modulos/instalar-modulo',  'modulos/atualizar-modulo', 'desenvolvedor/modulos', $pk);
 
@@ -86,20 +87,20 @@ class Modulo extends GeralC\PainelDL{
         $this->visao->_adparam('modulos-pai', $l_mp);
         $this->visao->_adparam('mostrar-funcs?', !$inc && $this->modelo->pai > 0);
 
-        if( !$inc ):
-            # Funcionalidades
-            $m_mf = new DevM\ModuloFunc();
-            $l_mf = $m_mf->_carregarselect("func_modulo = {$this->modelo->id}", false);
+        if( !$inc ){
+	        # Funcionalidades
+	        $m_mf = new DevM\ModuloFunc();
+	        $l_mf = $m_mf->_carregarselect("func_modulo = {$this->modelo->id}", false);
 
-            if( !is_null($this->modelo->pai) ):
-                # Módulo pai
-                $mp = $this->modelo->_listar("M.modulo_id = {$this->modelo->pai}", null, 'M.modulo_nome', 0, 1, 0);
+	        if( isset($this->modelo->pai) ){
+		        # Módulo pai
+		        $mp = $this->modelo->_listar("M.modulo_id = {$this->modelo->pai}", null, 'M.modulo_nome', 0, 1, 0);
 
-                $this->visao->_adparam('modulo-pai', str_replace(' ', '', $mp['modulo_nome']));
-            endif;
+		        $this->visao->_adparam('modulo-pai', str_replace(' ', '', $mp['modulo_nome']));
+	        } // Fim if( isset($this->modelo->pai) )
 
-            $this->visao->_adparam('funcs', $l_mf);
-        endif;
+	        $this->visao->_adparam('funcs', $l_mf);
+        } // Fim if( !$inc )
     } // Fim do método _mostrarform
 
 
@@ -166,7 +167,7 @@ class Modulo extends GeralC\PainelDL{
     public function _filtromenu($bm, $e=true){
         $r = json_encode($this->modelo->_listarmenu("M.modulo_nome LIKE '%{$bm}%' OR M.modulo_descr LIKE '%{$bm}%'", 'M.modulo_nome', 'M.modulo_nome, M.modulo_descr'));
 
-	    $e AND print($r);
+	    $e and print($r);
 	    return $r;
     } // Fim do método _filtromenu
 } // Fim do Controle Modulo

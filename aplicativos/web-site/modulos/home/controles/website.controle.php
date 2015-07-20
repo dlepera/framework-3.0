@@ -20,8 +20,4 @@ class WebSite extends GeralC\WebSite{
         $this->_carregarhtml('home');
         $this->visao->titulo = \DL3::$ap_titulo;
     } // Fim do método _index
-
-    public function _institucional($n){
-        echo "O número informado foi: {$n}";
-    } // Fim do método _teste
 } // Fim da classe WebSite

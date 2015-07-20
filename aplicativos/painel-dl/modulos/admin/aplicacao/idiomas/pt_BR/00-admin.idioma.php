@@ -82,6 +82,8 @@ define('TXT_ROTULO_RESPONDER_PARA', 'Responder para');
 define('TXT_ROTULO_HTML', 'HTML?');
 define('TXT_ROTULO_PRINCIPAL', 'Principal?');
 define('TXT_ROTULO_SELECIONAR_TODOS', 'Selecionar todos');
+define('TXT_ROTULO_DEBUG', 'Habilitar o debug?');
+define('MSG_DICA_DEBUG', 'Habilitar o debugger do PHPMailer faz com que a classe exiba mensagens mais detalhadas para melhor compreensão de erros.');
 
 # -> Dicas
 define('TXT_DICA_EXIBIR_ID', 'Deseja ver o ID do registro nas listas?');
@@ -98,9 +100,9 @@ define('TXT_OPCAO_SSL', 'SSL - Secure Socket Layer');
 define('MSG_DICA_USUARIO_RESET', 'Força o usuário a resetar sua senha imediatamente ao próximo login.');
 define('MSG_DICA_USUARIO_BLOQ', 'Bloqueia a conta de usuário para fazer login no sistema.');
 define('MSG_DICA_USUARIO_NUM_REGISTROS', 'Define a quantidade de registros a serem exibidos por página');
-define('MSG_DICA_EMAIL_HTML', 'Quando essa opção é marcada o corpo dos e-mails enviados é formatod em HTML. Do contrário, apenas texto puro, sem formatação.');
+define('MSG_DICA_EMAIL_HTML', 'Quando essa opção é marcada o corpo dos e-mails enviados é formatdo em HTML. Do contrário, apenas texto puro, sem formatação.');
 define('MSG_DICA_EMAIL_PRINCIPAL', 'Define qual configuração será usada para o envio quando mais de uma configuração for cadastrada no sistema.');
-define('MSG_USUARIO_BLOQUEADO', '<b>Atenção: </b> Esse usuário está bloqueado e, portanto, não tem acesso ao sistema.');
+define('MSG_USUARIO_BLOQUEADO', '<b>Atenção:</b> Esse usuário está bloqueado e, portanto, não tem acesso ao sistema.');
 define('MSG_USUARIO_ALTERAR_FOTO', 'Alterar foto');
 
 # E-mails

@@ -40,9 +40,10 @@ class GoogleAnalytics extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar lista de registros
-     */
+
+	/**
+	 * Mostrar lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('ga_id, ga_apelido, ga_usuario, ga_perfil_id, ( CASE ga_principal'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -63,11 +64,12 @@ class GoogleAnalytics extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar formulário de inclusão e edição do registro
-     *
-     * @param int $pk Valor da PK do registro a ser selecionado
-     */
+
+	/**
+	 * Mostrar formulário de inclusão e edição do registro
+	 *
+	 * @param int $pk Valor da PK do registro a ser selecionado
+	 */
     protected function _mostrarform($pk = null){
         $inc = $this->_formpadrao('ga', 'google-analytics/salvar', 'google-analytics/salvar', 'website/google-analytics', $pk);
 

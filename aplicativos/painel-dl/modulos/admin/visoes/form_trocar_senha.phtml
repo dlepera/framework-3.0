@@ -7,12 +7,14 @@
  * @Data	: 10/01/2015 11:14:18
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 ?>
 
 [DL3-CONTEUDO]
+	<?php if( $params['msg-reset?'] ): ?>
     <p class="msg-info"><?= MSG_RESET_SENHA_PROX_LOGIN; ?></p>
+	<?php endif; ?>
 
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
         <p class="form-paragr">

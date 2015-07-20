@@ -8,23 +8,22 @@
  */
 
 class Funcoes{
-    /**
-     * Converter vetor para as propriedades de um objeto
-     *
-     * @param array $vetor - vetor com os valore a serem incluídos em $obj.
-     * As chaves devem conter os nomes das propriedades
-     * @param object $obj - objeto já instanciado que receberá os valores
-     * do $vetor
-     * @param string $prefixo - prefixo dos nomes de propriedades
-     */
+	/**
+	 * Converter vetor para as propriedades de um objeto
+	 *
+	 * @param array  $vetor   - Vetor com os valore a serem incluídos em $obj. As chaves devem conter os nomes das
+	 *                        propriedades
+	 * @param object $obj     Objeto já instanciado que receberá os valores do $vetor
+	 * @param string $prefixo Prefixo dos nomes de propriedades
+	 */
     public static function _vetor2objeto($vetor, &$obj, $prefixo = ''){
-        foreach( $vetor as $p => $v ):
-            $p = "{$prefixo}{$p}";
+        foreach( $vetor as $p => $v ){
+	        $p = "{$prefixo}{$p}";
 
-            if( property_exists($obj, $p) && !is_null($v) )
-                $obj->{$p} = $v;
-        endforeach;
+	        property_exists($obj, $p) && isset($v) and $obj->{$p} = $v;
+        } // Fim foreach
     } // Fim do método _post2objeto
+
 
 
 
@@ -51,21 +50,21 @@ class Funcoes{
         # A função strtotime() não aceita a string da data no formato brasileiro
         # com a '/' barra separando dia, mês e ano. Portanto, caso a data seja
         # informada dessa forma substituir a '/' barra pelo '-' hifém
-        if( strpos($data_hora, '/') > -1 )
-            $data_hora = str_replace('/', '-', $data_hora);
+        strpos($data_hora, '/') > -1 and $data_hora = str_replace('/', '-', $data_hora);
 
         return date_format(date_create($data_hora), $formato);
     } // Fim do método _formatardatahora
 
 
 
-    /**
-     * Exibir o conteúdo em formato JSON para que o sistema possa exibi-lo
-     * ao usuário
-     *
-     * @param string $msg Mensagem a ser exibida na tela
-     * @param string $tipo Define parte da aparência da mensagens exibida
-     */
+
+	/**
+	 * Exibir o conteúdo em formato JSON para que o sistema possa exibi-lo
+	 * ao usuário
+	 *
+	 * @param string $msg  Mensagem a ser exibida na tela
+	 * @param string $tipo Define parte da aparência da mensagens exibida
+	 */
     public static function _retornar($msg, $tipo){
         \DL3::$tmp_buffer_resposta[] = [
             'mensagem'  =>  strtoupper(\DL3::$ap_charset) !== 'UTF-8' ? utf8_encode($msg) : $msg,
@@ -84,16 +83,15 @@ class Funcoes{
 	 * @param string $de_encode   Encode atual da variável
 	 */
     public static function _converterencode(&$var, $para_encode, $de_encode = 'UTF-8'){
-        if( is_null($var) ) return;
+        if( !isset($var) ) return;
 
-        if( !is_array($var) ):
-            if( mb_check_encoding($var, $de_encode) ):
-                $var = mb_convert_encoding($var, $para_encode, $de_encode);
-            endif;
-        else:
-            foreach( $var as &$v )
-                self::_converterencode($v, $para_encode, $de_encode);
-        endif;
+        if( !is_array($var) ){
+	        if( mb_check_encoding($var, $de_encode) )
+		        $var = mb_convert_encoding($var, $para_encode, $de_encode);
+        } else {
+	        foreach( $var as &$v )
+		        self::_converterencode($v, $para_encode, $de_encode);
+        } // Fim if( !is_array($var) )
     } // Fim do método _converterencode
 
 
@@ -151,61 +149,63 @@ class Funcoes{
         $acentuacao['C'] = ['Ã'];
 
         # Verificar se o encoding precisa ser ajustado
-        if( $content_type != 'multipart/form-data' && !empty($encode) )
-            $ajustar_encode = true;
+        $content_type != 'multipart/form-data' && !empty($encode) and $ajustar_encode = true;
 
-        $string = ( $ajustar_encode && mb_detect_encoding($string) != $encode )?
-            mb_convert_encoding($string, $encode)
-        : $string;
+        $string = $ajustar_encode && mb_detect_encoding($string) != $encode ?
+            mb_convert_encoding($string, $encode) : $string;
 
-        foreach( $acentuacao as $chave=>$acento ):
-            foreach( $acento as $letra ):
-                $letra = ( $ajustar_encode )?
-                    mb_convert_encoding($letra, $encode)
-                : $letra;
+        foreach( $acentuacao as $chave => $acento ){
+	        foreach( $acento as $letra ){
+		        $letra = ($ajustar_encode) ? mb_convert_encoding($letra, $encode) : $letra;
 
-                if( strpos($string, $letra) !== false )
-                    $string = str_replace($letra, $chave, $string);
-            endforeach;
-        endforeach;
+		        strpos($string, $letra) !== false and $string = str_replace($letra, $chave, $string);
+	        } // Fim foreach
+        } // Fim foreach
 
         return $string;
     } // Fim do método _removeracentuacao
 
-    /**
-     * Aplicar máscara de dados a uma string
-     * -------------------------------------------------------------------------
-     *
-     * @param string $string - string onde será aplicada a máscara
-     * @param string $mask - máscara a ser aplicada
-     * @return string
-     */
+
+
+
+	/**
+	 * Aplicar máscara de dados a uma string
+	 *
+	 * @param string $string String onde será aplicada a máscara
+	 * @param string $mask   Máscara a ser aplicada
+	 *
+	 * @return string
+	 */
     public static function _mascara($string, $mask){
         define('MASK', '#');
 
-        while( ($pos = strpos($mask, MASK)) !== false ):
-            # Aplicar a máscara
-            $mask = preg_replace('~'. MASK .'{1}~', $string[0], $mask, 1);
+        while( ($pos = strpos($mask, MASK)) !== false ){
+	        # Aplicar a máscara
+	        $mask = preg_replace('~' . MASK . '{1}~', $string[0], $mask, 1);
 
-            # Remover o primeiro caractere da $string
-            $string = substr($string, 1);
-        endwhile;
+	        # Remover o primeiro caractere da $string
+	        $string = substr($string, 1);
+        } // Fim while
 
         return $mask;
     } // Fim do método _mascara
 
-    /**
-     * Converter as primeiras letras de cada palavra para maiúscula e as demais para minúsculas
-     * @param string $string - string a ser convertida
-     * @param array $exceto - vetor contendo strings que não devem ser convertidas
-     * @param string $idioma - sigla do idioma a ser considerado para a conversão
-     * @return string
-     */
+
+
+
+	/**
+	 * Converter as primeiras letras de cada palavra para maiúscula e as demais para minúsculas
+	 *
+	 * @param string $string String a ser convertida
+	 * @param array  $exceto Vetor contendo strings que não devem ser convertidas
+	 * @param string $idioma Sigla do idioma a ser considerado para a conversão
+	 *
+	 * @return string
+	 */
     public static function _ucwords($string, array $exceto = [], $idioma = 'pt_BR'){
         # Alterar o idioma (locale) para o pt_BR para
         # evitar problemas com acentuação
-        if( mb_internal_encoding() == 'UTF-8' )
-            setlocale(LC_CTYPE, $idioma);
+        mb_internal_encoding() == 'UTF-8' and setlocale(LC_CTYPE, $idioma);
 
         # Esse trecho foi inspirado numa função postada por Paulo Freitas
         # em: http://forum.wmonline.com.br/topic/188764-transformar-primeira-letra-de-cada-palavra-em-maiuscula/
@@ -228,7 +228,7 @@ class Funcoes{
 	 *
 	 * @return string String contendo o valor traduzido para a linguagem humana
 	 */
-    public static function _bool2humano($v, $i='pt_BR'){
+    public static function _bool2humano($v, $i = 'pt_BR'){
         $idiomas = [
             'pt_BR' => ['Não', 'Sim'],
             'en_US' => ['No', 'Yes'],

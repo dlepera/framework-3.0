@@ -17,21 +17,21 @@ class GrupoUsuario extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _funcs($v=null){
-        return $this->funcs = filter_var(is_null($v) ? $this->funcs : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+    public function _funcs($v = null){
+        return $this->funcs = filter_var(!isset($v) ? $this->funcs : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
     } // Fim do método _funcs
 
 
 
     public function __construct($pk = null){
         parent::__construct('dl_painel_grupos_usuarios', 'grupo_usuario_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
+
 
 
 
@@ -49,17 +49,18 @@ class GrupoUsuario extends GeralM\Principal{
     protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
-        if( $s && $this->id != $_SESSION['usuario_info_grupo'] ):
-            # Salvar o permissionamento atual e remover o antigo
-            $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
+        if( $s && $this->id != $_SESSION['usuario_info_grupo'] ){
+	        # Salvar o permissionamento atual e remover o antigo
+	        $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
 	        $sql->execute([':id' => $this->id]);
 
 	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_grupos_funcs VALUES (:id, :func)");
-            foreach( $this->funcs as $f ) $sql->execute([':id' => $this->id, ':func' => $f]);
-        endif;
+	        foreach( $this->funcs as $f ) $sql->execute([':id' => $this->id, ':func' => $f]);
+        } // Fim if( $s && $this->id != $_SESSION['usuario_info_grupo'] )
 
         return $r;
     } // Fim do método _salvar
+
 
 
 
@@ -73,15 +74,18 @@ class GrupoUsuario extends GeralM\Principal{
 	 * @throws \Exception
 	 */
     protected function _selecionarPK($v, $a = null){
-        parent::_selecionarPK($v, $a);
+        $r = parent::_selecionarPK($v, $a);
+
+	    if( !$r ) return false;
 
         $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
 	    $sql->execute([':id' => $this->id]);
 
         if( $sql === false ) return;
 
-        while( $rs = $sql->fetch(\PDO::FETCH_ASSOC) )
-            $this->funcs[] = $rs['func_modulo_id'];
+		$this->funcs = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
+
+	    return $r;
     } // Fim do método _selecionarPK
 
 

@@ -27,29 +27,15 @@ class GoogleAnalytics extends GeralM\Principal{
 
     public function __construct($pk = null){
         parent::__construct('dl_site_google_analytics', 'ga_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Desativar os métodos _salvar e _remover
-     */
+
+	/*
+	 * Desativar os métodos _salvar e _remover
+	 */
     protected function _salvar(){ return; } // Fim do método _salvar
     protected function _remover() { return; } // Fim do método _remover
-
-
-
-    /**
-     * Selecionar a configuração ativa
-     */
-    public function _selecionar_ativa(){
-        $l = $this->_listar("{$this->bd_prefixo}ativar = 1", null, "{$this->bd_prefixo}id AS ID", 0, 1, 0);
-
-        if( $l === false )
-            throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);
-
-        return $this->_selecionarPK($l['ID']);
-    } // Fim do método _selecionar_ativa
 } // Fim do Modelo GoogleAnalytics

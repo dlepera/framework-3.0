@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 16:51:21
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 ?>
 
@@ -72,11 +72,11 @@
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('admin/grupos-de-usuarios/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="AlternarPublicacao('admin/grupos-de-usuarios/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_PUBLICAR; ?>
                         </a>
 
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('admin/grupos-de-usuarios/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+                        <a href="javascript:void;" onclick="AlternarPublicacao('admin/grupos-de-usuarios/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_OCULTAR; ?>
                         </a>
                         <?php endif;

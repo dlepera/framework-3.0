@@ -17,16 +17,16 @@ class LeituraContato extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _leitura_contato($v=null){
-        return $this->leitura_contato = filter_var(is_null($v) ? $this->leitura_contato : $v, FILTER_VALIDATE_INT);
+    public function _leitura_contato($v = null){
+        return $this->leitura_contato = filter_var(!isset($v) ? $this->leitura_contato : $v, FILTER_VALIDATE_INT);
     } // Fim do método _leitura_contato
 
-    public function _usuario($v=null){
-        return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
+    public function _usuario($v = null){
+        return $this->usuario = filter_var(!isset($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario
 
-    public function _data($v=null){
-        return $this->data = \Funcoes::_formatardatahora(filter_var(is_null($v) ? $this->data : $v, FILTER_SANITIZE_STRING), \DL3::$bd_dh_formato_completo);
+    public function _data($v = null){
+        return $this->data = \Funcoes::_formatardatahora(filter_var(!isset($v) ? $this->data : $v, FILTER_SANITIZE_STRING), \DL3::$bd_dh_formato_completo);
     } // Fim do método _data
 
 
@@ -44,6 +44,7 @@ class LeituraContato extends GeralM\Principal{
 
 
 
+
 	/**
 	 * Salvar determinado registro
 	 *
@@ -55,7 +56,7 @@ class LeituraContato extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         if( !$this->reg_vazio || $this->_verificarleitura() ) return 0;
 
         # Obter a data atual
@@ -66,15 +67,16 @@ class LeituraContato extends GeralM\Principal{
 
 
 
-    /**
-     *  Verificar se determinado usuário já leu o contato
-     *
-     * @param int $c - ID do contato
-     * @param int $u - ID do usuário
-     *
-     * @return bool - retorna true caso o usuário já tenha lido o contato ou false caso contrário
-     */
-    public function _verificarleitura($c=null,$u=null){
+
+	/**
+	 *  Verificar se determinado usuário já leu o contato
+	 *
+	 * @param int $c - ID do contato
+	 * @param int $u - ID do usuário
+	 *
+	 * @return bool - retorna true caso o usuário já tenha lido o contato ou false caso contrário
+	 */
+    public function _verificarleitura($c = null,$u = null){
         $this->_leitura_contato($c);
         $this->_usuario($u);
 

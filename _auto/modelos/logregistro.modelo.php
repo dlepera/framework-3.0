@@ -18,51 +18,51 @@ class LogRegistro extends Principal{
 	/*
      * 'Gets' e 'Sets' das propriedades
      */
-	public function _tabela($v=null){
-		return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
+	public function _tabela($v = null){
+		return $this->tabela = filter_var(!isset($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _tabela
 
-	public function _idreg($v=null){
-		return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v);
+	public function _idreg($v = null){
+		return $this->idreg = filter_var(!isset($v) ? $this->idreg : $v);
 	} // Fim do método _idreg
 
-	public function _data_criacao($v=null){
-		return is_null($v) ? \Funcoes::_formatardatahora($this->data_criacao, $_SESSION['formato_data_completo'])
+	public function _data_criacao($v = null){
+		return !isset($v) ? \Funcoes::_formatardatahora($this->data_criacao, $_SESSION['formato_data_completo'])
 			: $this->data_criacao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
 	} // Fim do método _data_criacao
 
-	public function _data_alteracao($v=null){
-		return is_null($v) ? \Funcoes::_formatardatahora($this->data_alteracao, $_SESSION['formato_data_completo'])
+	public function _data_alteracao($v = null){
+		return !isset($v) ? \Funcoes::_formatardatahora($this->data_alteracao, $_SESSION['formato_data_completo'])
 			: $this->data_alteracao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
 	} // Fim do método _data_alteracao
 
-	public function _data_exclusao($v=null){
-		return is_null($v) ? \Funcoes::_formatardatahora($this->data_exclusao, $_SESSION['formato_data_completo'])
+	public function _data_exclusao($v = null){
+		return !isset($v) ? \Funcoes::_formatardatahora($this->data_exclusao, $_SESSION['formato_data_completo'])
 			: $this->data_exclusao = \Funcoes::_formatardatahora($v, \DL3::$bd_dh_formato_completo);
 	} // Fim do método _data_exclusao
 
-	public function _usuario_criacao($v=null){
-		return $this->usuario_criacao = filter_var(is_null($v) ? $this->usuario_criacao : $v, FILTER_VALIDATE_INT);
+	public function _usuario_criacao($v = null){
+		return $this->usuario_criacao = filter_var(!isset($v) ? $this->usuario_criacao : $v, FILTER_VALIDATE_INT);
 	} // Fim do método _usuario_criacao
 
-	public function _usuario_nome_criacao($v=null){
-		return $this->usuario_nome_criacao = filter_var(is_null($v) ? $this->usuario_nome_criacao : $v, FILTER_SANITIZE_STRING);
+	public function _usuario_nome_criacao($v = null){
+		return $this->usuario_nome_criacao = filter_var(!isset($v) ? $this->usuario_nome_criacao : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _usuario_nome_criacao
 
-	public function _usuario_alteracao($v=null){
-		return $this->usuario_alteracao = filter_var(is_null($v) ? $this->usuario_alteracao : $v, FILTER_VALIDATE_INT);
+	public function _usuario_alteracao($v = null){
+		return $this->usuario_alteracao = filter_var(!isset($v) ? $this->usuario_alteracao : $v, FILTER_VALIDATE_INT);
 	} // Fim do método _usuario_alteracao
 
-	public function _usuario_nome_alteracao($v=null){
-		return $this->usuario_nome_alteracao = filter_var(is_null($v) ? $this->usuario_nome_alteracao : $v, FILTER_SANITIZE_STRING);
+	public function _usuario_nome_alteracao($v = null){
+		return $this->usuario_nome_alteracao = filter_var(!isset($v) ? $this->usuario_nome_alteracao : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _usuario_nome_alteracao
 
-	public function _usuario_exclusao($v=null){
-		return $this->usuario_exclusao = filter_var(is_null($v) ? $this->usuario_exclusao : $v, FILTER_VALIDATE_INT);
+	public function _usuario_exclusao($v = null){
+		return $this->usuario_exclusao = filter_var(!isset($v) ? $this->usuario_exclusao : $v, FILTER_VALIDATE_INT);
 	} // Fim do método _usuario_exclusao
 
-	public function _usuario_nome_exclusao($v=null){
-		return $this->usuario_nome_exclusao = filter_var(is_null($v) ? $this->usuario_nome_exclusao : $v, FILTER_SANITIZE_STRING);
+	public function _usuario_nome_exclusao($v = null){
+		return $this->usuario_nome_exclusao = filter_var(!isset($v) ? $this->usuario_nome_exclusao : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _usuario_nome_exclusao
 
 

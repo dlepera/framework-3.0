@@ -15,7 +15,7 @@
  *  Listas de registros
  * -------------------------------------------------------------------------- */
 .lista-registros{
-    $ln: 2.75em;
+    $ln: 3em;
     
     /* Tamanho */
     width: 100%;
@@ -106,14 +106,19 @@
             vertical-align: top;
             
             /* Tamanho */
-            max-width: 25%;
+            max-width : 25%;
+			max-height: 6em;
             
             /* Visual */
             background  : #FFF;
             border      : $borda-suave;
             
             /* Margens */
-            padding: .35em;
+			margin-right: .35em;
+            padding 	: .25em;
+
+			/* Posicionamento */
+			float: left;
         }
     }
     

@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 16:51:21
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 ?>
 
@@ -16,6 +16,9 @@
     <!-- Inserir um novo registro -->
     <a href="website/dados-para-contato/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_DADOCONTATO; ?></a>
     <?php endif; ?>
+
+	<!-- Ir para a lista de tipos de dados -->
+	<a href="website/tipos-de-dados" class="com-icone ico-lista"><?= TXT_LINK_TIPOS_DADOS; ?></a>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 

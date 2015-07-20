@@ -17,29 +17,29 @@ class ModuloFunc extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _func_modulo($v=null){
-        return $this->func_modulo = filter_var(is_null($v) ? $this->func_modulo : $v, FILTER_VALIDATE_INT);
+    public function _func_modulo($v = null){
+        return $this->func_modulo = filter_var(!isset($v) ? $this->func_modulo : $v, FILTER_VALIDATE_INT);
     } // Fim do método _func_modulo
 
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _classe($v=null){
-        return $this->classe = filter_var(is_null($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
+    public function _classe($v = null){
+        return $this->classe = filter_var(!isset($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _metodos($v=null){
-        return $this->metodos = filter_var(is_null($v) ? $this->metodos : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+    public function _metodos($v = null){
+        return $this->metodos = filter_var(!isset($v) ? $this->metodos : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
     } // Fim do método _metodos
 
 
 
     public function __construct($pk = null){
         parent::__construct('dl_painel_modulos_funcs', 'func_modulo_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
+
 
 
 
@@ -57,15 +57,16 @@ class ModuloFunc extends GeralM\Principal{
 	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
-        if( $r && $s ):
-            foreach( $this->metodos as $m ):
-                $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
-                $sql->execute([':id' => $this->id, ':metodo' => $m]);
-            endforeach;
-        endif;
+        if( $r && $s ){
+	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
+
+	        foreach( $this->metodos as $m )
+		        $sql->execute([':id' => $this->id, ':metodo' => $m]);
+        } // Fim if( $r && $s )
 
         return $r;
     } // Fim do método _salvar
+
 
 
 
@@ -79,16 +80,13 @@ class ModuloFunc extends GeralM\Principal{
 	 * @throws \Exception
 	 */
 	protected function _selecionarPK($v, $a = null){
-        parent::_selecionarPK($v, $a);
-
-        if( !$this->reg_vazio ):
-            $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
+        if( parent::_selecionarPK($v, $a) ){
+	        $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
 	        $sql->execute([':id' => $this->id]);
 
-            if( $sql === false ) return;
+	        if( $sql === false ) return;
 
-            while( $rs = $sql->fetch(\PDO::FETCH_ASSOC) )
-                $this->metodos[] = $rs['metodo_func_descr'];
-        endif;
+	        $this->metodos = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
+        } // Fim if( parent::_selecionarPK($v, $a) )
     } // Fim do método _selecionarPK
 } // Fim do Modelo ModuloFunc

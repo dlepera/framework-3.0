@@ -32,9 +32,10 @@ class ContatoSite extends GeralM\WebSite{
 
 
 
-    /**
-     * Mostrar o formulário de contato
-     */
+
+	/**
+	 * Mostrar o formulário de contato
+	 */
     public function _mostrarform(){
         $this->_formpadrao('contato', 'enviar', null, 'contato', null);
 
@@ -53,36 +54,35 @@ class ContatoSite extends GeralM\WebSite{
 
 
 
-    /**
-     * Salvar e enviar o registro de contato
-     */
+
+	/**
+	 * Salvar e enviar o registro de contato
+	 */
     public function _enviar(){
         $this->_salvar();
 
         # Enviar por e-mail
-        if( class_exists('Email') ):
-            if( !empty($this->modelo->assunto) ):
-                $ma = new ContatoM\AssuntoContato();
-                $la = end($ma->_listar("assunto_contato_id = {$this->modelo->assunto}", null, 'assunto_contato_descr, assunto_contato_email'));
-                $as = $la['assunto_contato_descr'];
-                $pa = $la['assunto_contato_email'];
-            else:
-                $as = MSG_NAO_INFORMADO;
-                $pa = 'd_lepera@hotmail.com';
-            endif;
+        if( class_exists('Email') ){
+	        if( !empty($this->modelo->assunto) ){
+		        $ma = new ContatoM\AssuntoContato();
+		        $la = end($ma->_listar("assunto_contato_id = {$this->modelo->assunto}", null, 'assunto_contato_descr, assunto_contato_email'));
+		        $as = $la['assunto_contato_descr'];
+		        $pa = $la['assunto_contato_email'];
+	        } else {
+		        $as = MSG_NAO_INFORMADO;
+		        $pa = 'd_lepera@hotmail.com';
+	        } // Fim if( class_exists('Email') )
 
-            $a = sprintf(TXT_EMAIL_ASSUNTO_CONTATOSITE, ($h = filter_input(INPUT_SERVER, 'HTTP_HOST')), $as);
-            $c = sprintf(TXT_EMAIL_CONTEUDO_CONTATOSITE, $h,
-                    $this->modelo->nome, $this->modelo->email, $this->modelo->telefone,
-                    $as, nl2br($this->modelo->mensagem));
+	        $a = sprintf(TXT_EMAIL_ASSUNTO_CONTATOSITE, ($h = filter_input(INPUT_SERVER, 'HTTP_HOST')), $as);
+	        $c = sprintf(TXT_EMAIL_CONTEUDO_CONTATOSITE, $h, $this->modelo->nome, $this->modelo->email, $this->modelo->telefone, $as, nl2br($this->modelo->mensagem));
 
-            $om = new \Email();
-            $e  = $om->_enviar($pa, $a, $c);
-            $om->_gravarlog(__CLASS__, $this->modelo->bd_tabela, $this->modelo->id);
+	        $om = new \Email();
+	        $e = $om->_enviar($pa, $a, $c);
+	        $om->_gravarlog(__CLASS__, $this->modelo->bd_tabela, $this->modelo->id);
 
-            if( !$e )
-                throw new \Exception(sprintf(ERRO_CONTATOSITE_ENVIO_EMAIL, $om->_exibirlog()), 1500);
-        endif;
+	        if( !$e )
+		        throw new \Exception(sprintf(ERRO_CONTATOSITE_ENVIO_EMAIL, $om->_exibirlog()), 1500);
+        } // if( class_exists('Email') )
 
         return \Funcoes::_retornar(SUCESSO_CONTATOSITE_ENVIADO, 'msg-sucesso');
     } // Fim do método _enviar

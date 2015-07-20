@@ -17,12 +17,12 @@ class ConfiguracaoSite extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _tema($v=null){
-        return $this->tema = filter_var(is_null($v) ? $this->tema : $v, FILTER_VALIDATE_INT);
+    public function _tema($v = null){
+        return $this->tema = filter_var(!isset($v) ? $this->tema : $v, FILTER_VALIDATE_INT);
     } // Fim do método _tema
 
-    public function _formato_data($v=null){
-        return $this->formato_data = filter_var(is_null($v) ? $this->formato_data : $v, FILTER_VALIDATE_INT);
+    public function _formato_data($v = null){
+        return $this->formato_data = filter_var(!isset($v) ? $this->formato_data : $v, FILTER_VALIDATE_INT);
     } // Fim do método _formato_data
 
 

@@ -35,9 +35,10 @@ class DadoContato extends GeralM\Principal{
 
 
 
-    /**
-     * Desativar os métodos _salvar e _remover
-     */
+
+	/*
+	 * Desativar os métodos _salvar e _remover
+	 */
     public function _salvar(){ return; }
     public function _remover(){ return; }
 } // Fim do Modelo DadoContato

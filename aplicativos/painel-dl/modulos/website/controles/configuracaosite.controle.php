@@ -36,9 +36,10 @@ class ConfiguracaoSite extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     */
+
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro
+	 */
     public function _mostrarform(){
         $this->_formpadrao('config', null, 'configuracoes/salvar', 'website/configuracoes', 1);
 
@@ -48,11 +49,11 @@ class ConfiguracaoSite extends GeralC\PainelDL{
 
         # Selecionar os temas
         $mtm = new DevM\Tema();
-        $ltm = $mtm->_carregarselect('tema_publicar = 1', false);
+        $ltm = $mtm->_carregarselect('tema_publicar', false);
 
         # Selecionar os formatos de datas
         $mfd = new DevM\FormatoData();
-        $lfd = $mfd->_carregarselect('formato_data_publicar = 1', false);
+        $lfd = $mfd->_carregarselect('formato_data_publicar', false);
 
         # Parâmetros
         $this->visao->_adparam('temas', $ltm);

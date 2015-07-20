@@ -18,42 +18,42 @@ class FotoAlbum extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _foto_album($v=null){
-        return $this->foto_album = filter_var(is_null($v) ? $this->foto_album : $v, FILTER_VALIDATE_INT);
+    public function _foto_album($v = null){
+        return $this->foto_album = filter_var(!isset($v) ? $this->foto_album : $v, FILTER_VALIDATE_INT);
     } // Fim do método _foto_album
 
-    public function _titulo($v=null){
-        return $this->titulo = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del', 'na', 'no']);
+    public function _titulo($v = null){
+        return $this->titulo = \Funcoes::_ucwords(filter_var(!isset($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'del', 'na', 'no']);
     } // Fim do método _titulo
 
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _imagem($v=null){
-        return $this->imagem = filter_var(is_null($v) ? $this->imagem : $v, FILTER_SANITIZE_STRING);
+    public function _imagem($v = null){
+        return $this->imagem = filter_var(!isset($v) ? $this->imagem : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _imagem
 
-    public function _capa($v=null){
-        return $this->capa = filter_var(is_null($v) ? $this->capa : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _capa($v = null){
+        return $this->capa = filter_var(!isset($v) ? $this->capa : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _capa
 
 
 
     public function __construct($pk = null){
         parent::__construct('dl_site_albuns_fotos', 'foto_album_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Fazer o upload das fotos e salvá-las no diretório do álbum
-     *
-     * É feito o upload das fotos e as salva no diretório de fotos do álbum.
-     * Depois é criado o registro das fotos salvas na base de dados.
-     */
+
+	/**
+	 * Fazer o upload das fotos e salvá-las no diretório do álbum
+	 *
+	 * É feito o upload das fotos e as salva no diretório de fotos do álbum.
+	 * Depois é criado o registro das fotos salvas na base de dados.
+	 */
     public function _upload(){
 	    # Informações do álbum
 	    $maf = new WebM\Album($this->foto_album);
@@ -65,14 +65,15 @@ class FotoAlbum extends GeralM\Principal{
         if( !$oup->_salvar($maf->nome) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_SALVAR, 1500);
 
-        foreach( $oup->salvos as $f ):
-            $this->id       = null;
-            $this->imagem   = preg_replace('~^\.~', '', $f);
-            $this->publicar = 1;
-            // $this->_salvar();
+        foreach( $oup->salvos as $f ){
+	        $this->id       = null;
+	        $this->imagem   = preg_replace('~^\.~', '', $f);
+	        $this->publicar = 1;
+	        // $this->_salvar();
 	        $this->__call('_salvar');
-        endforeach;
+        } // Fim foreach
     } // Fim do método _upload
+
 
 
 
@@ -98,9 +99,10 @@ class FotoAlbum extends GeralM\Principal{
 
 
 
-    /**
-     * Remover o registro e a foto vinculada a ele
-     */
+
+	/**
+	 * Remover o registro e a foto vinculada a ele
+	 */
     protected function _remover(){
         # Excluir a foto vinculada
         return unlink(".{$this->imagem}") AND parent::_remover();

@@ -38,9 +38,10 @@ class FotoAlbum extends GeralM\Principal{
 
 
 
-    /**
-     *  Desativar os método _salvar e _remover
-     */
+
+	/*
+	 *  Desativar os método _salvar e _remover
+	 */
     public function _salvar(){ return; } // Fim do método _salvar
     public function _remover(){ return; } // Fim do método _remover
 } // Fim do Modelo FotoAlbum

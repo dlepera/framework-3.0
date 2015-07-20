@@ -46,7 +46,7 @@ $params = $this->_obterparams();
         </section>
 
         <footer class="dl3-rodape">
-            <?= \DL3::$ap_titulo .' v'. \DL3::$ap_versao .' &copy; '. date('Y'); ?>
+            <?php echo \DL3::$ap_titulo, ' v', \DL3::$ap_versao, ' &copy; ', date('Y'); ?>
 
             [DL3-RODAPE/]
         </footer>

@@ -17,28 +17,28 @@ class Modulo extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _pai($v=null){
-        return $this->pai = filter_var(is_null($v) ? $this->pai : $v, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
+    public function _pai($v = null){
+        return $this->pai = filter_var(!isset($v) ? $this->pai : $v, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE);
     } // Fim do método _pai
 
-    public function _nome($v=null){
-        return $this->nome = filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
+    public function _nome($v = null){
+        return $this->nome = filter_var(!isset($v) ? $this->nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _nome
 
-    public function _descr($v=null){
-        return $this->descr = filter_var(is_null($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+    public function _descr($v = null){
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _descr
 
-    public function _menu($v=null){
-        return $this->menu = filter_var(is_null($v) ? $this->menu : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _menu($v = null){
+        return $this->menu = filter_var(!isset($v) ? $this->menu : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _menu
 
-    public function _link($v=null){
-        return $this->link = trim(filter_var(is_null($v) ? $this->link : $v, FILTER_SANITIZE_STRING), '/');
+    public function _link($v = null){
+        return $this->link = trim(filter_var(!isset($v) ? $this->link : $v, FILTER_SANITIZE_STRING), '/');
     } // Fim do método _link
 
-    public function _ordem($v=null){
-        return $this->ordem = filter_var(is_null($v) ? $this->ordem : $v, FILTER_VALIDATE_INT);
+    public function _ordem($v = null){
+        return $this->ordem = filter_var(!isset($v) ? $this->ordem : $v, FILTER_VALIDATE_INT);
     } // Fim do método _ordem
 
 
@@ -56,6 +56,7 @@ class Modulo extends GeralM\Principal{
 
 
 
+
 	/**
 	 * Selecionar um registro através da chave primária (PK - Primary Key)
 	 *
@@ -68,6 +69,7 @@ class Modulo extends GeralM\Principal{
 	protected function _selecionarPK($v, $a = 'M'){
         return parent::_selecionarPK($v, $a);
     } // Fim do método _selecionarPK
+
 
 
 

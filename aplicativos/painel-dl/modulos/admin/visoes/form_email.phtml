@@ -11,7 +11,7 @@
  * CORRIGIR: O recurso 'Testar configuração' deve levar em consideração o que está no formulário e não o que está salvo no banco de dados
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -45,7 +45,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_REQUER_AUTENT; ?></span><br/>
-                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?php $mod->autent AND print(' CHECKED'); ?>/>
+                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?php $mod->autent and print(' CHECKED'); ?>/>
                 <label for="chk-autent"></label>
             </p>
 
@@ -53,8 +53,8 @@ $mod = $params['modelo'];
                 <label for="sel-cripto" class="form-rotulo"><?= TXT_ROTULO_TIPO_CRIPTO; ?>:</label><br/>
                 <select name="cripto" id="sel-cripto" class="form-controle">
                     <option value=""><?= TXT_OPCAO_NENHUMA; ?></option>
-                    <option value="tls"<?php $mod->cripto == 'tls' AND print(' SELECTED'); ?>><?= TXT_OPCAO_TLS; ?></option>
-                    <option value="ssl"<?php $mod->cripto == 'ssl' AND print(' SELECTED'); ?>><?= TXT_OPCAO_SSL; ?></option>
+                    <option value="tls"<?php $mod->cripto == 'tls' and print(' SELECTED'); ?>><?= TXT_OPCAO_TLS; ?></option>
+                    <option value="ssl"<?php $mod->cripto == 'ssl' and print(' SELECTED'); ?>><?= TXT_OPCAO_SSL; ?></option>
                 </select>
             </p>
 
@@ -90,7 +90,7 @@ $mod = $params['modelo'];
             <p class="form-paragr">
                 <span class="form-rotulo"><?= TXT_ROTULO_HTML; ?></span><br/>
                 <span class="form-dica"><?= MSG_DICA_EMAIL_HTML; ?></span><br/>
-                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?php $mod->html AND print(' CHECKED'); ?>/>
+                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?php $mod->html and print(' CHECKED'); ?>/>
                 <label for="chk-html"></label>
             </p>
         </fieldset>
@@ -98,9 +98,16 @@ $mod = $params['modelo'];
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
             <span class="form-dica"><?= MSG_DICA_EMAIL_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal AND print(' CHECKED'); ?>/>
+            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal and print(' CHECKED'); ?>/>
             <label for="chk-principal"></label>
         </p>
+
+	    <p class="form-paragr">
+		    <span class="form-rotulo"><?= TXT_ROTULO_DEBUG; ?></span><br/>
+		    <span class="form-dica"><?= MSG_DICA_DEBUG; ?></span><br/>
+		    <input type="checkbox" name="debug" id="chk-debug" class="form-alternar"<?php $mod->debug and print(' CHECKED'); ?>/>
+		    <label for="chk-debug"></label>
+	    </p>
 
         <p class="form-botoes">
             <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>

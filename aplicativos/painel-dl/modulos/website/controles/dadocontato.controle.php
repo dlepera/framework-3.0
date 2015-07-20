@@ -34,9 +34,10 @@ class DadoContato extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr, ( CASE dado_contato_publicar'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -52,6 +53,7 @@ class DadoContato extends GeralC\PainelDL{
             ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO]
         ]);
     } // Fim do método _mostrarlista
+
 
 
 
@@ -71,11 +73,11 @@ class DadoContato extends GeralC\PainelDL{
         $m_td = new WebM\TipoDadoContato();
         $l_td = $m_td->_carregarselect('tipo_dado_publicar', false);
 
-        if( !is_null($this->modelo->id) ):
-            $m_td->_selecionarPK($this->modelo->tipo);
-            $this->visao->_adparam('macara', $m_td->mascara);
-            $this->visao->_adparam('expreg', $m_td->expreg);
-        endif;
+        if( isset($this->modelo->id) ){
+	        $m_td->_selecionarPK($this->modelo->tipo);
+	        $this->visao->_adparam('macara', $m_td->mascara);
+	        $this->visao->_adparam('expreg', $m_td->expreg);
+        } // Fim if( isset($this->modelo->id) )
 
         # Parâmetros
         $this->visao->_adparam('tipos', $l_td);

@@ -26,25 +26,26 @@ class ContatoSite extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _nome($v=null){
-        return $this->nome = \Funcoes::_ucwords(filter_var(is_null($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'e']);
+    public function _nome($v = null){
+        return $this->nome = \Funcoes::_ucwords(filter_var(!isset($v) ? $this->nome : $v, FILTER_SANITIZE_STRING), ['da', 'de', 'di', 'do', 'du', 'das', 'dos', 'e']);
     } // Fim do método _nome
 
-    public function _email($v=null){
-        return $this->email = strtolower(filter_var(is_null($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL));
+    public function _email($v = null){
+        return $this->email = strtolower(filter_var(!isset($v) ? $this->email : $v, FILTER_VALIDATE_EMAIL));
     } // Fim do método _email
 
-    public function _telefone($v=null){
-        return $this->telefone = filter_var(is_null($v) ? $this->telefone : $v, FILTER_SANITIZE_STRING);
+    public function _telefone($v = null){
+        return $this->telefone = filter_var(!isset($v) ? $this->telefone : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _telefone
 
-    public function _assunto($v=null){
-        return $this->assunto = filter_var(is_null($v) ? $this->assunto : $v, FILTER_VALIDATE_INT);
+    public function _assunto($v = null){
+        return $this->assunto = filter_var(!isset($v) ? $this->assunto : $v, FILTER_VALIDATE_INT);
     } // Fim do método _assunto
 
-    public function _mensagem($v=null){
-        return $this->mensagem = filter_var(is_null($v) ? $this->mensagem : $v);
+    public function _mensagem($v = null){
+        return $this->mensagem = filter_var(!isset($v) ? $this->mensagem : $v);
     } // Fim do método _mensagem
+
 
 
 
@@ -59,14 +60,15 @@ class ContatoSite extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         return !$this->reg_vazio ? 0 : parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
 
 
-    /**
-     * Não permitir a remoção desse registro
-     */
+
+	/*
+	 * Não permitir a remoção desse registro
+	 */
     protected function _remover(){ return; } // Fim do método _remover
 } // Fim do Modelo ContatoSite

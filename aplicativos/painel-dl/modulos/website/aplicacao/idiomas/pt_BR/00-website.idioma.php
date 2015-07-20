@@ -127,6 +127,7 @@ define('TXT_LINK_NOVO_GA', 'Nova configuração');
 define('TXT_LINK_NOVO_DADOCONTATO', 'Novo dado para contato');
 define('TXT_LINK_NOVO_ALBUM', 'Novo ábum');
 define('TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS', 'Editar as informações institucionais');
+define('TXT_LINK_TIPOS_DADOS', 'Tipos de dados');
 
 # Ajuda
 define('TXT_AJUDA_CONFIGURACAO_WEBSITE', 'Essas configurações são aplicadas <b>apenas</b> para o website.');
@@ -137,21 +138,20 @@ define('MSG_EMAIL_ENVIADO', 'E-mail enviado');
 define('MSG_EMAIL_FALHOU', 'O envio do e-mail falhou');
 define('MSG_CAPA', 'Capa');
 define('MSG_GA_ALERTA_UTILIZACAO_MUITOS', '<b>Atenção!</b> A utilização de muitas contas do Google Analytics pode prejudicar o desempenho do site.');
+define('TXT_DIVERSOS_NENHUMA_FOTO', 'Nenhuma foto');
+define('TXT_DIVERSOS_UMA_FOTO', '1 foto');
+define('TXT_DIVERSOS_QTDE_FOTOS', '%d fotos');
 
 
-
-/**
+/*
  * WebSite\Controle\ContatoSite
- * -----------------------------------------------------------------------------
  */
 # Erros
 define('ERRO_CONTATOSITE_MOSTRADETALHES_NAO_ENCONTRADO', '<b>Erro!</b><p>O contato solicitado não foi encontrado.</p>');
 
 
-
-/**
+/*
  * WebSite\Modelo\FotoAlbum
- * -----------------------------------------------------------------------------
  */
 # Sucessos
 define('SUCESSO_FOTOALBUM_UPLOAD', 'Fotos salvas com sucesso!');

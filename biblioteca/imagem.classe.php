@@ -19,17 +19,21 @@ class Imagem{
         if( !extension_loaded('GD') )
             throw new \Exception(ERRO_IMAGEM_CONSTRUCT_EXTENSAO_GD_NAO_CARREGADA, 1500);
 
-        if( !is_null($arquivo) )
-            self::__set('arquivo', $arquivo);
+        isset($arquivo) and self::__set('arquivo', $arquivo);
     } // Fim do método mágico de construção da classe
 
-    /**
-     * Exibir o valor de determinada propriedade
-     *
-     * @param string $n - nome da propriedade a ser exibida
-     * @return mixed valor da propriedade definida em $nom
-     */
+
+
+
+	/**
+	 * Exibir o valor de determinada propriedade
+	 *
+	 * @param string $n - nome da propriedade a ser exibida
+	 *
+	 * @return mixed valor da propriedade definida em $nom
+	 */
     public function __get($n){ return m_get($this, $n); } // Fim do método mágico __get
+
 
 
 
@@ -65,9 +69,10 @@ class Imagem{
 
 
 
-    /**
-     * Tranparência da imagem
-     */
+
+	/**
+	 * Tranparência da imagem
+	 */
     public function _transparencia(){
         # Configurar transparência
         imagealphablending($this->imagem, false);
@@ -76,18 +81,25 @@ class Imagem{
 
 
 
-    /**
-     * Preparar a imagem para ser exibida ou salva
-     */
+
+	/**
+	 * Preparar a imagem para ser exibida ou salva
+	 */
     public function _preparar(){
         # Recriar a imagem de acordo com o tipo
-        switch($this->tipo):
-            case 1: return imagecreatefromgif($this->arquivo);
-            case 2: default: return imagecreatefromjpeg($this->arquivo);
-            case 3: return imagecreatefrompng($this->arquivo);
-            case 6: return imagecreatefrombmp($this->arquivo);
-        endswitch;
+        switch($this->tipo){
+	        case 1:
+		        return imagecreatefromgif($this->arquivo);
+	        case 2:
+	        default:
+		        return imagecreatefromjpeg($this->arquivo);
+	        case 3:
+		        return imagecreatefrompng($this->arquivo);
+	        case 6:
+		        return imagecreatefrombmp($this->arquivo);
+        } // Fim switch
     } // Fim do método _preparar
+
 
 
 
@@ -117,8 +129,7 @@ class Imagem{
 
         # Caso a imagem seja GIF ou PNG prepara para utilizar
         # a transparência
-        if( $this->tipo == 1 || $this->tipo == 3 )
-            imagecolortransparent($this->imagem);
+        $this->tipo == 1 || $this->tipo == 3 and imagecolortransparent($this->imagem);
 
         # Copiar a imagem original e colocá-la
         # redimensionada em $imagem
@@ -129,13 +140,14 @@ class Imagem{
 
 
 
+
 	/**
 	 * Recortar a imagem
 	 *
-	 * @param int $l Nova largura da imagem
-	 * @param int $a Nova altura da imagem
-	 * @param int  $coord_x Coordenada do eixo X para início do recorte
-	 * @param int  $coord_y Coordenada do eixo Y para fim do recorte
+	 * @param int $l       Nova largura da imagem
+	 * @param int $a       Nova altura da imagem
+	 * @param int $coord_x Coordenada do eixo X para início do recorte
+	 * @param int $coord_y Coordenada do eixo Y para fim do recorte
 	 *
 	 * @return resource
 	 * @throws Exception
@@ -146,7 +158,7 @@ class Imagem{
 
         # Definir os valores finais para largura e altura
         $l = empty($l) ? ($a * $this->largura)/$this->altura : $l;
-        $a  = empty($a) ? ($this->altura * $l)/$this->largura : $a;
+        $a = empty($a) ? ($this->altura * $l)/$this->largura : $a;
 
         # Criar uma imagem em branco que servirá
         # como base para a nova imagem redimensionada
@@ -160,6 +172,7 @@ class Imagem{
 
         return $this->imagem;
     } // Fim do método _recortar
+
 
 
 
@@ -189,6 +202,7 @@ class Imagem{
 
 
 
+
 	/**
 	 * Salvar a imagem em um arquivo
 	 *
@@ -201,21 +215,31 @@ class Imagem{
         if( empty($arquivo) )
             throw new Exception(ERRO_IMAGEM_SALVAR_POR_FAVOR_INFORME_NOME_ARQUIVO, 1500);
 
-        switch($this->tipo):
-            /* IMAGEM GIF */
-            case 1: imagegif($this->imagem, $arquivo); break;
+        switch($this->tipo){
+	        /* IMAGEM GIF */
+	        case 1:
+		        imagegif($this->imagem, $arquivo);
+		        break;
 
-            /* IMAGEM JPG */
-            case 2: imagejpeg($this->imagem, $arquivo, $this->qlde_jpeg); break;
+	        /* IMAGEM JPG */
+	        case 2:
+		        imagejpeg($this->imagem, $arquivo, $this->qlde_jpeg);
+		        break;
 
-            /* IMAGEM PNG */
-            case 3: imagepng($this->imagem, $arquivo, $this->qlde_png); break;
+	        /* IMAGEM PNG */
+	        case 3:
+		        imagepng($this->imagem, $arquivo, $this->qlde_png);
+		        break;
 
-            /* IMAGEM BMP */
-            case 6: imagewbmp($this->imagem, $arquivo); break;
+	        /* IMAGEM BMP */
+	        case 6:
+		        imagewbmp($this->imagem, $arquivo);
+		        break;
 
-            default: echo 'Tipo de imagem não suportado pelo sistema!'; break;
-        endswitch;
+	        default:
+		        echo 'Tipo de imagem não suportado pelo sistema!';
+		        break;
+        } // Fim switch
 
         # Destruir essa imagem e liberar o espaço em memória
         return imagedestroy($this->imagem);
@@ -223,53 +247,56 @@ class Imagem{
 
 
 
-    /**
-     * Salvar a imagem em um arquivo
-     */
+
+	/**
+	 * Salvar a imagem em um arquivo
+	 */
     public function _mostrar(){
-        switch($this->tipo):
-            /* IMAGEM GIF */
-            case 1:
-                # Caso o nome do arquivo não seja informado
-                # a imagem será exibida diretamente. Para isso
-                # será alterado o content-type da página
-                header('Content-type: image/gif');
+        switch($this->tipo){
+	        /* IMAGEM GIF */
+	        case 1:
+		        # Caso o nome do arquivo não seja informado
+		        # a imagem será exibida diretamente. Para isso
+		        # será alterado o content-type da página
+		        header('Content-type: image/gif');
 
-                imagegif($this->imagem);
-                break;
+		        imagegif($this->imagem);
+		        break;
 
-            /* IMAGEM JPG */
-            case 2:
-                # Caso o nome do arquivo não seja informado
-                # a imagem será exibida diretamente. Para isso
-                # será alterado o content-type da página
-                header('Content-type: image/jpeg');
+	        /* IMAGEM JPG */
+	        case 2:
+		        # Caso o nome do arquivo não seja informado
+		        # a imagem será exibida diretamente. Para isso
+		        # será alterado o content-type da página
+		        header('Content-type: image/jpeg');
 
-                imagejpeg($this->imagem, null, $this->qlde_jpeg);
-                break;
+		        imagejpeg($this->imagem, null, $this->qlde_jpeg);
+		        break;
 
-            /* IMAGEM PNG */
-            case 3:
-                # Caso o nome do arquivo não seja informado
-                # a imagem será exibida diretamente. Para isso
-                # será alterado o content-type da página
-                header('Content-type: image/png');
+	        /* IMAGEM PNG */
+	        case 3:
+		        # Caso o nome do arquivo não seja informado
+		        # a imagem será exibida diretamente. Para isso
+		        # será alterado o content-type da página
+		        header('Content-type: image/png');
 
-                imagepng($this->imagem, null, $this->qlde_png);
-                break;
+		        imagepng($this->imagem, null, $this->qlde_png);
+		        break;
 
-            /* IMAGEM BMP */
-            case 6:
-                # Caso o nome do arquivo não seja informado
-                # a imagem será exibida diretamente. Para isso
-                # será alterado o content-type da página
-                header('Content-type: image/bmp');
+	        /* IMAGEM BMP */
+	        case 6:
+		        # Caso o nome do arquivo não seja informado
+		        # a imagem será exibida diretamente. Para isso
+		        # será alterado o content-type da página
+		        header('Content-type: image/bmp');
 
-                imagewbmp($this->imagem);
-                break;
+		        imagewbmp($this->imagem);
+		        break;
 
-            default: echo 'Tipo de imagem não suportado pelo sistema!'; break;
-        endswitch;
+	        default:
+		        echo 'Tipo de imagem não suportado pelo sistema!';
+		        break;
+        } // Fim switch
 
         # Destruir essa imagem e liberar o espaço em memória
         return imagedestroy($this->imagem);

@@ -10,16 +10,15 @@
 @import '../_ajuda/configuracoes.scss';
 
 
-
 /* -----------------------------------------------------------------------------
  *  Formulários
  * -------------------------------------------------------------------------- */
-$btn: 'salvar' 'green' '\ea10',
-    'cancelar' 'red' '\ea0e',
-    'filtrar' '#AAA' '\e986',
-    'entrar' 'green' '\ea13',
-    'enviar' '#aabbff' '\ea84',
-    'upload' '#069' '\e9c3';
+$btn: 'salvar' green '\e710',
+    'cancelar' red '\e70d',
+    'filtrar' #AAA '\e686',
+    'entrar' green '\e713',
+    'enviar' #aabbff '\e784',
+    'upload' #069 '\e6c3';
     
 form{
     .form-controle{
@@ -107,7 +106,7 @@ form{
 
     .form-dica:before{
         /* Texto */
-        content     : '\ea09';
+        content     : '\e709';
         font-family : 'icones';
         color       : #069;
 
@@ -166,7 +165,7 @@ form{
 
     @each $bt in $btn{
         $cl: nth($bt,1);
-        $co: unquote(nth($bt,2));
+        $co: nth($bt,2);
         $ic: nth($bt,3);
 
         .btn-#{$cl}{

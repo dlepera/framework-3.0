@@ -38,6 +38,7 @@ class FotoAlbum extends GeralC\PainelDL{
 
 
 
+
 	/**
 	 * Mostrar o formulário de inclusão e edição do registro
 	 *
@@ -54,9 +55,10 @@ class FotoAlbum extends GeralC\PainelDL{
 
 
 
-    /**
-     * Realizar o upload das fotos
-     */
+
+	/**
+	 * Realizar o upload das fotos
+	 */
     protected function _upload(){
         $this->modelo->_upload();
         return \Funcoes::_retornar(SUCESSO_FOTOALBUM_UPLOAD, 'msg-sucesso');

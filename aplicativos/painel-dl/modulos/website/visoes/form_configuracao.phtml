@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -29,7 +29,7 @@ $mod = $params['modelo'];
                 <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                 <?php foreach( $params['temas'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->tema AND print(' SELECTED'); ?>>
+                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->tema and print(' SELECTED'); ?>>
                     <?= $o['TEXTO']; ?>
                 </option>
                 <?php endforeach; ?>
@@ -42,7 +42,7 @@ $mod = $params['modelo'];
                 <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
 
                 <?php foreach( $params['formatos-data'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->formato_data AND print(' SELECTED'); ?>>
+                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->formato_data and print(' SELECTED'); ?>>
                     <?= $o['TEXTO']; ?>
                 </option>
                 <?php endforeach; ?>

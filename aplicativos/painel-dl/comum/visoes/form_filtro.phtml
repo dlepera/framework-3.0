@@ -15,7 +15,7 @@
     <?php
     $qc = count($params['campos']);
 
-    if( $qc == 1 ): ?>
+    if( $qc === 1 ): ?>
     <input type="hidden" name="c" value="<?= $params['campos'][0]['valor']; ?>"/>
     <input type="hidden" name="o" value="<?= $params['campos'][0]['valor']; ?>"/>
     <?php elseif( $qc > 1 ):?>
@@ -33,7 +33,7 @@
         <option value=""><?= TXT_OPCAO_ORDENAR_POR; ?></option>
 
         <?php foreach( $params['campos'] as $o ): ?>
-        <option value="<?= $o['valor']; ?>"<?= $params['get-o'] == $o['valor'] ? ' SELECTED' : ''; ?>>
+        <option value="<?= $o['valor']; ?>"<?php $params['get-o'] == $o['valor'] and print(' SELECTED'); ?>>
             <?= $o['texto']; ?>
         </option>
         <?php endforeach; ?>

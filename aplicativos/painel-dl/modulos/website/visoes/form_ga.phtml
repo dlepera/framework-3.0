@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -56,7 +56,7 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal AND print(' CHECKED'); ?>/>
+            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal and print(' CHECKED'); ?>/>
             <label for="chk-principal"></label>
         </p>
 

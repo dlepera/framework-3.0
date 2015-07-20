@@ -26,15 +26,15 @@ class AssuntoContato extends GeralM\Principal{
 
     public function __construct($pk = null){
         parent::__construct('dl_site_assuntos_contato', 'assunto_contato_');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 
 
-    /**
-     * Impedir a alteração e exclusão dos registros
-     */
+
+	/*
+	 * Impedir a alteração e exclusão dos registros
+	 */
     public function _salvar(){ return; }
     public function _remover(){ return; }
 } // Fim do Modelo AssuntoContato

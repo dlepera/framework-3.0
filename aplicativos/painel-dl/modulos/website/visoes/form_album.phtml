@@ -7,7 +7,7 @@
  * @Data	: 07/01/2015 18:34:49
  */
 
-!isset($params) AND $params = $this->_obterparams();
+!isset($params) and $params = $this->_obterparams();
 
 $mod = $params['modelo'];
 
@@ -54,7 +54,18 @@ $mod = $params['modelo'];
         <input type="hidden" name="foto_album" value="<?= $mod->id; ?>"/>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_FOTOS; ?></legend>
+            <legend class="form-legenda">
+	            <?= TXT_LEGENDA_FOTOS; ?>
+
+	            <span class="log-registro">
+		            (<?php switch($params['qtde-fotos']){
+			            case 0: echo TXT_DIVERSOS_NENHUMA_FOTO; break;
+			            case 1: echo TXT_DIVERSOS_UMA_FOTO; break;
+			            default: printf(TXT_DIVERSOS_QTDE_FOTOS, $params['qtde-fotos']);
+		            } ?>)
+	            </span>
+            </legend>
+
 
             <p class="form-paragr">
                 <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>

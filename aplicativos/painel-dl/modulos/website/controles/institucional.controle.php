@@ -38,9 +38,10 @@ class Institucional extends GeralC\PainelDL{
 
 
 
-    /**
-     *  Mostrar as informações institucionais do site
-     */
+
+	/**
+	 *  Mostrar as informações institucionais do site
+	 */
     protected function _mostrarinfos(){
         # Visão
         $this->_carregarhtml('det_instit');
@@ -56,9 +57,10 @@ class Institucional extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar o formulário de inclusão e edição do registro
-     */
+
+	/**
+	 * Mostrar o formulário de inclusão e edição do registro
+	 */
     protected function _mostrarform(){
         $id = $this->modelo->_listar(null, null, 'MAX(instit_id) AS ID', 0, 1, 0);
 

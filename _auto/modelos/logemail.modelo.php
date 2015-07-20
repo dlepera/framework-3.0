@@ -16,24 +16,24 @@ class LogEmail extends Principal{
 	/*
      * 'Gets' e 'Sets' das propriedades
      */
-	public function _config($v=null){
-		return $this->config = filter_var(is_null($v) ? $this->config : $v, FILTER_VALIDATE_INT);
+	public function _config($v = null){
+		return $this->config = filter_var(!isset($v) ? $this->config : $v, FILTER_VALIDATE_INT);
 	} // Fim do método _config
 
-	public function _ip($v=null){
-		return $this->ip = filter_var(is_null($v) ? $this->ip : $v, FILTER_SANITIZE_STRING);
+	public function _ip($v = null){
+		return $this->ip = filter_var(!isset($v) ? $this->ip : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _ip
 
-	public function _classe($v=null){
-		return $this->classe = filter_var(is_null($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
+	public function _classe($v = null){
+		return $this->classe = filter_var(!isset($v) ? $this->classe : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _classe
 
-	public function _tabela($v=null){
-		return $this->tabela = filter_var(is_null($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
+	public function _tabela($v = null){
+		return $this->tabela = filter_var(!isset($v) ? $this->tabela : $v, FILTER_SANITIZE_STRING);
 	} // Fim do método _tabela
 
-	public function _idreg($v=null){
-		return $this->idreg = filter_var(is_null($v) ? $this->idreg : $v, FILTER_VALIDATE_INT);
+	public function _idreg($v = null){
+		return $this->idreg = filter_var(!isset($v) ? $this->idreg : $v, FILTER_VALIDATE_INT);
 	} // Fim do método _idreg
 
 
@@ -45,7 +45,6 @@ class LogEmail extends Principal{
 
         $this->_selecionarUK(['tabela', 'idreg'], [$tbl, $id]);
     } // Fim do método mágico de construção da classe
-
 
 
 
@@ -62,12 +61,12 @@ class LogEmail extends Principal{
      *
      * @return string - valor da propriedade $status
      */
-    public function _status($v=null){
-        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP,
+    public function _status($v = null){
+        return $this->status = filter_var(!isset($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP,
                 [ 'options' => ['regexp' => '~^[SEF]{1}$~'] ]);
     } // Fim do método _status
 
-    public function _mensagem($v=null){
-        return $this->mensagem = filter_var(is_null($v) ? $this->mensagem : $v);
+    public function _mensagem($v = null){
+        return $this->mensagem = filter_var(!isset($v) ? $this->mensagem : $v);
     } // Fim do método _status
 } // Fim do modelo LogEmail

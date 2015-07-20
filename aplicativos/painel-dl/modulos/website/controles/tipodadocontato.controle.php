@@ -38,9 +38,10 @@ class TipoDadoContato extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('tipo_dado_id, tipo_dado_descr, tipo_dado_icone, ( CASE tipo_dado_rede_social'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -61,6 +62,7 @@ class TipoDadoContato extends GeralC\PainelDL{
 
 
 
+
 	/**
 	 * Mostrar formulário de inclusão e edição do registro
 	 *
@@ -77,9 +79,10 @@ class TipoDadoContato extends GeralC\PainelDL{
 
 
 
-    /**
-     * Obter as opções avançadas desse tipo de dado
-     */
+
+	/**
+	 * Obter as opções avançadas desse tipo de dado
+	 */
     public function _opcoesavancadas(){
         $this->modelo->_selecionarPK(filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT));
 

@@ -41,25 +41,27 @@ class Roteamento{
 
 
 
-    /**
-     * Validar as rotas configuradas
-     *
-     * Verificar se a propriedade $this->rotas é um vetor se há pelo menos mais de uma rota configurada
-     *
-     * @return bool true se a propriedade $this->rotas é válida e false se não
-     */
+
+	/**
+	 * Validar as rotas configuradas
+	 *
+	 * Verificar se a propriedade $this->rotas é um vetor se há pelo menos mais de uma rota configurada
+	 *
+	 * @return bool true se a propriedade $this->rotas é válida e false se não
+	 */
     private function _validarrotas(){
         return is_array($this->rotas) || (bool)(count($this->rotas));
     } // Fim do método _validarrotas
 
 
 
+
 	/**
 	 * Obter os parâmetros da rota
 	 *
-	 * @param string $r - Rota a ser analizada
+	 * @param string $r Rota a ser analizada
 	 *
-	 * @return mixed - Retorna um array associativo com os parâmetros localizados ou null se nenhum parâmetro foi
+	 * @return mixed  Retorna um array associativo com os parâmetros localizados ou null se nenhum parâmetro foi
 	 *               configurado para a rota
 	 */
     private function _obterparams($r){
@@ -76,8 +78,7 @@ class Roteamento{
         $vp = [];
 
         # Obter os outros parâmetros
-        foreach( $op as $p )
-            $vp[$p] = $r[$p];
+        foreach( $op as $p ) $vp[$p] = $r[$p];
 
         # Separar apenas os parâmetros da string
         $sop = preg_grep('~^:~', explode('/', trim($sp, '/')));
@@ -91,6 +92,7 @@ class Roteamento{
 
 
 
+
 	/**
 	 * Obter a rota atual e indicar qual será o controle, a ação e os parâmetros utilizados
 	 *
@@ -101,26 +103,26 @@ class Roteamento{
         if( !$this->_validarrotas() )
             throw new Exception('Nenhuma rota foi configurada!', 1404);
 
-        foreach( $this->rotas as $r => $v ):
-            if( preg_match("~{$r}~", $this->url) ):
-                $p = $this->_obterparams($v);
+        foreach( $this->rotas as $r => $v ){
+	        if( preg_match("~{$r}~", $this->url) ){
+		        $p = $this->_obterparams($v);
 
-                if( is_array($v) ):
-                    if( !array_key_exists('controle', $p) && array_key_exists('controle', $v) ):
-                        $p['controle'] = $v['controle'];
-                    endif;
+		        if( is_array($v) ){
+			        !array_key_exists('controle', $p) && array_key_exists('controle', $v) and
+		                $p['controle'] = $v['controle'];
 
-                    if( !array_key_exists('acao', $p) && array_key_exists('acao', $v) ):
-                        $p['acao'] = $v['acao'];
-                    endif;
-                endif;
-                
-                $c = $p['controle']; unset($p['controle']);
-                $a = $p['acao']; unset($p['acao']);
+			        !array_key_exists('acao', $p) && array_key_exists('acao', $v) and
+			            $p['acao'] = $v['acao'];
+		        } // Fim if( is_array($v) )
 
-                return new Controle($this->modulo, $c, $a, $p);
-            endif;
-        endforeach;
+		        $c = $p['controle'];
+		        unset($p['controle']);
+		        $a = $p['acao'];
+		        unset($p['acao']);
+
+		        return new Controle($this->modulo, $c, $a, $p);
+	        } // Fim if( preg_match("~{$r}~", $this->url) )
+        } // Fim foreach
 
         return false;
     } // Fim do método _obterrota

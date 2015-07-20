@@ -19,23 +19,23 @@ class Controle{
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
 
-    public function _modulo($v=null){
-        return $this->modulo = str_replace(' ', '', ucwords(str_replace('-', ' ', filter_var(is_null($v) ? $this->modulo : $v, FILTER_SANITIZE_STRING))));
+    public function _modulo($v = null){
+        return $this->modulo = str_replace(' ', '', ucwords(str_replace('-', ' ', filter_var(!isset($v) ? $this->modulo : $v, FILTER_SANITIZE_STRING))));
     } // Fim do método _modulo
 
-    public function _controle($v=null){
-        return is_null($v) ? (string)$this->controle
+    public function _controle($v = null){
+        return !isset($v) ? (string)$this->controle
         : $this->controle = (string)( !empty($this->modulo) ? "{$this->modulo}\\" : '') ."Controle\\{$v}";
     } // Fim do método _controle
 
-    public function _acao($v=null){
-        return $this->acao = filter_var(is_null($v) ? $this->acao : "_{$v}", FILTER_SANITIZE_STRING);
+    public function _acao($v = null){
+        return $this->acao = filter_var(!isset($v) ? $this->acao : "_{$v}", FILTER_SANITIZE_STRING);
     } // Fim do método _acao
 
-    public function _params($v=null){
+    public function _params($v = null){
         // CORRIGIR: Não funcionou dessa maneira
-        // return $this->params = filter_var(is_null($v) ? $this->params : $v, null, FILTER_REQUIRE_ARRAY);
-        return is_null($v) ? (array)$this->params : $this->params = (array)$v;
+        // return $this->params = filter_var(!isset($v) ? $this->params : $v, null, FILTER_REQUIRE_ARRAY);
+        return !isset($v) ? (array)$this->params : $this->params = (array)$v;
     } // Fim do método _params
 
     public function __construct($m, $c, $a, array $p = []){

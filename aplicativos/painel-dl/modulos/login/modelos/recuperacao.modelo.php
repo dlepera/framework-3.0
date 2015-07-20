@@ -18,17 +18,17 @@ class Recuperacao extends GeralM\Principal{
     /*
      * 'Gets' e 'Sets' das propriedades
      */
-    public function _usuario($v=null){
-        return $this->usuario = filter_var(is_null($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
+    public function _usuario($v = null){
+        return $this->usuario = filter_var(!isset($v) ? $this->usuario : $v, FILTER_VALIDATE_INT);
     } // Fim do método _usuario
 
-    public function _hash($v=null){
-        return is_null($v) ? (string)$this->hash
+    public function _hash($v = null){
+        return !isset($v) ? (string)$this->hash
         : $this->hash = (string)md5(crypt($v));
     } // Fim do método _hash
 
-    public function _status($v=null){
-        return $this->status = filter_var(is_null($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[ACRX]{1}$~']]);
+    public function _status($v = null){
+        return $this->status = filter_var(!isset($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '~^[ACRX]{1}$~']]);
     } // Fim do método _status
 
 

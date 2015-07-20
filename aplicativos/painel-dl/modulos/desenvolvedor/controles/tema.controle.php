@@ -37,9 +37,10 @@ class Tema extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de temas
-     */
+
+	/**
+	 * Mostrar a lista de temas
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('tema_id, tema_descr, ( CASE tema_padrao'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -58,6 +59,7 @@ class Tema extends GeralC\PainelDL{
             ['valor' => 'tema_diretorio', 'texto' => TXT_ROTULO_DIRETORIO]
         ]);
     } // Fim do método _mostrartemas
+
 
 
 

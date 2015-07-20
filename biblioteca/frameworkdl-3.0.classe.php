@@ -166,14 +166,12 @@ class FrameworkDL3{
 
         # Se o sistema requer autenticação, iniciar a classe de autenticação e
         # utilizar preferências pós login
-        if( $this->aut_ativar ):
-            self::$aut_o = new \Autenticacao($this->aut_prefixo, DL3_APLICATIVO);
+        if( $this->aut_ativar ){
+	        self::$aut_o = new \Autenticacao($this->aut_prefixo, DL3_APLICATIVO);
 
-            if( self::$aut_o->_verificarlogin(false) ):
-                # Alterar a configuração do idioma
-                $this->_ap_idioma($_SESSION['idioma_sigla']);
-            endif;
-        endif;
+	        # Alterar a configuração do idioma
+	        self::$aut_o->_verificarlogin(false) and $this->_ap_idioma($_SESSION['idioma_sigla']);
+        } // Fim if( $this->aut_ativar )
 
         # Carregar o pacote de idiomas
         $this->_carregaridioma();
@@ -191,8 +189,7 @@ class FrameworkDL3{
 
     public function __destruct(){
         # Exibir a mensagem ao usuário
-        if( !empty(self::$tmp_buffer_resposta) )
-            echo json_encode(self::$tmp_buffer_resposta);
+        !empty(self::$tmp_buffer_resposta) and print(json_encode(self::$tmp_buffer_resposta));
     } // Fim do método __destruct
 
 
@@ -201,22 +198,22 @@ class FrameworkDL3{
      * 'Gets' e 'Sets' das propriedades
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
-    public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
+    public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
 
-    public function _ap_raiz($v=null){
-        return $this->ap_raiz = trim(filter_var(is_null($v) ? $this->ap_raiz : $v, FILTER_SANITIZE_STRING), '/') .'/';
+    public function _ap_raiz($v = null){
+        return $this->ap_raiz = trim(filter_var(!isset($v) ? $this->ap_raiz : $v, FILTER_SANITIZE_STRING), '/') .'/';
     } // Fim do método _ap_raiz
 
-    public function _ap_nome($v=null){
-        return $this->ap_nome = filter_var(is_null($v) ? $this->ap_nome : $v, FILTER_SANITIZE_STRING);
+    public function _ap_nome($v = null){
+        return $this->ap_nome = filter_var(!isset($v) ? $this->ap_nome : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _ap_nome
 
-    public function _ap_modulo($v=null){
-        return $this->ap_modulo = self::$modulo_atual = filter_var(is_null($v) ? $this->ap_modulo : $v, FILTER_SANITIZE_STRING);
+    public function _ap_modulo($v = null){
+        return $this->ap_modulo = self::$modulo_atual = filter_var(!isset($v) ? $this->ap_modulo : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _ap_modulo
 
-    public function _ap_idioma($v=null){
-        if( is_null($v) ) return (string)$this->ap_idioma;
+    public function _ap_idioma($v = null){
+        if( !isset($v) ) return (string)$this->ap_idioma;
 
         # Validar o idioma informado
         if( strlen($v) != 5 || strpos($v, '_') != 2 )
@@ -228,40 +225,40 @@ class FrameworkDL3{
         return $this->ap_idioma = (string)$v;
     } // Fim do método _ap_modulo
 
-    public function _aut_ativar($v=null){
-        return $this->aut_ativar = filter_var(is_null($v) ? $this->aut_ativar : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _aut_ativar($v = null){
+        return $this->aut_ativar = filter_var(!isset($v) ? $this->aut_ativar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _aut_ativar
 
-    public function _aut_prefixo($v=null){
-        return $this->aut_prefixo = strtolower(filter_var(is_null($v) ? $this->aut_prefixo : $v, FILTER_SANITIZE_STRING));
+    public function _aut_prefixo($v = null){
+        return $this->aut_prefixo = strtolower(filter_var(!isset($v) ? $this->aut_prefixo : $v, FILTER_SANITIZE_STRING));
     } // Fim do método _aut_prefixo
 
-    public function _bd_ativar($v=null){
-        return $this->bd_ativar = filter_var(is_null($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
+    public function _bd_ativar($v = null){
+        return $this->bd_ativar = filter_var(!isset($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _bd_ativar
 
-    public function _bd_driver($v=null){
-        return $this->bd_driver = filter_var(is_null($v) ? $this->bd_driver : $v, FILTER_SANITIZE_STRING);
+    public function _bd_driver($v = null){
+        return $this->bd_driver = filter_var(!isset($v) ? $this->bd_driver : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_driver
 
-    public function _bd_host($v=null){
-        return $this->bd_host = filter_var(is_null($v) ? $this->bd_host : $v, FILTER_SANITIZE_STRING);
+    public function _bd_host($v = null){
+        return $this->bd_host = filter_var(!isset($v) ? $this->bd_host : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_host
 
-    public function _bd_porta($v=null){
-        return $this->bd_porta = filter_var(is_null($v) ? $this->bd_porta : $v, FILTER_VALIDATE_INT);
+    public function _bd_porta($v = null){
+        return $this->bd_porta = filter_var(!isset($v) ? $this->bd_porta : $v, FILTER_VALIDATE_INT);
     } // Fim do método _bd_porta
 
-    public function _bd_usuario($v=null){
-        return $this->bd_usuario = filter_var(is_null($v) ? $this->bd_usuario : $v, FILTER_SANITIZE_STRING);
+    public function _bd_usuario($v = null){
+        return $this->bd_usuario = filter_var(!isset($v) ? $this->bd_usuario : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_usuario
 
-    public function _bd_senha($v=null){
-        return $this->bd_senha = filter_var(is_null($v) ? $this->bd_senha : $v, FILTER_SANITIZE_STRING);
+    public function _bd_senha($v = null){
+        return $this->bd_senha = filter_var(!isset($v) ? $this->bd_senha : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_senha
 
-    public function _bd_base($v=null){
-        return $this->bd_base = filter_var(is_null($v) ? $this->bd_base : $v, FILTER_SANITIZE_STRING);
+    public function _bd_base($v = null){
+        return $this->bd_base = filter_var(!isset($v) ? $this->bd_base : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_base
 
 
@@ -282,7 +279,7 @@ class FrameworkDL3{
         $dc = self::DIR_CONFIG . DL3_AMBIENTE;
         $nc = count($this->_filtrarprefixo($dc, self::PRFIX_CONFIG));
 
-        if( !file_exists($dc) || !$nc )
+        if( !is_dir($dc) || !$nc )
             throw new Exception('<p>O ambiente <b>'. DL3_AMBIENTE .'</b> não foi encontrado ou não contém arquivos de configuração válidos!<br/>Por favor crie o ambiente dentro do diretório <b>'. self::DIR_CONFIG .'</b>.</p>', 1404);
 
         $this->a_config['diretorio'] = $dc;
@@ -296,7 +293,7 @@ class FrameworkDL3{
      * É verificado se o arquivo de configuração solicitado existe
      */
     private function _validarconfig(){
-        if( empty($this->a_config['diretorio']) ) $this->_validarambiente();
+        empty($this->a_config['diretorio']) and $this->_validarambiente();
 
         if( empty(DL3_APLICATIVO) )
             throw new Exception('Por favor, informe qual arquivo de configuração será utilizado!', 1500);
@@ -311,11 +308,12 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Carregar o arquivo de configuração
-     *
-     * Verifica e carrega o arquivo de configuração e sobrepõe a configuração padrão da classe
-     */
+
+	/**
+	 * Carregar o arquivo de configuração
+	 *
+	 * Verifica e carrega o arquivo de configuração e sobrepõe a configuração padrão da classe
+	 */
     private function _carregarconfig(){
         $this->_validarconfig();
 
@@ -323,31 +321,30 @@ class FrameworkDL3{
 
         $dv = get_defined_vars();
 
-        foreach( $dv as $c => $v ):
-            if(property_exists(get_class(), $c) ):
-                $obj_c = new ReflectionClass($this);
-                $obj_p = $obj_c->getProperty($c);
+        foreach( $dv as $c => $v ){
+	        if( property_exists(get_class(), $c) ){
+		        $obj_c = new ReflectionClass($this);
+		        $obj_p = $obj_c->getProperty($c);
 
-                if( $obj_p->isPrivate() ):
-                    $obj_m = $obj_c->getMethod("_{$c}");
-                    $obj_m->invoke($this, $v);
-                else:
-                    $obj_p->setValue($this, $v);
-                endif;
-            endif;
-        endforeach;
+		        if( $obj_p->isPrivate() ){
+			        $obj_m = $obj_c->getMethod("_{$c}");
+			        $obj_m->invoke($this, $v);
+		        } else $obj_p->setValue($this, $v);
+	        } // Fim if( property_exists(get_class(), $c) )
+        } // Fim foreach
     } // Fim do método _carregarconfig
 
 
 
-    /**
-     * Carregar as classes da biblioteca
-     *
-     * Carregar todos os arquivos contidos no diretório de bibliotecas.
-     * São classes que poderão ser utilizadas a qualquer momento por qualquer classe, página, aplicação, etc.
-     *
-     * Obs.: O diretório de bibliotecas pode ser definido por self::DIR_BIBL
-     */
+
+	/**
+	 * Carregar as classes da biblioteca
+	 *
+	 * Carregar todos os arquivos contidos no diretório de bibliotecas.
+	 * São classes que poderão ser utilizadas a qualquer momento por qualquer classe, página, aplicação, etc.
+	 *
+	 * Obs.: O diretório de bibliotecas pode ser definido por self::DIR_BIBL
+	 */
     public function _carregarbibl(){
         $ab = $this->_filtrarprefixo(self::DIR_BIBL, self::PRFIX_BIBL);
 
@@ -387,8 +384,7 @@ class FrameworkDL3{
             require_once "{$dr}/{$a}";
 
         // $this->ap_rotas += $rotas;
-        if( !is_null($rotas) )
-            $this->ap_rotas = array_merge($this->ap_rotas, $rotas);
+        isset($rotas) and $this->ap_rotas = array_merge($this->ap_rotas, $rotas);
     } // Fim do método _carregarrotas
 
 
@@ -425,10 +421,11 @@ class FrameworkDL3{
         $r_url = filter_input(INPUT_SERVER, 'REDIRECT_URL');
         $h_url = trim($this->ap_raiz . self::$ap_home, '/');
 
-        if( is_null($r_url) || trim($r_url, '/') == $h_url ):
-            $this->_ap_modulo('home');
-            return;
-        endif;
+        if( !isset($r_url) || trim($r_url, '/') == $h_url ){
+	        $this->_ap_modulo('home');
+
+	        return;
+        } // Fim if( !isset($r_url) || trim($r_url, '/') == $h_url )
 
         if( !preg_match("~/{$h_url}/?([a-z\-_0-9]+)~", $r_url, $modulo) )
             throw new Exception('Não foi possível identificar o módulo atual!', 1500);
@@ -438,14 +435,14 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Carregar módulo
-     *
-     * Serão carregados o pacote de idiomas e as rotas do módulo atual
-     */
+
+	/**
+	 * Carregar módulo
+	 *
+	 * Serão carregados o pacote de idiomas e as rotas do módulo atual
+	 */
     private function _carregarmodulo(){
-        if( empty($this->modulo) )
-            $this->_identificarmodulo();
+        empty($this->modulo) and $this->_identificarmodulo();
 
         $this->dir_modulo = sprintf(self::DIR_MODULOS, $this->ap_nome, $this->ap_modulo);
 
@@ -461,31 +458,34 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Carregar o conteúdo
-     *
-     * Carregar o conteúdo a ser exibido de acordo com a rota identificada através da URL
-     */
+
+	/**
+	 * Carregar o conteúdo
+	 *
+	 * Carregar o conteúdo a ser exibido de acordo com a rota identificada através da URL
+	 */
     private function _carregarconteudo(){
         $obj_r = new Roteamento($this->ap_rotas, $this->dir_modulo, $this->ap_modulo);
         $obj_c = $obj_r->_obterrota();
 
-        $obj_c !== false AND $obj_c->_executar();
+        $obj_c !== false and $obj_c->_executar();
     } // Fim do método _carregarconteudo
 
 
 
-    /**
-     * Carregar automaticamente os controles e modelos que estiverem dentro do diretório _auto (que pode ser definido através de self::DIR_AUTO)
-     *
-     * @param string $m Módulo a ser considerado para o carregamento
-     * @param bool $a   Define se o diretório _auto a ser carregado é do aplicativo e não de um módulo
-     */
+
+	/**
+	 * Carregar automaticamente os controles e modelos que estiverem dentro do diretório _auto (que pode ser definido
+	 * através de self::DIR_AUTO)
+	 *
+	 * @param string $m Módulo a ser considerado para o carregamento
+	 * @param bool   $a Define se o diretório _auto a ser carregado é do aplicativo e não de um módulo
+	 */
     private function _carregarauto($m = '', $a = false){
         $a ? $da = 'aplicativos/'. DL3_APLICATIVO . '/' . self::DIR_AUTO
         : $da = (empty($m) ? '' : $this->dir_modulo) . self::DIR_AUTO;
 
-        if( !file_exists($da) ) return;
+        if( !is_dir($da) ) return;
 
         # Lista de diretórios a serem inclusos automaticamente
         $dir = [
@@ -495,17 +495,16 @@ class FrameworkDL3{
             self::PRFIX_ROTAS => $da . self::DIR_ROTAS
         ];
 
-        foreach( $dir as $ch => $d ):
-            if( $ch == self::PRFIX_IDIOMAS )
-                $d = "{$d}{$this->ap_idioma}/";
+        foreach( $dir as $ch => $d ){
+	        $ch == self::PRFIX_IDIOMAS and $d = "{$d}{$this->ap_idioma}/";
 
-            if( !file_exists($d) ) continue;
+	        if( !is_dir($d) ) continue;
 
-            $as = $this->_filtrarprefixo($d, $ch);
+	        $as = $this->_filtrarprefixo($d, $ch);
 
-            foreach( $as as $a )
-                require_once "{$d}{$a}";
-        endforeach;
+	        foreach( $as as $a )
+		        require_once "{$d}{$a}";
+        } // Fim foreach
     } // Fim do método _carregarauto
 
 
@@ -520,7 +519,7 @@ class FrameworkDL3{
 	 * @throws Exception
 	 */
     private function _filtrarprefixo($d, $p){
-        if( !file_exists($d) || !is_dir($d) )
+        if( !is_dir($d) )
             throw new Exception("O diretório <b>{$d}</b> não foi encontrado!", 1404);
 
         return preg_grep(
@@ -545,12 +544,12 @@ class FrameworkDL3{
         $acss = preg_grep('~^[^\.]~', scandir($dcss));
         $tema = '';
 
-        foreach( $acss as $a ):
-            $css = "{$dcss}{$a}";
+        foreach( $acss as $a ){
+	        $css = "{$dcss}{$a}";
 
-            if( is_file("./{$css}") )
-                $tema .= '<link rel="stylesheet" media="all" href="'. self::$dir_relativo . $css .'"/>';
-        endforeach;
+	        is_file("./{$css}") and
+	            $tema .= '<link rel="stylesheet" media="all" href="'. self::$dir_relativo . $css .'"/>';
+        } // Fim foreach;
 
         return $tema;
     } // Fim do método _carregartema

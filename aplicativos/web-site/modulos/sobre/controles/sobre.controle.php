@@ -19,9 +19,10 @@ class Sobre extends GeralC\WebSite{
 
 
 
-    /**
-     * Mostrar a história da empresa
-     */
+
+	/**
+	 * Mostrar a história da empresa
+	 */
     public function _historia(){
         $this->_carregarhtml('sobre');
         $this->visao->titulo = TXT_PAGINA_TITULO_SOBRE;

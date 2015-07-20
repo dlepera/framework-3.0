@@ -15,16 +15,27 @@
 /* -----------------------------------------------------------------------------
  *  Links com icones
  * -------------------------------------------------------------------------- */
-$_ln: 2.5em;
+$_ln: 2.1em;
+$_mg: .5em;
+
+.com-icone{
+	/* Visual */
+	display: inline-block;
+
+	/* Margens */
+	margin-top 		: $_mg;
+	margin-bottom 	: $_mg;
+}
 
 .com-icone:before{
     /* Visual */
-    display: inline-block;
+    display 		: inline-block;
+	border-radius 	: 50%;
     
     /* Texto */
     font-family : 'icones';
     text-align  : center;
-    line-height : $_ln; 
+    line-height : $_ln + .15em;
     font-size   : 1em; 
     
     /* Alinhamento */
@@ -33,32 +44,41 @@ $_ln: 2.5em;
     /* Tamanho */
     width   : $_ln;
     height  : $_ln;
+
+	/* Margens */
+	margin-right: .35em;
+
+	/* Transição */
+	@include _transition(background-color .5s);
 }
 
 .so-icone{
     /* Texto */
-    color       : transparent !important;
-    text-indent : -9999px;
-    
-    /* Posicionamento */
-    position: relative;
-    
-    /* Visual */
-    display: inline-flex;
-    
-    /* Tamanho */
-    width: $_ln;
+	color 		: transparent !important;
+	text-indent : -9999px;
+	word-break 	: break-all;
+
+	/* Tamanho */
+	width 	: $_ln + ($_ln * .5);
+	height 	: $_ln;
+
+	/* Posicionamento */
+	position: relative;
+
+	/* Visual */
+	display: inline-block;
 }
 
 .so-icone:before{
     @extend .com-icone:before;
-    
-    /* Posicionamento */
-    position: absolute;
-    top     : 50%;
-    
-    /* Transofrmar */
-    @include _transform(translateY(-50%));
+
+	/* Margens */
+	margin-left : $_mg;
+	margin-right: $_mg;
+
+	/* Posicionamento */
+	position: absolute;
+	left 	: 0;
 }
 
 
@@ -81,5 +101,13 @@ $_ln: 2.5em;
         content     : $ic;
         color       : $co !important;
         text-indent : 0;
+
+		/* Teste */
+		background-color: lighten($co, 45%);
     }
+
+	.ico-#{$cl}:hover:before{
+		/* Visual */
+		background-color: lighten($co, 37.5%);
+	}
 }

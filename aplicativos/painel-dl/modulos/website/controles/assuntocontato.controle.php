@@ -37,9 +37,10 @@ class AssuntoContato extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
         $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor, ( CASE assunto_contato_publicar'
                 . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
@@ -58,11 +59,12 @@ class AssuntoContato extends GeralC\PainelDL{
 
 
 
-    /**
-     * Mostrar formulário de inclusão e edição do registro
-     *
-     * @param int $pk - PK do registro a ser selecionado
-     */
+
+	/**
+	 * Mostrar formulário de inclusão e edição do registro
+	 *
+	 * @param int $pk - PK do registro a ser selecionado
+	 */
     protected function _mostrarform($pk = null){
         $inc = $this->_formpadrao('assunto', 'assuntos-contato/salvar', 'assuntos-contato/salvar', 'website/assuntos-contato', $pk);
 

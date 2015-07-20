@@ -193,7 +193,7 @@
 
 
 /* Desktops ----------------------------------------------------------------- */
-@media screen and(min-width:$tela-tablet + 1px){
+@media screen and (min-width:$tela-tablet + 1px){
     .dl3-menu{
         > .menu-principal{
             /* Flex */
@@ -296,7 +296,7 @@
 
 
 /* Tablets ------------------------------------------------------------------ */
-@media screen and(min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
+@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
     .dl3-menu{
         > .menu-principal{
             /* Tamanho */
@@ -316,7 +316,7 @@
 
 
 /* Smartphones -------------------------------------------------------------- */
-@media screen and(max-width:$tela-smart){
+@media screen and (max-width:$tela-smart){
     .dl3-menu{
         > .menu-principal{
             /* Tamanho */
