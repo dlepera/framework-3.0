@@ -74,7 +74,7 @@ $params = $this->_obterparams();
         </header>
 
         <nav class="dl3-menu">
-            <a class="a-mostrar-menu v-smart v-tablet"></a>
+            <a onclick="javascript:void;" class="a-mostrar-menu v-smart v-tablet"></a>
 
             <ul id="menu-principal" class="menu-principal sem-marcadores">
                 <li class="menu-item">

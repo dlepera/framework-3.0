@@ -49,6 +49,9 @@ class Arquivos{
 		'application/vnd.oasis.opendocument.database' => 'odb', 'application/vnd.oasis.opendocument.image' => 'odi',
 		'application/vnd.openofficeorg.extension' => 'oxt',
 
+		/* PDF */
+		'application/pdf' => 'pdf',
+
         /* Desenvolvimento */
         'text/x-java-source' => 'java',
 
