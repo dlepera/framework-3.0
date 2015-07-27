@@ -237,4 +237,19 @@ class Funcoes{
 
         return $idiomas[$i][(int)$v];
     } // Fim do método _bool2humano
+
+
+
+
+	/**
+	 * Converter string no formato de expressão regular em um formato aceito para validação HTML5
+	 *
+	 * @param string $er String no formato de expressão regular para ser convertida
+	 * @param string $dl Delimitador utilizado na expressão regular
+	 *
+	 * @return mixed
+	 */
+	public static function _expreg_form($er, $dl = '~'){
+		return preg_replace("#(^{$dl}|{$dl}$)#", '', $er);
+	} // Fim do método _expreg_form
 } // Fim da classe Funções

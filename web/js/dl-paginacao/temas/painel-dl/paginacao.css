@@ -1,0 +1,137 @@
+@charset 'utf-8';
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 21/10/2014 18:08:30
+ */
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Fontes
+ * ----------------------------------------------------------------------------------------------------------------- */
+@font-face{
+    font-family : 'setas';
+    src         : url('css/fontes/arrows.ttf');
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Paginação
+ * ----------------------------------------------------------------------------------------------------------------- */
+.painel-dl.paginacao{
+    /* Tamanho */
+    width   : auto;
+    height  : 2em;
+        
+    /* Formatação do texto */
+    text-align: center;
+
+    /* Posicionamento */
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Botões de navegação
+ * ----------------------------------------------------------------------------------------------------------------- */
+.painel-dl.paginacao > a{
+    /* Tamanho */
+    width   : 2em;
+    height  : 2em;
+
+    /* Margens e espeçamentos */
+    padding: 0;
+    margin : 0 5px;
+
+    /* Formatação do texto */
+    text-decoration : none;
+    color           : #069;
+    line-height     : 2em;
+    
+    /* Aparência */
+    border-radius   : 50%;
+    display         : inline-block;
+    
+    /* Transições */
+    transition: background .3s;
+}
+
+.painel-dl.paginacao > a:hover,
+.painel-dl.paginacao > a.pg-atual{
+    /* Formatação do texto */
+    color: #FFF;
+
+    /* Aparência */
+    background: #069;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Botões de navegação
+ * ----------------------------------------------------------------------------------------------------------------- */
+.painel-dl.paginacao > a.btn-primeira,
+.painel-dl.paginacao > a.btn-ultima,
+.painel-dl.paginacao > a.btn-anterior,
+.painel-dl.paginacao > a.btn-proxima{    	
+    /* Aparência */
+    border              : none;
+    background-repeat   : no-repeat;
+    
+    /* Formatação da fonte */
+    color: transparent;
+
+    /* Margens e espaçamentos */
+    padding: 0;
+    
+    /* Posicionamento */
+    position: relative;
+}
+.painel-dl.paginacao > a.btn-primeira:before,
+.painel-dl.paginacao > a.btn-ultima:before,
+.painel-dl.paginacao > a.btn-anterior:before,
+.painel-dl.paginacao > a.btn-proxima:before{
+    /* Formatação do texto */
+    font-family : 'setas';
+    color       : #069;
+    font-size   : 2em;
+    line-height : 1.3em;
+    
+    /* Posicionamento */
+    position: absolute;
+    top     : 0;
+    left    : 0;
+    
+    /* Tamanho */
+    width   : 100%;
+    height  : 100%;
+}
+
+.painel-dl.paginacao > a.btn-primeira:hover:before,
+.painel-dl.paginacao > a.btn-ultima:hover:before,
+.painel-dl.paginacao > a.btn-anterior:hover:before,
+.painel-dl.paginacao > a.btn-proxima:hover:before{
+    /* Formatação do texto */
+    color: #FFF;
+}
+
+/* Botão que leva à primeira página */
+.painel-dl.paginacao a.btn-primeira:before{
+    /* Conteúdo */
+    content: 'RR';
+}
+
+/* Botão que leva à página anterior */
+.painel-dl.paginacao a.btn-anterior:before{
+    /* Conteúdo */
+    content: 'R';
+}
+
+/* Botão que leva próxima página */
+.painel-dl.paginacao a.btn-proxima:before{
+    /* Conteúdo */
+    content: 'Q';
+}
+
+/* Botão que leva à última página */
+.painel-dl.paginacao a.btn-ultima:before{
+    /* Conteúdo */
+    content: 'QQ';
+}

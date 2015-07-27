@@ -23,16 +23,16 @@
             <input type="email" name="email" id="mail-email" class="form-controle" required/>
         </p>
 
-        <p class="form-paragr form-rotulo">
+        <p class="form-paragr">
             <label for="tel-fone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
 
             <span class="form-dica">
                 <!-- Alternar a mácara do telefone -->
-                <input type="checkbox" id="alt-mask-fone"/>
+                <input type="checkbox" id="alt-mask-fone" data-telefone="#tel-fone"/>
                 <label for="alt-mask-fone"><?= TXT_ROTULO_ALT_MASK_FONE; ?></label><br/>
             </span>
 
-            <input type="tel" name="telefone" id="tel-fone" class="form-controle"/>
+            <input type="tel" name="telefone" id="tel-fone" pattern="<?= \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL); ?>" class="form-controle"/>
         </p>
 
         <?php if( $params['mostrar-assunto?'] && count($params['assuntos']) > 0 ): ?>
@@ -66,12 +66,10 @@
     // Aplicar as máscaras
     $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
 
-    $('#alt-mask-fone').on('change', function(){
-        var chk = this.checked;
-
-        if( chk ) $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');
-        else $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
-    });
+    $('#alt-mask-fone').on('change',
+	    { msk8: '<?= MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?= MASK_TELEFONE_CELULAR_9; ?>' },
+	    AlternarMaskFone
+    );
     //]]>
 </script>
 [/DL3-SCRIPTS]

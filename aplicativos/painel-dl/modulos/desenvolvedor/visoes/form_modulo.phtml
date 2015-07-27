@@ -157,12 +157,12 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $('#form-funcs')._dlformulario({
+    $('#form-funcs')._formulario({
         depois: function(){ window.location.reload(); },
         aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
     });
 
-    $rf = $('#form-remover-func')._dlformulario({
+    $rf = $('#form-remover-func')._formulario({
         depois: function(){
             $('table.lista :checked').parents('tr').remove();
         },

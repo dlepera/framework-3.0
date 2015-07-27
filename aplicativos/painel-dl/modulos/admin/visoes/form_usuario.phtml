@@ -59,7 +59,14 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="info-telefone"><?= TXT_ROTULO_TELEFONE; ?>:</label><br/>
-                <input type="tel" name="info_telefone" id="info-telefone" value="<?= $mod->info_telefone; ?>" class="form-controle"/>
+
+	            <span class="form-dica">
+	                <!-- Alternar a mácara do telefone -->
+	                <input type="checkbox" id="alt-mask-fone" data-telefone="#info-telefone"<?php strlen($mod->info_telefone) === 16 and print(' CHECKED'); ?>/>
+	                <label for="alt-mask-fone"><?= TXT_ROTULO_ALT_MASK_FONE; ?></label><br/>
+	            </span>
+
+                <input type="tel" name="info_telefone" id="info-telefone" pattern="<?= \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL); ?>" value="<?= $mod->info_telefone; ?>" class="form-controle"/>
             </p>
 
             <p class="form-paragr">
@@ -224,14 +231,17 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $('#info-telefone')._mascara('<?= MASK_TELEFONE_CELULAR_9; ?>');
+    $('#info-telefone')._mascara('<?= strlen($mod->info_fone) === 14 ? MASK_TELEFONE_CELULAR_8 : MASK_TELEFONE_CELULAR_9; ?>');
 
-    $('#form-foto-perfil')._dlformulario({
+    $('#alt-mask-fone').on('change',
+	    { msk8: '<?= MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?= MASK_TELEFONE_CELULAR_9; ?>' },
+	    AlternarMaskFone
+    );
+
+    $('#form-foto-perfil')._formulario({
 	    depois      : function(){ window.location.reload(); },
 	    aparencia   : { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
-    }).find(':file').on('change', function(){
-	    $(this).parents('form').submit();
-    });
+    }).find(':file').on('change', function(){ $(this).parents('form').submit(); });
     //]]>
 </script>
 [/DL3-SCRIPTS]

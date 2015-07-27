@@ -50,7 +50,7 @@
                     <td headers="th-principal"><?= $l['PRINCIPAL']; ?></td>
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-testar?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return null; });" class="so-icone ico-email">
+                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el._executar('admin/envio-de-emails/testar-configuracao/<?= $l['config_email_id']; ?>', null, function(){ return null; });" class="so-icone ico-email">
                             <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
                         </a>
                         <?php endif;

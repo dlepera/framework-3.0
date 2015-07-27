@@ -13,7 +13,7 @@ use \Geral\Modelo as GeralM;
 
 class Album extends GeralM\Principal{
 	# Diretório onde serão salvos as fotos desse álbum
-	const DIR_UPLOAD = 'aplicacao/uploads/albuns/%d';
+	const DIR_UPLOAD = 'web/uploads/albuns/%d';
     protected $id, $nome, $publicar = 1, $delete = 0;
 
     /*

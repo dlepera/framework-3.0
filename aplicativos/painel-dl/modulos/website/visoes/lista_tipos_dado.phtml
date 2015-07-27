@@ -28,9 +28,11 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
+
                     <th id="th-descr"><?= TXT_LISTA_TITULO_DESCR; ?></th>
-                    <th id="th-rede-social"><?= TXT_LISTA_TITULO_REDE_SOCIAL; ?></th>
+                    <th id="th-rede-social" class="v-desk"><?= TXT_LISTA_TITULO_REDE_SOCIAL; ?></th>
                     <th id="th-publicado"><?= TXT_LISTA_TITULO_PUBLICADO; ?></th>
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -45,14 +47,16 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['tipo_dado_id']; ?></td>
                     <?php endif; ?>
+
                     <td headers="th-descr" class="tbl-celula-infos">
                         <?php if( !empty($l['tipo_dado_icone']) ): ?>
                         <img src="..<?= $l['tipo_dado_icone']; ?>" alt="" class="tbl-imagem icone-20"/>
                         <?php endif;
                         echo $l['tipo_dado_descr']; ?>
                     </td>
-                    <td headers="th-rede-social"><?= $l['REDE_SOCIAL']; ?></td>
+                    <td headers="th-rede-social" class="v-desk"><?= $l['REDE_SOCIAL']; ?></td>
                     <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>
+
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
                         <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('website/tipos-de-dados/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">

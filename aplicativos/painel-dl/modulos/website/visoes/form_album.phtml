@@ -67,15 +67,15 @@ $mod = $params['modelo'];
             </legend>
 
 
-            <p class="form-paragr">
+            <span class="form-paragr">
                 <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
                 <input type="file" name="fotos[]" id="arq-fotos" class="form-controle" multiple required/>
-            </p>
-        </fieldset>
+            </span>
 
-        <p class="form-botoes">
-            <button type="submit" class="btn-upload"><?= TXT_BOTAO_SALVAR_FOTOS; ?></button>
-        </p>
+	        <span class="form-botoes" style="margin-left: .5em;">
+		        <button type="submit" class="btn-upload"><?= TXT_BOTAO_SALVAR_FOTOS; ?></button>
+	        </span>
+        </fieldset>
     </form>
 
     <form id="form-remover-fotos" method="post" action="website/albuns-de-fotos/excluir-fotos" class="mostrar-fotos flexivel">
@@ -118,14 +118,14 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $ff = $('#form-fotos')._dlformulario({
+    $ff = $('#form-fotos')._formulario({
         depois: function(){
             window.location.reload();
         },
         aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
     });
 
-    $fr = $('#form-remover-fotos')._dlformulario({
+    $fr = $('#form-remover-fotos')._formulario({
         depois: function(){
             window.location.reload();
         },

@@ -28,8 +28,11 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
+
+	                <th id="th-capa" class="v-desk"><?= TXT_LISTA_TITULO_CAPA; ?></th>
                     <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
                     <th id="th-publicado"><?= TXT_LISTA_TITULO_PUBLICADO; ?></th>
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -45,12 +48,14 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['album_id']; ?></td>
                     <?php endif; ?>
-                    <td headers="th-nome" class="tbl-celula-infos">
-                        <?php if( !empty($l['foto_album_imagem']) ): ?>
-                        <img src="..<?= $l['foto_album_imagem']; ?>" alt="" class="tbl-imagem capa-album v-desk"/>
-                        <?php endif;
 
-                        echo $l['album_nome'], '<br/>';
+	                <td headers="th-capa" class="tbl-celula-infos v-desk">
+		                <?php if( !empty($l['foto_album_imagem']) ): ?>
+		                <img src="..<?= $l['foto_album_imagem']; ?>" alt="" class="tbl-imagem capa-album"/>
+		                <?php endif; ?>
+	                </td>
+                    <td headers="th-nome" class="tbl-celula-infos">
+                        <?php echo $l['album_nome'], '<br/>';
 
                         switch($qt){
 	                        case 0: echo TXT_DIVERSOS_NENHUMA_FOTO; break;
@@ -59,6 +64,7 @@
                         } ?>
                     </td>
                     <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>
+
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
                         <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('website/albuns-de-fotos/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">

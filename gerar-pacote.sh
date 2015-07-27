@@ -26,7 +26,7 @@ echo "Incluindo os diretórios..."
 
 tar -cf fw-dl-$1.tar _auto
 tar -rf fw-dl-$1.tar _padroes
-tar -rf fw-dl-$1.tar aplicacao
+tar -rf fw-dl-$1.tar web
 tar -rf fw-dl-$1.tar aplicativos
 tar -rf fw-dl-$1.tar bd
 tar -rf fw-dl-$1.tar biblioteca

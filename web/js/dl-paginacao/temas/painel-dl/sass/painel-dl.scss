@@ -1,0 +1,132 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data   	: 27/07/2015 10:48:21
+ */
+
+@import '../../../../../temas/_ajuda/compatibilidade.scss';
+@import '../../../../../temas/_ajuda/geometricas.scss';
+
+
+/* Fontes ----------------------------------------------------------------------------------------------------------- */
+@font-face {
+	font-family : 'setas';
+	src         : url('fontes/arrows.ttf');
+}
+
+
+/* Tema ------------------------------------------------------------------------------------------------------------- */
+$tema: 'painel-dl';
+$tm_lk: 2em;
+$setas: 'prim' 'RR',
+		'ant' 'R',
+		'prox' 'Q',
+		'ult' 'QQ';
+
+.#{$tema}{
+	/* Tamanho */
+	width: 100%;
+
+	/* Margens */
+	margin: 1em 0;
+
+	/* Texto */
+	text-align: center;
+
+	[class*="-btn-"]{
+		/* Visual */
+		display: inline-block;
+		border-radius: 50%;
+
+		/* Margens */
+		margin: 0 .5em;
+
+		/* Tamanho */
+		width: $tm_lk;
+		height: $tm_lk;
+
+		/* Texto */
+		line-height: $tm_lk;
+		color: #069;
+
+		/* Posicionamento */
+		position: relative;
+
+		/* Transição */
+		@include _transition(background 1s);
+	}
+
+	[class*="-btn-"]:hover{
+		/* Texto */
+		color: #FFF !important;
+
+		/* Visual */
+		background: #069;
+	}
+
+	&-pg-atual{
+		/* Texto */
+		color: #FFF !important;
+
+		/* Visual */
+		background: #AAA !important;
+	}
+
+	&-pg-atual:after{
+		/* Texto */
+		content: '';
+
+		/* Triângulo */
+		@include _triangulo-cima(#AAA, 6px, 6px);
+
+		/* Posicionamento */
+		position: absolute;
+		left: 50%;
+
+		/* Transformar */
+		@include _transform(translateY(-75%) translateX(-50%));
+	}
+
+	[class*="-btn-"]:not(.#{$tema}-btn-num){
+		/* Texto */
+		color: transparent !important;
+	}
+
+	[class*="-btn-"]:not(.#{$tema}-btn-num):before{
+		/* Texto */
+		font-family: 'setas';
+		font-size: x-large;
+		line-height: $tm_lk - .6em;
+		color: #069;
+
+		/* Posicionamento */
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		/* Visual */
+		display: inline-block;
+
+		/* Tamanho */
+		width: 100%;
+		height: 100%;
+	}
+
+	[class*="-btn-"]:not(.#{$tema}-btn-num):hover:before{
+		/* Texto */
+		color: #FFF;
+	}
+
+	&-btn{
+		@each $s in $setas {
+			$cl: nth($s, 1);
+			$tx: nth($s, 2);
+
+			&-#{$cl}:before{
+				/* Texto */
+				content: $tx;
+			}
+		}
+	}
+}

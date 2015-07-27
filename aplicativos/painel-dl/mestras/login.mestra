@@ -56,7 +56,7 @@ $params = $this->_obterparams();
 
 <!-- Javascripts -->
 <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?= \DL3::$ap_versao_jquery; ?>-min.js"></script>
-<script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.0.plugin.js"></script>
+<script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.1.plugin.js"></script>
 <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.0.plugin.js"></script>
 <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
 

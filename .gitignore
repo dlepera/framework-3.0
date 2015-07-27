@@ -1,6 +1,5 @@
 bkp/*
 _padroes/*
-aplicacao/uploads/albuns/*
-aplicacao/uploads/usuarios/*
+web/uploads/albuns/*
+web/uploads/usuarios/*
 */.DS_Store
-nbproject/*

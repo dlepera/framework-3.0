@@ -14,7 +14,7 @@ use \Geral\Modelo as GeralM;
 class Usuario extends GeralM\Principal{
     protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo = 'M', $info_login, $info_senha,
             $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20, $pref_exibir_id = 1,
-            $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/aplicacao/imgs/usuario-sem-foto.png',
+            $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/web/imgs/usuario-sem-foto.png',
             $ultimo_login, $delete = 0;
 
 	/**
@@ -291,7 +291,7 @@ class Usuario extends GeralM\Principal{
 		if( $this->id != $_SESSION['usuario_id'] )
 			throw new \Exception(ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO, 1403);
 
-		$oup = new \Upload('aplicacao/uploads/usuarios', 'perfil_foto');
+		$oup = new \Upload('web/uploads/usuarios', 'perfil_foto');
 		$oup->_extensoes($this->conf_extensoes_foto_perfil);
 		$oup->conf_bloq_extensao = true;
 

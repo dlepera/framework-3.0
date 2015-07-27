@@ -95,8 +95,8 @@ class FrameworkDL3{
     # Diretórios da aplicação
     # Alguns deles não deverão ser alterados, portanto são definidos como
     # constantes
-    const DIR_CONFIG = 'config/', DIR_IDIOMAS = 'aplicacao/idiomas/', DIR_BIBL = 'biblioteca/', DIR_ROTAS = 'aplicacao/rotas/',
-            DIR_MODULOS = 'aplicativos/%s/modulos/%s/', DIR_TEMAS = 'aplicacao/temas/', DIR_VISOES = 'visoes/', DIR_AUTO = '_auto/',
+    const DIR_CONFIG = 'config/', DIR_IDIOMAS = 'web/idiomas/', DIR_BIBL = 'biblioteca/', DIR_ROTAS = 'web/rotas/',
+            DIR_MODULOS = 'aplicativos/%s/modulos/%s/', DIR_TEMAS = 'web/temas/', DIR_VISOES = 'visoes/', DIR_AUTO = '_auto/',
             DIR_CONTROLES = 'controles/', DIR_MODELOS = 'modelos/';
 
     private $dir_modulo; // Armazenar o diretório do módulo atual
@@ -117,7 +117,7 @@ class FrameworkDL3{
             $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
 
     # Diretórios usados para montar as páginas HTML
-    public static $dir_temas = 'aplicacao/temas/', $dir_js = 'aplicacao/js/', $dir_imgs = 'aplicacao/imgs/', $dir_relativo = '';
+    public static $dir_temas = 'web/temas/', $dir_js = 'web/js/', $dir_imgs = 'web/imgs/', $dir_relativo = '';
 
     # Configurações do banco de dados
     private $bd_ativar = false, $bd_driver = 'mysql', $bd_host = 'localhost', $bd_porta = 3306,

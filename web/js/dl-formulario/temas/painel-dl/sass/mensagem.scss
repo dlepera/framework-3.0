@@ -1,0 +1,171 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data   	: 12/05/2015 17:20:21
+ */
+
+@import '../../../../../temas/_ajuda/compatibilidade.scss';
+@import '../_ajuda/configuracoes.scss';
+@import '../_ajuda/animacoes.scss';
+
+$tema: 'painel-dl';
+$msgs: 'sucesso' green '\e710',
+		'erro' red '\e70f',
+		'atencao' #FFA500 '\e707';
+
+.#{$tema}{
+	/* Elementos ---------------------------------------------------------------------------------------------------- */
+	&-div{
+		/* Posicionamento */
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 10;
+		
+		/* Tamanho */
+		width: 100%;
+		height: 100%;
+
+		/* Visual */
+		background: rgba(0, 0, 0, .75);
+		border: none;
+
+		/* Margens */
+		padding: 2em 0;
+	}
+
+	&-div:before{
+		/* Texto */
+		content: '';
+
+		/* Visual */
+		display: none;
+	}
+
+	&-paragr{
+		/* Tamanho */
+		width: 100%;
+
+		/* Visual */
+		background: #FFF;
+
+		/* Texto */
+		text-align: center;
+		font-size: x-large;
+
+		/* Margens */
+		padding: 1em 10vw;
+
+		/* Posicionamento */
+		position: absolute;
+		top: 50%;
+
+		/* Transformar */
+		@include _transform(translateY(-50%));
+
+		/* Animar */
+		@include _animation(para-direita-passando .7s);
+	}
+
+	&-paragr:before{
+		/* Texto */
+		font-family: 'icones';
+		font-size: 3em;
+		opacity: .3;
+
+		/* Alinhamento */
+		vertical-align: middle;
+
+		/* Margens */
+		margin: 0 .5em;
+	}
+
+	&-tempo{
+		/* Texto */
+		color: #FFF;
+		text-align: center;
+
+		/* Visual */
+		display: block;
+
+		/* Margem */
+		margin: auto;
+
+		/* Tamanho */
+		width: 35%;
+	}
+
+	&-botao{
+		$tm: 2.75em;
+
+		/* Visual */
+		border: 2px solid #FFF;
+		border-radius: 50%;
+
+		/* Texto */
+		color: #FFF;
+		text-align: center;
+		line-height: $tm - .25em;
+
+		/* Tamanho */
+		width: $tm;
+		height: $tm;
+
+		/* Posicionamento */
+		position: absolute;
+		top: 0;
+		right: 15%;
+
+		/* Transformar */
+		@include _transform(translateY(-45%));
+	}
+
+	/* Tipos de mensagens ------------------------------------------------------------------------------------------- */
+	@each $msg in $msgs{
+		$tp: nth($msg, 1);
+		$co: nth($msg, 2);
+		$tx: nth($msg, 3);
+
+		.msg-#{$tp}{
+			.#{$tema}-paragr{
+				/* Texto */
+				color: $co;
+			}
+			
+			.#{$tema}-paragr:before{
+				/* Texto */
+				content: $tx;
+			}
+
+			.#{$tema}-botao{
+				/* Visual */
+				background: $co;
+			}
+		}
+	}
+}
+
+
+
+/* Desktop ---------------------------------------------------------------------------------------------------------- */
+@media screen and (min-width: $tela-tablet + 1px){
+	.#{$tema}{
+		&-paragr:before{
+			/* Visual */
+			display: inline-block;
+		}
+	}
+}
+
+
+
+/* Smartphones ------------------------------------------------------------------------------------------------------ */
+@media screen and (max-width: $tela-smart){
+	.#{$tema}{
+		&-paragr:before{
+			/* Visual */
+			display: block;
+		}
+	}
+}

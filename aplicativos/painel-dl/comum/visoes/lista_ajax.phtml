@@ -12,7 +12,7 @@
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $el = $('#form-editar-lista')._dlformulario({
+    $el = $('#form-editar-lista')._formulario({
         cktodos : [true, 'thead :checkbox', 'tbody :checkbox'],
         depois  : function(){
             // Remover o item da lista
@@ -21,10 +21,10 @@
         aparencia: { tema: '<?= DL3::$plugin_formulario_tema; ?>', estilo: null }
     });
 
-    $pg = $('#paginacao')._dlpaginacao({
-        pgtotal     : <?= $params['total-pg']; ?>,
-        mostrar     : 5,
-        aparencia   : { tema: '<?= \DL3::$plugin_paginacao_tema; ?>', estilo: 'paginacao' }
+    $pg = $('#paginacao')._paginacao({
+        pgtotal : <?= $params['total-pg']; ?>,
+        mostrar : 5,
+        tema    : '<?= \DL3::$plugin_paginacao_tema; ?>'
     });
 
     $('.com-marcados > *:first-child,.sem-registros > *:first-child').attr({ 'colspan': $('.tbl-titulos > .tbl-linha:first-child > *').length });
