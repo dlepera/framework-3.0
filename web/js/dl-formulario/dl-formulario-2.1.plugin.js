@@ -265,7 +265,7 @@
 
 						if( er.test(v) ){
 							var dd = er.exec(v);
-							ofd.append(dd[1], dd[2]);
+							ofd.append(dd[1], dd[2] || '');
 						} // Fim if( er.test(v) )
 					});
 				} // Fim if( upload )
