@@ -62,7 +62,7 @@
 	/**
 	 * Obter os elementos presentes na máscara
 	 *
-	 * @param string msk Máscara a ser analisada
+	 * @param {string} msk Máscara a ser analisada
 	 * @returns {XML|string|*|void}
 	 * @constructor
 	 */
@@ -77,8 +77,8 @@
 	/**
 	 * Limpar o valor
 	 *
-	 * @param string v Valor a ser tratado
-	 * @param m Máscara a ser considerada para a limpeza
+	 * @param {string} v Valor a ser tratado
+	 * @param {string} m Máscara a ser considerada para a limpeza
 	 *
 	 * @returns {string}
 	 * @constructor
@@ -89,8 +89,8 @@
 	/**
 	 * Aplicar uma máscara em uma string
 	 *
-	 * @param string v String a ser mascarada
-	 * @param string m Máscara a ser aplicada
+	 * @param {string} v String a ser mascarada
+	 * @param {string} m Máscara a ser aplicada
 	 * @returns {string}
 	 * @constructor
 	 */
@@ -230,6 +230,7 @@
 				var $th = $(this);
 				var fnc = window[$th.data('vld-func')];
 				var msg = $th.data('vld-msg');
+				var vlr = $th.val();
 
 				// Verificar se a função informada existe e se é mesmo uma função
 				if( typeof fnc !== 'function' ){
@@ -237,8 +238,8 @@
 					return false;
 				} // Fim if( typeof fnc !== 'function' )
 
-				if( this.value != '' ){
-					if( !fnc(this.value) ) this.setCustomValidity(msg);
+				if( vlr !== '' ){
+					if( !fnc(vlr) ) this.setCustomValidity(msg);
 					else this.setCustomValidity('');
 				} else this.setCustomValidity('');
 				// Fim if( this.value != '' )
@@ -260,7 +261,7 @@
 
 					// Incluir os arquivos normais
 					$.each($th._serialize().split('&'), function(k, v){
-						var er = /^([a-z\-_0-9]+)\=(.*)$/g;
+						var er = /^([\w\-]+)=(.+)?$/;
 
 						if( er.test(v) ){
 							var dd = er.exec(v);
@@ -303,7 +304,7 @@
 	/**
 	 * Aplicar máscara em um campo de formulário
 	 *
-	 * @param string msk Máscara
+	 * @param {string} msk Máscara
 	 * @returns {*|HTMLElement}
 	 * @private
 	 */
