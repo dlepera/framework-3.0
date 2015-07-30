@@ -156,7 +156,7 @@
 	 * @returns {*}
 	 * @private
 	 */
-	$.fn._formulario 	= function(opcoes){
+	$.fn._formulario = function(opcoes){
 		// Valores padrão para as opções desse plugin
 		var padrao = {
 			// @option {string} controle - controle (action) a ser utilizado no submit do formulário
@@ -245,7 +245,7 @@
 				// Fim if( this.value != '' )
 			}).trigger('change');
 
-			$th.unbind('.'+ opcoes.namespace)
+			$th.off('.'+ opcoes.namespace)
 				.on('submit.'+ opcoes.namespace, function(evt, controle, antes, depois){
 				// Evitar o submit comum do form
 				evt.stopPropagation();
@@ -294,7 +294,7 @@
 		});
 	};
 
-	$.fn._executar 		= function(controle, antes, depois){
+	$.fn._executar = function(controle, antes, depois){
 		return this.each(function(){
 			$(this).trigger('submit', [controle, antes, depois]);
 		});
@@ -329,7 +329,7 @@
 		 */
 		var msk_c = ConvMask(msk);
 
-		$th.unbind('.'+ evt_ns).on(evt_on +'.'+ evt_ns, function(){
+		$th.off('.'+ evt_ns).on(evt_on +'.'+ evt_ns, function(){
 			var evt	= window.event || event;
 			var kc  = evt.keyCode || evt.charCode || evt.which;
 			var mod = evt.metaKey || evt.ctrlKey;
@@ -462,6 +462,17 @@
 			}, 1000);
 		} // Fim if( opcoes.tempo.exibir )
 
-		return $th;
+		// Configurar a tecla ESC
+		$(window).on('keyup.' + evt_ns, function(evt){
+			var kc = evt.keyCode || evt.charCode || evt.which;
+
+			/*
+			 * CORRIGIR: Tecla ENTER não funciona da maneira adequada
+			 */
+			if( /* kc === 13 || */kc === 27 )
+				$th.find('.' + classes.botao).trigger('click.' + evt_ns);
+		});
+
+		return $th.focus();
 	};
 })(jQuery);
