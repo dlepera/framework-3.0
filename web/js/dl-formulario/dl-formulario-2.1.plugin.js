@@ -261,7 +261,7 @@
 
 					// Incluir os arquivos normais
 					$.each($th._serialize().split('&'), function(k, v){
-						var er = /^([\w\-]+)=(.+)?$/;
+						var er = /^([\w\-\[\]]+)=(.+)?$/;
 
 						if( er.test(v) ){
 							var dd = er.exec(v);
