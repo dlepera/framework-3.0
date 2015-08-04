@@ -225,8 +225,12 @@
 				});
 			} // Fim if( upload )
 
+			/*
+			 * CORRIGIR: Quando uma máscara é aplicada no campo o evento change deixa de funcionar
+			 */
 			// Realizar a verificação adicional dos campos
-			$th.find('[data-vld-func]').on('change', function(){
+			$th.find('[data-vld-func]').off('.'+ opcoes.namespace)
+				.on('change.'+ opcoes.namespace +' blur.'+ opcoes.namespace, function(){
 				var $th = $(this);
 				var fnc = window[$th.data('vld-func')];
 				var msg = $th.data('vld-msg');

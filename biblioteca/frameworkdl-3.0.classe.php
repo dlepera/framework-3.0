@@ -27,8 +27,8 @@ function carregar_classe($c){
     $nl = strtolower($n);
 
     # Diretório da classe
-    if( !file_exists($dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, $md) . "{$tl}s/") )
-        $dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, str_replace('-', '', $md)) . "{$tl}s/";
+    !file_exists($dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, $md) . "{$tl}s/")
+        and $dc = sprintf(DL3::DIR_MODULOS, DL3_APLICATIVO, str_replace('-', '', $md)) . "{$tl}s/";
 
     # Gerar o nome do arquivo
     $na = "{$dc}{$nl}.{$tl}.php";
@@ -175,6 +175,10 @@ class FrameworkDL3{
 
         # Carregar o pacote de idiomas
         $this->_carregaridioma();
+	    /*
+	     * TAREFA: Verificar o funcionamento do locale
+	     */
+	    setlocale(LC_ALL, $this->ap_idioma);
 
         # Carregamento automático de controles e modelos
         $this->_carregarauto();
@@ -264,14 +268,14 @@ class FrameworkDL3{
 
 
 
-	/**
-	 * Verificar se o ambiente solicitado foi criado
-	 *
-	 * É verificado se o ambiente foi informado e se o diretório existe dentro do diretório que contém os arquivos de
-	 * configuração (definido por self::DIR_CONFIG) foi criado o diretório do ambiente
-	 *
-	 * @throws Exception
-	 */
+    /**
+     * Verificar se o ambiente solicitado foi criado
+     *
+     * É verificado se o ambiente foi informado e se o diretório existe dentro do diretório que contém os arquivos de
+     * configuração (definido por self::DIR_CONFIG) foi criado o diretório do ambiente
+     *
+     * @throws Exception
+     */
     private function _validarambiente(){
         if( empty(DL3_AMBIENTE) )
             throw new Exception('Por favor, informe qual ambiente será utilizado!', 1500);
@@ -284,6 +288,7 @@ class FrameworkDL3{
 
         $this->a_config['diretorio'] = $dc;
     } // Fim do método _validarambiente
+
 
 
 
@@ -399,7 +404,7 @@ class FrameworkDL3{
         if( $this->bd_ativar ){
 	        try{
 		        self::$bd_conex = new PDODL("{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}", $this->bd_usuario, $this->bd_senha);
-		        self::$bd_conex->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		        self::$bd_conex->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 		        if( $this->bd_driver == 'mysql' ) self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
 		        // self::$bd_conex->_alterar_tipos_campos([], 'bit', 'bool');

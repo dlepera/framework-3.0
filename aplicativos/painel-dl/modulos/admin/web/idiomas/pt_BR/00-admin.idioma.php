@@ -66,7 +66,7 @@ define('TXT_ROTULO_NUM_REGISTROS', 'Número de registros');
 define('TXT_ROTULO_EXIBIR_ID', 'Exibir ID?');
 define('TXT_ROTULO_FILTRO_MENU', 'Mostrar filtro do menu?');
 define('TXT_ROTULO_GRUPO', 'Grupo');
-define('TXT_ROTULO_LOGIN', 'Login');
+define('TXT_ROTULO_LOGIN', 'Nome de usuário');
 define('TXT_ROTULO_SENHA', 'Senha');
 define('TXT_ROTULO_CONF_SENHA', 'Confirme a senha');
 define('TXT_ROTULO_RESET', 'Resetar a senha no próximo login');
@@ -146,4 +146,5 @@ define('ERRO_USUARIO_BLOQUEAR', '<b>Erro ao tentar bloquear o(s) usuário(s)</b>
 define('ERRO_USUARIO_DESBLOQUEAR', '<b>Erro ao tentar desbloquear o(s) usuário(s)</b><p>Nenhum usuário foi desbloqueado.</p>');
 define('ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO', '<b>Nome de usuário inválido!</b><p>O nome de usuário informado já está sendo usado.</p><p>Por favor, informe um nome de usuário diferente.</p>');
 define('ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO', '<b>E-mail inválido!</b><p>O e-mail informado já está sendo usado por outro usuário.</p><p>Por favor, utilize um e-mail diferente.</p>');
-define('ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO', 'Você não pode salvar fotos para outro usuário!');
+define('ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO', 'Você não pode salvar fotos para o perfil de outro usuário!');
+define('ERRO_USUARIO_VALIDAR_SENHA_IGUAL_LOGIN', 'A senha não pode ser igual ao nome de usuário utilizado pelo usuário!');

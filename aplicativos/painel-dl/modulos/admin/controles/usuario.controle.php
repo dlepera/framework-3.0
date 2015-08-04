@@ -31,6 +31,7 @@ class Usuario extends GeralC\PainelDL{
                 'info_sexo'         =>  FILTER_SANITIZE_STRING,
                 'info_login'        =>  FILTER_SANITIZE_STRING,
                 'info_senha'        =>  FILTER_DEFAULT,
+                'info_senha_conf'   =>  FILTER_DEFAULT,
                 'pref_idioma'       =>  FILTER_VALIDATE_INT,
                 'pref_tema'         =>  FILTER_VALIDATE_INT,
                 'pref_formato_data' =>  FILTER_VALIDATE_INT,
@@ -156,7 +157,7 @@ class Usuario extends GeralC\PainelDL{
 	 */
     protected function _alterarsenha(){
         # Obter as senhas informadas
-        $sa = md5(md5(filter_input(INPUT_POST, 'senha_atual')));
+        $sa = $this->modelo->_cripto_md5((filter_input(INPUT_POST, 'senha_atual')));
         $sn = filter_input(INPUT_POST, 'senha_nova');
         $sc = filter_input(INPUT_POST, 'senha_nova_conf');
 
@@ -168,13 +169,14 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Bloquear ou desbloquear os usuários selecionado
-	 *
-	 * @param int $vlr 0 => bloqueia o(s) usuário(2) | 1 => desbloqueia o(s) usuário(s)
-	 *
-	 * @throws \Exception
-	 */
+
+    /**
+     * Bloquear ou desbloquear os usuários selecionado
+     *
+     * @param int $vlr 0 => bloqueia o(s) usuário(2) | 1 => desbloqueia o(s) usuário(s)
+     *
+     * @throws \Exception
+     */
     protected function _bloquear($vlr){
         $tid = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
@@ -196,7 +198,8 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	protected function _salvar_foto(){
+
+    protected function _salvar_foto(){
 		$this->modelo->_salvar_foto();
 		\Funcoes::_retornar(SUCESSO_USUARIOS_SALVAR_FOTO, 'msg-sucesso');
 	} // Fim do método _salvar_foto

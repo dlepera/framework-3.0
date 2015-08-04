@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3ce2abfa-78b3-4270-8271-7828d1e8340e" name="Local - Cadastro de Produtos" url="http://localhost/cadastro-produtos">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../cadastro-produtos" accessType="MOUNT" />
+      </webServer>
+      <webServer id="6f6b8ee5-8a46-433a-8291-95fec11cd77c" name="Local - Barlabares" url="http://localhost/barlabares-3.0">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../barlabares-3.0" accessType="MOUNT" />
+      </webServer>
+      <webServer id="c0297472-d27f-4f8f-906a-064a240c21b0" name="Local - THG Licenciamentos" url="http://localhost/thg-licenc">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../thg-licenc" accessType="MOUNT" />
+      </webServer>
+      <webServer id="c9ddd4a2-6c37-4084-9585-6c507025c1e7" name="Local - Personal Pizza" url="http://localhost/personal-pizza-3.0">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../personal-pizza-3.0" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

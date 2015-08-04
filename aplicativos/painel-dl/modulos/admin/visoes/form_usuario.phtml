@@ -197,7 +197,7 @@ $mod = $params['modelo'];
 
             <p class="form-paragr">
                 <label for="conf-senha" class="form-rotulo"><?= TXT_ROTULO_CONF_SENHA; ?>:</label><br/>
-                <input type="password" name="conf_senha" id="conf-senha" class="form-controle" required/>
+                <input type="password" name="info_senha_conf" id="conf-senha" class="form-controle" required/>
             </p>
             <?php else: ?>
             <p class="form-paragr">
@@ -231,7 +231,7 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $('#info-telefone')._mascara('<?= strlen($mod->info_fone) === 14 ? MASK_TELEFONE_CELULAR_8 : MASK_TELEFONE_CELULAR_9; ?>');
+    $('#info-telefone')._mascara('<?= strlen($mod->info_fone) === 14 || $params['incluindo'] ? MASK_TELEFONE_CELULAR_8 : MASK_TELEFONE_CELULAR_9; ?>');
 
     $('#alt-mask-fone').on('change',
 	    { msk8: '<?= MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?= MASK_TELEFONE_CELULAR_9; ?>' },

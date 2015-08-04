@@ -46,7 +46,7 @@ class GrupoUsuario extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+    protected function _salvar($s= true, $ci = null, $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $s && $this->id != $_SESSION['usuario_info_grupo'] ){
@@ -74,18 +74,18 @@ class GrupoUsuario extends GeralM\Principal{
 	 * @throws \Exception
 	 */
     protected function _selecionarPK($v, $a = null){
-        $r = parent::_selecionarPK($v, $a);
+	    if( parent::_selecionarPK($v, $a) ){
+		    $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
+		    $sql->execute([':id' => $this->id]);
 
-	    if( !$r ) return false;
+		    if( $sql === false ) return;
 
-        $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
-	    $sql->execute([':id' => $this->id]);
+		    $this->funcs = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
 
-        if( $sql === false ) return;
+		    return true;
+	    } // Fim if( parent::_selecionarPK($v, $a) )
 
-		$this->funcs = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
-
-	    return $r;
+	    return false;
     } // Fim do método _selecionarPK
 
 

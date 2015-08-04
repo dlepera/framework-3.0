@@ -7,6 +7,8 @@
  * @Data	: 05/01/2015 13:40:18
  */
 
+use \Geral\Apoio as ApoioG;
+
 class Visao{
     # Configurações
     const CONF_EXTENSAO_MESTRA  = 'mestra';
@@ -20,11 +22,19 @@ class Visao{
     # Configurações da página
     private $titulo, $cont_mestra;
 
+    # Auxiliares
+	private $aux_numero;
+
 
 
     public function __construct($nm, $pgm=null){
         $this->_diretorio(sprintf(\DL3::DIR_MODULOS, DL3_APLICATIVO, $nm) . \DL3::DIR_VISOES);
         $this->_pg_mestra($pgm);
+
+	    include_once '_auto/apoios/numero.apoio.php';
+
+	    # Auxiliares
+	    $this->aux_numero = new ApoioG\Numero();
     } // Fim do método __construct
 
     public function __destruct(){

@@ -12,7 +12,7 @@ namespace Admin\Modelo;
 use \Geral\Modelo as GeralM;
 
 class Usuario extends GeralM\Principal{
-    protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo = 'M', $info_login, $info_senha,
+    protected $id, $info_grupo, $info_nome, $info_email, $info_telefone, $info_sexo = 'M', $info_login, $info_senha, $info_senha_conf,
             $pref_idioma = 1, $pref_tema = 1, $pref_formato_data = 1, $pref_num_registros = 20, $pref_exibir_id = 1,
             $pref_filtro_menu = 0, $conf_bloq = 0, $conf_reset = 1, $perfil_foto = '/web/imgs/usuario-sem-foto.png',
             $ultimo_login, $delete = 0;
@@ -52,8 +52,12 @@ class Usuario extends GeralM\Principal{
     } // Fim do método _info_login
 
     public function _info_senha($v = null){
-        return $this->info_senha = filter_var(!isset($v) ? $this->info_senha : md5(md5($v)));
+        return $this->info_senha = filter_var(!isset($v) ? $this->info_senha : $this->_cripto_md5($v));
     } // Fim do método _info_senha
+
+	public function _info_senha_conf($v = null){
+		return $this->info_senha_conf = filter_var(!isset($v) ? $this->info_senha_conf : $this->_cripto_md5($v));
+	} // Fim do método _info_senha_conf
 
     public function _pref_idioma($v = null){
         return $this->pref_idioma = filter_var(!isset($v) ? $this->pref_idioma : $v, FILTER_VALIDATE_INT);
@@ -125,10 +129,18 @@ class Usuario extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-    protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+    protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
 	    # Aplicar validações
 	    if( $s ){
 		    $and_id = $this->reg_vazio ? '' : " AND {$this->bd_prefixo}id <> {$this->id}";
+
+		    # Validar a senha informada
+		    if( $this->reg_vazio ){
+			    if( $this->info_senha !== $this->info_senha_conf )
+				    throw new \Exception(ERRO_USUARIO_ALTERSENHA_SENHAS_NAO_COINCIDEM, 1500);
+
+			    $this->_validar_senha($this->info_senha, true);
+		    } // Fim if( $this->reg_vazio )
 
 		    # Verificar se o login já está cadastrado
 		    if( $this->_qtde_registros( "{$this->bd_prefixo}info_login = '{$this->info_login}'{$and_id}" ) > 0 )
@@ -174,15 +186,18 @@ class Usuario extends GeralM\Principal{
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_USUARIO_NAO_ENCONTRADO, 1404);
 
         # Comparar a senha atual
-        if( !(bool)$this->_listar("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'", 0, 1, 0) && !$rt )
+        if( !(bool)$this->_qtde_registros("usuario_info_login = '{$_SESSION['usuario_info_login']}' AND usuario_info_senha = '{$sa}'") && !$rt )
             throw new \Exception(ERRO_USUARIO_ALTERARSENHA_SENHA_ATUAL_INCORRETA, 1000);
 
         # Comparar as senhas infromadas
-        if( $sn != $sc )
+        if( $sn !== $sc )
             throw new \Exception(ERRO_USUARIO_ALTERSENHA_SENHAS_NAO_COINCIDEM, 1000);
 
+	    # Validar a senha informada
+	    $this->_validar_senha($sn);
+
         # Criptografar a senha
-        $sn_c = md5(md5($sn));
+        $sn_c = $this->_cripto_md5($sn);
 
         # Alterar a senha no banco de dados
         $sql = \DL3::$bd_conex->prepare("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}info_senha = :senha, {$this->bd_prefixo}conf_reset = 0 WHERE {$this->bd_prefixo}id = :id");
@@ -190,6 +205,44 @@ class Usuario extends GeralM\Principal{
 
         $_SESSION['usuario_conf_reset'] = 0;
     } // Fim do método _alterarsenha
+
+
+
+
+	/**
+	 * Validar a senha
+	 *
+	 * @param string     $sn  Senha a ser analisada
+	 * @param bool|false $md5 Se true, faz a comparação usando a hash MD5 dupla do valores a serem verificados
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+    public function _validar_senha($sn, $md5 = false){
+	    $lg = $md5 ? $this->_cripto_md5($this->info_login) : $this->info_login;
+
+	    if( $sn === $lg )
+		    throw new \Exception(ERRO_USUARIO_VALIDAR_SENHA_IGUAL_LOGIN, 1403);
+
+	    return true;
+    } // Fim do método _validar_senha
+
+
+
+
+	/**
+	 * Criptografar em MD5 na quantidade de vezes definida por $qt
+	 *
+	 * @param string $st String a ser criptografada
+	 * @param int    $qt Quantidade de vezes que a string deve ser passada na função md5()
+	 *
+	 * @return string
+	 */
+	public function _cripto_md5($st, $qt = 2){
+		$md5 = $st;
+		for($i = $qt; $i > 0; $i--) $md5 = md5($md5);
+		return $md5;
+	} // Fim do método _cripto_md5
 
 
 
