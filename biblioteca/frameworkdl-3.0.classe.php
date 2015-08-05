@@ -127,7 +127,7 @@ class FrameworkDL3{
     public static $bd_conex;
 
     # Configurações de autenticação
-    private $aut_ativar = false, $aut_prefixo = 'dl';
+    private $aut_ativar = false, $aut_sessao = DL3_APLICATIVO, $aut_prefixo = 'dl';
     public static $aut_o;
 
     # Configurações de plugins
@@ -174,7 +174,7 @@ class FrameworkDL3{
         # Se o sistema requer autenticação, iniciar a classe de autenticação e
         # utilizar preferências pós login
         if( $this->aut_ativar ){
-	        self::$aut_o = new \Autenticacao($this->aut_prefixo, DL3_APLICATIVO);
+	        self::$aut_o = new \Autenticacao($this->aut_prefixo, $this->aut_sessao);
 
 	        # Alterar a configuração do idioma
 	        self::$aut_o->_verificarlogin(false) and $this->_ap_idioma($_SESSION['idioma_sigla']);
@@ -243,6 +243,10 @@ class FrameworkDL3{
     public function _aut_prefixo($v = null){
         return $this->aut_prefixo = strtolower(filter_var(!isset($v) ? $this->aut_prefixo : $v, FILTER_SANITIZE_STRING));
     } // Fim do método _aut_prefixo
+
+	public function _aut_sessao($v = null){
+		return $this->aut_sessao = strtolower(filter_var(!isset($v) ? $this->aut_sessao : $v, FILTER_SANITIZE_STRING));
+	} // Fim do método _aut_sessao
 
     public function _bd_ativar($v = null){
         return $this->bd_ativar = filter_var(!isset($v) ? $this->bd_ativar : $v, FILTER_VALIDATE_BOOLEAN);
@@ -401,20 +405,18 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Conectar ao banco de dados
-     *
-     * Conectar ao banco de dados via PDO e disponibilizar a conexão para
-     * que outras classes a utilizem
-     */
+
+	/**
+	 * Conectar ao banco de dados
+	 *
+	 * Conectar ao banco de dados via PDO e disponibilizar a conexão para
+	 * que outras classes a utilizem
+	 */
     private function _conectarbd(){
         if( $this->bd_ativar ){
 	        try{
-		        self::$bd_conex = new PDODL("{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base}", $this->bd_usuario, $this->bd_senha);
+		        self::$bd_conex = new PDODL("{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base};charset={$this->bd_encoding}", $this->bd_usuario, $this->bd_senha);
 		        self::$bd_conex->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-		        if( $this->bd_driver == 'mysql' ) self::$bd_conex->exec("SET NAMES '{$this->bd_encoding}'");
-		        // self::$bd_conex->_alterar_tipos_campos([], 'bit', 'bool');
 	        } catch( PDOException $e ){
 		        var_dump($e);
 	        } // Fim try catch
@@ -423,12 +425,13 @@ class FrameworkDL3{
 
 
 
-    /**
-     * Identificar o módulo atual
-     *
-     * O módulo atual será informado na URL logo após a 'home' do aplicativo
-     * Ex: framewrok3.0/admin/ => módulo 'admin'
-     */
+
+	/**
+	 * Identificar o módulo atual
+	 *
+	 * O módulo atual será informado na URL logo após a 'home' do aplicativo
+	 * Ex: framewrok3.0/admin/ => módulo 'admin'
+	 */
     private function _identificarmodulo(){
         $r_url = filter_input(INPUT_SERVER, 'REDIRECT_URL');
         $h_url = trim($this->ap_raiz . self::$ap_home, '/');
@@ -521,11 +524,12 @@ class FrameworkDL3{
 
 
 
+
 	/**
 	 * Obter todos os arquivos de um diretório de acordo com o seu prefixo
 	 *
-	 * @param string $d    Diretório a ser escaneado
-	 * @param string $p    Prefixo de filtro dos arquivos
+	 * @param string $d Diretório a ser escaneado
+	 * @param string $p Prefixo de filtro dos arquivos
 	 *
 	 * @return array    Vetor contendo apenas os arquivos que correspondem ao prefixo informado
 	 * @throws Exception

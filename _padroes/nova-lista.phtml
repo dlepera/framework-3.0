@@ -45,7 +45,7 @@
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
 
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>
@@ -57,7 +57,7 @@
                 <?php if( count($params['lista']) ): ?>
                 <tr class="tbl-linha com-marcados">
                     <td>
-                        <a href="javascript:void;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                     </td>

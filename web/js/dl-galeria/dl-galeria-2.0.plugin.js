@@ -135,28 +135,28 @@
             
             // Botão: Primeira
             $(document.createElement('a')).attr({
-                href: 'javascript:void;'
+                href: 'javascript:;'
             }).html('|<').on('click', function(){
                 $this.find('> figure')._dltrocaritem(0, opcoes.transicao);
             }).appendTo($naveg);
             
             // Botão: Anterior
             $(document.createElement('a')).attr({
-                href: 'javascript:void;'
+                href: 'javascript:;'
             }).on('click', function(){
                 $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()-1, opcoes.transicao);
             }).html('<').appendTo($naveg);
             
             // Botão: Próxima
             $(document.createElement('a')).attr({
-                href: 'javascript:void;'
+                href: 'javascript:;'
             }).on('click', function(){
                 $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()+1, opcoes.transicao);
             }).html('>').appendTo($naveg);
             
             // Botão: Última
             $(document.createElement('a')).attr({
-                href: 'javascript:void;'
+                href: 'javascript:;'
             }).on('click', function(){
                 $this.find('> figure')._dltrocaritem(qtde_f, opcoes.transicao);
             }).html('>|').appendTo($naveg);
@@ -170,7 +170,7 @@
             
             for(var i = 0; i < qtde_f; i++){
                 $(document.createElement('a')).text(i+1).attr({
-                    href: 'javascript:void;'
+                    href: 'javascript:;'
                 }).bind('click', function(){
                     var $_this = $(this);
                     

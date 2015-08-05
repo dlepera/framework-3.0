@@ -59,17 +59,13 @@ class Autenticacao{
         return $this->sessao_id = filter_var(!isset($v) ? $this->sessao_id : "{$this->sessao_prefixo}-". md5($v), FILTER_SANITIZE_STRING);
     } // Fim do método _sessao_id
 
-    public function _form_login($v = null){
-        return $this->form_login = trim(filter_var(!isset($v) ? $this->form_login : $v, FILTER_SANITIZE_STRING), '/');
-    } // Fim do método _form_login
 
 
 
-    public function __construct($sp, $sn, $fl = null){
+	public function __construct($sp, $sn){
         # Configurações da sessão
         $this->_sessao_prefixo($sp);
         $this->_sessao_nome($sn);
-        $this->_form_login($fl);
 
         # Preciso incluir o arquivo aqui para previnir o seguinte caso:
         #
@@ -88,10 +84,10 @@ class Autenticacao{
 
     /**
      * Verificar pelo status da sessão se o login foi realizado
-     * -------------------------------------------------------------------------
-     * @param bool $r - define se a página será redirecionada ou não
      *
-     * @return bool - retorna true se a sessão foi iniciada ou false caso não
+     * @param bool $r Define se a página será redirecionada ou não
+     *
+     * @return bool Retorna true se a sessão foi iniciada ou false caso não
      */
     public function _verificarlogin($r=true){
         # Status da sessão
@@ -124,9 +120,9 @@ class Autenticacao{
 
 
 
+
     /**
      * Mostrar o formulário de login
-     * -------------------------------------------------------------------------
      */
     public function _formlogin(){
         echo file_get_contents(strtolower(
@@ -138,16 +134,17 @@ class Autenticacao{
 
 
 
-	/**
-	 * Realizar o login no sistema
-	 *
-	 * @param string $u Nome de usuário
-	 * @param string $s Senha do usuário
-	 * @param bool   $c Define se a senha deve ser criptografada
-	 *
-	 * @return bool
-	 * @throws Exception
-	 */
+
+    /**
+     * Realizar o login no sistema
+     *
+     * @param string $u Nome de usuário
+     * @param string $s Senha do usuário
+     * @param bool   $c Define se a senha deve ser criptografada
+     *
+     * @return bool
+     * @throws Exception
+     */
     public function _fazerlogin($u, $s, $c = true){
         # Login do Super Admin ou login de usuário do sistema
         if( $u == $this->root['usuario_info_login'] && ($c ? md5(md5($s)) : $s) == $this->root['usuario_info_senha'] ):
@@ -175,7 +172,8 @@ class Autenticacao{
 
 
 
-    public function _carregarsessao($d){
+
+	public function _carregarsessao($d){
         # Carregar os dados na sessão
         foreach( $d as $ch => $vr )
             $_SESSION[$ch] = $vr;
@@ -183,11 +181,12 @@ class Autenticacao{
 
 
 
-    /**
-     * Realizar o logout
-     *
-     * Remover todos os dados de sessão e sair do sistema
-     */
+
+	/**
+	 * Realizar o logout
+	 *
+	 * Remover todos os dados de sessão e sair do sistema
+	 */
     public function _fazerlogout(){
         if( !$this->_verificarlogin(false) )
             return true;
@@ -203,12 +202,13 @@ class Autenticacao{
 
 
 
-    /**
-     * Verificar o permissionamento do usuário logado
-     *
-     * @params string $m - nome da classe que está sendo executada
-     * @params string $a - nome da ação que será executada
-     */
+
+	/**
+	 * Verificar o permissionamento do usuário logado
+	 *
+	 * @params string $m - nome da classe que está sendo executada
+	 * @params string $a - nome da ação que será executada
+	 */
     public function _verificarperm($m,$a){
         # Permitir para o Super Admin
         if( $_SESSION['usuario_id'] == -1 ) return true;

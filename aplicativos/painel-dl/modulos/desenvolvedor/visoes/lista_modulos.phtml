@@ -27,9 +27,11 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
+
                     <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
                     <th id="th-link" class="v-desk"><?= TXT_LISTA_TITULO_LINK; ?></th>
                     <th id="th-publicado"><?= TXT_LISTA_TITULO_PUBLICADO; ?></th>
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -44,12 +46,14 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['modulo_id']; ?></td>
                     <?php endif; ?>
-                    <td headers="th-nome"><?= $l['NOME_COMPLETO']; ?></td>
+
+                    <td headers="th-nome" class="tbl-celula-infos"><?= "{$l['MODULO']}<br/>{$l['MODULO_PAI']}"; ?></td>
                     <td headers="th-link" class="v-desk"><?= $l['modulo_link']; ?></td>
                     <td headers="th-publicado"><?= $l['PUBLICADO']; ?></td>
+
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this, true); AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
                             <?= $p ? TXT_LINK_OCULTAR : TXT_LINK_PUBLICAR; ?>
                         </a>
 
@@ -59,7 +63,7 @@
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -73,17 +77,17 @@
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_PUBLICAR; ?>
                         </a>
 
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="AlternarPublicacao('desenvolvedor/modulos/alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_OCULTAR; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:void;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

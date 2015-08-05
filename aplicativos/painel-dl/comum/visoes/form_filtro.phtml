@@ -41,7 +41,7 @@
     <?php endif; ?>
 
     <?php if( $params['filtro?'] ): ?>
-    <a href="javascript:void;" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
+    <a href="javascript:;" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
         <?= TXT_LINK_LIMPAR_FILTRO; ?>
     </a>
     <?php endif; ?>

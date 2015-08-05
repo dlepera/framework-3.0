@@ -45,12 +45,9 @@ class Modulo extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao("M.modulo_id, ( CASE IFNULL(M.modulo_pai, 0)"
-                . " WHEN 0 THEN M.modulo_nome"
-                . " ELSE CONCAT(S.modulo_nome, ' > ', M.modulo_nome) "
-                . " END ) AS NOME_COMPLETO, M.modulo_link, ( CASE M.modulo_publicar"
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) AS PUBLICADO", 'NOME_COMPLETO', null);
+        $this->_listapadrao('M.modulo_id, M.modulo_nome AS MODULO, S.modulo_nome AS MODULO_PAI, M.modulo_link,'
+            . " ( CASE M.modulo_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+	        'S.modulo_nome, M.modulo_nome', null);
 
         # Visão
         $this->_carregarhtml('lista_modulos');
@@ -105,9 +102,10 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-    /**
-     * Incluir uma nova funcionalidade
-     */
+
+	/**
+	 * Incluir uma nova funcionalidade
+	 */
     protected function _novafunc(){
         $of = new DevM\ModuloFunc();
 
@@ -131,9 +129,10 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-    /**
-     * Remover uma funcionalidade
-     */
+
+	/**
+	 * Remover uma funcionalidade
+	 */
     protected function _removerfunc(){
         $of = new DevM\ModuloFunc();
 
@@ -156,6 +155,7 @@ class Modulo extends GeralC\PainelDL{
 
 
 
+
 	/**
 	 *  Filtrar menu
 	 *
@@ -164,7 +164,7 @@ class Modulo extends GeralC\PainelDL{
 	 *
 	 * @return array
 	 */
-    public function _filtromenu($bm, $e=true){
+    public function _filtromenu($bm, $e = true){
         $r = json_encode($this->modelo->_listarmenu("M.modulo_nome LIKE '%{$bm}%' OR M.modulo_descr LIKE '%{$bm}%'", 'M.modulo_nome', 'M.modulo_nome, M.modulo_descr'));
 
 	    $e and print($r);

@@ -165,7 +165,7 @@
                     // Botão Primeiro
                     $(document.createElement("a")).text("|<").attr({ 
                         title   : "Primeiro",
-                        href    : "javascript:void;"
+                        href    : "javascript:;"
                     }).click(function(){
                         // Ir para o primeiro item
                         $itens._dltrocaitem(0, opcoes.loop);
@@ -174,7 +174,7 @@
                     // Botão Anterior
                     $(document.createElement("a")).text("<").attr({ 
                         title   : "Anterior",
-                        href    : "javascript:void;"
+                        href    : "javascript:;"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -186,7 +186,7 @@
                     // Botão Próximo
                     $(document.createElement("a")).text(">").attr({ 
                         title   : "Próximo",
-                        href    : "javascript:void;"
+                        href    : "javascript:;"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -198,7 +198,7 @@
                     // Botão Último
                     $(document.createElement("a")).text(">|").attr({ 
                         title   : "Último",
-                        href    : "javascript:void;"
+                        href    : "javascript:;"
                     }).click(function(){
                         // Ir para o último item
                         return $itens._dltrocaitem($itens.length-1, opcoes.loop);
@@ -227,7 +227,7 @@
 
                     for(var i=0; i<qtde_itens; i++){
                             $(document.createElement("a")).text(i+1).attr({
-                                    href: "javascript:void;"
+                                    href: "javascript:;"
                             }).bind("click", function(){
                                     // Obter a index desse link
                                     var index = $(this).index();

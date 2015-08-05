@@ -96,7 +96,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:void;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_IDIOMA; ?>
                 </a>
                 <?php endif; ?>
@@ -115,7 +115,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-tema?'] ): ?>
-                <a href="javascript:void;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_TEMA; ?>
                 </a>
                 <?php endif; ?>
@@ -172,7 +172,7 @@ $mod = $params['modelo'];
                 </select>
 
                 <?php if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:void;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
                 </a>
                 <?php endif; ?>

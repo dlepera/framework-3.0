@@ -53,7 +53,7 @@
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -67,7 +67,7 @@
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:void;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

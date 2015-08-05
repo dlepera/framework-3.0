@@ -110,7 +110,7 @@ $mod = $params['modelo'];
                 <li>
             </ul>
 
-            <a href="javascript:void;" onclick="NovoMetodo();" class="com-icone ico-inserir">
+            <a href="javascript:;" onclick="NovoMetodo();" class="com-icone ico-inserir">
                 <?= TXT_LINK_NOVO_METODO; ?>
             </a>
         </fieldset>
@@ -142,7 +142,7 @@ $mod = $params['modelo'];
                     </td>
                     <td headers="th-descr"><?= $l['TEXTO']; ?></td>
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
-                        <a href="javascript:void;" onclick="SelecionarLinha(this); $rf.submit();" class="so-icone ico-remover">
+                        <a href="javascript:;" onclick="SelecionarLinha(this); $rf.submit();" class="so-icone ico-remover">
                             <?= TXT_LINK_REMOVER;?>
                         </a>
                     </td>
@@ -178,7 +178,7 @@ $mod = $params['modelo'];
     function NovoMetodo(){
         $(document.createElement('li')).addClass('item').html(
             '<input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" required/>'
-                + '<a href="javascript:void;" onclick="$(this).parent().remove();">x</a>'
+                + '<a href="javascript:;" onclick="$(this).parent().remove();">x</a>'
         ).appendTo($('#metodos'));
     } // Fim function NovoMetodo
     //]]>
