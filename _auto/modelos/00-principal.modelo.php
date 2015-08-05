@@ -186,6 +186,8 @@ abstract class Principal{
 	 * @throws \Exception
 	 */
 	protected function _selecionarPK($v, $a = null){
+        if( !isset($v) ) return false;
+
 		$pk = array_map(
 			function($v){ return preg_replace("~^{$this->bd_prefixo}~", '', $v); },
 			\DL3::$bd_conex->_identifica_pk($this->bd_tabela)
