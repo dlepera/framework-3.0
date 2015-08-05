@@ -113,7 +113,7 @@ class FrameworkDL3{
 
     # Configurações da aplicação
     private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = [], $ap_timezone = 'America/Sao_Paulo';
-    public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8',
+    public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8', $ap_http,
             $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
 
     # Diretórios usados para montar as páginas HTML
@@ -154,6 +154,13 @@ class FrameworkDL3{
         # Alterar o diretório atual
         self::$ap_base_html = ( $this->ap_raiz != '/' ? "/{$this->ap_raiz}" : '/' ) . ($h = trim(self::$ap_home, '/')) . ( empty($h) ? '' : '/' );
         chdir(($this->ap_raiz != '/' ? $this->ap_raiz : DL3_ABSPATH). self::$ap_home);
+
+
+	    self::$ap_http = strtolower(
+		    preg_replace('~\/[0-9\.]+$~', '', filter_input(INPUT_SERVER, 'SERVER_PROTOCOL'))) .
+		    filter_input(INPUT_SERVER, 'HTTP_PROTOCOL') .'://'.
+		    filter_input(INPUT_SERVER, 'HTTP_HOST') .
+		    \DL3::$ap_base_html;
 
         # Definir o timezone
         date_default_timezone_set($this->ap_timezone);
