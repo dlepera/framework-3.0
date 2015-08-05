@@ -36,7 +36,7 @@ class PDODL extends PDO{
 	 * @param $dsn String DSN de conexão
 	 */
 	public function _infos_dsn($dsn){
-		preg_match('~^([a-z]+):host=([a-z0-9\.\-]+);port=([0-9]{1,6});dbname=([a-z0-9_]+)~', $dsn, $dados);
+		preg_match('~^([a-z]+):host=([\w\.\-]+);port=([0-9]{1,6});dbname=([\w]+)~', $dsn, $dados);
 		list(, $this->driver, $this->host, $this->porta, $this->bd) = $dados;
 		$this->driver = strtoupper($this->driver);
 	} // Fim do método _infos_dsn
