@@ -418,7 +418,8 @@ class FrameworkDL3{
 		        self::$bd_conex = new PDODL("{$this->bd_driver}:host={$this->bd_host};port={$this->bd_porta};dbname={$this->bd_base};charset={$this->bd_encoding}", $this->bd_usuario, $this->bd_senha);
 		        self::$bd_conex->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 	        } catch( PDOException $e ){
-		        var_dump($e);
+	            echo '<h1>Não foi possível conectar-se ao banco de dados!</h1>';
+		        echo '<p>', $e->getMessage(), '</p>';
 	        } // Fim try catch
         } // Fim if( $this->bd_ativar )
     } // Fim do método _conectarbd
