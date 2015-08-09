@@ -42,12 +42,10 @@ class Tema extends GeralC\PainelDL{
 	 * Mostrar a lista de temas
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('tema_id, tema_descr, ( CASE tema_padrao'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PADRAO,'
-                . " ( CASE tema_publicar"
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PUBLICADO', 'tema_descr', null);
+        $this->_listapadrao('tema_id, tema_descr,'
+            . " ( CASE tema_padrao WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PADRAO,"
+            . " ( CASE tema_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'tema_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_temas');

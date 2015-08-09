@@ -51,9 +51,9 @@ class ConfigEmail extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('config_email_id, config_email_titulo, config_email_host, ( CASE config_email_principal'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) AS PRINCIPAL", 'config_email_titulo', null);
+        $this->_listapadrao('config_email_id, config_email_titulo, config_email_host,'
+            . " ( CASE config_email_principal WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PRINCIPAL",
+            'config_email_titulo', null);
 
         # Visão
         $this->_carregarhtml('lista_emails');

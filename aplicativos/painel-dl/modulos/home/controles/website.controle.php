@@ -13,7 +13,7 @@ use \Geral\Controle as Geral;
 use \Website\Modelo as WebM;
 
 class WebSite extends Geral\PainelDL{
-    public function __construct($m=null) {
+    public function __construct($m = null) {
         parent::__construct($m, 'home', '');
     } // Fim do método __construct
 

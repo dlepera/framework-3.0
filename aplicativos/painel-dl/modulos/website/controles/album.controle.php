@@ -40,9 +40,9 @@ class Album extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('album_id, album_nome, foto_album_imagem, ( CASE album_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PUBLICADO', 'album_nome', null);
+        $this->_listapadrao('album_id, album_nome, foto_album_imagem,'
+            . " ( CASE album_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'album_nome', null);
 
         # Visão
         $this->_carregarhtml('lista_albuns');
@@ -82,7 +82,7 @@ class Album extends GeralC\PainelDL{
 
         # Lista de fotos
         $mf = new WebM\FotoAlbum();
-        $lf = $mf->_listar("foto_album = {$this->modelo->id} AND foto_album_publicar", 'foto_album_capa DESC, foto_album_id DESC', 'foto_album_id, foto_album_titulo, foto_album_descr, foto_album_capa, foto_album_imagem');
+        $lf = $mf->_listar("foto_album = {$this->modelo->id} AND foto_album_publicar = 1", 'foto_album_capa DESC, foto_album_id DESC', 'foto_album_id, foto_album_titulo, foto_album_descr, foto_album_capa, foto_album_imagem');
 
         # Parâmetros
         $this->visao->_adparam('fotos', $lf);

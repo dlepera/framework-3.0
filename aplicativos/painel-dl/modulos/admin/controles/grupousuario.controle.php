@@ -33,13 +33,13 @@ class GrupoUsuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar a lista de registros
-	 */
+    /**
+     * Mostrar a lista de registros
+     */
     protected function _mostrarlista(){
-        $this->_listapadrao('grupo_usuario_id, grupo_usuario_descr, ( CASE grupo_usuario_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) AS PUBLICADO", 'grupo_usuario_descr', null);
+        $this->_listapadrao('grupo_usuario_id, grupo_usuario_descr,'
+            . " ( CASE grupo_usuario_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+	        'grupo_usuario_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_grupos');
@@ -69,7 +69,7 @@ class GrupoUsuario extends GeralC\PainelDL{
 
         # Sub-módulos
         $mm = new DevM\Modulo();
-        $ls = $mm->_listar('M.modulo_publicar AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link');
+        $ls = $mm->_listar('M.modulo_publicar = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link');
 
         # Funcionalidades
         $mf = new DevM\ModuloFunc();

@@ -49,11 +49,11 @@ class ConfiguracaoSite extends GeralC\PainelDL{
 
         # Selecionar os temas
         $mtm = new DevM\Tema();
-        $ltm = $mtm->_carregarselect('tema_publicar', false);
+        $ltm = $mtm->_carregarselect('tema_publicar = 1', false);
 
         # Selecionar os formatos de datas
         $mfd = new DevM\FormatoData();
-        $lfd = $mfd->_carregarselect('formato_data_publicar', false);
+        $lfd = $mfd->_carregarselect('formato_data_publicar = 1', false);
 
         # Parâmetros
         $this->visao->_adparam('temas', $ltm);

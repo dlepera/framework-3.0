@@ -43,12 +43,10 @@ class TipoDadoContato extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('tipo_dado_id, tipo_dado_descr, tipo_dado_icone, ( CASE tipo_dado_rede_social'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) REDE_SOCIAL,"
-                . ' ( CASE tipo_dado_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) AS PUBLICADO", 'tipo_dado_rede_social, tipo_dado_descr', null);
+        $this->_listapadrao('tipo_dado_id, tipo_dado_descr, tipo_dado_icone,'
+            . " ( CASE tipo_dado_rede_social WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) REDE_SOCIAL,"
+            . " ( CASE tipo_dado_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'tipo_dado_rede_social, tipo_dado_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_tipos_dado');

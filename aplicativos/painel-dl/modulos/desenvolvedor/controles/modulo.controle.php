@@ -41,9 +41,9 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar a lista de registros
-	 */
+    /**
+     * Mostrar a lista de registros
+     */
     protected function _mostrarlista(){
         $this->_listapadrao('M.modulo_id, M.modulo_nome AS MODULO, S.modulo_nome AS MODULO_PAI, M.modulo_link,'
             . " ( CASE M.modulo_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
@@ -103,9 +103,9 @@ class Modulo extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Incluir uma nova funcionalidade
-	 */
+    /**
+     * Incluir uma nova funcionalidade
+     */
     protected function _novafunc(){
         $of = new DevM\ModuloFunc();
 

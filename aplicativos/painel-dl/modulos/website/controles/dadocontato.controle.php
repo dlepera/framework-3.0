@@ -39,9 +39,9 @@ class DadoContato extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr, ( CASE dado_contato_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PUBLICADO', 'tipo_dado_descr, dado_contato_descr', null);
+        $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr,'
+            . " ( CASE dado_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'tipo_dado_descr, dado_contato_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_dados');
@@ -71,7 +71,7 @@ class DadoContato extends GeralC\PainelDL{
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
         $m_td = new WebM\TipoDadoContato();
-        $l_td = $m_td->_carregarselect('tipo_dado_publicar', false);
+        $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);
 
         if( isset($this->modelo->id) ){
 	        $m_td->_selecionarPK($this->modelo->tipo);

@@ -21,6 +21,7 @@ class Login extends GeralC\Principal{
 
 
 
+
     /**
      * Mostrar o formulário de login
      */
@@ -32,7 +33,7 @@ class Login extends GeralC\Principal{
 
         # Selecionar o tema padrão
         $mtm = new DevM\Tema();
-        $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
+        $ltm = $mtm->_listar('tema_padrao = 1', null, 'tema_diretorio', 0, 1, 0);
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -41,9 +42,9 @@ class Login extends GeralC\Principal{
 
 
 
-	/**
-	 * Mostrar o formulário para recuperação da senha
-	 */
+    /**
+     * Mostrar o formulário para recuperação da senha
+     */
     public function _mostraresqueci(){
         $this->_formpadrao('login', 'recuperar-senha', null);
 
@@ -52,7 +53,7 @@ class Login extends GeralC\Principal{
 
         # Selecionar o tema padrão
         $mtm = new DevM\Tema();
-	    $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
+	    $ltm = $mtm->_listar('tema_padrao = 1', null, 'tema_diretorio', 0, 1, 0);
 
         /* Parâmetros */
         $this->visao->_adparam('tema', $ltm['tema_diretorio']);
@@ -61,11 +62,11 @@ class Login extends GeralC\Principal{
 
 
 
-	/**
-	 * Recuperar senha
-	 *
-	 * Enviar um e-mail ao usuário com um link para resetar a senha
-	 */
+    /**
+     * Recuperar senha
+     *
+     * Enviar um e-mail ao usuário com um link para resetar a senha
+     */
     public function _recuperarsenha(){
         $le = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_STRING);
 
@@ -130,13 +131,14 @@ class Login extends GeralC\Principal{
 
 	    # Selecionar o tema padrão
 	    $mtm = new DevM\Tema();
-	    $ltm = $mtm->_listar('tema_padrao', null, 'tema_diretorio', 0, 1, 0);
+	    $ltm = $mtm->_listar('tema_padrao = 1', null, 'tema_diretorio', 0, 1, 0);
 
 	    # Parâmetros
 	    $this->visao->_adparam('tema', $ltm['tema_diretorio']);
         $this->visao->_adparam('id', $lr['recuperacao_id']);
         $this->visao->_adparam('nome-usuario', $lr['usuario_info_nome']);
     } // Fim do método _mostrarresetsenha
+
 
 
 
@@ -164,6 +166,7 @@ class Login extends GeralC\Principal{
 
 
 
+
     /**
      * Realizar o login no sistema
      */
@@ -178,8 +181,9 @@ class Login extends GeralC\Principal{
 
 
 
+
     /**
-     * Realozar o logout do sistema
+     * Realizar o logout do sistema
      */
     public function _fazerlogout(){
         return \DL3::$aut_o->_fazerlogout() ?

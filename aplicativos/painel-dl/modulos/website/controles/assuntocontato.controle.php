@@ -38,13 +38,13 @@ class AssuntoContato extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar a lista de registros
-	 */
+    /**
+     * Mostrar a lista de registros
+     */
     protected function _mostrarlista(){
-        $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor, ( CASE assunto_contato_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PUBLICADO', 'assunto_contato_descr', null);
+        $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor,'
+            . " ( CASE assunto_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'assunto_contato_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_assuntos');

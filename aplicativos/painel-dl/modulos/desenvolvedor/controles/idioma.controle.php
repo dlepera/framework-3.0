@@ -35,9 +35,9 @@ class Idioma extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla, ( CASE idioma_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . " END ) AS PUBLICADO", 'idioma_descr', null);
+        $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla,'
+            . " ( CASE idioma_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+            'idioma_descr', null);
 
         # Visão
         $this->_carregarhtml('lista_idiomas');

@@ -54,6 +54,7 @@ class Usuario extends GeralC\PainelDL{
 
 
 
+
     /**
      * Mostrar a lista de registros
      */
@@ -77,12 +78,12 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar o formulário de inclusão e edição do registro
-	 *
-	 * @param int    $pk PK do registro a ser selecionado
-	 * @param string $rd URL para onde será redirecionado depois do salvamento do registro
-	 */
+    /**
+     * Mostrar o formulário de inclusão e edição do registro
+     *
+     * @param int    $pk PK do registro a ser selecionado
+     * @param string $rd URL para onde será redirecionado depois do salvamento do registro
+     */
     protected function _mostrarform($pk = null, $rd = 'admin/usuarios'){
         $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', $rd, $pk);
 
@@ -91,13 +92,13 @@ class Usuario extends GeralC\PainelDL{
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_USUARIO : TXT_PAGINA_TITULO_EDITAR_USUARIO;
 
         $m_gu = new AdminM\GrupoUsuario();
-        $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar', false);
+        $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar = 1', false);
 
         $m_id = new DevM\Idioma();
-        $l_id = $m_id->_carregarselect('idioma_publicar', false);
+        $l_id = $m_id->_carregarselect('idioma_publicar = 1', false);
 
         $m_te = new DevM\Tema();
-        $l_te = $m_te->_listar('tema_publicar', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
+        $l_te = $m_te->_listar('tema_publicar = 1', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
 
         $m_fd = new DevM\FormatoData();
         $l_fd = $m_fd->_carregarselect('formato_data_publicar', false);
@@ -123,11 +124,11 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Minha conta
-	 *
-	 * Mostrar as informações do usuário logado
-	 */
+    /**
+     * Minha conta
+     *
+     * Mostrar as informações do usuário logado
+     */
     protected function _minhaconta(){
         return $this->_mostrarform($_SESSION['usuario_id'], '');
     } // Fim do método _minhaconta
@@ -135,9 +136,9 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar o formulário para alteração de senhas desse usuário
-	 */
+    /**
+     * Mostrar o formulário para alteração de senhas desse usuário
+     */
     protected function _formalterarsenha(){
         $this->_formpadrao('senha', null, 'usuarios/alterar-senha-usuario', 'admin/usuarios/minha-conta', $_SESSION['usuario_id']);
 
@@ -152,9 +153,9 @@ class Usuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Executar a ação de alterar a senha do usuário
-	 */
+    /**
+     * Executar a ação de alterar a senha do usuário
+     */
     protected function _alterarsenha(){
         # Obter as senhas informadas
         $sa = $this->modelo->_cripto_md5((filter_input(INPUT_POST, 'senha_atual')));

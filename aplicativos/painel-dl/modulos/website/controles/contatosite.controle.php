@@ -25,10 +25,7 @@ class ContatoSite extends GeralC\PainelDL{
      */
     protected function _mostrarlista(){
         $this->_listapadrao('contato_site_id, contato_site_nome, contato_site_email, log_registro_data_criacao,'
-                . ' ( CASE IFNULL(contato_site_assunto, 0)'
-                . " WHEN 0 THEN 'Não informado'"
-                . ' ELSE assunto_contato_descr'
-                . ' END ) AS ASSUNTO',
+                . " ( CASE COALESCE(contato_site_assunto, 0) WHEN 0 THEN 'Não informado' ELSE assunto_contato_descr END ) AS ASSUNTO",
                 'log_registro_data_criacao DESC', null);
 
         # Visão
@@ -48,13 +45,13 @@ class ContatoSite extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar detalhes do registro
-	 *
-	 * @param int $pk Valor da PK do registro a ser selecionado
-	 *
-	 * @throws \Exception
-	 */
+    /**
+     * Mostrar detalhes do registro
+     *
+     * @param int $pk Valor da PK do registro a ser selecionado
+     *
+     * @throws \Exception
+     */
     protected function _mostrardetalhes($pk){
         $this->modelo->_selecionarPK($pk);
 
@@ -78,7 +75,7 @@ class ContatoSite extends GeralC\PainelDL{
         $mlc->leitura_contato   = $this->modelo->id;
         $mlc->usuario           = $_SESSION['usuario_id'];
         $mlc->_salvar();
-        $llc = $mlc->_listar("leitura_contato = {$this->modelo->id}", 'leitura_contato_data DESC', "leitura_contato_data, IFNULL(usuario_info_nome, 'Super Admin') AS USUARIO");
+        $llc = $mlc->_listar("leitura_contato = {$this->modelo->id}", 'leitura_contato_data DESC', "leitura_contato_data, COALESCE(usuario_info_nome, 'Super Admin') AS USUARIO");
 
         # Parâmetro
         $this->visao->_adparam('modelo', $this->modelo);

@@ -110,6 +110,11 @@ $params = $this->_obterparams();
                 </li>
                 <?php endforeach; ?>
             </ul>
+
+	        <a href="http://diegolepera.com.br/" target="_blank" class="dl3-link">
+		        <img src="http://diegolepera.com.br/aplicacao/imgs/logotipo.png" alt="diegolepera.com.br"/>
+		        <span><?= TXT_DIVERSOS_SITE_DESENVOLVIDO_POR; ?></span>
+	        </a>
         </footer>
 
     </div>

@@ -75,7 +75,7 @@ class ContatoSite extends GeralM\Principal{
 
         $lis = $this->_listar(
             '1=1 GROUP BY assunto_contato_id', 'assunto_contato_descr',
-            "COUNT({$this->bd_prefixo}id) AS QTDE, IFNULL(assunto_contato_descr, '". MSG_ASSUNTO_NAO_INFORMADO ."') AS DESCR, IFNULL(assunto_contato_cor, '#000') AS COR"
+            "COUNT({$this->bd_prefixo}id) AS QTDE, COALESCE(assunto_contato_descr, '". MSG_ASSUNTO_NAO_INFORMADO ."') AS DESCR, COALESCE(assunto_contato_cor, '#000') AS COR"
         );
 
         $tabela = '<table class="wg-conteudo"><tbody>';
