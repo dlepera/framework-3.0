@@ -209,15 +209,15 @@ class Usuario extends GeralM\Principal{
 
 
 
-	/**
-	 * Validar a senha
-	 *
-	 * @param string     $sn  Senha a ser analisada
-	 * @param bool|false $md5 Se true, faz a comparação usando a hash MD5 dupla do valores a serem verificados
-	 *
-	 * @return bool
-	 * @throws \Exception
-	 */
+    /**
+     * Validar a senha
+     *
+     * @param string     $sn  Senha a ser analisada
+     * @param bool|false $md5 Se true, faz a comparação usando a hash MD5 dupla do valores a serem verificados
+     *
+     * @return bool
+     * @throws \Exception
+     */
     public function _validar_senha($sn, $md5 = false){
 	    $lg = $md5 ? $this->_cripto_md5($this->info_login) : $this->info_login;
 

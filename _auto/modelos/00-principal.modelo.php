@@ -10,6 +10,8 @@
 namespace Geral\Modelo;
 
 abstract class Principal{
+	const LOG_REGISTRO = 'Geral\Modelo\LogRegistro';
+
     protected $bd_tabela, $bd_prefixo, $bd_select = 'SELECT %s FROM %s WHERE %sdelete = 0';
 
     # Gravar logs do registro
@@ -28,24 +30,23 @@ abstract class Principal{
 
 
 
+
     /**
      * Ações padrões a serem executadas quando um determinado método é acionado
      *
-     * @param string    $n  Nome do método a ser executado
-     * @param array     $a  Vetor contendo os argumentos a serem passados para o método
+     * @param string $n Nome do método a ser executado
+     * @param array  $a Vetor contendo os argumentos a serem passados para o método
      *
      * @return int|mixed
      * @throws \Exception
      */
     public function __call($n, $a = []){
-        $mod_registro = 'Geral\Modelo\LogRegistro';
-
         switch($n){
             # Gravar log de inserção e alteração do registro
             case '_salvar':
                 $s = call_user_func_array([$this, '_salvar'], $a);
 
-                if( class_exists($mod_registro) && $s > 0 && isset($this->id) ){
+                if( class_exists(self::LOG_REGISTRO) && $s > 0 && isset($this->id) ){
                     $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
 
                     if( $this->mod_lr->reg_vazio ){
@@ -60,20 +61,12 @@ abstract class Principal{
 
             # Gravar log de remoção
             case '_remover':
-                if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) ){
+                if( ($rem = $this->_remover()) !== false && class_exists(self::LOG_REGISTRO) ){
                     $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
                     $this->mod_lr->_salvar(true);
                 } // Fim if( ($rem = $this->_remover()) !== false && class_exists($mod_registro) )
 
                 return $rem;
-
-            # Selecionar as informações de inclusão e alteração do registro
-            case '_selecionarPK':
-                call_user_func_array([$this, '_selecionarPK'], $a);
-
-                isset($this->id) && get_called_class() !== $mod_registro
-                and $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
-                break;
         } // Fim switch($n)
     } // Fim do método mágico __call
 
@@ -185,7 +178,7 @@ abstract class Principal{
      * @return bool
      * @throws \Exception
      */
-    protected function _selecionarPK($v, $a = null){
+    public function _selecionarPK($v, $a = null){
         if( !isset($v) ) return false;
 
         $pk = array_map(
@@ -232,6 +225,10 @@ abstract class Principal{
 
         \Funcoes::_vetor2objeto($dd, $this);
 
+        # Selecionar o LOG desse registro
+	    isset($this->id) && get_called_class() !== self::LOG_REGISTRO
+	        and $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
+
         # Indicar que o registro foi selecionado
         return !($this->reg_vazio = !(bool)$ls);
     } // Fim do método _selecionarUK
@@ -263,12 +260,10 @@ abstract class Principal{
                 1500);
 
         # Se a ação executada foi um insert, carregar o ID gerado
-        if( preg_match('~^(INSERT)~', $query) ):
-            $this->id = \DL3::$bd_conex->lastInsertID("{$this->bd_prefixo}id");
-            return $this->id;
-        else:
-            return $exec;
-        endif;
+        if( preg_match('~^(INSERT)~', $query) ){
+	        $this->id = \DL3::$bd_conex->lastInsertID("{$this->bd_prefixo}id");
+	        return $this->id;
+        } else return $exec;
     } // Fim do método _salvar
 
 
@@ -329,8 +324,8 @@ abstract class Principal{
                 (isset($ce) && in_array($c['Field'], $ce)) ) continue;
 
             # Obter as informações do campos
-            $pk     = $c['Key'] == 'PRI';
-            $obr    = $c['Null'] == 'NO';
+            $pk     = $c['Key'] === 'PRI';
+            $obr    = $c['Null'] === 'NO';
 
             if( !isset($this->{$p}) && $obr && !$pk )
                 throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARINSERT_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
@@ -370,7 +365,8 @@ abstract class Principal{
             # Ignorar o campo de marcação da deleção de um registro
             # Ignorar campos que NAO estejam no vetor $ci, caso o mesmo não seja nulo
             # Ignorar campos que estejam no vetor $ce, caso o mesmo não seja nulo
-            if( $p === 'delete' || (isset($ci) && !in_array($c['Field'], $ci)) || (isset($ce) && in_array($c['Field'], $ce)) ) continue;
+            if( $p === 'delete' || (isset($ci) && !in_array($c['Field'], $ci)) ||
+	            (isset($ce) && in_array($c['Field'], $ce)) ) continue;
 
             # Obter as informações do campos
             $pk = $c['Key'] === 'PRI';
@@ -404,7 +400,7 @@ abstract class Principal{
     public function _carregarselect($f = null, $e = true, $v = 'id', $t = 'descr'){
         $lis = $this->_listar($f, "{$this->bd_prefixo}{$t}", "{$this->bd_prefixo}{$v} AS VALOR, {$this->bd_prefixo}{$t} AS TEXTO");
 
-        $e AND print(json_encode($lis));
+        $e and print(json_encode($lis));
         return $lis;
     } // Fim _carregarselect
 

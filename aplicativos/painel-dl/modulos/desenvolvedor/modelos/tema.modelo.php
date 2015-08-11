@@ -31,9 +31,12 @@ class Tema extends GeralM\Principal{
 
 
 
-    public function __construct(){
+
+    public function __construct($pk = null){
         parent::__construct('dl_painel_temas', 'tema_');
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
+
 
 
 
@@ -48,11 +51,11 @@ class Tema extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
 		# Apenas um registro pode ter a flag 'padrao' marcada. Por tanto, caso
 		# o registro atual tenha essa flag a mesma deve ser desmarcados do
 		# outro registro, se houver
-        $this->padrao AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}padrao = 0");
+        $this->padrao and \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}padrao = 0");
 
         return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar

@@ -80,39 +80,18 @@ class ConfigEmail extends Principal{
 
 
 	/**
-	 * Salvar determinado registro
-	 *
-	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
-	 * @param array   $ci  Vetor com os campos a serem considerados
-	 * @param array   $ce  Vetor com os campos a serem desconsiderados
-	 * @param bool    $ipk Define se o campo PK será considerado para inserção
-	 *
-	 * @return mixed
-	 * @throws \Exception
+	 * Selecionar registro marcado como principal
 	 */
-	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
-		# Apenas um registro pode ter a flag 'principal' marcada. Portanto, caso
-		# o registro atual tenha a flag, a mesma deve ser desmarcada em qualquer
-		# outro registro
-		$this->principal && $s and \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
-
-		return parent::_salvar($s);
-	} // Fim do método _salvar
+    public function _selecionar_principal(){
+	    return $this->_selecionarUK('principal', 1);
+    } // Fim do método _selecionar_principal
 
 
 
 
-	/**
-	 * Selecionar apenas a configuração principal
-	 *
-	 * Selecionar apenas o registro que está definido como principal e carregá-lo no modelo
+	/*
+	 * Desativar _salvar e _remover
 	 */
-    public function _selecionarprincipal(){
-        $lis_m = $this->_listar("{$this->bd_prefixo}principal", null, "{$this->bd_prefixo}id", 0, 1, 0);
-
-        if( $lis_m === false )
-            throw new \Exception(ERRO_CONFIGEMAIL_SELECIONARPRINCIPAL, 1404);
-
-        $this->_selecionarPK($lis_m["{$this->bd_prefixo}id"]);
-    } // Fim do método _selecionarprincipal
+	public function _salvar(){ return; }
+	public function _remover(){ return; }
 } // Fim do modelo ConfigModelo

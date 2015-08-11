@@ -9,6 +9,24 @@
 namespace Geral\Apoio;
 
 class Numero{
+	private $porcent = [
+		'pt_BR' => [
+			'formato' => '[valor][simbolo]',
+			'simbolo' => '%',
+			'decimais' => 2,
+			'sep-decimal' => ',',
+			'sep-milhar' => ''
+		],
+
+		'en_US' => [
+			'formato' => '[valor][simbolo]',
+			'simbolo' => '%',
+			'decimais' => 2,
+			'sep-decimal' => '.',
+			'sep-milhar' => ','
+		]
+	];
+
 	private $moedas = [
 		'BRL' => [
 			'formato' => '[simbolo] [valor]',
@@ -35,15 +53,57 @@ class Numero{
 		]
 	];
 
+
+
+
+	/**
+	 * Formatar valor monetário para ser exibido de acordo com o código da moeda
+	 *
+	 * @param float  $v  Valor a ser formatado
+	 * @param string $cm Código da moeda a ser utilizado
+	 *
+	 * @return mixed
+	 */
 	public function _moeda($v, $cm = 'BRL'){
-		$m = $this->moedas[$cm];
+		return $this->_formatar_num($v, $this->moedas, $cm);
+	} // Fim do método _moeda
+
+
+
+
+	/**
+	 * Formatar números em porcentagem
+	 *
+	 * @param float  $v  Valor a ser formatado
+	 * @param string $ci Código de idioma a ser utilizado
+	 *
+	 * @return mixed
+	 */
+	public function _porcentagem($v, $ci = 'pt_BR'){
+		return $this->_formatar_num($v, $this->porcent, $ci);
+	} // Fim do método __porcentagem
+
+
+
+
+	/**
+	 * Formatar o número de acordo com a configuração
+	 *
+	 * @param float  $vl Valor a ser formatado
+	 * @param array  $cf Configuração a ser utilizada
+	 * @param string $cd Código da configuração a ser utilizada
+	 *
+	 * @return mixed
+	 */
+	private function _formatar_num($vl, array $cf, $cd){
+		$f = $cf[$cd];
 
 		return str_replace(
-			'[simbolo]', $m['simbolo'],
+			'[simbolo]', $f['simbolo'],
 			str_replace(
-				'[valor]', number_format($v, $m['decimais'], $m['sep-decimal'], $m['sep-milhar']),
-				$m['formato']
+				'[valor]', number_format($vl, $f['decimais'], $f['sep-decimal'], $f['sep-milhar']),
+				$f['formato']
 			)
 		);
-	} // Fim do método _moeda
+	} // Fim do método _formatar_num
 } // Fim da classe Número

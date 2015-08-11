@@ -16,13 +16,13 @@ class Tema extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new DevM\Tema(), 'desenvolvedor', TXT_MODELO_TEMA);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'        => FILTER_VALIDATE_INT,
-                'descr'     => FILTER_SANITIZE_STRING,
+                'id' => FILTER_VALIDATE_INT,
+                'descr' => FILTER_SANITIZE_STRING,
                 'diretorio' => FILTER_SANITIZE_STRING,
-                'padrao'    => FILTER_VALIDATE_BOOLEAN,
-                'publicar'  => FILTER_VALIDATE_BOOLEAN
+                'padrao' => FILTER_VALIDATE_BOOLEAN,
+                'publicar' => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -32,7 +32,7 @@ class Tema extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
 
 

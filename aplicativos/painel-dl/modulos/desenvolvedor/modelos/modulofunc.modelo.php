@@ -54,7 +54,7 @@ class ModuloFunc extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s=true, $ci=null, $ce=null, $ipk=false){
+	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $r && $s ){
@@ -79,7 +79,7 @@ class ModuloFunc extends GeralM\Principal{
 	 * @return bool
 	 * @throws \Exception
 	 */
-	protected function _selecionarPK($v, $a = null){
+	public function _selecionarPK($v, $a = null){
         if( parent::_selecionarPK($v, $a) ){
 	        $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
 	        $sql->execute([':id' => $this->id]);

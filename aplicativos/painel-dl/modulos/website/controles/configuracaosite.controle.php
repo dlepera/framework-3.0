@@ -17,11 +17,11 @@ class ConfiguracaoSite extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\ConfiguracaoSite(), 'website', TXT_MODELO_CONFIGURACAOSITE);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'            =>  FILTER_VALIDATE_INT,
-                'tema'          =>  FILTER_VALIDATE_INT,
-                'formato_data'  =>  FILTER_VALIDATE_INT
+                'id' => FILTER_VALIDATE_INT,
+                'tema' => FILTER_VALIDATE_INT,
+                'formato_data' => FILTER_VALIDATE_INT
             ]);
 
             # Converter o encode
@@ -31,7 +31,7 @@ class ConfiguracaoSite extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD')
     } // Fim do método __construct
 
 

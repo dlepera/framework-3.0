@@ -16,20 +16,22 @@ class DadoContato extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\DadoContato(), 'website', TXT_MODELO_DADOCONTATO);
 
-        $post = filter_input_array(INPUT_POST, [
-            'id'        =>  FILTER_VALIDATE_INT,
-            'tipo'      =>  FILTER_VALIDATE_INT,
-            'descr'     =>  FILTER_SANITIZE_STRING,
-            'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-        ]);
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' ){
+            $post = filter_input_array(INPUT_POST, [
+	            'id' => FILTER_VALIDATE_INT,
+	            'tipo' => FILTER_VALIDATE_INT,
+	            'descr' => FILTER_SANITIZE_STRING,
+	            'publicar' => FILTER_VALIDATE_BOOLEAN
+            ]);
 
-        # Converter o encode
-        \Funcoes::_converterencode($post, \DL3::$ap_charset);
+            # Converter o encode
+            \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
-        # Selecionar as informações atuais
-        $this->modelo->_selecionarPK($post['id']);
+            # Selecionar as informações atuais
+            $this->modelo->_selecionarPK($post['id']);
 
-        \Funcoes::_vetor2objeto($post, $this->modelo);
+            \Funcoes::_vetor2objeto($post, $this->modelo);
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
     } // Fim do método __construct
 
 
@@ -57,12 +59,12 @@ class DadoContato extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar formulário de inclusão e edição do registro
-	 *
-	 * @param int    $pk  Valor da PK do registro a ser selecionado
-	 * @param string $mst Nome da página mestra a ser carregada
-	 */
+    /**
+     * Mostrar formulário de inclusão e edição do registro
+     *
+     * @param int    $pk  Valor da PK do registro a ser selecionado
+     * @param string $mst Nome da página mestra a ser carregada
+     */
     protected function _mostrarform($pk = null, $mst = null){
         $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $pk);
 

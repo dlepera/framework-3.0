@@ -16,24 +16,24 @@ class Idioma extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new DevM\Idioma(), 'desenvolvedor', TXT_MODELO_IDIOMA);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'        =>  FILTER_VALIDATE_INT,
-                'descr'     =>  FILTER_SANITIZE_STRING,
-                'sigla'     =>  FILTER_SANITIZE_STRING,
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
+                'id'        => FILTER_VALIDATE_INT,
+                'descr'     => FILTER_SANITIZE_STRING,
+                'sigla'     => FILTER_SANITIZE_STRING,
+                'publicar'  => FILTER_VALIDATE_BOOLEAN
             ]);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
 
 
 
 
-	/**
-	 * Mostrar a lista de registros
-	 */
+    /**
+     * Mostrar a lista de registros
+     */
     protected function _mostrarlista(){
         $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla,'
             . " ( CASE idioma_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",

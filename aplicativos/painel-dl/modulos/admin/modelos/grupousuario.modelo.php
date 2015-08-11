@@ -73,7 +73,7 @@ class GrupoUsuario extends GeralM\Principal{
 	 * @return bool
 	 * @throws \Exception
 	 */
-    protected function _selecionarPK($v, $a = null){
+    public function _selecionarPK($v, $a = null){
 	    if( parent::_selecionarPK($v, $a) ){
 		    $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
 		    $sql->execute([':id' => $this->id]);

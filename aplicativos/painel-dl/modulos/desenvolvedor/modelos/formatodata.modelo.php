@@ -35,7 +35,8 @@ class FormatoData extends GeralM\Principal{
 
 
 
-    public function __construct(){
+    public function __construct($pk = null){
         parent::__construct('dl_painel_formatos_data', 'formato_data_');
+        $this->_selecionarPK($pk);
     } // fim do método __construct
 } // Fim do Modelo FormatoData

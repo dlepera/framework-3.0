@@ -37,7 +37,7 @@ class ConfiguracaoSite extends GeralM\Principal{
 
 
 
-    /**
+    /*
      * Não permitir exclusão nem alteração de publicação
      * 
      * @return void

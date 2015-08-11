@@ -92,7 +92,7 @@ class FotoAlbum extends GeralM\Principal{
         # Apenas uma foto pode ser definida como capa de um álbum, portanto, caso
         # o registro atual esteja sendo definido como capa, a flag deve ser
         # desmarcada nas demais fotos
-        $this->capa == 1 AND \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 WHERE foto_album = {$this->foto_album}");
+        $this->capa and \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}capa = 0 WHERE foto_album = {$this->foto_album}");
 
         return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
@@ -105,6 +105,6 @@ class FotoAlbum extends GeralM\Principal{
 	 */
     protected function _remover(){
         # Excluir a foto vinculada
-        return unlink(".{$this->imagem}") AND parent::_remover();
+        return unlink(".{$this->imagem}") and parent::_remover();
     } // Fim do método _remover
 } // Fim do Modelo FotoAlbum

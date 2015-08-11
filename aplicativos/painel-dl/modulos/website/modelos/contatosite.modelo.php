@@ -23,7 +23,7 @@ class ContatoSite extends GeralM\Principal{
                 . " INNER JOIN dl_painel_registros_logs AS LR ON( LR.log_registro_idreg = CS.contato_site_id AND LR.log_registro_tabela = '{$this->bd_tabela}' )"
                 . ' WHERE CS.%sdelete = 0';
 
-        $pk = $this->_selecionarPK($pk);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 

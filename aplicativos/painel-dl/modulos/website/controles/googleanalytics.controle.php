@@ -16,16 +16,16 @@ class GoogleAnalytics extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\GoogleAnalytics(), 'website', TXT_MODELO_GOOGLEANALYTICS);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'        =>  FILTER_VALIDATE_INT,
-                'apelido'   =>  FILTER_SANITIZE_STRING,
-                'usuario'   =>  FILTER_VALIDATE_EMAIL,
-                'senha'     =>  FILTER_SANITIZE_STRING,
-                'perfil_id' =>  FILTER_VALIDATE_INT,
-                'codigo_ua' =>  FILTER_SANITIZE_STRING,
-                'principal' =>  FILTER_VALIDATE_BOOLEAN,
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
+                'id' => FILTER_VALIDATE_INT,
+                'apelido' => FILTER_SANITIZE_STRING,
+                'usuario' => FILTER_VALIDATE_EMAIL,
+                'senha' => FILTER_SANITIZE_STRING,
+                'perfil_id' => FILTER_VALIDATE_INT,
+                'codigo_ua' => FILTER_SANITIZE_STRING,
+                'principal' => FILTER_VALIDATE_BOOLEAN,
+                'publicar' => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -35,7 +35,7 @@ class GoogleAnalytics extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
     } // Fim do método __construct
 
 

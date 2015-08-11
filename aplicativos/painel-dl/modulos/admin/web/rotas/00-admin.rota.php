@@ -60,7 +60,6 @@ $rotas['^grupos-de-usuarios/alternar-publicacao/(publicar|ocultar)$'] = [
 
 /*
  * Usuários
- * -----------------------------------------------------------------------------
  */
 $rotas['^(usuarios/lista|usuarios)$'] = [
     'controle'  =>  'Usuario',
@@ -124,7 +123,6 @@ $rotas['^usuarios/desbloquear-usuarios$'] = [
 
 /*
  * Configuração de envio de e-mails
- * -----------------------------------------------------------------------------
  */
 $rotas['^(envio-de-emails/lista|envio-de-emails)$'] = [
     'controle'  =>  'ConfigEmail',

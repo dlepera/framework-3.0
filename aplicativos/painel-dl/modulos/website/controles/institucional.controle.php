@@ -16,14 +16,14 @@ class Institucional extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\Institucional(), 'website', TXT_MODELO_SOBRE);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'        =>  FILTER_VALIDATE_INT,
-                'historia'  =>  FILTER_DEFAULT,
-                'missao'    =>  FILTER_DEFAULT,
-                'visao'     =>  FILTER_DEFAULT,
-                'valores'   =>  FILTER_DEFAULT,
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
+                'id' => FILTER_VALIDATE_INT,
+                'historia' => FILTER_DEFAULT,
+                'missao' => FILTER_DEFAULT,
+                'visao' => FILTER_DEFAULT,
+                'valores' => FILTER_DEFAULT,
+                'publicar' => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -33,7 +33,7 @@ class Institucional extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
     } // Fim do método __construct
 
 

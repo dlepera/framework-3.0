@@ -58,7 +58,7 @@ class Album extends GeralM\Principal{
 			if( isset($this->id) ){
 				$d = sprintf(self::DIR_UPLOAD, $this->id);
 				!file_exists($d) and mkdir($d);
-			} // Fim if( !is_null($this->id) )
+			} // Fim if( isset($this->id) )
 
 			# Durante a inclusão do registro, fotos podem ser incluídas
 			if( $this->reg_vazio ){

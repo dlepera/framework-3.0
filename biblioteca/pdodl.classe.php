@@ -137,9 +137,12 @@ class PDODL extends PDO{
 
 		$q = constant($c);
 
-		$sql = $this->prepare($this->driver === 'MYSQL' ? str_replace(':tbl', $tbl, $q) : $q);
+		# Verificar se o driver utilizado é o MySQL
+		$my = $this->driver === 'MYSQL';
 
-		if( !$sql->execute([':tbl' => $tbl, ':cpo' => $cpo]) )
+		$sql = $this->prepare($my ? str_replace(':tbl', $tbl, $q) : $q);
+
+		if( !$sql->execute($my ? [':cpo' => $cpo] : [':tbl' => $tbl, ':cpo' => $cpo]) )
 			var_dump($sql->errorInfo());
 		// throw new \Exception($sql->errorInfo(), 1500);
 

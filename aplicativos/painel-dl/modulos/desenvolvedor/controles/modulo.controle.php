@@ -13,19 +13,19 @@ use \Geral\Controle as GeralC;
 use \Desenvolvedor\Modelo as DevM;
 
 class Modulo extends GeralC\PainelDL{
-    public function __construct() {
+    public function __construct(){
         parent::__construct(new DevM\Modulo(), 'desenvolvedor', TXT_MODELO_MODULO);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'        =>  FILTER_VALIDATE_INT,
-                'pai'       =>  FILTER_VALIDATE_INT,
-                'nome'      =>  FILTER_SANITIZE_STRING,
-                'descr'     =>  FILTER_DEFAULT,
-                'menu'      =>  FILTER_VALIDATE_BOOLEAN,
-                'link'      =>  FILTER_SANITIZE_STRING,
-                'ordem'     =>  FILTER_VALIDATE_INT,
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
+                'id'        => FILTER_VALIDATE_INT,
+                'pai'       => FILTER_VALIDATE_INT,
+                'nome'      => FILTER_SANITIZE_STRING,
+                'descr'     => FILTER_DEFAULT,
+                'menu'      => FILTER_VALIDATE_BOOLEAN,
+                'link'      => FILTER_SANITIZE_STRING,
+                'ordem'     => FILTER_VALIDATE_INT,
+                'publicar'  => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -35,7 +35,7 @@ class Modulo extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
 
 

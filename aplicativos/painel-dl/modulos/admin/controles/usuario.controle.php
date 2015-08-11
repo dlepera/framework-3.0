@@ -19,37 +19,37 @@ use \Desenvolvedor\Modelo as DevM;
 
 class Usuario extends GeralC\PainelDL{
     public function __construct(){
-        parent::__construct(new AdminM\Usuario(), 'admin', TXT_MODELO_USUARIO);
+	    parent::__construct(new AdminM\Usuario(), 'admin', TXT_MODELO_USUARIO);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, [
-                'id'                =>  FILTER_VALIDATE_INT,
-                'info_grupo'        =>  FILTER_VALIDATE_INT,
-                'info_nome'         =>  FILTER_SANITIZE_STRING,
-                'info_email'        =>  FILTER_VALIDATE_EMAIL,
-                'info_telefone'     =>  FILTER_SANITIZE_STRING,
-                'info_sexo'         =>  FILTER_SANITIZE_STRING,
-                'info_login'        =>  FILTER_SANITIZE_STRING,
-                'info_senha'        =>  FILTER_DEFAULT,
-                'info_senha_conf'   =>  FILTER_DEFAULT,
-                'pref_idioma'       =>  FILTER_VALIDATE_INT,
-                'pref_tema'         =>  FILTER_VALIDATE_INT,
-                'pref_formato_data' =>  FILTER_VALIDATE_INT,
-                'pref_num_registros'=>  FILTER_SANITIZE_NUMBER_INT,
-                'pref_exibir_id'    =>  FILTER_VALIDATE_BOOLEAN,
-                'pref_filtro_menu'  =>  FILTER_VALIDATE_BOOLEAN,
-                'conf_reset'        =>  FILTER_VALIDATE_BOOLEAN,
-                'conf_bloq'         =>  FILTER_VALIDATE_BOOLEAN
-            ]);
+	    if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
+		    $post = filter_input_array(INPUT_POST, [
+			    'id'                => FILTER_VALIDATE_INT,
+			    'info_grupo'        => FILTER_VALIDATE_INT,
+			    'info_nome'         => FILTER_SANITIZE_STRING,
+			    'info_email'        => FILTER_VALIDATE_EMAIL,
+			    'info_telefone'     => FILTER_SANITIZE_STRING,
+			    'info_sexo'         => FILTER_SANITIZE_STRING,
+			    'info_login'        => FILTER_SANITIZE_STRING,
+			    'info_senha'        => FILTER_DEFAULT,
+			    'info_senha_conf'   => FILTER_DEFAULT,
+			    'pref_idioma'       => FILTER_VALIDATE_INT,
+			    'pref_tema'         => FILTER_VALIDATE_INT,
+			    'pref_formato_data' => FILTER_VALIDATE_INT,
+			    'pref_num_registros' => FILTER_VALIDATE_INT,
+			    'pref_exibir_id'    => FILTER_VALIDATE_BOOLEAN,
+			    'pref_filtro_menu'  => FILTER_VALIDATE_BOOLEAN,
+			    'conf_reset'        => FILTER_VALIDATE_BOOLEAN,
+			    'conf_bloq'         => FILTER_VALIDATE_BOOLEAN
+		    ]);
 
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
+		    # Converter o encode
+		    \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
+		    # Selecionar as informações atuais
+		    $this->modelo->_selecionarPK($post['id']);
 
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+		    \Funcoes::_vetor2objeto($post, $this->modelo);
+	    } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
 
 
@@ -101,7 +101,7 @@ class Usuario extends GeralC\PainelDL{
         $l_te = $m_te->_listar('tema_publicar = 1', 'tema_descr', 'tema_id AS VALOR, tema_descr AS TEXTO, tema_padrao');
 
         $m_fd = new DevM\FormatoData();
-        $l_fd = $m_fd->_carregarselect('formato_data_publicar', false);
+        $l_fd = $m_fd->_carregarselect('formato_data_publicar = 1', false);
 
         if( !$inc ){
 	        # Grupo de usuário

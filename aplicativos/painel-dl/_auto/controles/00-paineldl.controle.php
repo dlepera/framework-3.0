@@ -20,8 +20,8 @@ class PainelDL extends Principal{
         $mm = new DevM\Modulo();
         $lm = $mm->_listar('M.modulo_publicar = 1 AND M.modulo_pai IS NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_nome, M.modulo_descr, M.modulo_link');
         $ls = $_SESSION['usuario_id'] != -1 ?
-            $mm->_listarmenu('M.modulo_publicar = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link')
-        : $mm->_listar('M.modulo_publicar = 1 AND M.modulo_menu = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link');
+            $mm->_listarmenu('M.modulo_publicar = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link, M.modulo_ordem')
+            : $mm->_listar('M.modulo_publicar = 1 AND M.modulo_menu = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link, M.modulo_ordem');
 
         # Dados do usuário
         $mus = new AdminM\Usuario($_SESSION['usuario_id']);
@@ -38,20 +38,21 @@ class PainelDL extends Principal{
 
 
 
-	/**
-	 * Verificar o permissionamento do grupo antes de executar a ação
-	 *
-	 * @param string $n Nome da ação / método  a ser executada
-	 * @param array $a Vetor com os valores dos argumentos a serem utilizados na chamada da ação
-	 *
-	 * @return bool|mixed
-	 */
+    /**
+     * Verificar o permissionamento do grupo antes de executar a ação
+     *
+     * @param string $n Nome da ação / método  a ser executada
+     * @param array  $a Vetor com os valores dos argumentos a serem utilizados na chamada da ação
+     *
+     * @return bool|mixed
+     */
     public function __call($n,$a){
         if( !\DL3::$aut_o->_verificarperm(get_called_class(), $n) ){
-	        echo '<h1>Você não pode executar essa ação!</h1>'
-		        . '<p>Você não tem permissão para acessar essa página, diretório ou funcionalidade.</p>';
+            echo '<h1>Você não pode executar essa ação!</h1>'
+                . '<p>Você não tem permissão para acessar essa página, diretório ou funcionalidade.</p>'
+                . '<p><a href="'. \DL3::$ap_http .'">Ir para a página inicial</a></p>';
 
-	        return false;
+            return false;
         } // Fim if( !\DL3::$aut_o->_verificarperm(get_called_class(),$n) )
 
         return call_user_func_array(

@@ -43,6 +43,7 @@ class Modulo extends GeralM\Principal{
 
 
 
+
     public function __construct($pk = null){
         parent::__construct('dl_painel_modulos', 'modulo_');
 
@@ -51,7 +52,7 @@ class Modulo extends GeralM\Principal{
                 . " LEFT JOIN {$this->bd_tabela} AS S ON( S.{$this->bd_prefixo}id = M.{$this->bd_prefixo}pai )"
                 . ' WHERE M.%sdelete = 0';
 
-        $this->_selecionarPK($pk);
+        $this->__selecionarPK($pk);
     } // Fim do método __construct
 
 
@@ -66,24 +67,24 @@ class Modulo extends GeralM\Principal{
 	 * @return bool
 	 * @throws \Exception
 	 */
-	protected function _selecionarPK($v, $a = 'M'){
+	public function _selecionarPK($v, $a = 'M'){
         return parent::_selecionarPK($v, $a);
     } // Fim do método _selecionarPK
 
 
 
 
-	/**
-	 * Selecionar apenas os itens que devem aparecer no menu
-	 *
-	 * @param string $flt Parte do filtro a ser aplicado na consulta
-	 * @param string $ord Ordenação dos registros a ser aplicada na consulta
-	 * @param string $cmp Lista de campos a ser retornada
-	 * @param int    $pgn Número da página de registros
-	 * @param int    $qtd Quantidade de registros a serem exibidos na paginação
-	 *
-	 * @return array
-	 */
+    /**
+     * Selecionar apenas os itens que devem aparecer no menu
+     *
+     * @param string $flt Parte do filtro a ser aplicado na consulta
+     * @param string $ord Ordenação dos registros a ser aplicada na consulta
+     * @param string $cmp Lista de campos a ser retornada
+     * @param int    $pgn Número da página de registros
+     * @param int    $qtd Quantidade de registros a serem exibidos na paginação
+     *
+     * @return array
+     */
     public function _listarmenu($flt = null, $ord = null, $cmp = '*', $pgn = 0, $qtd = 20){
         $q = $this->bd_select;
 

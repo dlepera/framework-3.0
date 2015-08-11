@@ -51,17 +51,17 @@ class GoogleAnalytics extends GeralM\Principal{
 
 
 
-	/**
-	 * Salvar determinado registro
-	 *
-	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
-	 * @param array   $ci  Vetor com os campos a serem considerados
-	 * @param array   $ce  Vetor com os campos a serem desconsiderados
-	 * @param bool    $ipk Define se o campo PK será considerado para inserção
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
+    /**
+     * Salvar determinado registro
+     *
+     * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+     * @param array   $ci  Vetor com os campos a serem considerados
+     * @param array   $ce  Vetor com os campos a serem desconsiderados
+     * @param bool    $ipk Define se o campo PK será considerado para inserção
+     *
+     * @return mixed
+     * @throws \Exception
+     */
 	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
         # Apenas um registro pode conter a Flag 'principal' marcada, portanto, caso
         # a flag do registro atual esteja marcada, deve-se desmarcar a flag de
@@ -73,16 +73,11 @@ class GoogleAnalytics extends GeralM\Principal{
 
 
 
+
     /**
      * Selecionar a configuração principal
      */
     public function _selecionar_principal(){
-        /* $l = $this->_listar("{$this->bd_prefixo}principal", null, "{$this->bd_prefixo}id AS ID", 0, 1, -1);
-        
-        if( $l === false )
-            throw new \Exception(ERRO_GOOGLEANALYTICS_PRINCIPAL_NAO_ENCONTRADO, 1404);
-
-        return $this->_selecionarPK($l['ID']); */
 	    return $this->_selecionarUK('principal', 1);
     } // Fim do método _selecionar_principal
 } // Fim do Modelo GoogleAnalytics

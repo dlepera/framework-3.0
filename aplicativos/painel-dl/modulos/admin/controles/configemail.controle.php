@@ -47,9 +47,9 @@ class ConfigEmail extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar a lista de registros
-	 */
+    /**
+     * Mostrar a lista de registros
+     */
     protected function _mostrarlista(){
         $this->_listapadrao('config_email_id, config_email_titulo, config_email_host,'
             . " ( CASE config_email_principal WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PRINCIPAL",
@@ -89,14 +89,14 @@ class ConfigEmail extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Testar uma determinada configuração de envio de e-mail]
-	 *
-	 * @param int $id ID da configuração a ser testada
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
+    /**
+     * Testar uma determinada configuração de envio de e-mail]
+     *
+     * @param int $id ID da configuração a ser testada
+     *
+     * @return mixed
+     * @throws \Exception
+     */
     protected function _testar($id){
         if( !class_exists('Email') )
             throw new \Exception(sprintf(ERRO_PADRAO_CLASSE_NAO_ENCONTRADA, 'Email'), 1500);

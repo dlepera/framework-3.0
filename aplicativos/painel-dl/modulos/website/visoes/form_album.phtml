@@ -16,7 +16,7 @@ $mod = $params['modelo'];
 [DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>"<?php $params['inserindo'] and print(' enctype="multipart/form-data"');?>>
+    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>"<?php $params['incluindo'] and print(' enctype="multipart/form-data"');?>>
         <?php if( !$params['incluindo'] ): ?>
         <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
         <?php endif; ?>

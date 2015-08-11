@@ -16,14 +16,14 @@ class TipoDadoContato extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\TipoDadoContato(), 'website', TXT_MODELO_TIPODADOCONTATO);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'            =>  FILTER_VALIDATE_INT,
-                'descr'         =>  FILTER_SANITIZE_STRING,
-                'rede_social'   =>  FILTER_VALIDATE_BOOLEAN,
-                'mascara'       =>  FILTER_DEFAULT,
-                'expreg'        =>  FILTER_DEFAULT,
-                'publicar'      =>  FILTER_VALIDATE_BOOLEAN
+                'id' => FILTER_VALIDATE_INT,
+                'descr' => FILTER_SANITIZE_STRING,
+                'rede_social' => FILTER_VALIDATE_BOOLEAN,
+                'mascara' => FILTER_DEFAULT,
+                'expreg' => FILTER_DEFAULT,
+                'publicar' => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -33,7 +33,7 @@ class TipoDadoContato extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
     } // Fim do método __construct
 
 

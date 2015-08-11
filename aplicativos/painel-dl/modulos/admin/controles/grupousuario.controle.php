@@ -18,7 +18,12 @@ class GrupoUsuario extends GeralC\PainelDL{
         parent::__construct(new AdminM\GrupoUsuario(), 'admin', TXT_MODELO_GRUPOUSUARIO);
 
         if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-	        $post = filter_input_array(INPUT_POST, ['id' => FILTER_VALIDATE_INT, 'descr' => FILTER_SANITIZE_STRING, 'funcs' => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY], 'publicar' => FILTER_VALIDATE_BOOLEAN]);
+	        $post = filter_input_array(INPUT_POST, [
+                'id'        => FILTER_VALIDATE_INT,
+                'descr'     => FILTER_SANITIZE_STRING,
+                'funcs'     => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY],
+                'publicar'  => FILTER_VALIDATE_BOOLEAN
+	        ]);
 
 	        # Converter o encode
 	        \Funcoes::_converterencode($post, \DL3::$ap_charset);
@@ -54,12 +59,12 @@ class GrupoUsuario extends GeralC\PainelDL{
 
 
 
-	/**
-	 * Mostrar o formulário de inclusão e edição do registro
-	 *
-	 * @param int  $pk  ID do registro a ser selecionado
-	 * @param bool $mst Nome da página mestra a ser carregada
-	 */
+    /**
+     * Mostrar o formulário de inclusão e edição do registro
+     *
+     * @param int  $pk  ID do registro a ser selecionado
+     * @param bool $mst Nome da página mestra a ser carregada
+     */
     protected function _mostrarform($pk = null, $mst = null){
         $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $pk);
 

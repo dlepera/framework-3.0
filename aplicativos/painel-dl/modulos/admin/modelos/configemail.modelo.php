@@ -99,4 +99,17 @@ class ConfigEmail extends GeralM\Principal{
 
         return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
+
+
+
+
+	/**
+	 * Selecionar o registro marcado como principal
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 */
+	public function _selecionar_principal(){
+	    return $this->_selecionarUK('principal', 1);
+    } // Fim do método _selecionar_principal
 } // Fim do Modelo ConfigEmail
