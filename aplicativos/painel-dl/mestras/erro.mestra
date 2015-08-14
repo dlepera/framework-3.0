@@ -1,0 +1,15 @@
+<?php
+
+/*
+ *  @autor: Diego Lepera
+ *  @email: dlepera88@gmail.com
+ *  @projeto: framework-3.0
+ *  @data: 27/05/2015 16:12:12
+ */
+
+# Parâmetros passados para a página
+$params = $this->_obterparams();
+
+?>
+
+[DL3-CONTEUDO/]

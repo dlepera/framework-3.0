@@ -268,7 +268,16 @@ class Visao{
 	public function _status_http($s){
 		http_response_code($s);
 
-		// $this->titulo = constant('TXT_PAGINA_TITULO_ERRO_'. $s);
-		$this->templates[] = "erros/{$s}.". self::CONF_EXTENSAO_TPL;
+		# Para requisições AJAX utilizar a página mestra 'erro'
+		isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'
+		and $this->_pg_mestra('erro');
+
+		$this->titulo = constant('TXT_PAGINA_TITULO_ERRO_'. $s);
+		$this->templates[] = "erros/erro_http.". self::CONF_EXTENSAO_TPL;
+
+		# Parâmetros
+		$this->_adparam('titulo', $this->titulo);
+        $this->_adparam('erro-titulo', $this->titulo);
+        $this->_adparam('erro-texto', constant("TXT_DIVERSOS_ERRO_{$s}"));
 	} // Fim do método _status_http
 } // Fim da classe Visao

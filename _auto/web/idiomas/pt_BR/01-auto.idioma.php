@@ -17,8 +17,12 @@ define('TXT_PAGINA_TITULO_ERRO_500', 'Erro 500 - Erro interno do servidor!');
 
 # -> Diversos
 define('TXT_DIVERSOS_ERRO_404', 'Essa página ou diretório não existe em nosso servidor.<br/>Por favor, entre em contato com o administrador ou tente novamente mais tarde.');
+define('TXT_DIVERSOS_ERRO_403', 'Você não tem permissão para acessar essa página, diretório ou funcionalidade.');
 define('TXT_DIVERSOS_JS_DESATIVADO', 'Seu navegador está configurado para <b>não</b> utilizar <b>JavaScript</b>! O sistema não funcionará corretamente. Por favor, ative o JavaScript do seu navegador e atualize a página.');
 define('TXT_DIVERSOS_IE_INCOMPATIVEL', 'Essa versão do <b>Internet Explorer</b> é antiga e não é suportada pelo sistema. Por favor, atualize para a versão mais recente do IE ou instale e utilize o <b>Google Chrome</b>.');
+
+# Links
+define('TXT_LINK_IR_PARA_HOME', 'Ir para a página inicial');
 
 # Formulário
 # -> Rótulos

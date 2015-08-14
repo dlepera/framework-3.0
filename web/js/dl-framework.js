@@ -8,7 +8,7 @@
 var plugin_formulario_tema = 'painel-dl';
 
 /**
- * Carregar arquivo CSS\
+ * Carregar arquivo CSS
  * 
  * @param {string} arquivo_css Caminho do arquivo CSS a ser carregado
  *
@@ -104,16 +104,15 @@ function CarregarHTML(controle, id_html){
     var mst = mst || 'conteudo';
     
     // Criar a DIV
-    var $html = $(document.createElement('div')).addClass('sobre-tela').attr('id', id).appendTo($('body'));
+    var $html = $(document.createElement('div')).addClass('sobre-tela').attr('id', id);
     
     $.ajax({
         url     : controle.replace(/^\/+|\/+$/g, '') +'/'+ mst,
         dataType: 'html',
-        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o
-						 // conteúdo HTML
+        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o conteúdo HTML
         success : function(html){
             // Carregar o conteúdo HTML
-            $html.html(html);
+           	$html.html(html).appendTo($('body'));
             
             // Configurar a tecla ESC para remover o $html
             $(window).on('keyup', function(e){
@@ -135,6 +134,8 @@ function CarregarHTML(controle, id_html){
     
     return $html;
 } // Fim de function CarregarHTML(controle, id_html)
+
+
 
 /**
  * Carregar um formulário
@@ -162,6 +163,15 @@ function CarregarForm(form, id_html, func_depois){
     
     return $form;
 } // Fim function CarregarForm(form, id_html)
+
+
+function MsgStatus(msg){
+	$('body')._mostrarmsg({
+		mensagem: msg,
+		tipo: ['alerta', 'msg-erro'],
+		aparencia: { tema: 'painel-dl', estilo: 'mensagem' }
+	});
+} // Fim CarregarConteudo ($dom, html)
 
 
 
@@ -309,7 +319,13 @@ $.ajaxSetup({
             '<p class="carregando">Processando, por favor aguarde...</p>'
         ).appendTo($('body')).fadeIn('fast');
     },
-    
+
+	statusCode: {
+		403: function(x){ MsgStatus(x.responseText); },
+		404: function(x){ MsgStatus(x.responseText); },
+		500: function(x){ MsgStatus(x.responseText); }
+	},
+
     complete    : function(){
         $('#carregando').fadeOut('fast', function(){
             $(this).remove();

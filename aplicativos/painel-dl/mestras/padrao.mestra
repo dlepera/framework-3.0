@@ -87,7 +87,7 @@ $params = $this->_obterparams();
 
             <ul id="menu-principal" class="menu-principal sem-marcadores">
                 <li class="menu-item">
-                    <a href="" class="menu-texto ico-home">
+                    <a href="" class="menu-texto">
                         <?= TXT_LINK_HOME; ?>
                     </a>
                 </li>

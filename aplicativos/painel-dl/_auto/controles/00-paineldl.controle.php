@@ -48,10 +48,7 @@ class PainelDL extends Principal{
      */
     public function __call($n,$a){
         if( !\DL3::$aut_o->_verificarperm(get_called_class(), $n) ){
-            echo '<h1>Você não pode executar essa ação!</h1>'
-                . '<p>Você não tem permissão para acessar essa página, diretório ou funcionalidade.</p>'
-                . '<p><a href="'. \DL3::$ap_http .'">Ir para a página inicial</a></p>';
-
+            $this->visao->_status_http(403);
             return false;
         } // Fim if( !\DL3::$aut_o->_verificarperm(get_called_class(),$n) )
 

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: dlepera
+ * Date: 11/08/15
+ * Time: 19:52
+ */
+
+!isset($params) and $params = $this->_obterparams();
+
+?>
+
+[DL3-CONTEUDO]
+	<h2 class="titulo-h2"><?= $params['erro-titulo']; ?></h2>
+	<p><?= $params['erro-texto']; ?></p>
+	<p><a href="<?= \DL3::$ap_http; ?>" class="com-icone ico-home"><?= TXT_LINK_IR_PARA_HOME; ?></a></p>
+[/DL3-CONTEUDO]
