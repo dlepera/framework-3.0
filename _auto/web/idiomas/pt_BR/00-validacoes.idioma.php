@@ -21,26 +21,6 @@ define('MASK_TELEFONE_CELULAR_9', '(##) # ####-####');
 define('MASK_CPF', '###.###.###-##');
 define('MASK_CNPJ', '##.###.###/####-##');
 
-
-
-/*
- * PDODL
- */
-# Erros
-define('ERRO_PDODL_CAMPOS', 'Erro ao identificar informações dos campos da tabela: %s');
-define('ERRO_PDODL_SGBD_NAO_SUPORTADO', 'Esse SGBD não é suportado pelo sistema!');
-
-
-
-/*
- * GeralM\Principal
- */
-# Erros
-define('ERRO_MODELOPRINCIPAL_CRIARUPDATE_CAMPO_OBRIGATORIO_NULO', 'O campo %s é obrigatório, mas está definido como NULL!');
-
-
-
-/*
- * Upload
- */
-define('ERRO_UPLOAD_SALVAR_BLOQ_EXTENSAO', 'O arquivo <b>%s</b> não foi salvo!<br/>Por favor, insira um arquivo com uma das seguintes extensões: %s');
+# Mensagens de retorno
+// define('TXT_VALIDACAO_ARQUIVO_UPLOAD', "Um ou mais arquivos não atendem aos requisitos permitidos para upload:\nExtensões permitidas: %s\nTamanho máximo do arquivo: %s.");
+define('TXT_VALIDACAO_ARQUIVO_UPLOAD', "Extensão e/ou tamanho do(s) arquivo(s) inválido!");

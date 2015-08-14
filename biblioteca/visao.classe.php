@@ -23,7 +23,7 @@ class Visao{
     private $titulo, $cont_mestra;
 
     # Auxiliares
-	private $aux_numero;
+	private $aux_numero, $aux_form;
 
 
 
@@ -32,9 +32,11 @@ class Visao{
         $this->_pg_mestra($pgm);
 
 	    include_once '_auto/apoios/numero.apoio.php';
+        include_once '_auto/apoios/formulario.apoio.php';
 
 	    # Auxiliares
 	    $this->aux_numero = new ApoioG\Numero();
+        $this->aux_form = new ApoioG\Formulario();
     } // Fim do método __construct
 
     public function __destruct(){
@@ -89,7 +91,12 @@ class Visao{
         while( in_array($o, $ch) ) $o++;
 
         $tpl_a = "{$tpl}.". self::CONF_EXTENSAO_TPL;
-        $this->templates[$o] = $p ? $this->_procurartemplate($tpl_a) : "{$this->dir_visoes}{$tpl_a}";
+
+        if( !is_file($tpl_a) ){
+	        if( $p && ($tpl = $this->_procurartemplate($tpl_a)) !== false ) $this->templates[$o] = $tpl;
+	        else $this->_status_http(404);
+        } else
+	        $this->templates[$o] = "{$this->dir_visoes}{$tpl_a}";
     } // Fim do método _adtemplate
 
 
@@ -141,9 +148,8 @@ class Visao{
 	/**
 	 * Carregar o conteúdo do template em buffer
 	 *
-	 * O conteúdo é lido e armazenado em buffer. Em seguida o conteúdo que está
-	 * no buffer é transferido para a propriedade $this->conteudo que poderá
-	 * ser lida posteriormente e assim o buffer pode ser liberado.
+	 * O conteúdo é lido e armazenado em buffer. Em seguida o conteúdo que está no buffer é transferido para a
+	 * propriedade $this->conteudo que poderá ser lida posteriormente e assim o buffer pode ser liberado.
 	 */
     private function _carregarconteudo(/* $p=false */){
         if( empty($this->templates) ) return;
@@ -257,4 +263,12 @@ class Visao{
 
         return !file_exists($tpl_r) ? false : $tpl_r;
     } // Fim do método _procurartemplate
+
+
+	public function _status_http($s){
+		http_response_code($s);
+
+		// $this->titulo = constant('TXT_PAGINA_TITULO_ERRO_'. $s);
+		$this->templates[] = "erros/{$s}.". self::CONF_EXTENSAO_TPL;
+	} // Fim do método _status_http
 } // Fim da classe Visao
