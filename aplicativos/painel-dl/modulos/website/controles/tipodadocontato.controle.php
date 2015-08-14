@@ -53,6 +53,7 @@ class TipoDadoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_TIPOS_DADO_CONTATO;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/tipos-de-dados/');
         $this->visao->_adparam('campos', [
             ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_DESCR]
         ]);

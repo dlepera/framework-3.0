@@ -54,6 +54,7 @@ class Modulo extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_MODULOS;
 
         # Parâmetros
+	    $this->visao->_adparam('dir-lista', 'desenvolvedor/modulos/');
         $this->visao->_adparam('campos', [
             ['valor' => 'M.modulo_nome', 'texto' => TXT_ROTULO_NOME],
             ['valor' => 'M.modulo_link', 'texto' => TXT_ROTULO_LINK]
@@ -89,11 +90,31 @@ class Modulo extends GeralC\PainelDL{
 	        $m_mf = new DevM\ModuloFunc();
 	        $l_mf = $m_mf->_carregarselect("func_modulo = {$this->modelo->id}", false);
 
-	        if( isset($this->modelo->pai) ){
+	        if( $this->modelo->pai > 0 ){
 		        # Módulo pai
 		        $mp = $this->modelo->_listar("M.modulo_id = {$this->modelo->pai}", null, 'M.modulo_nome', 0, 1, 0);
 
-		        $this->visao->_adparam('modulo-pai', str_replace(' ', '', $mp['modulo_nome']));
+		        # Informar a classe
+		        $this->visao->_adparam('modulo-classe',
+			        \Funcoes::_removeracentuacao(str_replace(' ', '', $mp['modulo_nome']))
+			        . '\\Controle\\'
+			        # Remover os espaçoes e hífens
+			        . preg_replace(
+				        '~[\s\-]~', '',
+			            # Formatar as primeiras letras de cada palavra
+				        ucwords(
+					        # Remover as preposições
+					        preg_replace(
+						        '~\s+(da|de|di|do|du|das|del|dos|na|no|em)~', ' ',
+						        # Remover as acentuações
+						        \Funcoes::_removeracentuacao(
+							        # Remover os 's' ao final das palavras
+							        preg_replace('~s(\s+|$)~', '', $this->modelo->nome)
+						        )
+					        )
+				        )
+			        )
+		        );
 	        } // Fim if( isset($this->modelo->pai) )
 
 	        $this->visao->_adparam('funcs', $l_mf);

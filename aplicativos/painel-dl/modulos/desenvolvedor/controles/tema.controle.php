@@ -52,6 +52,7 @@ class Tema extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_TEMAS;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'desenvolvedor/temas/');
         $this->visao->_adparam('campos', [
             ['valor' => 'tema_desc', 'texto' => TXT_ROTULO_DESCRICAO],
             ['valor' => 'tema_diretorio', 'texto' => TXT_ROTULO_DIRETORIO]

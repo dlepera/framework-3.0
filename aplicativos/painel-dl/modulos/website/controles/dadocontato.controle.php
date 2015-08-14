@@ -50,6 +50,7 @@ class DadoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_DADOS_CONTATO;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/dados-para-contato/');
         $this->visao->_adparam('campos', [
             ['valor' => 'dado_contato_descr', 'texto' => TXT_ROTULO_DESCR],
             ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO]

@@ -20,6 +20,7 @@ class ContatoSite extends GeralC\PainelDL{
 
 
 
+
     /**
      * Mostrar a lista de registros
      */
@@ -33,6 +34,7 @@ class ContatoSite extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONTATOS_RECEBIDOS;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/contatos-recebidos/');
         $this->visao->_adparam('campos', [
             ['valor' => 'contato_site_nome', 'texto' => TXT_ROTULO_NOME],
             ['valor' => 'contato_site_email', 'texto' => TXT_ROTULO_EMAIL],

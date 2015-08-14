@@ -57,6 +57,7 @@ class Album extends GeralC\PainelDL{
 
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/albuns-de-fotos/');
         $this->visao->_adparam('campos', [
             ['valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME]
         ]);
@@ -78,13 +79,19 @@ class Album extends GeralC\PainelDL{
         $this->_carregarhtml('form_album');
         $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_ALBUM : TXT_PAGINA_TITULO_EDITAR_ALBUM;
 
+	    # Fotos
+	    $mf = new WebM\FotoAlbum();
+
+	    # Parâmetros
+	    $this->visao->_adparam('extensoes', implode(', ', $mf->conf_extensoes_imagem));
+
         if( $inc ) return;
 
         # Lista de fotos
         $mf = new WebM\FotoAlbum();
         $lf = $mf->_listar("foto_album = {$this->modelo->id} AND foto_album_publicar = 1", 'foto_album_capa DESC, foto_album_id DESC', 'foto_album_id, foto_album_titulo, foto_album_descr, foto_album_capa, foto_album_imagem');
 
-        # Parâmetros
+        # Mais parâmetros
         $this->visao->_adparam('fotos', $lf);
 	    $this->visao->_adparam('qtde-fotos', $this->modelo->_qtde_fotos());
     } // Fim do método _mostrarform

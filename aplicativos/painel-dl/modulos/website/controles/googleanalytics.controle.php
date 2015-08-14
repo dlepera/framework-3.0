@@ -45,17 +45,17 @@ class GoogleAnalytics extends GeralC\PainelDL{
 	 * Mostrar lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('ga_id, ga_apelido, ga_usuario, ga_perfil_id, ( CASE ga_principal'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PRINCIPAL, ( CASE ga_publicar'
-                . " WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim'"
-                . ' END ) AS PUBLICADO', 'ga_perfil_id', null);
+        $this->_listapadrao('ga_id, ga_apelido, ga_usuario, ga_perfil_id,'
+            . " ( CASE ga_principal  WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PRINCIPAL,"
+	        . " ( CASE ga_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+	        'ga_perfil_id', null);
 
         # Visão
         $this->_carregarhtml('lista_ga');
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_GA;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/google-analytics/');
         $this->visao->_adparam('campos', [
             ['valor' => 'ga_usuario', 'texto' => TXT_ROTULO_USUARIO],
             ['valor' => 'ga_perfil_id', 'texto' => TXT_ROTULO_PERFIL]

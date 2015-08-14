@@ -28,22 +28,14 @@ $mod = $params['modelo'];
 
             <?php if( $params['modulos-pai'] != false ): ?>
             <p class="form-paragr">
-                <label for="sel-pai" class="form-rotulo"><?= TXT_ROTULO_MODULO_PAI; ?>:</label><br/>
-                <select name="pai" id="sel-pai" class="form-controle">
-                    <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                    <?php foreach( $params['modulos-pai'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?= $mod->pai == $o['VALOR'] ? ' SELECTED' : ''; ?>>
-                        <?= $o['TEXTO']; ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select>
+	            <?= $this->aux_form->_combo_select('pai', 'pai', $mod->pai, TXT_ROTULO_MODULO_PAI, null, ['required' => 'required'],
+		            array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['modulos-pai'])
+	            ); ?>
             </p>
             <?php endif; ?>
 
             <p class="form-paragr">
-                <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" class="form-controle" required/>
+                <?= $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
@@ -56,27 +48,22 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_MENU; ?></legend>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_MENU; ?></span><br/>
-                <span class="form-dica"><?= TXT_DICA_MODULO_MENU; ?></span><br/>
-                <input type="checkbox" name="menu" id="chk-menu" class="form-alternar"<?= $mod->menu ? ' CHECKED' : ''; ?>/>
-                <label for="chk-menu"></label>
+	            <?= $this->aux_form->_chk_sim_nao('menu', 'menu', TXT_ROTULO_MENU, TXT_DICA_MODULO_MENU, $mod->menu ? ' CHECKED' : ''); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-link" class="form-rotulo"><?= TXT_ROTULO_LINK; ?>:</label><br/>
-                <input type="text" name="link" id="txt-link" value="<?= $mod->link; ?>" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('texto', 'link', 'link', $mod->link, TXT_ROTULO_LINK, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="num-ordem" class="form-rotulo"><?= TXT_ROTULO_ORDEM; ?>:</label><br/>
-                <input type="number" name="ordem" id="num-ordem" value="<?= $mod->ordem; ?>" min="-99" max="99" class="form-controle form-numero" required/>
+	            <?= $this->aux_form->_campo_geral('numero', 'ordem', 'ordem', $mod->ordem, TXT_ROTULO_ORDEM, null, [
+		            'min' => -99, 'max' => 99, 'required' => 'required'
+	            ]); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
@@ -95,18 +82,18 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', null, TXT_ROTULO_DESCRICAO, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-classe" class="form-rotulo"><?= TXT_ROTULO_CLASSE; ?>:</label><br/>
-                <input type="text" name="classe" id="txt-classe" value="<?= \Funcoes::_removeracentuacao($params['modulo-pai']) .'\Controle\\'. preg_replace('~[\s\-]~', '', ucwords(\Funcoes::_removeracentuacao(preg_replace('~s(\s+|$)~', '', $mod->nome)))); ?>" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('texto', 'classe', 'classe', $params['modulo-classe'], TXT_ROTULO_CLASSE, null, ['required' => 'required']); ?>
             </p>
 
-            <ul id="metodos" class="sub-itens sem-marcadores">
+            <ul id="metodos" class="sub-itens">
                 <li class="item">
-                    <input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" class="form-controle" required/>
+	                <?= $this->aux_form->_campo_geral('texto', 'metodos[]', '', null, null, null, [
+		                'placeholder' => TXT_ROTULO_METODO, 'required' => 'required'
+	                ]); ?>
                 <li>
             </ul>
 
@@ -127,6 +114,7 @@ $mod = $params['modelo'];
                 <tr class="tbl-linha">
                     <th id="th-id" class="tbl-celula-id"><input type="checkbox"/></th>
                     <th id="th-descr"><?= TXT_LISTA_TITULO_DESCR; ?></th>
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -176,10 +164,16 @@ $mod = $params['modelo'];
     });
 
     function NovoMetodo(){
-        $(document.createElement('li')).addClass('item').html(
-            '<input type="text" name="metodos[]" placeholder="<?= TXT_ROTULO_METODO; ?>" required/>'
-                + '<a href="javascript:;" onclick="$(this).parent().remove();">x</a>'
-        ).appendTo($('#metodos'));
+	    var $mtd = $('#metodos');
+	    var $itm = $mtd.find('.item:first-child').clone().appendTo($mtd);
+            $itm.find('input').removeAttr('id').removeAttr('tabindex');
+
+	    // Criar botão para remover
+	    $(document.createElement('a')).html('x').attr('href', 'javascript:;').on('click', function(){
+		   $(this).parents('.item').fadeOut('fast', function(){
+			   $(this).remove();
+		   });
+	    }).appendTo($itm);
     } // Fim function NovoMetodo
     //]]>
 </script>

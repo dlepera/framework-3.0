@@ -14,7 +14,7 @@
 [DL3-CONTEUDO]
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
-    <form id="form-editar-lista" method="post" action="website/contatos-recebidos/apagar-contato">
+    <form id="form-editar-lista" method="post" action="<?= $params['dir-lista']; ?>apagar-contato">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
             <thead class="tbl-titulos">
@@ -23,10 +23,12 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
+
                     <th id="th-data" class="v-desk"><?= TXT_LISTA_TITULO_DATA; ?></th>
                     <th id="th-assunto"><?= TXT_LISTA_TITULO_ASSUNTO; ?></th>
                     <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
                     <th id="th-email" class="v-desk"><?= TXT_LISTA_TITULO_EMAIL; ?></th>
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -41,19 +43,21 @@
                     <?php if( $params['exibir-id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['contato_site_id']; ?></td>
                     <?php endif; ?>
+
                     <td headers="th-data" class="v-desk"><?= \Funcoes::_formatardatahora($l['log_registro_data_criacao'], $_SESSION['formato_data_completo']); ?></td>
                     <td headers="th-assunto"><?= $l['ASSUNTO']; ?></td>
                     <td headers="th-nome"><?= $l['contato_site_nome']; ?></td>
                     <td headers="th-email" class="v-desk"><?= $l['contato_site_email']; ?></td>
+
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-detalhes?'] ): ?>
-                        <a href="website/contatos-recebidos/mostrar-detalhes/<?= $l['contato_site_id']; ?>" class="so-icone ico-detalhes" title="<?= TXT_LINK_TITLE_DETALHES; ?>">
+                        <a href="<?= $params['dir-lista']; ?>mostrar-detalhes/<?= $l['contato_site_id']; ?>" class="so-icone ico-detalhes" title="<?= TXT_LINK_TITLE_DETALHES; ?>">
                             <?= TXT_LINK_DETALHES; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

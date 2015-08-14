@@ -51,6 +51,7 @@ class AssuntoContato extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_ASSUNTOS_CONTATO;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'website/assuntos-contato/');
         $this->visao->_adparam('campos', [
             ['valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_DESCR],
             ['valor' => 'assunto_contato_email', 'texto' => TXT_ROTULO_EMAIL]
