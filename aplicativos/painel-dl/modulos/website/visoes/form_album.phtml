@@ -25,21 +25,17 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_ALBUM_FOTOS; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-                <input type="text" name="nome" id="txt-nome" value="<?= $mod->nome; ?>" class="form-controle" required/>
+                <?= $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <?php if( $params['incluindo'] ): ?>
             <p class="form-paragr">
-                <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
-                <input type="file" name="fotos[]" id="arq-fotos" class="form-controle" multiple/>
+	            <?= $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple'], $params['extensoes']); ?>
             </p>
             <?php endif; ?>
 
 	        <p class="form-paragr">
-		        <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-		        <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-		        <label for="chk-publicar"></label>
+		        <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, TXT_DICA_PUBLICAR_REGISTRO, $mod->publicar ? 'CHECKED' : ''); ?>
 	        </p>
         </fieldset>
 
@@ -68,8 +64,7 @@ $mod = $params['modelo'];
 
 
             <span class="form-paragr">
-                <label for="arq-fotos" class="form-rotulo"><?= TXT_ROTULO_FOTOS; ?>:</label><br/>
-                <input type="file" name="fotos[]" id="arq-fotos" class="form-controle" multiple required/>
+                <?= $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple'], $params['extensoes']); ?>
             </span>
 
 	        <span class="form-botoes" style="margin-left: .5em;">

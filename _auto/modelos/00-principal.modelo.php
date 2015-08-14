@@ -20,6 +20,9 @@ abstract class Principal{
     # Define se o registro encontra-se vazio
     protected $reg_vazio = true;
 
+
+
+
     public function __construct($tbl, $pfx = ''){
         $this->_bd_tabela($tbl);
         $this->_bd_prefixo($pfx);

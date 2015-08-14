@@ -15,6 +15,9 @@ use \WebSite\Modelo as WebM;
 class FotoAlbum extends GeralM\Principal{
     protected $foto_album, $id, $titulo, $descr, $imagem, $capa = 0, $publicar = 1, $delete = 0;
 
+    # Configurações
+    public $conf_extensoes_imagem = ['png', 'jpg', 'jpeg', 'gif'];
+
     /*
      * 'Gets' e 'Sets' das propriedades
      */
@@ -40,6 +43,7 @@ class FotoAlbum extends GeralM\Principal{
 
 
 
+
     public function __construct($pk = null){
         parent::__construct('dl_site_albuns_fotos', 'foto_album_');
         $this->_selecionarPK($pk);
@@ -60,7 +64,7 @@ class FotoAlbum extends GeralM\Principal{
 
 	    # Fazer o upload das fotos
         $oup = new \Upload(sprintf($maf::DIR_UPLOAD, $this->foto_album), 'fotos');
-        $oup->_extensoes(['png', 'jpg', 'jpeg', 'gif']);
+        $oup->_extensoes($this->conf_extensoes_imagem);
 
         if( !$oup->_salvar($maf->nome) )
             throw new \Exception(ERRO_FOTOALBUM_UPLOAD_SALVAR, 1500);
