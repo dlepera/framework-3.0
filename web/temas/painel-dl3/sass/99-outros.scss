@@ -516,6 +516,30 @@
 }
 
 
+/* Mostrar mensagens de incompatibilidade */
+.incompativel{
+    /* Visual */
+    display: block;
+    background: red;
+
+    /* Tamanho */
+    width: 100%;
+
+    /* Texto */
+    color: #FFF;
+    text-align: center;
+
+    /* Posicionamento */
+    position: fixed;
+    top: 7vh;
+    left: 0;
+    z-index: 2;
+
+    /* Margens */
+    padding: .75em 5vw;
+    margin-top: .75em;
+}
+
 
 /* Desktops ----------------------------------------------------------------- */
 @media screen and (min-width:$tela-tablet + 1px){

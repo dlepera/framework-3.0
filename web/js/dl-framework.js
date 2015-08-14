@@ -228,6 +228,43 @@ if( typeof String.prototype.trim !== 'function' ){
 }
 
 
+/**
+ * Identificar o navegador e a versão
+ *
+ * @returns {{nome: *, versao: Number}}
+ * @constructor
+ */
+function Navegador(){
+    var n, v, cf;
+    var ua = navigator.userAgent;
+    var ie = /(MSIE|Trident)/.test(ua);
+    var ff = /Firefox/.test(ua);
+    var op = /OPR/.test(ua);
+    var gc = /Chrome/.test(ua);
+    // var sf = /Safari/.test(ua) && !gc;
+
+    // IE ou Edge
+    if( ie ){
+        cf = /MSIE\s([0-9]+)/.exec(ua) || /rv:([0-9\.]+)/.exec(ua);
+        v = cf[1];
+        n = v < 12 ? 'Internet Explorer' : 'Microsoft Edge';
+
+        // Firefox ou Opera
+    } else if( ff || op ){
+        cf = /(Firefox|OPR)\/([0-9\.]+)/.exec(ua);
+        n = cf[1];
+        v = cf[2];
+
+        // Safari ou Chrome
+    } else {
+        cf = /(Safari|Chrome)\/([0-9\.]+)/.exec(ua);
+        n = cf[1];
+        v = cf[2];
+    } // Fim if( ie ) ( ff || op )
+
+    return { nome: n, versao: parseFloat(v) }
+} // Fim da função Navegador
+
 
 /**
  * Alternar a publicação de um registro

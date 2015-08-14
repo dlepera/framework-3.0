@@ -39,6 +39,12 @@ $params = $this->_obterparams();
     [DL3-HEAD/]
 </head>
 <body>
+	<!-- Verificar JavaScript -->
+	<noscript class="incompativel"><?= TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
+
+	<!-- Verificar versão do IE -->
+	<p class="incompativel" id="ie-incompativel" style="display: none;"><?= TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
+
     <div id="dl3-grid">
         <header class="dl3-topo">
             <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
@@ -128,6 +134,14 @@ $params = $this->_obterparams();
 
     <!-- Google Analytics -->
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/google_analytics.phtml'; ?>
+
+    <script>
+        // Identificar navegador e versão
+        var nav = Navegador();
+
+        if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
+            $('#ie-incompativel').removeAttr('style');
+    </script>
 
     [DL3-SCRIPTS/]
 </body>

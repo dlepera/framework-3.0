@@ -24,6 +24,9 @@ $params = $this->_obterparams();
     <!-- Tamanho do dispositivo -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+	<!-- Compatibilidade IE -->
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
@@ -34,6 +37,12 @@ $params = $this->_obterparams();
     [DL3-HEAD/]
 </head>
 <body>
+	<!-- Verificar JavaScript -->
+	<noscript class="incompativel"><?= TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
+
+	<!-- Verificar versão do IE -->
+	<p class="incompativel" id="ie-incompativel" style="display: none;"><?= TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
+
     <div id="dl3-grid">
         <header class="dl3-topo">
             <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
@@ -187,6 +196,12 @@ $params = $this->_obterparams();
             depois: function(){ window.location.reload(); },
             aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
+
+        // Identificar navegador e versão
+        var nav = Navegador();
+
+        if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
+	        $('#ie-incompativel').removeAttr('style');
 
         <?php if( $params['mostrar-filtro-menu?'] ): ?>
         $('#form-filtro-modulos #txt-bm').on('input', function(){

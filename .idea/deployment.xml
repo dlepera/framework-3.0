@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="FrameworkDL-3.0" overwriteAll="false" persistUploadOnCheckin="false" exclude=".svn;.cvs;.idea;.DS_Store;.git*;.hg;.htaccess;config.codekit;sass;.sass-*;_ajuda">
+    <serverData>
+      <paths name="FrameworkDL-3.0">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/framework-3.0" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Local - Barlabares">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/albuns" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/usuarios" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site/modulos/home" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/sass" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl/scss" />
+            <excludedPath local="true" path="$PROJECT_DIR$/benchmark.php" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site/modulos/contato/visoes/formulario.phtml" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="Local - Cadastro de Produtos">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/painel-dl/modulos/home" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/painel-dl/modulos/website" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/sass" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl/scss" />
+            <excludedPath local="true" path="$PROJECT_DIR$/benchmark.php" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="Local - Personal Pizza">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/albuns" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/usuarios" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site/modulos/home" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/sass" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl/scss" />
+            <excludedPath local="true" path="$PROJECT_DIR$/benchmark.php" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="Local - THG Licenciamentos">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/albuns" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/usuarios" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl/scss" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site/modulos/home" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site/mestras" />
+            <excludedPath local="true" path="$PROJECT_DIR$/benchmark.php" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
