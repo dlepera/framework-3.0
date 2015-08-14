@@ -13,7 +13,7 @@
 
 [DL3-CONTEUDO]
     <!-- Inserir um novo registro -->
-    <a href="/novo" class="com-icone ico-inserir"><?= TXT_LINK_INSERIR; ?></a>
+    <a href="<?= $params['dir-lista']; ?>novo" class="com-icone ico-inserir"><?= TXT_LINK_INSERIR; ?></a>
 
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
@@ -26,6 +26,8 @@
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
                     <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
                     <?php endif; ?>
+
+
                     <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
                 </tr>
             </thead>
@@ -40,8 +42,14 @@
                     <?php if( $_SESSION['usuario_pref_exibir_id'] ): ?>
                     <td headers="th-id" class="tbl-celula-id"><?= $l['_id']; ?></td>
                     <?php endif; ?>
+
+
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
-                        <a href="/editar/<?= $l['_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+	                    <a href="javascript:;" onclick="SelecionarLinha(this, true); AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
+		                    <?= $p ? TXT_LINK_OCULTAR : TXT_LINK_PUBLICAR; ?>
+	                    </a>
+
+                        <a href="<?= $params['dir-lista']; ?>/editar/<?= $l['_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
 
@@ -57,6 +65,14 @@
                 <?php if( count($params['lista']) ): ?>
                 <tr class="tbl-linha com-marcados">
                     <td>
+	                    <a href="javascript:;" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+		                    <?= TXT_LINK_PUBLICAR; ?>
+	                    </a>
+
+	                    <a href="javascript:;" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+		                    <?= TXT_LINK_OCULTAR; ?>
+	                    </a>
+
                         <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>

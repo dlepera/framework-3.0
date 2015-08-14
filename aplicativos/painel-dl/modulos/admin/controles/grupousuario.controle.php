@@ -51,6 +51,7 @@ class GrupoUsuario extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_GRUPOS_USUARIOS;
 
         # Parâmetro
+	    $this->visao->_adparam('dir-lista', 'admin/grupos-de-usuarios/');
         $this->visao->_adparam('campos',[
             ['valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_DESCR]
         ]);

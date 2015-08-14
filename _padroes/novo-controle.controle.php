@@ -44,6 +44,7 @@ class Controle extends GeralC\Principal{
         $this->visao->titulo = TXT_PAGINA_TITULO_;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', '');
         $this->visao->_adparam('campos', [
             ['valor' => '', 'texto' => '']
         ]);

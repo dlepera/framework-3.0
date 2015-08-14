@@ -24,6 +24,12 @@ class Idioma extends GeralC\PainelDL{
                 'publicar'  => FILTER_VALIDATE_BOOLEAN
             ]);
 
+            # Converter o encode
+            \Funcoes::_converterencode($post, \DL3::$ap_charset);
+
+            # Selecionar as informações atuais
+            $this->modelo->_selecionarPK($post['id']);
+
             \Funcoes::_vetor2objeto($post, $this->modelo);
         } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
@@ -44,6 +50,7 @@ class Idioma extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_IDIOMAS;
 
         # Parâmetros
+        $this->visao->_adparam('dir-lista', 'desenvolvedor/idiomas/');
         $this->visao->_adparam('campos', [
             ['valor' => 'idioma_descr', 'texto' => TXT_ROTULO_DESCRICAO],
             ['valor' => 'idioma_sigla', 'texto' => TXT_ROTULO_SIGLA]

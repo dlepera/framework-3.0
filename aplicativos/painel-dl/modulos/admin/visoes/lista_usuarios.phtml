@@ -14,12 +14,12 @@
 [DL3-CONTEUDO]
     <!-- Inserir um novo registro -->
     <?php if( $params['perm-inserir?'] ): ?>
-    <a href="admin/usuarios/novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_USUARIO; ?></a>
+    <a href="<?= $params['dir-lista']; ?>novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_USUARIO; ?></a>
     <?php endif;
 
     include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
 
-    <form id="form-editar-lista" method="post" action="admin/usuarios/excluir-usuarios">
+    <form id="form-editar-lista" method="post" action="<?= $params['dir-lista']; ?>excluir-usuarios">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
             <thead class="tbl-titulos">
@@ -58,24 +58,24 @@
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-bloquear?'] ):
                             if( $l['usuario_conf_bloq'] == 0 ): ?>
-                            <a href="javascript:;" onclick="SelecionarLinha(this); $el._executar('admin/usuarios/bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
+                            <a href="javascript:;" onclick="SelecionarLinha(this, true); $el._executar('<?= $params['dir-lista']; ?>bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
                                 <?= TXT_LINK_BLOQUEAR; ?>
                             </a>
                             <?php else: ?>
-                            <a href="javascript:;" onclick="SelecionarLinha(this); $el._executar('admin/usuarios/desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
+                            <a href="javascript:;" onclick="SelecionarLinha(this, true); $el._executar('<?= $params['dir-lista']; ?>desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
                                 <?= TXT_LINK_DESBLOQUEAR; ?>
                             </a>
                             <?php endif;
                         endif;
 
                         if( $params['perm-editar?'] ): ?>
-                        <a href="admin/usuarios/editar/<?= $l['usuario_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
+                        <a href="<?= $params['dir-lista']; ?>editar/<?= $l['usuario_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
                             <?= TXT_LINK_EDITAR; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:;" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -95,11 +95,11 @@
                         <?php endif;
 
                         if( $params['perm-bloquear?'] ): ?>
-                        <a href="javascript:;" onclick="$el._executar('admin/usuarios/bloquear-usuarios');" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el._executar('<?= $params['dir-lista']; ?>bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
                             <?= TXT_LINK_BLOQUEAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="$el._executar('admin/usuarios/desbloquear-usuarios');" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
+                        <a href="javascript:;" onclick="$el._executar('<?= $params['dir-lista']; ?>desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
                             <?= TXT_LINK_DESBLOQUEAR; ?>
                         </a>
                         <?php endif; ?>

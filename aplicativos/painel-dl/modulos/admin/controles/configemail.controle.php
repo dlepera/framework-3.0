@@ -16,22 +16,22 @@ class ConfigEmail extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new AdminM\ConfigEmail(), 'admin', TXT_MODELO_CONFIGEMAIL);
 
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
+        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
             $post = filter_input_array(INPUT_POST, [
-                'id'                =>  FILTER_VALIDATE_INT,
-                'titulo'            =>  FILTER_SANITIZE_STRING,
-                'host'              =>  FILTER_SANITIZE_STRING,
-                'porta'             =>  FILTER_SANITIZE_NUMBER_INT,
-                'autent'            =>  FILTER_VALIDATE_BOOLEAN,
-                'cripto'            =>  FILTER_SANITIZE_STRING,
-                'conta'             =>  FILTER_SANITIZE_STRING,
-                'senha'             =>  FILTER_SANITIZE_STRING,
-                'de_email'          =>  FILTER_VALIDATE_EMAIL,
-                'de_nome'           =>  FILTER_SANITIZE_STRING,
-                'responder_para'    =>  FILTER_VALIDATE_EMAIL,
-                'html'              =>  FILTER_VALIDATE_BOOLEAN,
-                'principal'         =>  FILTER_VALIDATE_BOOLEAN,
-                'debug'             =>  FILTER_VALIDATE_BOOLEAN
+                'id' => FILTER_VALIDATE_INT,
+                'titulo' => FILTER_SANITIZE_STRING,
+                'host' => FILTER_SANITIZE_STRING,
+                'porta' => FILTER_SANITIZE_NUMBER_INT,
+                'autent' => FILTER_VALIDATE_BOOLEAN,
+                'cripto' => FILTER_SANITIZE_STRING,
+                'conta' => FILTER_SANITIZE_STRING,
+                'senha' => FILTER_SANITIZE_STRING,
+                'de_email' => FILTER_VALIDATE_EMAIL,
+                'de_nome' => FILTER_SANITIZE_STRING,
+                'responder_para' => FILTER_VALIDATE_EMAIL,
+                'html' => FILTER_VALIDATE_BOOLEAN,
+                'principal' => FILTER_VALIDATE_BOOLEAN,
+                'debug' => FILTER_VALIDATE_BOOLEAN
             ]);
 
             # Converter o encode
@@ -41,7 +41,7 @@ class ConfigEmail extends GeralC\PainelDL{
             $this->modelo->_selecionarPK($post['id']);
 
             \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
     } // Fim do método __construct
 
 
@@ -60,6 +60,7 @@ class ConfigEmail extends GeralC\PainelDL{
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACOES_ENVIO_EMAIL;
 
         # Parâmetros
+	    $this->visao->_adparam('dir-lista', 'admin/envio-de-emails/');
         $this->visao->_adparam('campos', [
             ['valor' => 'config_email_titulo', 'texto' => TXT_ROTULO_TITULO],
             ['valor' => 'config_email_host', 'texto' => TXT_ROTULO_HOST]
