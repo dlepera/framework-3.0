@@ -32,6 +32,9 @@ $params = $this->_obterparams();
     <!-- Tamanho do dispositivo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<!-- Compatibilidade IE -->
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
+
     <!-- Aplicar o tema da página -->
     <?= \DL3::_carregartema($params['conf-site']['tema_diretorio']); ?>
 

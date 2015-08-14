@@ -24,6 +24,9 @@ $params = $this->_obterparams();
     <!-- Tamanho do dispositivo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Compatibilidade IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 

@@ -193,7 +193,7 @@ $params = $this->_obterparams();
     <script>
         //<![CDATA[
         $logout = $('#form-logout')._formulario({
-            depois: function(){ window.location.reload(); },
+            depois: function(){ window.location = $('base').attr('href'); },
             aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
 

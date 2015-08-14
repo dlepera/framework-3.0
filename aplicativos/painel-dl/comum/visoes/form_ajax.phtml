@@ -14,7 +14,11 @@
     //<![CDATA[
     $sf = $('#form-<?= $params['form-id']; ?>')._formulario({
         depois: function(){
-            window.location = '<?= $params['url-depois']; ?>';
+	        var url = '<?= $params['url-depois']; ?>';
+
+	        if( !/^\//.test(url) ) url = $('base').attr('href') + url;
+
+	        window.location = url;
         },
         aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
     }).on('reset', function(){ history.back(); });
