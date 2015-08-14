@@ -14,6 +14,9 @@ use \Geral\Modelo as GeralM;
 class TipoDadoContato extends GeralM\Principal{
     protected $id, $descr, $icone, $rede_social = 0, $mascara, $expreg, $publicar = 1, $delete = 0;
 
+
+    public $conf_extensoes_icone = ['png', 'jpg', 'gif', 'bmp'];
+
     /*
      * 'Gets' e 'Sets' das propriedades
      */
@@ -61,6 +64,7 @@ class TipoDadoContato extends GeralM\Principal{
 	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
 		# Fazer upload da imagem
         $oup = new \Upload('web/uploads/contatos', 'icone');
+		$oup->_extensoes($this->conf_extensoes_icone);
 		$oup->_salvar($this->descr, true) and $this->icone = preg_replace('~^\.~', '', $oup->salvos[0]);
 
 		# Salvar registro

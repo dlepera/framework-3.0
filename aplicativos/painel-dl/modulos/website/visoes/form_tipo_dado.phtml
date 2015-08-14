@@ -25,13 +25,11 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_TIPO_DADO; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
+                <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="arq-icone" class="form-rotulo"><?= TXT_ROTULO_ICONE; ?>:</label><br/>
-                <input type="file" name="icone" id="arq-icone" class="form-controle"/>
+	            <?= $this->aux_form->_arquivo_upload('icone', 'icone', TXT_ROTULO_ICONE, [], implode(', ', $mod->conf_extensoes_icone)); ?>
 
                 <?php if( $mod->icone != '' ): ?>
                 <figure class="mostrar-icone">
@@ -41,9 +39,7 @@ $mod = $params['modelo'];
             </p>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_REDE_SOCIAL; ?></span><br/>
-                <input type="checkbox" name="rede_social" id="rede-social" class="form-alternar"<?php $mod->rede_social and print(' CHECKED'); ?>/>
-                <label for="rede-social"></label>
+	            <?= $this->aux_form->_chk_sim_nao('rede_social', 'rede-social', TXT_ROTULO_REDE_SOCIAL, null, $mod->rede_social ? ' CHECKED' : ''); ?>
             </p>
         </fieldset>
 
@@ -51,22 +47,16 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_OPCOES_AVANCADAS; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-mascara" class="form-rotulo"><?= TXT_ROTULO_MASCARA; ?>:</label><br/>
-                <span class="form-dica"><?= TXT_DICA_TIPODADO_MASCARA; ?></span><br/>
-                <input type="text" name="mascara" id="txt-mascara" value="<?= $mod->mascara; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('texto', 'mascara', 'mascara', $mod->mascara, TXT_ROTULO_MASCARA, TXT_DICA_TIPODADO_MASCARA); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-expreg" class="form-rotulo"><?= TXT_ROTULO_EXPREG; ?>:</label><br/>
-                <span class="form-dica"><?= TXT_DICA_TIPODADO_EXPREG; ?></span><br/>
-                <input type="text" name="expreg" id="txt-expreg" value="<?= $mod->expreg; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('texto', 'expreg', 'expreg', $mod->expreg, TXT_ROTULO_EXPREG, TXT_DICA_TIPODADO_EXPREG); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">

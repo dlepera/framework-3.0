@@ -7,6 +7,7 @@
  * @Data	: 04/01/2015 23:17:52
  */
 
+
 # Configurações da aplicação
 $ap_raiz    = 'framework-3.0';
 $ap_nome    = 'painel-dl';

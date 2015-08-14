@@ -93,3 +93,30 @@ function ValidaEAN(ean){
 
 	return dv === dvo;
 } // Fim function ValidaEAN()
+
+
+
+/**
+ * Validar tamanho e extensão dos arquivos para upload
+ *
+ * @param a Objeto com as informações necessárias para a validação
+ * @returns {boolean}
+ * @constructor
+ */
+function ValidaUpload(a){
+	var arqs = a.arq;
+	var exts = a.exts;
+	var tmax = parseInt(a.max) * 1024 * 1024;
+	var qtd = arqs.length;
+	var arq, nome, ext;
+
+	for(var i = 0; i < qtd; i++){
+		arq  = arqs[i];
+		nome = arq.name.toLowerCase();
+		ext  = nome.substr(nome.indexOf('.', nome.length - 5) + 1);
+
+		if( arq.size > tmax || exts.indexOf(ext) < 0 ) return false;
+	} // Fim for(i)
+
+	return true;
+} // Fim ValidaUpload(a)

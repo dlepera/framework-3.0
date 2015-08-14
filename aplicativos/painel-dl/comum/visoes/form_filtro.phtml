@@ -10,35 +10,19 @@
 ?>
 
 <form id="form-filtro" method="get" class="form-filtro">
-    <input type="search" name="t" value="<?= $params['get-t']; ?>" placeholder="<?= TXT_DICA_FORM_FILTRO; ?>" class="form-controle"/>
-
+	<?= $this->aux_form->_campo_geral('busca', 't', 't', $params['get-t'], null, null, [
+		'placeholder' => TXT_DICA_FORM_FILTRO, 'required' => 'required']
+	); ?>
     <?php
     $qc = count($params['campos']);
 
     if( $qc === 1 ): ?>
     <input type="hidden" name="c" value="<?= $params['campos'][0]['valor']; ?>"/>
     <input type="hidden" name="o" value="<?= $params['campos'][0]['valor']; ?>"/>
-    <?php elseif( $qc > 1 ):?>
-    <select name="c" class="form-controle">
-        <option value=""><?= TXT_OPCAO_NO_CAMPO; ?></option>
-
-        <?php foreach( $params['campos'] as $o ): ?>
-        <option value="<?= $o['valor']; ?>"<?= $params['get-c'] == $o['valor'] ? ' SELECTED' : ''; ?>>
-            <?= $o['texto']; ?>
-        </option>
-        <?php endforeach; ?>
-    </select>
-
-    <select name="o" class="form-controle">
-        <option value=""><?= TXT_OPCAO_ORDENAR_POR; ?></option>
-
-        <?php foreach( $params['campos'] as $o ): ?>
-        <option value="<?= $o['valor']; ?>"<?php $params['get-o'] == $o['valor'] and print(' SELECTED'); ?>>
-            <?= $o['texto']; ?>
-        </option>
-        <?php endforeach; ?>
-    </select>
-    <?php endif; ?>
+    <?php elseif( $qc > 1 ):
+        echo $this->aux_form->_combo_select('c', 'c', $params['get-c'], null, null, [], $params['campos']);
+		echo $this->aux_form->_combo_select('o', 'o', $params['get-o'], null, null, [], $params['campos']);
+    endif; ?>
 
     <?php if( $params['filtro?'] ): ?>
     <a href="javascript:;" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">

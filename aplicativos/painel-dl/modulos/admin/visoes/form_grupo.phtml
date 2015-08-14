@@ -25,14 +25,11 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_GRUPO; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-                <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
+                <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-                <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-                <label for="chk-publicar"></label>
+	            <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
             </p>
         </fieldset>
 

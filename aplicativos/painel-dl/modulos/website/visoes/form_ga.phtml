@@ -22,21 +22,18 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
         <p class="form-paragr">
-            <label for="txt-apelido" class="form-rotulo"><?= TXT_ROTULO_APELIDO; ?>:</label><br/>
-            <input type="text" name="apelido" id="txt-apelido" value="<?= $mod->apelido; ?>" class="form-controle" required/>
+            <?= $this->aux_form->_campo_geral('texto', 'apelido', 'apelido', $mod->apelido, TXT_ROTULO_APELIDO, null, ['required' => 'required']); ?>
         </p>
 
         <fieldset class="form-grupo">
             <legend class="form-legenda"><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
 
             <p class="form-paragr">
-                <label for="mail-usuario" class="form-rotulo"><?= TXT_ROTULO_USUARIO; ?>:</label><br/>
-                <input type="email" name="usuario" id="mail-usuario" value="<?= $mod->usuario; ?>" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('email', 'usuario', 'usuario', $mod->usuario, TXT_ROTULO_USUARIO, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
             </p>
         </fieldset>
 
@@ -44,26 +41,22 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
 
             <p class="form-paragr">
-                <label for="perfil-id" class="form-rotulo"><?= TXT_ROTULO_PERFIL; ?>:</label><br/>
-                <input type="number" name="perfil_id" id="perfil-id" value="<?= $mod->perfil_id; ?>" min="10000" max="999999999" class="form-controle form-numero"/>
+	            <?= $this->aux_form->_campo_geral('numero', 'perfil_id', 'perfil-id', $mod->perfil_id, TXT_ROTULO_PERFIL, null, [
+		            'min' => 10000, 'max' => 999999999, 'required' => 'required'
+	            ]); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="codigo-ua" class="form-rotulo"><?= TXT_ROTULO_CODIGO_UA; ?>:</label><br/>
-                <input type="text" name="codigo_ua" id="codigo-ua" value="<?= $mod->codigo_ua; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('texto', 'codigo_ua', 'codigo-ua', $mod->codigo_ua, TXT_ROTULO_CODIGO_UA, null, ['required' => 'required']); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal and print(' CHECKED'); ?>/>
-            <label for="chk-principal"></label>
+	        <?= $this->aux_form->_chk_sim_nao('principal', 'principal', TXT_ROTULO_PUBLICAR, null, $mod->principal ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">

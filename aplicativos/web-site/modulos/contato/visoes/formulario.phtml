@@ -14,37 +14,22 @@
 [DL3-CONTEUDO]
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <p class="form-paragr">
-            <label for="txt-nome" class="form-rotulo"><?= TXT_ROTULO_NOME; ?>:</label><br/>
-            <input type="text" name="nome" id="txt-nome" class="form-controle" required/>
+            <?= $this->aux_form->_campo_geral('texto', 'nome', 'nome', '', TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="mail-email" class="form-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</label><br/>
-            <input type="email" name="email" id="mail-email" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('email', 'email', 'email', '', TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="tel-fone"><?= TXT_ROTULO_FONE; ?>:</label><br/>
-
-            <span class="form-dica">
-                <!-- Alternar a mácara do telefone -->
-                <input type="checkbox" id="alt-mask-fone" data-telefone="#tel-fone"/>
-                <label for="alt-mask-fone"><?= TXT_ROTULO_ALT_MASK_FONE; ?></label><br/>
-            </span>
-
-            <input type="tel" name="telefone" id="tel-fone" pattern="<?= \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL); ?>" class="form-controle"/>
+	        <?= $this->aux_form->_campo_telefone('telefone', 'fone', null, TXT_ROTULO_FONE, null, ['pattern' => \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL)]); ?>
         </p>
 
         <?php if( $params['mostrar-assunto?'] && count($params['assuntos']) > 0 ): ?>
         <p class="form-paragr">
-            <label for="sel-assunto" class="form-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</label><br/>
-            <select name="assunto" id="sel-assunto" class="form-controle" required>
-                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                <?php foreach( $params['assuntos'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"><?= $o['TEXTO']; ?></option>
-                <?php endforeach; ?>
-            </select>
+	        <?= $this->aux_form->_combo_select('assunto', 'assunto', null, TXT_ROTULO_ASSUNTO, null, ['required' => 'required'],
+		        array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['assuntos'])
+	        ); ?>
         </p>
         <?php endif; ?>
 
@@ -66,7 +51,7 @@
     // Aplicar as máscaras
     $('#tel-fone')._mascara('<?= MASK_TELEFONE_CELULAR_8; ?>');
 
-    $('#alt-mask-fone').on('change',
+    $('.alt-mask-fone').on('change',
 	    { msk8: '<?= MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?= MASK_TELEFONE_CELULAR_9; ?>' },
 	    AlternarMaskFone
     );

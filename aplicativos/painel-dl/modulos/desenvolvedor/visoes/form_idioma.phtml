@@ -22,19 +22,17 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
         <p class="form-paragr">
-            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCRICAO, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="txt-sigla" class="form-rotulo"><?= TXT_ROTULO_SIGLA; ?>:</label><br/>
-            <input type="text" name="sigla" id="txt-sigla" value="<?= $mod->sigla; ?>" placeholder="<?= TXT_DICA_SIGLA; ?>" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('texto', 'sigla', 'sigla', $mod->sigla, TXT_ROTULO_SIGLA, null, [
+		        'placeholder' => TXT_EXEMPLO_SIGLA, 'required' => 'required'
+	        ]); ?>
         </p>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">

@@ -11,8 +11,8 @@
 class Arquivos{
 	public static $extensoes = [
         /* Arquivos de imagens */
-        'image/png'=>'png', 'image/jpeg'=>'jpg', 'image/pjpeg'=>'jpg', 'image/gif'=>'gif', 'image/bmp'=>'bmp', 'image/x-windows-bmp'=>'bmp', 'image/fif'=>'fif',
-        'image/florian'=>'flo', 'image/x-icon'=>'ico', 'image/x-jps'=>'jps',
+        'image/png' => 'png', 'image/jpeg' => 'jpg', 'image/pjpeg' => 'jpg', 'image/gif' => 'gif', 'image/bmp' => 'bmp',
+        'image/x-windows-bmp' => 'bmp', 'image/fif' => 'fif', 'image/florian' => 'flo', 'image/x-icon' => 'ico', 'image/x-jps' => 'jps',
 
         /* Arquivos de vídeo */
         'application/x-troff-msvideo' => 'avi', 'video/avi' => 'avi', 'video/msvideo' => 'avi', 'video/x-msvideo' => 'avi', 'video/avs-video' => 'avs',

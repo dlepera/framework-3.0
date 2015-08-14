@@ -23,16 +23,9 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
         <p class="form-paragr">
-            <label for="sel-tipo" class="form-rotulo"><?= TXT_ROTULO_TIPO; ?>:</label><br/>
-            <select name="tipo" id="sel-tipo" class="form-controle" required>
-                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                <?php foreach( $params['tipos'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"<?= $o['VALOR'] == $mod->tipo ? ' SELECTED' : ''; ?>>
-                    <?= $o['TEXTO']; ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
+	        <?= $this->aux_form->_combo_select('tipo', 'tipo', $mod->tipo, TXT_ROTULO_TIPO, null, ['required' => 'required'],
+		        array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['tipos'])
+	        ); ?>
 
             <?php if( $params['novo-tipo?'] ): ?>
             <a href="javascript:;" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
@@ -42,14 +35,13 @@ $mod = $params['modelo'];
         </p>
 
         <p class="form-paragr">
-            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>"<?php !empty($params['expreg']) and print(' pattern="'. $params['expreg'] .'"'); ?> class="form-controle" required/>
+            <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, [
+	            'pattern' => $params['expreg'], 'required' => 'required'
+            ]); ?>
         </p>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">

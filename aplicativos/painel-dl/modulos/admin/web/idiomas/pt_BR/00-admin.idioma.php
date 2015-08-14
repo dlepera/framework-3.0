@@ -83,11 +83,14 @@ define('TXT_ROTULO_HTML', 'HTML?');
 define('TXT_ROTULO_PRINCIPAL', 'Principal?');
 define('TXT_ROTULO_SELECIONAR_TODOS', 'Selecionar todos');
 define('TXT_ROTULO_DEBUG', 'Habilitar o debug?');
-define('TXT_ROTULO_ALT_MASK_FONE', 'Esse telefone possui o 9º dígito');
 
 # -> Dicas
 define('TXT_DICA_EXIBIR_ID', 'Deseja ver o ID do registro nas listas?');
 define('TXT_DICA_FILTRO_MENU', 'Mostra um filtro para localizar as opções do menu.');
+
+# -> Exemplos
+define('TXT_EXEMPLO_HOST_SMTP', 'Ex.: smtp.dominio.com.br');
+define('TXT_EXEMPLO_EMAIL', 'Ex.: nome@dominio.com.br');
 
 # -> Opções
 define('TXT_OPCAO_MASCULINO', 'Masculino');

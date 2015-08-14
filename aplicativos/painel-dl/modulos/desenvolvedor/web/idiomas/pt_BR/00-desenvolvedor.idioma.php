@@ -53,8 +53,11 @@ define('TXT_ROTULO_CLASSE', 'Classe');
 define('TXT_ROTULO_MENU', 'Incluir no menu?');
 
 # -> Dicas
-define('TXT_DICA_SIGLA', 'Ex.: pt_BR');
 define('TXT_DICA_MODULO_MENU', 'Incluir esse módulo no menu principal do sistema.');
+define('TXT_DICA_TEMA_PADRAO', 'Definir como o tema padrão do sistema.<br/>Será utilizado sempre que o usuário não definir outro tema.');
+
+# -> Exemplos
+define('TXT_EXEMPLO_SIGLA', 'Ex.: pt_BR');
 
 # Links
 define('TXT_LINK_NOVO_MODULO', 'Novo módulo');

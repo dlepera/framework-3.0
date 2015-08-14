@@ -24,29 +24,15 @@ $mod = $params['modelo'];
         <p class="msg-info"><?= TXT_AJUDA_CONFIGURACAO_WEBSITE; ?></p>
 
         <p class="form-paragr">
-            <label for="sel-tema" class="form-rotulo"><?= TXT_ROTULO_TEMA; ?>:</label><br/>
-            <select name="tema" id="sel-tema" class="form-controle" required>
-                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                <?php foreach( $params['temas'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->tema and print(' SELECTED'); ?>>
-                    <?= $o['TEXTO']; ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
+            <?= $this->aux_form->_combo_select('tema', 'tema', $mod->tema, TXT_ROTULO_TEMA, null, ['required' => 'required'],
+                array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['temas'])
+            ); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="formato-data" class="form-rotulo"><?= TXT_ROTULO_FORMATO_DATA; ?>:</label><br/>
-            <select name="formato_data" id="formato-data" class="form-controle" required>
-                <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                <?php foreach( $params['formatos-data'] as $o ): ?>
-                <option value="<?= $o['VALOR']; ?>"<?php $o['VALOR'] == $mod->formato_data and print(' SELECTED'); ?>>
-                    <?= $o['TEXTO']; ?>
-                </option>
-                <?php endforeach; ?>
-            </select>
+	        <?= $this->aux_form->_combo_select('formato_data', 'formato_data', $mod->formato_data, TXT_ROTULO_FORMATO_DATA, null, ['required' => 'required'],
+		        array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['formatos-data'])
+	        ); ?>
         </p>
 
         <p class="form-botoes">

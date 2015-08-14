@@ -20,13 +20,11 @@ $mod = $params['modelo'];
 	    <p class="msg-atencao"><?php printf(TXT_DIVERSOS_AVISO_USUARIO_RESET_SENHA, $params['nome-usuario']); ?></p>
 
         <p class="form-paragr">
-            <label for="txt-senha-nova" class="form-rotulo"><?= TXT_ROTULO_SENHA_NOVA; ?>:</label><br/>
-            <input type="password" name="senha_nova" id="txt-senha-nova" class="form-controle" required/>
+            <?= $this->aux_form->_campo_geral('senha', 'senha_nova', 'senha-nova', null, TXT_ROTULO_SENHA_NOVA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="txt-senha-conf" class="form-rotulo"><?= TXT_ROTULO_SENHA_CONF; ?>:</label><br/>
-            <input type="password" name="senha_nova_conf" id="txt-senha-conf" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('senha', 'senha_nova_conf', 'senha-conf', null, TXT_ROTULO_SENHA_CONF, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">

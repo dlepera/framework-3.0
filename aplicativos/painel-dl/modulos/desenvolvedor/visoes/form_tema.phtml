@@ -22,25 +22,19 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
         <p class="form-paragr">
-            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-            <input type="text" name="descr" id="txt-descr" value="<?= $mod->descr; ?>" class="form-controle" required/>
+            <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCRICAO, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="txt-diretorio" class="form-rotulo"><?= TXT_ROTULO_DIRETORIO; ?>:</label><br/>
-            <input type="text" name="diretorio" id="txt-diretorio" value="<?= $mod->diretorio; ?>" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('texto', 'diretorio', 'diretorio', $mod->diretorio, TXT_ROTULO_DIRETORIO, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PADRAO; ?></span><br/>
-            <input type="checkbox" name="padrao" id="chk-padrao" class="form-alternar"<?= $mod->padrao ? ' CHECKED' : ''; ?>/>
-            <label for="chk-padrao"></label>
+	        <?= $this->aux_form->_chk_sim_nao('padrao', 'padrao', TXT_ROTULO_PADRAO, TXT_DICA_TEMA_PADRAO, $mod->padrao ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PUBLICAR; ?></span><br/>
-            <input type="checkbox" name="publicar" id="chk-publicar" class="form-alternar"<?php $mod->publicar and print(' CHECKED'); ?>/>
-            <label for="chk-publicar"></label>
+	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">

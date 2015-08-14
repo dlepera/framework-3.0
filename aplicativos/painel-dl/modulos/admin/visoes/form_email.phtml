@@ -29,14 +29,19 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_SERVIDOR; ?></legend>
 
             <p class="form-paragr">
-                <label for="txt-titulo" class="form-rotulo"><?= TXT_ROTULO_TITULO; ?>:</label><br/>
-                <input type="text" name="titulo" id="txt-titulo" value="<?= $mod->titulo; ?>" class="form-controle" required/>
+	            <?= $this->aux_form->_campo_geral('texto', 'titulo', 'titulo', $mod->titulo, TXT_ROTULO_TITULO, null, [
+	                'required' => 'required'
+                ]); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-host" class="form-rotulo"><?= TXT_ROTULO_HOST; ?>:</label><br/>
-                <input type="text" name="host" id="txt-host" value="<?= $mod->host; ?>" class="form-controle" required/>
-                : <input type="number" name="porta" value="<?= $mod->porta; ?>" min="1" max="9999" class="form-controle form-numero" required/>
+	            <?= $this->aux_form->_campo_geral('texto', 'host', 'host', $mod->host, TXT_ROTULO_HOST, null, [
+		            'placeholder' => TXT_EXEMPLO_HOST_SMTP, 'required' => 'required'
+	            ]); ?> :
+
+	            <?= $this->aux_form->_campo_geral('numero', 'porta', 'porta', $mod->porta, null, null, [
+		            'required' => 'required', 'min' => 1, 'max' => 65535
+	            ]); ?>
             </p>
         </fieldset>
 
@@ -44,28 +49,23 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_AUTENTICACAO; ?></legend>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_REQUER_AUTENT; ?></span><br/>
-                <input type="checkbox" name="autent" id="chk-autent" class="form-alternar"<?php $mod->autent and print(' CHECKED'); ?>/>
-                <label for="chk-autent"></label>
+	            <?= $this->aux_form->_chk_sim_nao('autent', 'chk-autent', TXT_ROTULO_REQUER_AUTENT, null, $mod->autent ? 'CHECKED' : ''); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="sel-cripto" class="form-rotulo"><?= TXT_ROTULO_TIPO_CRIPTO; ?>:</label><br/>
-                <select name="cripto" id="sel-cripto" class="form-controle">
-                    <option value=""><?= TXT_OPCAO_NENHUMA; ?></option>
-                    <option value="tls"<?php $mod->cripto == 'tls' and print(' SELECTED'); ?>><?= TXT_OPCAO_TLS; ?></option>
-                    <option value="ssl"<?php $mod->cripto == 'ssl' and print(' SELECTED'); ?>><?= TXT_OPCAO_SSL; ?></option>
-                </select>
+	            <?= $this->aux_form->_combo_select('cripto', 'cripto', $mod->cripto, TXT_ROTULO_TIPO_CRIPTO, null, [], [
+		            ['VALOR' => '', 'TEXTO' => TXT_OPCAO_NENHUMA],
+		            ['VALOR' => 'tls', 'TEXTO' => TXT_OPCAO_TLS],
+		            ['VALOR' => 'ssl', 'TEXTO' => TXT_OPCAO_SSL]
+	            ]); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-conta" class="form-rotulo"><?= TXT_ROTULO_CONTA; ?>:</label><br/>
-                <input type="text" name="conta" id="txt-conta" class="form-controle" value="<?= $mod->conta; ?>"/>
+	            <?= $this->aux_form->_campo_geral('texto', 'conta', 'conta', $mod->conta, TXT_ROTULO_CONTA); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-                <input type="password" name="senha" id="txt-senha" value="<?= $mod->senha; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA); ?>
             </p>
         </fieldset>
 
@@ -73,40 +73,34 @@ $mod = $params['modelo'];
             <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
 
             <p class="form-paragr">
-                <label for="de-nome" class="form-rotulo"><?= TXT_ROTULO_DE_NOME; ?>:</label><br/>
-                <input type="text" name="de_nome" id="de-nome" value="<?= $mod->de_nome; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('texto', 'de_nome', 'de-nome', $mod->de_nome, TXT_ROTULO_DE_NOME, null, [
+		            'required' => 'required'
+	            ]); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="de-email" class="form-rotulo"><?= TXT_ROTULO_DE_EMAIL; ?>:</label><br/>
-                <input type="email" name="de_email" id="de-email" value="<?= $mod->de_email; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('email', 'de_email', 'de-email', $mod->de_email, TXT_ROTULO_DE_EMAIL, null, [
+		            'placeholder' => TXT_EXEMPLO_EMAIL, 'required' => 'required'
+	            ]); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="responder-para" class="form-rotulo"><?= TXT_ROTULO_RESPONDER_PARA; ?>:</label><br/>
-                <input type="email" name="responder_para" id="responder-para" value="<?= $mod->responder_para; ?>" class="form-controle"/>
+	            <?= $this->aux_form->_campo_geral('email', 'responder_para', 'responder-para', $mod->responder_para, TXT_ROTULO_RESPONDER_PARA, null, [
+		            'placeholder' => TXT_EXEMPLO_EMAIL, 'required' => 'required'
+	            ]); ?>
             </p>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_HTML; ?></span><br/>
-                <span class="form-dica"><?= MSG_DICA_EMAIL_HTML; ?></span><br/>
-                <input type="checkbox" name="html" id="chk-html" class="form-alternar"<?php $mod->html and print(' CHECKED'); ?>/>
-                <label for="chk-html"></label>
+	            <?= $this->aux_form->_chk_sim_nao('html', 'chk-html', TXT_ROTULO_HTML, MSG_DICA_EMAIL_HTML, $mod->html ? 'CHECKED' : ''); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-            <span class="form-rotulo"><?= TXT_ROTULO_PRINCIPAL; ?></span><br/>
-            <span class="form-dica"><?= MSG_DICA_EMAIL_PRINCIPAL; ?></span><br/>
-            <input type="checkbox" name="principal" id="chk-principal" class="form-alternar"<?php $mod->principal and print(' CHECKED'); ?>/>
-            <label for="chk-principal"></label>
+	        <?= $this->aux_form->_chk_sim_nao('principal', 'chk-principal', TXT_ROTULO_PRINCIPAL, MSG_DICA_EMAIL_PRINCIPAL, $mod->principal ? 'CHECKED' : ''); ?>
         </p>
 
 	    <p class="form-paragr">
-		    <span class="form-rotulo"><?= TXT_ROTULO_DEBUG; ?></span><br/>
-		    <span class="form-dica"><?= MSG_DICA_DEBUG; ?></span><br/>
-		    <input type="checkbox" name="debug" id="chk-debug" class="form-alternar"<?php $mod->debug and print(' CHECKED'); ?>/>
-		    <label for="chk-debug"></label>
+		    <?= $this->aux_form->_chk_sim_nao('debug', 'chk-debug', TXT_ROTULO_DEBUG, MSG_DICA_DEBUG, $mod->debug ? 'CHECKED' : ''); ?>
 	    </p>
 
         <p class="form-botoes">

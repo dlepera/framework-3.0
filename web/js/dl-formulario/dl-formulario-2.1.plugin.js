@@ -234,7 +234,9 @@
 				var $th = $(this);
 				var fnc = window[$th.data('vld-func')];
 				var msg = $th.data('vld-msg');
-				var vlr = $th.val();
+				var vlr = this.type === 'file' ?
+					{ arq: this.files, exts: $th.data('vld-exts'), max: $th.data('vld-max') }
+				: $th.val();
 
 				// Verificar se a função informada existe e se é mesmo uma função
 				if( typeof fnc !== 'function' ){

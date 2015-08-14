@@ -35,32 +35,32 @@ form{
         
         /* Margens */
         padding: 0 .35em;
+
+	    &-cor{
+		    /* Visual */
+		    border: none;
+
+		    /* Tamanho */
+		    width   : 3em;
+		    height  : 3em;
+
+		    /* Visual */
+		    background: transparent;
+	    }
+
+	    &-textarea{
+		    /* Tamanho */
+		    height: 15em;
+
+		    /* Margens */
+		    padding: .5em;
+	    }
     }
     
-    .form-numero,.form-data{
-        /* Tamanho */
+    /* .form-numero,.form-data{
+        /* Tamanho *
         width: auto !important;
-    }
-    
-    .form-cor{
-        /* Visual */
-        border: none;
-        
-        /* Tamanho */
-        width   : 3em;
-        height  : 3em;
-        
-        /* Visual */
-        background: transparent;
-    }
-    
-    .form-textarea{
-        /* Tamanho */
-        height: 15em;
-        
-        /* Margens */
-        padding: .5em;
-    }
+    } */
     
     .form-grupo{
         /* Visual */
@@ -102,23 +102,33 @@ form{
     .form-dica{
         /* Texto */
         color: #999;
+
+	    /* Visual */
+	    display: inline-block;
+
+	    /* Posicionamento */
+	    position: relative;
+
+	    /* Margens */
+	    margin-left: 1.35em;
+	    padding: .35em 0;
     }
 
     .form-dica:before{
+	    $pos: calc(-100% - .35em);
+
         /* Texto */
         content     : '\e709';
         font-family : 'icones';
         color       : #069;
 
-        /* Alinhamento */
-        vertical-align: middle;
+	    /* Posicionamento */
+	    position: absolute;
+	    left: 0;
+	    top: 50%;
 
-        /* Margens */
-        margin-right: .35em;
-        padding     : .35em 0;
-
-        /* Visual */
-        display: inline-block;
+		/* Transformar */
+	    @include _transform(translateX($pos) translateY(-50%));
     }
     
     .form-botoes{
@@ -285,8 +295,10 @@ form{
 @media screen and (min-width:$tela-tablet + 1px){
     form{
         .form-controle{
-            /* Tamanho */
-            width: 30%;
+	        &-texto, &-textarea, &-email, &-select, &-busca {
+		        /* Tamanho */
+		        width: 30%;
+	        }
         }
     }
 }
@@ -297,8 +309,10 @@ form{
 @media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
     form{
         .form-controle{
-            /* Tamanho */
-            width: 60%;
+	        &-texto, &-textarea, &-email, &-select, &-busca {
+		        /* Tamanho */
+		        width: 60%;
+	        }
         }
     }
 }
@@ -309,8 +323,10 @@ form{
 @media screen and (max-width:$tela-smart){
     form{
         .form-controle{
-            /* Tamanho */
-            width: 100%;
+	        &-texto, &-textarea, &-email, &-select, &-busca {
+		        /* Tamanho */
+		        width: 100%;
+	        }
         }
     }
 }

@@ -16,13 +16,11 @@ $mod = $params['modelo'];
 [DL3-CONTEUDO]
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <p class="form-paragr">
-            <label for="txt-login" class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</label><br/>
-            <input type="text" name="login" id="txt-login" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('texto', 'login', 'login', $mod->login, TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="txt-senha" class="form-rotulo"><?= TXT_ROTULO_SENHA; ?>:</label><br/>
-            <input type="password" name="senha" id="txt-senha" class="form-controle" required/>
+	        <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">
