@@ -151,13 +151,15 @@ HTML;
 			'id' => '',
 			'value' => '',
 			'data-vld-func' => 'ValidaCPF',
-			'data-vld-msg' => TXT_VALIDACAO_CPF_INVALIDO
+			'data-vld-msg' => TXT_VALIDACAO_CPF_INVALIDO,
+			'pattern' => EXPREG_CPF
 		],
 
 		'cnpj' => [
 			'type' => 'text',
 			'data-vld-func' => 'ValidaCNPJ',
-			'data-vld-msg' => TXT_VALIDACAO_CNPJ_INVALIDO
+			'data-vld-msg' => TXT_VALIDACAO_CNPJ_INVALIDO,
+			'pattern' => EXPREG_CNPJ
 		]
 	];
 
@@ -320,7 +322,7 @@ HTML;
 	 */
 	private function _vetor2string(array $vt){
 		return implode(' ', array_map(function($k) use ($vt){
-			$vl = $vt[$k];
+			$vl = $k === 'pattern' ? \Funcoes::_expreg_form($vt[$k]) : $vt[$k];
 			return isset($vl) ? "{$k}=\"{$vl}\"" : null;
 		}, array_keys($vt)));
 	} // Fim do método _vetor2string
