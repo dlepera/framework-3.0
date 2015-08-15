@@ -44,12 +44,9 @@
             <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
             <excludedPath local="true" path="$PROJECT_DIR$/config" />
             <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/web-site" />
-            <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
             <excludedPath local="true" path="$PROJECT_DIR$/web/uploads" />
             <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/painel-dl/modulos/home" />
-            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/painel-dl/modulos/website" />
-            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/sass" />
-            <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl/scss" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos/painel-dl/modulos/website/" />
             <excludedPath local="true" path="$PROJECT_DIR$/benchmark.php" />
           </excludedPaths>
         </serverdata>
