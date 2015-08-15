@@ -152,14 +152,16 @@ HTML;
 			'value' => '',
 			'data-vld-func' => 'ValidaCPF',
 			'data-vld-msg' => TXT_VALIDACAO_CPF_INVALIDO,
-			'pattern' => EXPREG_CPF
+			'pattern' => EXPREG_CPF,
+			'class' => 'form-controle form-controle-cpf'
 		],
 
 		'cnpj' => [
 			'type' => 'text',
 			'data-vld-func' => 'ValidaCNPJ',
 			'data-vld-msg' => TXT_VALIDACAO_CNPJ_INVALIDO,
-			'pattern' => EXPREG_CNPJ
+			'pattern' => EXPREG_CNPJ,
+			'class' => 'form-controle form-controle-cnpj'
 		]
 	];
 
