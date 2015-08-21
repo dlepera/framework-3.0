@@ -1,0 +1,94 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: dlepera
+ * Date: 21/08/15
+ * Time: 08:32
+ */
+
+!isset($params) and $params = $this->_obterparams();
+
+?>
+[DL3-CONTEUDO]
+	<h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_FUNCIONALIDADES; ?></h2>
+
+	<form id="form-funcs" method="post" action="desenvolvedor/modulos/inserir-funcionalidade">
+		<input type="hidden" name="func_modulo" value="<?= $mod->id; ?>"/>
+
+		<div class="flexivel">
+			<fieldset class="form-grupo col-2">
+				<legend class="form-legenda"><?= TXT_LEGENDA_FUNCIONALIDADES; ?></legend>
+
+				<p class="form-paragr">
+					<?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', null, TXT_ROTULO_DESCRICAO, null, ['required' => 'required']); ?>
+				</p>
+
+				<p class="form-paragr">
+					<?= $this->aux_form->_campo_geral('texto', 'classe', 'classe', $params['modulo-classe'], TXT_ROTULO_CLASSE, null, ['required' => 'required']); ?>
+				</p>
+
+				<ul id="metodos" class="sub-itens">
+					<li class="item">
+						<?= $this->aux_form->_campo_geral('texto', 'metodos[]', '', null, null, null, [
+							'placeholder' => TXT_ROTULO_METODO, 'required' => 'required'
+						]); ?>
+					<li>
+				</ul>
+
+				<a href="javascript:;" onclick="NovoMetodo();" class="com-icone ico-inserir">
+					<?= TXT_LINK_NOVO_METODO; ?>
+				</a>
+			</fieldset>
+
+			<fieldset class="form-grupo col-2">
+				<legend class="form-legenda"><?= TXT_LEGENDA_GRUPOS; ?></legend>
+
+				<p class="msg-info"><?= TXT_DIVERSOS_INFORMAR_GRUPOS; ?></p>
+
+				<p class="form-paragr">
+					<span class="form-rotulo"><?= TXT_ROTULO_GRUPOS; ?>:</span><br/>
+
+				<div class="flexivel">
+					<?php foreach( $params['grupos'] as $g ): ?>
+						<label for="grp-<?= $g['VALOR']; ?>" class="col-3">
+							<input type="checkbox" name="grupos[]" id="grp-<?= $g['VALOR']; ?>" value="<?= $g['VALOR']; ?>"/>
+							<?= $g['TEXTO']; ?>
+						</label>
+					<?php endforeach; ?>
+				</div>
+				</p>
+			</fieldset>
+		</div>
+
+		<p class="form-botoes">
+			<button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
+			<button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+		</p>
+	</form>
+[/DL3-CONTEUDO]
+
+[DL3-SCRIPTS]
+<script>
+	$('#form-funcs')._formulario({
+		depois: function(){ window.location.reload(); },
+		aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+	});
+
+	/**
+	 * Incluir um novo campo Método
+	 * @constructor
+	 */
+	function NovoMetodo(){
+		var $mtd = $('#metodos');
+		var $itm = $mtd.find('.item:first-child').clone().appendTo($mtd);
+		$itm.find('input').removeAttr('id').removeAttr('tabindex');
+
+		// Criar botão para remover
+		$(document.createElement('a')).html('x').attr('href', 'javascript:;').on('click', function(){
+			$(this).parents('.item').fadeOut('fast', function(){
+				$(this).remove();
+			});
+		}).appendTo($itm);
+	} // Fim function NovoMetodo
+</script>
+[/DL3-SCRIPTS]

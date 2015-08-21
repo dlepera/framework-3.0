@@ -81,7 +81,7 @@ form{
         }
     }
     
-    .form-grupo:not(:first-of-type){
+    .form-grupo:not(:first-of-type):not([class*="col-"]){
         /* Margens */
         margin-top: 2em;
     }

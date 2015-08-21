@@ -12,7 +12,7 @@ namespace Desenvolvedor\Modelo;
 use \Geral\Modelo as GeralM;
 
 class ModuloFunc extends GeralM\Principal{
-    protected $id, $func_modulo, $descr, $classe, $metodos, $delete = 0;
+    protected $id, $func_modulo, $descr, $classe, $metodos, $grupos = [], $delete = 0;
 
     /*
      * 'Gets' e 'Sets' das propriedades
@@ -33,6 +33,10 @@ class ModuloFunc extends GeralM\Principal{
         return $this->metodos = filter_var(!isset($v) ? $this->metodos : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
     } // Fim do método _metodos
 
+    public function _grupos($v = null){
+        return $this->grupos = filter_var(!isset($v) ? $this->grupos : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY | FILTER_FORCE_ARRAY);
+    } // Fim do método _grupos
+
 
 
     public function __construct($pk = null){
@@ -45,6 +49,7 @@ class ModuloFunc extends GeralM\Principal{
 
 	/**
 	 * Salvar determinado registro
+	 * Obs.: Inicialmente esse método  só é utilizado para inclusão de registros
 	 *
 	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
 	 * @param array   $ci  Vetor com os campos a serem considerados
@@ -58,10 +63,17 @@ class ModuloFunc extends GeralM\Principal{
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $r && $s ){
+	        # Incluir os métodos
 	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
 
 	        foreach( $this->metodos as $m )
 		        $sql->execute([':id' => $this->id, ':metodo' => $m]);
+
+	        # Incluir os grupos
+	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_grupos_funcs (grupo_usuario_id, func_modulo_id) VALUES (:grp, :fnc)");
+
+	        foreach( $this->grupos as $g )
+		        $sql->execute([':grp' => $g, ':fnc' => $this->id]);
         } // Fim if( $r && $s )
 
         return $r;

@@ -11,6 +11,7 @@ namespace Desenvolvedor\Controle;
 
 use \Geral\Controle as GeralC;
 use \Desenvolvedor\Modelo as DevM;
+use \Admin\Modelo as AdminM;
 
 class Modulo extends GeralC\PainelDL{
     public function __construct(){
@@ -83,7 +84,6 @@ class Modulo extends GeralC\PainelDL{
 
         # Parâmetros
         $this->visao->_adparam('modulos-pai', $l_mp);
-        $this->visao->_adparam('mostrar-funcs?', !$inc && $this->modelo->pai > 0);
 
         if( !$inc ){
 	        # Funcionalidades
@@ -91,10 +91,19 @@ class Modulo extends GeralC\PainelDL{
 	        $l_mf = $m_mf->_carregarselect("func_modulo = {$this->modelo->id}", false);
 
 	        if( $this->modelo->pai > 0 ){
+		        # Visoes
+		        $this->_carregarhtml('form_funcs');
+		        $this->_carregarhtml('lista_funcs');
+
 		        # Módulo pai
 		        $mp = $this->modelo->_listar("M.modulo_id = {$this->modelo->pai}", null, 'M.modulo_nome', 0, 1, 0);
 
-		        # Informar a classe
+		        # Grupos para inclusão das funcionalidades
+		        $mgu = new AdminM\GrupoUsuario();
+		        $lgu = $mgu->_carregarselect('grupo_usuario_publicar = 1', false);
+
+		        # Informar a classe e os grupos
+		        $this->visao->_adparam('grupos', $lgu);
 		        $this->visao->_adparam('modulo-classe',
 			        \Funcoes::_removeracentuacao(str_replace(' ', '', $mp['modulo_nome']))
 			        . '\\Controle\\'
@@ -131,11 +140,12 @@ class Modulo extends GeralC\PainelDL{
         $of = new DevM\ModuloFunc();
 
         $post = filter_input_array(INPUT_POST, [
-            'id'            =>  FILTER_VALIDATE_INT,
-            'func_modulo'   =>  FILTER_VALIDATE_INT,
-            'descr'         =>  FILTER_SANITIZE_STRING,
-            'classe'        =>  FILTER_SANITIZE_STRING,
-            'metodos'       =>  ['filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY]
+	        'id' => FILTER_VALIDATE_INT,
+	        'func_modulo' => FILTER_VALIDATE_INT,
+	        'descr' => FILTER_SANITIZE_STRING,
+            'classe' => FILTER_SANITIZE_STRING,
+            'metodos' =>  ['filter' => FILTER_SANITIZE_STRING, 'flags' => FILTER_REQUIRE_ARRAY],
+            'grupos' => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY]
         ]);
 
         # Converter o encode
