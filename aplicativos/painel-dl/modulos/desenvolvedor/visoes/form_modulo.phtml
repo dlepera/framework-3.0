@@ -28,7 +28,7 @@ $mod = $params['modelo'];
 
             <?php if( $params['modulos-pai'] != false ): ?>
             <p class="form-paragr">
-	            <?= $this->aux_form->_combo_select('pai', 'pai', $mod->pai, TXT_ROTULO_MODULO_PAI, null, ['required' => 'required'],
+	            <?= $this->aux_form->_combo_select('pai', 'pai', $mod->pai, TXT_ROTULO_MODULO_PAI, null, [],
 		            array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['modulos-pai'])
 	            ); ?>
             </p>

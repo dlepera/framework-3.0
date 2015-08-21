@@ -271,4 +271,22 @@ class Funcoes{
     public static function _var_export_bd($v){
         return is_bool($v) ? filter_var(intval($v), FILTER_VALIDATE_INT) : var_export($v, true);
     } // Fim do método _var_export_bd
+
+
+
+
+    /**
+     * Remover uma determinada coluna de um array multi-dimensional
+     *
+     * @param array $v Vetor multi-dimensional a ser verificado
+     * @param mixed $c Nome ou índice da coluna a ser removida
+     *
+     * @return array
+     */
+    public static function _remover_coluna($v, $c){
+        return array_map(function ($v) use ($c){
+            if( isset($v) && is_array($v) ) unset($v[$c]);
+            return $v;
+        }, $v);
+    } // Fim do método _remover_coluna
 } // Fim da classe Funções

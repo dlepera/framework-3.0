@@ -28,3 +28,4 @@ define('MASK_CNPJ', '##.###.###/####-##');
 define('TXT_VALIDACAO_ARQUIVO_UPLOAD', "Extensão e/ou tamanho do(s) arquivo(s) inválido!");
 define('TXT_VALIDACAO_CPF_INVALIDO', 'CPF inválido!');
 define('TXT_VALIDACAO_CNPJ_INVALIDO', 'CNPJ inválido!');
+define('TXT_VALIDACAO_GTIN', 'Número inválido para qualquer padrão GTIN: EAN 8, EAN 13 ou DUN 14');

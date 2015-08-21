@@ -31,6 +31,9 @@ define('TXT_ROTULO_ALT_MASK_FONE', 'Esse telefone possui o 9º dígito');
 # -> Dicas
 define('TXT_DICA_INFO_UPLOAD', '<b>Extensões aceitas:</b> %s.<br/><b>Tamanho máximo do arquivo:</b> %s.');
 
+# -> Exemplos
+define('TXT_EXEMPLO_MOEDA_BRL', 'R$ 12,34');
+
 
 /*
  * PDODL

@@ -35,7 +35,7 @@ function ValidaCPF(v){
 	var dv_1, dv_2;
 	var mlt1 = [10, 9, 8, 7, 6, 5, 4, 3, 2];
 	var mlt2 = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
-	var cpf  = v.replace(/[\.\-]/g, '');
+	var cpf  = v.replace(/[^0-9]+/g, '');
 
 	dv_1 = CalcDV(v, mlt1);
 	dv_2 = CalcDV(v, mlt2);
@@ -56,7 +56,7 @@ function ValidaCNPJ(v){
 	var dv_1, dv_2;
 	var mlt1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 	var mlt2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-	var cnpj = v.replace(/[\.\-\\]/g, '');
+	var cnpj = v.replace(/[^0-9]+/g, '');;
 
 	dv_1 = CalcDV(cnpj, mlt1);
 	dv_2 = CalcDV(cnpj, mlt2);

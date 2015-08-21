@@ -182,10 +182,10 @@ class FrameworkDL3{
 
         # Carregar o pacote de idiomas
         $this->_carregaridioma();
-	    /*
-	     * TAREFA: Verificar o funcionamento do locale
-	     */
-	    setlocale(LC_ALL, $this->ap_idioma);
+        /*
+		 * TAREFA: Verificar o funcionamento do locale: Funciona, mas ainda será necessário verificar os impactos
+		 */
+	    // setlocale(LC_ALL, $this->ap_idioma);
 
         # Carregamento automático de controles e modelos
         $this->_carregarauto();
@@ -275,6 +275,10 @@ class FrameworkDL3{
     public function _bd_base($v = null){
         return $this->bd_base = filter_var(!isset($v) ? $this->bd_base : $v, FILTER_SANITIZE_STRING);
     } // Fim do método _bd_base
+
+    public function _bd_encoding($v = null){
+        return $this->bd_encoding = filter_var(!isset($v) ? $this->bd_encoding : $v, FILTER_SANITIZE_STRING);
+    } // Fim do método _bd_encoding
 
 
 

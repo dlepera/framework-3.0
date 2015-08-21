@@ -148,7 +148,7 @@ HTML;
 		'cpf' => [
 			'type' => 'text',
 			'name' => '',
-			'id' => '',
+			'id' => 'txt-',
 			'value' => '',
 			'data-vld-func' => 'ValidaCPF',
 			'data-vld-msg' => TXT_VALIDACAO_CPF_INVALIDO,
@@ -158,10 +158,30 @@ HTML;
 
 		'cnpj' => [
 			'type' => 'text',
+			'name' => '',
+			'id' => 'txt-',
 			'data-vld-func' => 'ValidaCNPJ',
 			'data-vld-msg' => TXT_VALIDACAO_CNPJ_INVALIDO,
 			'pattern' => EXPREG_CNPJ,
 			'class' => 'form-controle form-controle-cnpj'
+		],
+
+		'gtin' => [
+			'type' => 'text',
+			'name' => '',
+			'id' => 'txt-',
+			'data-vld-func' => 'ValidaEAN',
+			'data-vld-msg' => TXT_VALIDACAO_GTIN,
+			'class' => 'form-controle form-controle-gtin'
+		],
+
+		'moeda' => [
+			'type' => 'number',
+			'name' => '',
+			'id' => 'num-',
+			'step' => '0.01',
+			'placeholder' => TXT_EXEMPLO_MOEDA_BRL,
+			'class' => 'form-controle form-controle-moeda'
 		]
 	];
 
