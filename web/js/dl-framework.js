@@ -46,8 +46,8 @@ function CarregarCSS(arquivo_css){
 /**
  * Mover o cursor para uma posição 'p'
  *
- * @param mixed o Objeto DOM
- * @param int p    Novo posicionamento do cursor
+ * @param {object} o Objeto DOM
+ * @param {int} p    Novo posicionamento do cursor
  * @returns {*}
  * @constructor
  */
@@ -57,12 +57,12 @@ function MoverCursor(o, p){ return o.setSelectionRange(p, p); } // Fim AlterarCu
 /**
  * Selecionar uma linha em uma lista de resultados
  *
- * @param {DOM} obj Objeto que está dentro da linha ou a linha própriamente dita
+ * @param {object} obj Objeto que está dentro da linha ou a linha própriamente dita
  * @param {bool} u Define se essa é a única linha que deve ser selecionada
  * @returns {boolean}
  * @constructor
  */
-function SelecionarLinha(obj,u){
+function SelecionarLinha(obj, u){
     var tag = obj.tagName;
     var $linha = tag === 'TR' ? $(obj)
             : $(obj).parents('tr');
@@ -70,12 +70,10 @@ function SelecionarLinha(obj,u){
     // Alterar o estilo da linha
     $linha.addClass('tr-selec');
     
-    /* Remover a seleção das outras linhas
-    if( u ){
-        $linha.parents('tbody').find(':checkbox').each(function(){
-            this.checked = false;
-        });
-    } // Fim if( u ) */
+    // Remover a seleção das outras linhas
+    console.log(u);
+    if( u === true )
+        $linha.parents('tbody').find(':checkbox').prop('checked', false);
     
     if( obj.type !== 'checkbox' ){
         // Selecionar o checkbox dentro da linha
@@ -206,7 +204,7 @@ function CarregarSelect($s, c){
 /**
  * Mostrar ou ocultar um determinado campo de acordo com a seleção de um checkbox
  *
- * @param {DOM} cbx Checkbox a ser testado
+ * @param {object} cbx Checkbox a ser testado
  * @param {jQuery} $j Campo(s) a ser(em) exibido(s) ou escondido(s)
  * @returns {void}
  */
@@ -250,7 +248,7 @@ function Navegador(){
     var ie = /(MSIE|Trident)/.test(ua);
     var ff = /Firefox/.test(ua);
     var op = /OPR/.test(ua);
-    var gc = /Chrome/.test(ua);
+    // var gc = /Chrome/.test(ua);
     // var sf = /Safari/.test(ua) && !gc;
 
     // IE ou Edge
@@ -279,8 +277,7 @@ function Navegador(){
 /**
  * Alternar a publicação de um registro
  * 
- * @param {string} url - URL do controle a ser executado
- * @param {bool} chk - define se os registros serão marcados ou não
+ * @param {string} url URL do controle a ser executado
  * @returns {void}
  */
 function AlternarPublicacao(url){
