@@ -312,34 +312,36 @@ abstract class Principal{
         # Informações dos campos
         $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
-        $v_campos   = [];
-        $v_valores  = [];
+        // $v_campos   = [];
+        // $v_valores  = [];
 
-        foreach( $cpos as $c ):
-            # Nome da propriedade
-            $p = preg_replace("~^{$this->bd_prefixo}~", '', $c['Field']);
+	    $campos = [];
 
-            # Ignorar o campo de marcação da deleção de um registro
-            # Ignorar campos que NAO estejam no vetor $ci, caso o mesmo não seja nulo
-            # Ignorar campos que estejam no vetor $ce, caso o mesmo não seja nulo
-            if( $p === 'delete' ||
-                (isset($ci) && !in_array($c['Field'], $ci)) ||
-                (isset($ce) && in_array($c['Field'], $ce)) ) continue;
+        foreach( $cpos as $c ){
+	        # Garantir que o campos não esteja sendo incluído na query repetidamente
+	        # Obs: Muito necessário pro MSSQL
+	        if( array_key_exists($c['Field'], $campos) ) continue;
 
-            # Obter as informações do campos
-            $pk     = $c['Key'] === 'PRI';
-            $obr    = $c['Null'] === 'NO';
+	        # Nome da propriedade
+	        $p = preg_replace("~^{$this->bd_prefixo}~", '', $c['Field']);
 
-            if( !isset($this->{$p}) && $obr && !$pk )
-                throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARINSERT_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+	        # Ignorar o campo de marcação da deleção de um registro
+	        # Ignorar campos que NAO estejam no vetor $ci, caso o mesmo não seja nulo
+	        # Ignorar campos que estejam no vetor $ce, caso o mesmo não seja nulo
+	        if( $p === 'delete' || (isset($ci) && !in_array($c['Field'], $ci)) || (isset($ce) && in_array($c['Field'], $ce)) ) continue;
 
-            if( isset($this->{$p}) && (($ipk && $pk) || !$pk) ){
-                $v_campos[]  = "{$c['Field']}";
-                $v_valores[] = \Funcoes::_var_export_bd($this->{$p});
-            } // Fim if( isset($this->{$p}) && (($ipk && $pk) || !$pk) )
-        endforeach;
+	        # Obter as informações do campos
+	        $pk = $c['Key'] === 'PRI';
+	        $obr = $c['Null'] === 'NO';
 
-        return "INSERT INTO {$this->bd_tabela} (". implode(', ', $v_campos) .") VALUES  (". implode(', ', $v_valores) .")";
+	        if( !isset($this->{$p}) && $obr && !$pk )
+		        throw new \Exception(sprintf(ERRO_MODELOPRINCIPAL_CRIARINSERT_CAMPO_OBRIGATORIO_NULO, $c['Field']), 1500);
+
+	        isset($this->{$p}) && (($ipk && $pk) || !$pk)
+		        and $campos[$c['Field']] = \Funcoes::_var_export_bd($this->{$p});
+        } // Fim foreach( $c )
+
+        return "INSERT INTO {$this->bd_tabela} (". implode(', ', array_keys($campos)) .") VALUES  (". implode(', ', $campos) .")";
     } // Fim do modelo _criar_insert
 
 
@@ -358,10 +360,14 @@ abstract class Principal{
         # Informações dos campos
         $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
-        $v_alterar  = [];
-        $v_where    = [];
+        $alterar  = [];
+        $where    = [];
 
         foreach( $cpos as $c ){
+	        # Garantir que o campos não esteja sendo incluído na query repetidamente
+	        # Obs: Muito necessário pro MSSQL
+	        if( array_key_exists($c['Field'], $alterar) ) continue;
+
             # Nome da propriedade
             $p = preg_replace("~^{$this->bd_prefixo}~", '', $c['Field']);
 
@@ -381,11 +387,11 @@ abstract class Principal{
                 else continue;
             } // Fim if( !isset($this->{$p}) )
 
-            if( $pk ) $v_where[] = "{$c['Field']} = " . \Funcoes::_var_export_bd($this->{$p});
-            else $v_alterar[] = "{$c['Field']} = " . \Funcoes::_var_export_bd($this->{$p});
+            if( $pk ) $where[$c['Field']] = \Funcoes::_var_export_bd($this->{$p});
+            else $alterar[$c['Field']] = \Funcoes::_var_export_bd($this->{$p});
         } // Fim foreach($c)
 
-        return "UPDATE {$this->bd_tabela} SET ". implode(', ', $v_alterar) ." WHERE ". implode(' AND ', $v_where);
+        return  "UPDATE {$this->bd_tabela} SET ". \Funcoes::_array_serialize($alterar) ." WHERE ". \Funcoes::_array_serialize($where, ' AND ');
     } // Fim do método _criar_update
 
 

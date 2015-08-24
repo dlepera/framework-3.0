@@ -289,4 +289,21 @@ class Funcoes{
             return $v;
         }, $v);
     } // Fim do método _remover_coluna
+
+
+
+
+	/**
+	 * Serializar um vetor, podendo escolher se ele será codificado para URL ou não
+	 *
+	 * @param array      $v   Vetor a ser seializado
+	 * @param string     $s   Separador das informações
+	 * @param bool|false $url Se true, a string será retornada codificada para URL, caso contrário não
+	 *
+	 * @return string
+	 */
+    public static function _array_serialize($v, $s = ', ', $url = false){
+	    $vs = http_build_query($v, null, $s);
+	    return $url ? $vs : urldecode($vs);
+    } // Fim do método _array_serialize
 } // Fim da classe Funções

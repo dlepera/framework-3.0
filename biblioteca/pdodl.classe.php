@@ -15,7 +15,7 @@ class PDODL extends PDO{
 
 	# Obter informações dos campos
 	const MYSQL_INFO_CAMPOS = 'SHOW COLUMNS FROM :tbl LIKE :cpo';
-	const MSSQL_INFO_CAMPOS = "SELECT CAST(C.name AS TEXT) AS Field, CAST(T.name +'('+ CONVERT(VARCHAR(5), T.max_length) +')' AS TEXT) AS Type, CAST(( CASE C.is_nullable WHEN 0 THEN 'NO' WHEN 1 THEN 'YES' END ) AS TEXT) AS 'Null', CAST(( CASE I.is_primary_key WHEN 1 THEN 'PRI' ELSE '' END ) AS TEXT) AS 'Key', CAST(object_definition(C.default_object_id) AS TEXT) AS 'Default', CAST(( CASE C.is_identity WHEN 1 THEN 'auto_increment' ELSE '' END ) AS TEXT) AS Extra FROM sys.columns AS C INNER JOIN sys.types AS T ON( T.user_type_id = C.user_type_id ) INNER JOIN sysobjects AS O ON( O.id = C.object_id ) LEFT JOIN sys.index_columns AS IC ON( IC.column_id = C.column_id AND IC.object_id = O.id AND IC.key_ordinal = 1 ) LEFT JOIN sys.indexes AS I ON( I.index_id = IC.index_id AND I.object_id = O.id AND I.is_primary_key = 1 ) WHERE O.xtype = 'U' AND O.name = :tbl AND C.name LIKE :cpo ORDER BY C.column_id";
+	const MSSQL_INFO_CAMPOS = "SELECT CAST(C.name AS TEXT) AS Field, CAST(T.name +'('+ CONVERT(VARCHAR(5), T.max_length) +')' AS TEXT) AS Type, CAST(( CASE C.is_nullable WHEN 0 THEN 'NO' WHEN 1 THEN 'YES' END ) AS TEXT) AS 'Null', CAST(( CASE I.is_primary_key WHEN 1 THEN 'PRI' ELSE '' END ) AS TEXT) AS 'Key', CAST(object_definition(C.default_object_id) AS TEXT) AS 'Default', CAST(( CASE C.is_identity WHEN 1 THEN 'auto_increment' ELSE '' END ) AS TEXT) AS Extra FROM sys.columns AS C INNER JOIN sys.types AS T ON( T.user_type_id = C.user_type_id ) INNER JOIN sysobjects AS O ON( O.id = C.object_id ) LEFT JOIN sys.index_columns AS IC ON( IC.column_id = C.column_id AND IC.object_id = O.id ) LEFT JOIN sys.indexes AS I ON( I.index_id = IC.index_id AND I.object_id = O.id AND I.is_primary_key = 1 ) WHERE O.xtype = 'U' AND O.name = :tbl AND C.name LIKE :cpo ORDER BY C.column_id";
 	const DBLIB_INFO_CAMPOS = self::MSSQL_INFO_CAMPOS;
 
 	protected $driver, $host, $porta, $bd;
@@ -178,6 +178,17 @@ class PDODL extends PDO{
 
 
 
+	/**
+	 * Alterar os tipos de campos de $tp1 para $tp2 nas tabelas contidas no array $tbls. Se o array for nulo ou estiver
+	 * vazio, o processo será feito em todas as tabelas
+	 *
+	 * @param array  $tbls Array contendo as tabelas onde deve-se executar o procedimento
+	 * @param string $tp1  Tipo de dado orignal
+	 * @param string $tp2  Tipo de dado a ser aplicado nos campos que sejam do tipo $tp1
+	 *
+	 * @return int
+	 * @throws Exception
+	 */
 	public function _alterar_tipos_campos($tbls = [], $tp1, $tp2){
 		# Query para alterar tipo do campo
 		$qa = 'ALTER TABLE %s MODIFY %s %s';
