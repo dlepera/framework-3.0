@@ -13,7 +13,7 @@ define('TXT_MODELO_ASSUNTOCONTATO', 'assunto de contato');
 define('TXT_MODELO_TIPODADOCONTATO', 'tipo de dado para contato');
 define('TXT_MODELO_GOOGLEANALYTICS', 'configuração do google analytics');
 define('TXT_MODELO_DADOCONTATO', 'dado para contato');
-define('TXT_MODELO_ALBUM'. 'álbum de fotos');
+define('TXT_MODELO_ALBUM', 'álbum de fotos');
 define('TXT_MODELO_FOTO', 'foto');
 define('TXT_MODELO_CONFIGURACAOSITE', 'configuração do site');
 

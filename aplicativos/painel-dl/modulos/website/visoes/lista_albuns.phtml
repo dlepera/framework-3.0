@@ -67,7 +67,7 @@
 
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this, true); AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
+                        <a href="javascript:" onclick="SelecionarLinha(this, true); AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/<?= ($p = $l['PUBLICADO'] == 'Sim') ? 'ocultar' : 'publicar'; ?>');" class="so-icone ico-<?= $p ? 'nao-' : ''; ?>publicar" title="<?= $p ? TXT_LINK_TITLE_OCULTAR : TXT_LINK_TITLE_PUBLICAR; ?>">
                             <?= $p ? TXT_LINK_OCULTAR : TXT_LINK_PUBLICAR; ?>
                         </a>
 
@@ -77,7 +77,7 @@
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
+                        <a href="javascript:" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>
@@ -91,17 +91,17 @@
                 <tr class="tbl-linha com-marcados">
                     <td>
                         <?php if( $params['perm-editar?'] ): ?>
-                        <a href="javascript:;" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
+                        <a href="javascript:" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/publicar');" class="so-icone ico-publicar" title="<?= TXT_LINK_TITLE_PUBLICAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_PUBLICAR; ?>
                         </a>
 
-                        <a href="javascript:;" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
+                        <a href="javascript:" onclick="AlternarPublicacao('<?= $params['dir-lista']; ?>alternar-publicacao/ocultar');" class="so-icone ico-nao-publicar" title="<?= TXT_LINK_TITLE_OCULTAR_SELECIONADOS; ?>">
                             <?= TXT_LINK_OCULTAR; ?>
                         </a>
                         <?php endif;
 
                         if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:;" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
+                        <a href="javascript:" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
                             <?= TXT_LINK_REMOVER; ?>
                         </a>
                         <?php endif; ?>

@@ -1,4 +1,4 @@
-@charset 'utf-8';
+@charset "utf-8";
 
 /**
  * @Autor	: Diego Lepera
@@ -50,7 +50,7 @@
     line-height: 25px;
     
     /* Aparência */
-    background          : url('icones/pesquisar-16x16.png') no-repeat left 4.5px top;
+    background          : url('icones/pesquisar-16x16.png') no-repeat left 5px top;
     border              : none;
     border-bottom       : 1px solid #CCC; 
     

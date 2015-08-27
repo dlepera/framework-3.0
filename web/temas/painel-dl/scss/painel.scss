@@ -28,7 +28,7 @@
     display     : block;
     background  : rgba(0,0,0,.5);
     
-    > dl3-conteudo{
+    > .dl3-conteudo{
         /* Posicionamento */
         position: absolute;
         top     : 50%;
@@ -482,7 +482,7 @@
 /* Desktops */
 @media screen and (min-width:$tela-tablet + 1px){
     .sobre-tela{
-        > dl3-conteudo{
+        > .dl3-conteudo{
             /* Tamanho */
             width   : 80%;
             height  : 80%;
@@ -559,7 +559,7 @@
 /* Tablets e smartphones */
 @media screen and (max-width:$tela-tablet){
     .sobre-tela{
-        > dl3-conteudo{
+        > .dl3-conteudo{
             /* Tamanho */
             width   : 90%;
             height  : 90%;

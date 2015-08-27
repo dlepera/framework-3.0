@@ -7,6 +7,8 @@
  * @Data	: 08/01/2015 16:24:44
  */
 
+!isset($params) and $params = $this->_obterparams();
+
 if( !$params['incluindo'] ): ?>
 <p class="log-registro">
     <?php !empty($params['dt-inc'])

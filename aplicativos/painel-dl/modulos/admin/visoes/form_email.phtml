@@ -108,7 +108,7 @@ $mod = $params['modelo'];
             <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
 
             <?php if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
-            <a href="javascript:;" onclick="$sf._executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
+            <a href="javascript:" onclick="$sf._executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
                 <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
             </a>
             <?php endif; ?>

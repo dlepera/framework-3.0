@@ -42,10 +42,12 @@
                 var $descr   = $galeria.find(".dl-galeria-descr");
                 var $indic   = $galeria.find(".dl-galeria-indicador");
 
+                var expreg;
+
                 // Título do item
                 if( $titulo.length > 0 ){
                     // Identificar o título do item
-                    var expreg = /^(Título:)\s+(.+)/i;
+                    expreg = /^(Título:)\s+(.+)/i;
                     
                     if( expreg.test(title) ){
                         var titulo = expreg.exec(title);
@@ -56,7 +58,7 @@
                 // Descrição do item
                 if( $descr.length > 0 ){
                     // Identificar o título do item
-                    var expreg = /(Descrição:)\s+(.+)/i;
+                    expreg = /(Descrição:)\s+(.+)/i;
                     
                     if( expreg.test(title) ){
                         var descr = expreg.exec(title);
@@ -165,7 +167,7 @@
                     // Botão Primeiro
                     $(document.createElement("a")).text("|<").attr({ 
                         title   : "Primeiro",
-                        href    : "javascript:;"
+                        href    : "javascript:"
                     }).click(function(){
                         // Ir para o primeiro item
                         $itens._dltrocaitem(0, opcoes.loop);
@@ -174,7 +176,7 @@
                     // Botão Anterior
                     $(document.createElement("a")).text("<").attr({ 
                         title   : "Anterior",
-                        href    : "javascript:;"
+                        href    : "javascript:"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -186,7 +188,7 @@
                     // Botão Próximo
                     $(document.createElement("a")).text(">").attr({ 
                         title   : "Próximo",
-                        href    : "javascript:;"
+                        href    : "javascript:"
                     }).click(function(){
                         // Verificar o item que está sendo exibido atualmente
                         var atual = $itens.filter(":visible").index();
@@ -198,7 +200,7 @@
                     // Botão Último
                     $(document.createElement("a")).text(">|").attr({ 
                         title   : "Último",
-                        href    : "javascript:;"
+                        href    : "javascript:"
                     }).click(function(){
                         // Ir para o último item
                         return $itens._dltrocaitem($itens.length-1, opcoes.loop);
@@ -227,7 +229,7 @@
 
                     for(var i=0; i<qtde_itens; i++){
                             $(document.createElement("a")).text(i+1).attr({
-                                    href: "javascript:;"
+                                    href: "javascript:"
                             }).bind("click", function(){
                                     // Obter a index desse link
                                     var index = $(this).index();

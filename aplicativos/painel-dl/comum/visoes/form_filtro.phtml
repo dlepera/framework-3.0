@@ -7,6 +7,8 @@
  * @Data	: 07/01/2015 23:32:01
  */
 
+!isset($params) and $params = $this->_obterparams();
+
 ?>
 
 <form id="form-filtro" method="get" class="form-filtro">
@@ -25,7 +27,7 @@
     endif; ?>
 
     <?php if( $params['filtro?'] ): ?>
-    <a href="javascript:;" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
+    <a href="javascript:" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
         <?= TXT_LINK_LIMPAR_FILTRO; ?>
     </a>
     <?php endif; ?>

@@ -96,7 +96,7 @@ class Visao{
 	        if( $p && ($tpl = $this->_procurartemplate($tpl_a)) !== false ) $this->templates[$o] = $tpl;
 	        else $this->_status_http(404);
         } else
-	        $this->templates[$o] = "{$this->dir_visoes}{$tpl_a}";
+	        $this->templates[$o] = "{$this->diretorio}{$tpl_a}";
     } // Fim do método _adtemplate
 
 

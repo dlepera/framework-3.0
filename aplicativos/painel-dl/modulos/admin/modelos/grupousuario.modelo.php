@@ -78,7 +78,7 @@ class GrupoUsuario extends GeralM\Principal{
 		    $sql = \DL3::$bd_conex->prepare("SELECT func_modulo_id FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
 		    $sql->execute([':id' => $this->id]);
 
-		    if( $sql === false ) return;
+		    if( $sql === false ) return true;
 
 		    $this->funcs = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
 

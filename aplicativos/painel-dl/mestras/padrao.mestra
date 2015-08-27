@@ -49,7 +49,7 @@ $params = $this->_obterparams();
 
             <ul class="menu-usuario sem-marcadores">
                 <li class="menu-item">
-                    <a href="javascript:;" class="menu-texto ico-usuario">
+                    <a href="javascript:" class="menu-texto ico-usuario">
                         <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
                     </a>
 
@@ -73,7 +73,7 @@ $params = $this->_obterparams();
                         <?php endif; ?>
 
                         <li class="sm-item">
-                            <a href="javascript:;" onclick="$logout.submit();" class="sm-texto ico-logout">
+                            <a href="javascript:" onclick="$logout.submit();" class="sm-texto ico-logout">
                                 <?= TXT_LINK_LOGOUT; ?>
                             </a>
                         </li>
@@ -83,7 +83,7 @@ $params = $this->_obterparams();
         </header>
 
         <nav class="dl3-menu">
-            <a onclick="javascript:;" class="a-mostrar-menu v-smart v-tablet"></a>
+            <a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
 
             <ul id="menu-principal" class="menu-principal sem-marcadores">
                 <li class="menu-item">
@@ -101,7 +101,7 @@ $params = $this->_obterparams();
                             ));
                     if( count($sm_k) > 0 ): ?>
                     <li class="menu-item">
-                        <a href="javascript:;<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto ico-modulo">
+                        <a href="javascript:<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto ico-modulo">
                             <?= $mm['modulo_nome']; ?>
                         </a>
 
@@ -209,7 +209,7 @@ $params = $this->_obterparams();
             var $mf = $('#menu-filtro');
             var vlr = $th.val();
 
-            if( vlr !== (false || '') )
+            if( !(vlr === '' || vlr === false) )
                 $mf.slideDown('fast');
             else
                 $mf.slideUp('fast');

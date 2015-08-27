@@ -77,7 +77,7 @@ $mod = $params['modelo'];
 	            <?php echo $this->aux_form->_combo_select('pref_idioma', 'pref-idioma', $mod->pref_idioma, TXT_ROTULO_IDIOMA, null, ['required' => 'required'], $params['idiomas']);
 
 	            if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_IDIOMA; ?>
                 </a>
                 <?php endif; ?>
@@ -87,7 +87,7 @@ $mod = $params['modelo'];
 	            <?php echo $this->aux_form->_combo_select('pref_tema', 'pref-tema', $mod->pref_tema, TXT_ROTULO_TEMA, null, ['required' => 'required'], $params['temas']);
 
                 if( $params['novo-tema?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_TEMA; ?>
                 </a>
                 <?php endif; ?>
@@ -131,7 +131,7 @@ $mod = $params['modelo'];
 	            <?php echo $this->aux_form->_combo_select('info_grupo', 'info-grupo', $mod->info_grupo, TXT_ROTULO_GRUPO, null, ['required' => 'required'], $params['grupos-usuarios']);
 
                 if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:;" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
+                <a href="javascript:" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
                     <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
                 </a>
                 <?php endif; ?>

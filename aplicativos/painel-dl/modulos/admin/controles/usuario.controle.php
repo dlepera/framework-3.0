@@ -166,7 +166,7 @@ class Usuario extends GeralC\PainelDL{
         $this->modelo->_selecionarPK($_SESSION['usuario_id']);
         $this->modelo->_alterarsenha($sn, $sc, $sa);
 
-        return \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
     } // Fim do método _alterarsenha
 
 

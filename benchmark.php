@@ -95,7 +95,7 @@ function file_exists_vs_is_file(){
 
 require '_auto/auxiliares/numero.auxiliar.php';
 // $num1 = new \NumberFormatter('pt-BR');
-$num = new \Geral\Auxiliar\Numero();
+$num = new \Geral\Apoio\Numero();
 
 var_dump($num->_moeda(1000.50, 'EUR'));
 

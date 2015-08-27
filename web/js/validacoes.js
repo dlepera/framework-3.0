@@ -5,8 +5,8 @@
 /**
  * Calcular o dígito verificador do CPF ou CNPJ
  *
- * @param string v Número de documento a ser calculado (apenas números)
- * @param array m Vetor contendo os valores multiplicadores
+ * @param {string} v Número de documento a ser calculado (apenas números)
+ * @param {Array} m Vetor contendo os valores multiplicadores
  * @returns {number}
  * @constructor
  */
@@ -28,7 +28,7 @@ function CalcDV(v, m){
  * Validação de CPF
  *  - Dígitos verificadores e tamanho
  *
- * @param {string} cpf_sujo - Pode receber o CPF puro (apenas números) ou com máscara
+ * @param {string} v Pode receber o CPF puro (apenas números) ou com máscara
  * @returns {Boolean}
  */
 function ValidaCPF(v){
@@ -48,7 +48,7 @@ function ValidaCPF(v){
 /**
  * Validar CNPJ
  *
- * @param string v Valor de CNPJ a ser verificado
+ * @param {string} v Valor de CNPJ a ser verificado
  * @returns {boolean}
  * @constructor
  */
@@ -56,7 +56,7 @@ function ValidaCNPJ(v){
 	var dv_1, dv_2;
 	var mlt1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 	var mlt2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-	var cnpj = v.replace(/[^0-9]+/g, '');;
+	var cnpj = v.replace(/[^0-9]+/g, '');
 
 	dv_1 = CalcDV(cnpj, mlt1);
 	dv_2 = CalcDV(cnpj, mlt2);
@@ -69,7 +69,7 @@ function ValidaCNPJ(v){
 /**
  * Validar EAN 8, EAN 13 e EAN 14 seguindo normas GTIN
  *
- * @param Campo a ser validado
+ * @param {string} ean Valor EAN a ser validado
  * @returns {boolean}
  * @constructor
  */

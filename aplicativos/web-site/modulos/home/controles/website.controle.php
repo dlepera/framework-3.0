@@ -12,7 +12,7 @@ namespace Home\Controle;
 use \Geral\Controle as GeralC;
 
 class WebSite extends GeralC\WebSite{
-    public function __construct($m=null) {
+    public function __construct($m = null) {
         parent::__construct($m, 'home', '');
     } // Fim do método __construct
 

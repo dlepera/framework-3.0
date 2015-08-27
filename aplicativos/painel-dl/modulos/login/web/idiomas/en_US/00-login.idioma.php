@@ -35,7 +35,7 @@ define('TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA', 'Recuperação da senha');
 # -> Corpo
 define('MSG_EMAIL_CORPO_RECUPERAR_SENHA', '<h1>Olá %s!</h1>'
         . '<p>Você solicitou a recuperação da sua senha. Para resetar a sua senha, por favor clique no link abaixo:</p>'
-        . '<p><b>Atenção:</b> caso você não tenha feito essa solicitação, <b><u>NÃO</u></b> continue com o processo e ignore esse e-mail.</b></p>'
+        . '<p><b>Atenção:</b> caso você não tenha feito essa solicitação, <b><cite>NÃO</cite></b> continue com o processo e ignore esse e-mail.</b></p>'
         . '<p>'
         . '<a href="%s" target="_blank">%s</a>'
         . '</p>');

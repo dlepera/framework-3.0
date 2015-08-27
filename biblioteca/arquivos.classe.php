@@ -24,9 +24,9 @@ class Arquivos{
         'audio/mpeg3'=>'mp3', 'audio/x-mpeg-3'=>'mp3', 'audio/wav'=>'wav', 'audio/x-wav'=>'wav',
 
         /* Arquivos Compactados */
-        'application/x-bzip2'=>'boz', 'application/x-bzip'=>'bz', 'application/x-bzip2'=>'bz2', 'application/x-compressed'=>'gz', 'application/x-gzip'=>'gzip',
-        'multipart/x-gzip'=>'gzip', 'application/x-tar'=>'tar', 'application/gnutar'=>'tgz', 'application/x-compressed'=>'tgz', 'application/x-compressed'=>'tif',
-        'image/x-tiff'=>'tif', 'application/x-zip-compressed'=>'zip', 'application/zip'=>'zip', 'multipart/x-zip'=>'zip',
+        'application/x-bzip'=>'bz', 'application/x-bzip2'=>'bz2', 'application/x-compressed'=>'gz', 'application/x-gzip'=>'gzip',
+        'multipart/x-gzip'=>'gzip', 'application/x-tar' => 'tar', 'application/gnutar' => 'tgz',
+        'image/x-tiff'=>'tif', 'application/x-zip-compressed' => 'zip', 'application/zip' => 'zip', 'multipart/x-zip'=>'zip',
 
         /* Pacote Office < 2007 */
         'application/msword' => 'doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
@@ -76,8 +76,8 @@ class Arquivos{
     public static function _criartxt($arquivo, $conteudo){
         # Verificar se o diretório informado tem permissão para
         # escrita
-        if( !utilidade::_permissao(dirname($arquivo)) )
-            return true;
+        // if( !Arquivos::_permissao(dirname($arquivo)) )
+        //    return true;
 
         # Criar e abrir o arquivo para escrita
         $a = fopen($arquivo, 'w+');
@@ -86,7 +86,7 @@ class Arquivos{
         $e = fwrite($a, $conteudo);
 
         # Fechar o arquivo
-        fclose($arquivo);
+        fclose($a);
 
         return !$e ? false : true;
     } // Fim do método _criartxt

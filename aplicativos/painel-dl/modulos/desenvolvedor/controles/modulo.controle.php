@@ -155,7 +155,7 @@ class Modulo extends GeralC\PainelDL{
 
         $of->_salvar();
 
-        return \Funcoes::_retornar(SUCESSO_MODULO_NOVAFUNC, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_MODULO_NOVAFUNC, 'msg-sucesso');
     } // Fim do método _novafunc
 
 
@@ -178,7 +178,7 @@ class Modulo extends GeralC\PainelDL{
             $qe += $of->_remover();
         endforeach;
 
-        return \Funcoes::_retornar(
+        \Funcoes::_retornar(
             !$qe ? ERRO_CONTROLEPRINCIPAL_REMOVER : sprintf($qe == 1 ? SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM : SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS, $qe, $qt),
             !$qe ? 'msg-erro' : 'msg-sucesso'
         );

@@ -28,7 +28,7 @@ $mod = $params['modelo'];
 	        ); ?>
 
             <?php if( $params['novo-tipo?'] ): ?>
-            <a href="javascript:;" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
+            <a href="javascript:" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
                 <?= TXT_LINK_NOVO_TIPO_DADO; ?>
             </a>
             <?php endif; ?>

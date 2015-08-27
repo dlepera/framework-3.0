@@ -109,6 +109,6 @@ class ConfigEmail extends GeralC\PainelDL{
         if( !$te )
             throw new \Exception(sprintf(ERRO_CONFIGEMAIL_TESTAR, $oe->_exibirlog()), 1500);
 
-        return \Funcoes::_retornar(SUCESSO_CONFIGEMAIL_TESTAR, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_CONFIGEMAIL_TESTAR, 'msg-sucesso');
     } // Fim do método _testar
 } // Fim do Controle ConfigEmail

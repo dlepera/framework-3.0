@@ -100,7 +100,7 @@ class Login extends GeralC\Principal{
         $obj_e->_enviar($lu['usuario_info_email'], TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA, sprintf(MSG_EMAIL_CORPO_RECUPERAR_SENHA, $lu['usuario_info_nome'], $lk, $lk));
         $obj_e->_gravarlog(__CLASS__, 'dl_painel_usuarios_recuperacoes', $mr->id);
 
-        return \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');
+        \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');
     } // Fim do método _recuperarsenha
 
 
@@ -161,7 +161,7 @@ class Login extends GeralC\Principal{
         $mr->status = 'R';
         $mr->_salvar();
 
-        return \Funcoes::_retornar(SUCESSO_LOGIN_RESETARSENHA, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_LOGIN_RESETARSENHA, 'msg-sucesso');
     } // Fim do método _resetarsenha
 
 

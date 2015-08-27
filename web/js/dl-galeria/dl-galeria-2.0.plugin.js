@@ -135,30 +135,30 @@
             
             // Botão: Primeira
             $(document.createElement('a')).attr({
-                href: 'javascript:;'
+                href: 'javascript:'
             }).html('|<').on('click', function(){
-                $this.find('> figure')._dltrocaritem(0, opcoes.transicao);
+                $this.find('> figure')._dltrocaritem(0, opcoes.transicao, false);
             }).appendTo($naveg);
             
             // Botão: Anterior
             $(document.createElement('a')).attr({
-                href: 'javascript:;'
+                href: 'javascript:'
             }).on('click', function(){
-                $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()-1, opcoes.transicao);
+                $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()-1, opcoes.transicao, false);
             }).html('<').appendTo($naveg);
             
             // Botão: Próxima
             $(document.createElement('a')).attr({
-                href: 'javascript:;'
+                href: 'javascript:'
             }).on('click', function(){
-                $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()+1, opcoes.transicao);
+                $this.find('> figure')._dltrocaritem($this.find('> figure:visible').index()+1, opcoes.transicao, false);
             }).html('>').appendTo($naveg);
             
             // Botão: Última
             $(document.createElement('a')).attr({
-                href: 'javascript:;'
+                href: 'javascript:'
             }).on('click', function(){
-                $this.find('> figure')._dltrocaritem(qtde_f, opcoes.transicao);
+                $this.find('> figure')._dltrocaritem(qtde_f, opcoes.transicao, false);
             }).html('>|').appendTo($naveg);
         } // Fim if( opcoes.naveg )
         
@@ -170,12 +170,12 @@
             
             for(var i = 0; i < qtde_f; i++){
                 $(document.createElement('a')).text(i+1).attr({
-                    href: 'javascript:;'
+                    href: 'javascript:'
                 }).bind('click', function(){
                     var $_this = $(this);
                     
                     // Alterar o item a ser exibido
-                    $this.find('> figure')._dltrocaritem($_this.index(), opcoes.transicao);
+                    $this.find('> figure')._dltrocaritem($_this.index(), opcoes.transicao, false);
                 }).appendTo($indic);
             } // Fim do for(i)
         } // Fim if( opcoes.minis )

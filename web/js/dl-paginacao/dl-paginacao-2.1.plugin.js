@@ -7,7 +7,7 @@
 		var URL = window.location.search;
 
 		// Expressão regular para identificar a página atual
-		var er = /(pg){1}\=([\d]*)*/i;
+		var er = /(pg)=([\d]*)*/i;
 		var rt = er.exec(URL);
 
 		// Retornar o valor da variável
@@ -103,12 +103,12 @@
          * Obs.: Os itens são inseridos na mesma ordem que devem aparecer por padrão
          * ----------------------------------------------------------------------------------------------------------------- */
         if( opcoes.btn_primeira )
-            $(document.createElement('a')).attr('href', 'javascript:;').addClass(classes.primeiro)
+            $(document.createElement('a')).attr('href', 'javascript:').addClass(classes.primeiro)
 				.on('click.'+ evt_ns, function(){ $_IRPARA(1); }).text("|<<").appendTo($th);
 
 
         if( opcoes.btn_anterior )
-            $(document.createElement('a')).attr('href', 'javascript:;').addClass(classes.anterior).on('click.'+ evt_ns, function(){
+            $(document.createElement('a')).attr('href', 'javascript:').addClass(classes.anterior).on('click.'+ evt_ns, function(){
                 if( opcoes.pgatual === 1 ){
                     if( opcoes.loop ) $_IRPARA(opcoes.pgtotal);
                     else return false;
@@ -132,7 +132,7 @@
                 
             while( mi <= mf ){
                 $(document.createElement('a')).addClass(classes.numerico +' '+ (mi === opcoes.pgatual ? classes.atual : '')).attr({
-                    href  : 'javascript:;'
+                    href  : 'javascript:'
                 }).text(mi++).on('click.'+ evt_ns, function(){
                     var ir = parseInt($(this).text());
 					return opcoes.pgatual != ir ? $_IRPARA(ir) : false;
@@ -142,7 +142,7 @@
 
 
         if( opcoes.btn_proxima )
-            $(document.createElement('a')).attr('href', 'javascript:;').addClass(classes.proximo).on('click.'+ evt_ns, function(){
+            $(document.createElement('a')).attr('href', 'javascript:').addClass(classes.proximo).on('click.'+ evt_ns, function(){
                 if( opcoes.pgatual === opcoes.pgtotal ){
                     if( opcoes.loop ) $_IRPARA(1);
                     else return false;
@@ -151,7 +151,7 @@
 
 
         if( opcoes.btn_ultima )
-            $(document.createElement('a')).attr('href', 'javascript:;').addClass(classes.ultimo)
+            $(document.createElement('a')).attr('href', 'javascript:').addClass(classes.ultimo)
 				.on('click.'+ evt_ns, function(){ $_IRPARA(opcoes.pgtotal); }).text(">>|").appendTo($th);
         
         // Retornar o objeto

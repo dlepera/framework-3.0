@@ -34,7 +34,7 @@
 
 /* Desktop */
 @media screen and (min-width:$tela-tablet + 1px){
-    #grid-layout{
+    #dl3-grid{
         /* Tamanho */
         width: 30%;
     }
@@ -44,7 +44,7 @@
 
 /* Tablets */
 @media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
-    #grid-layout{
+    #dl3-grid{
         /* Tamanho */
         width: 50%;
     }
@@ -54,7 +54,7 @@
 
 /* Smartphones */
 @media screen and (max-width:$tela-smart){
-    #grid-layout{
+    #dl3-grid{
         /* Tamanho */
         width: 80%;
     }

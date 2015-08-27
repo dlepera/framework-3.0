@@ -60,7 +60,7 @@ abstract class Principal{
      */
     protected function _salvar(){
         $this->modelo->_salvar();
-        return \Funcoes::_retornar(sprintf(SUCESSO_PADRAO_REGISTRO_SALVO, $this->nome), 'msg-sucesso');
+        \Funcoes::_retornar(sprintf(SUCESSO_PADRAO_REGISTRO_SALVO, $this->nome), 'msg-sucesso');
     } // Fim do método _salvar
 
 
@@ -72,7 +72,7 @@ abstract class Principal{
     protected function _remover(){
         $qt = $this->_executaremlote('_remover');
 
-        return \Funcoes::_retornar(
+        \Funcoes::_retornar(
             !$qt->e ? ERRO_CONTROLEPRINCIPAL_REMOVER : sprintf($qt->e == 1 ? SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM : SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS, $qt->e, $qt->t),
             !$qt->e ? 'msg-erro' : 'msg-sucesso'
         );
@@ -222,7 +222,7 @@ abstract class Principal{
             'ocultar'   =>  [ERRO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_UM_OCULTAR, SUCESSO_CONTROLEPRINCIPAL_ALTERNARPUBLICACAO_VARIOS_OCULTAR]
         ];
 
-        return \Funcoes::_retornar(
+        \Funcoes::_retornar(
             !$qt->e ? $msg[$a][0] : $qt->e == 1 ? $msg[$a][1] : sprintf($msg[$a][2], $qt->e, $qt->t),
             !$qt->e ? 'msg-erro' : 'msg-sucesso'
         );

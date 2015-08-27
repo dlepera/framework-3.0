@@ -54,7 +54,7 @@ $params = $this->_obterparams();
         </header>
 
         <nav class="dl3-menu">
-	        <a onclick="javascript:;" class="a-mostrar-menu v-smart v-tablet"></a>
+	        <a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
 
             <ul class="menu-principal">
                 <li class="menu-item">

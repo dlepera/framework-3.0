@@ -80,13 +80,13 @@ class Funcoes{
 
 
 
-    /**
-     * Converter o encoding de uma variável
-     *
-     * @param var    $var         Variável a ser convertida
-     * @param string $para_encode Novo encode a ser utilizado
-     * @param string $de_encode   Encode atual da variável
-     */
+	/**
+	 * Converter o encoding de uma variável
+	 *
+	 * @param mixed  $var         Variável a ser convertida
+	 * @param string $para_encode Novo encode a ser utilizado
+	 * @param string $de_encode   Encode atual da variável
+	 */
     public static function _converterencode(&$var, $para_encode, $de_encode = 'UTF-8'){
         if( !isset($var) ) return;
 

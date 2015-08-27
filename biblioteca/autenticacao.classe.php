@@ -206,10 +206,12 @@ class Autenticacao{
 	/**
 	 * Verificar o permissionamento do usuário logado
 	 *
-	 * @params string $m - nome da classe que está sendo executada
-	 * @params string $a - nome da ação que será executada
+	 * @param string $m Nome da classe que está sendo executada
+	 * @param string $a Nome da ação que será executada
+	 *
+	 * @return bool
 	 */
-    public function _verificarperm($m,$a){
+    public function _verificarperm($m, $a){
         # Permitir para o Super Admin
         if( $_SESSION['usuario_id'] == -1 ) return true;
 

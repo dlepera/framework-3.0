@@ -32,7 +32,7 @@
 		var msg, ret;
 
 		// Verificar se a resposta é um conteúdo JSON
-		if( /^[?\[{]{1,}(.+)[}\]{1,}]?$/.test(r) ){
+		if( /^[?\[{]+(.+)[}\]+]?$/.test(r) ){
 			var json = $.parseJSON(r);
 			json = /^\[/.test(r) ? json[json.length - 1] : json;
 

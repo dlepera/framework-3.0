@@ -35,7 +35,7 @@
 					<li>
 				</ul>
 
-				<a href="javascript:;" onclick="NovoMetodo();" class="com-icone ico-inserir">
+				<a href="javascript:" onclick="NovoMetodo();" class="com-icone ico-inserir">
 					<?= TXT_LINK_NOVO_METODO; ?>
 				</a>
 			</fieldset>
@@ -84,7 +84,7 @@
 		$itm.find('input').removeAttr('id').removeAttr('tabindex');
 
 		// Criar botão para remover
-		$(document.createElement('a')).html('x').attr('href', 'javascript:;').on('click', function(){
+		$(document.createElement('a')).html('x').attr('href', 'javascript:').on('click', function(){
 			$(this).parents('.item').fadeOut('fast', function(){
 				$(this).remove();
 			});

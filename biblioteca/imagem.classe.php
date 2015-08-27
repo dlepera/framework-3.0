@@ -96,7 +96,7 @@ class Imagem{
 	        case 3:
 		        return imagecreatefrompng($this->arquivo);
 	        case 6:
-		        return imagecreatefrombmp($this->arquivo);
+		        return imagecreatefromwbmp($this->arquivo);
         } // Fim switch
     } // Fim do método _preparar
 

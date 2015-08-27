@@ -99,7 +99,7 @@ function SelecionarLinha(obj, u){
 function CarregarHTML(controle, id_html){
     // Definir valores padrão
     var id  = id_html || 'html-'+ ($('.sobre-tela').length-1);
-    var mst = mst || 'conteudo';
+    var mst = 'conteudo';
     
     // Criar a DIV
     var $html = $(document.createElement('div')).addClass('sobre-tela').attr('id', id);
