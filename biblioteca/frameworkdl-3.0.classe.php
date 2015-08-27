@@ -153,7 +153,8 @@ class FrameworkDL3{
 
         # Alterar o diretório atual
         self::$ap_base_html = ( $this->ap_raiz != '/' ? "/{$this->ap_raiz}" : '/' ) . ($h = trim(self::$ap_home, '/')) . ( empty($h) ? '' : '/' );
-        chdir(($this->ap_raiz != '/' ? $this->ap_raiz : DL3_ABSPATH). self::$ap_home);
+        $dir = ($this->ap_raiz != '/' ? $this->ap_raiz : DL3_ABSPATH). self::$ap_home
+            and file_exists($dir) and chdir($dir);
 
 
 	    self::$ap_http = strtolower(

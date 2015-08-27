@@ -111,8 +111,8 @@ class Funcoes{
      */
     public static function _removeracentuacao($string){
         # Obter o encoding interno do submit do form
-        preg_match("#^(.+);\s.+\=(.+)$#", filter_input(INPUT_SERVER, 'CONTENT_TYPE'), $content_type);
-        list(, $content_type, $encode) = $content_type;
+        preg_match('~^(.+);\s.+\=(.+)$~', filter_input(INPUT_SERVER, 'CONTENT_TYPE'), $content_type);
+        !empty($content_type) and list(, $content_type, $encode) = $content_type;
 
         # Caracteres que deverão ser substituídos
         $acentuacao = [];
@@ -154,7 +154,7 @@ class Funcoes{
         $acentuacao['C'] = ['Ã'];
 
         # Verificar se o encoding precisa ser ajustado
-        $content_type != 'multipart/form-data' && !empty($encode) and $ajustar_encode = true;
+        $ajustar_encode = $content_type != 'multipart/form-data' && !empty($encode);
 
         $string = $ajustar_encode && mb_detect_encoding($string) != $encode ?
             mb_convert_encoding($string, $encode) : $string;
@@ -173,14 +173,14 @@ class Funcoes{
 
 
 
-    /**
-     * Aplicar máscara de dados a uma string
-     *
-     * @param string $string String onde será aplicada a máscara
-     * @param string $mask   Máscara a ser aplicada
-     *
-     * @return string
-     */
+	/**
+	 * Aplicar máscara de dados a uma string
+	 *
+	 * @param string $string String onde será aplicada a máscara
+	 * @param string $mask   Máscara a ser aplicada
+	 *
+	 * @return string
+	 */
     public static function _mascara($string, $mask){
         define('MASK', '#');
 

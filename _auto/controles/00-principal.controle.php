@@ -108,28 +108,35 @@ abstract class Principal{
      * @return bool
      */
     protected function _formpadrao($form_id, $form_ia, $form_ea, $url = null, $pk = null, $ajax = true){
-        is_object($this->modelo) and $this->modelo->_selecionarPK($pk);
+	    $inc = true;
+
+        if( is_object($this->modelo) ){
+	        # Selecionar o registro do modelo pela PK
+	        $this->modelo->_selecionarPK($pk);
+
+	        # Verificar se o registro será alterado ou incluído
+	        $inc = is_null($this->modelo->id);
+
+	        # Parâmetros
+	        $this->visao->_adparam('incluindo', $inc);
+	        $this->visao->_adparam('modelo', $this->modelo);
+
+	        if( !$inc ){
+		        $this->visao->_adparam('u-inc', $this->modelo->mod_lr->usuario_nome_criacao);
+		        $this->visao->_adparam('dt-inc', $this->modelo->mod_lr->data_criacao);
+
+		        $this->visao->_adparam('u-alt', $this->modelo->mod_lr->usuario_nome_alteracao);
+		        $this->visao->_adparam('dt-alt', $this->modelo->mod_lr->data_alteracao);
+	        } // Fim if( !$inc )
+        } // Fim if( is_object($this->modelo) )
 
         # Incluir o script AJAX
         $ajax and $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
 
-        # Verificar se o registro será alterado ou incluído
-        $inc = is_null($this->modelo->id);
-
         # Parâmetros
-        $this->visao->_adparam('incluindo', $inc);
-        $this->visao->_adparam('modelo', $this->modelo);
         $this->visao->_adparam('form-id', $form_id);
         $this->visao->_adparam('form-action', \DL3::$modulo_atual .'/'. ($inc ? $form_ia : $form_ea));
         $this->visao->_adparam('url-depois', $url);
-
-        if( !$inc ){
-            $this->visao->_adparam('u-inc', $this->modelo->mod_lr->usuario_nome_criacao);
-            $this->visao->_adparam('dt-inc', $this->modelo->mod_lr->data_criacao);
-
-            $this->visao->_adparam('u-alt', $this->modelo->mod_lr->usuario_nome_alteracao);
-            $this->visao->_adparam('dt-alt', $this->modelo->mod_lr->data_alteracao);
-        } // Fim if( !$inc )
 
         return $inc;
     } // Fim do método _formpadrao

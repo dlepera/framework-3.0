@@ -30,8 +30,8 @@ class Album extends GeralC\WebSite{
         $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
         # Parâmetros
-        $this->visao->_adparam('campos', [
+        /* $this->visao->_adparam('campos', [
             ['valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME]
-        ]);
+        ]); */
     } // Fim do método _mostrarlista
 } // Fim do Controle Controle

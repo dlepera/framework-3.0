@@ -7,6 +7,9 @@
  * @Data	: 07/01/2015 14:21:09
  */
 
+# Modelos
+define('TXT_MODELO_SOBRE', 'sobre');
+
 # Títulos de páginas
 define('TXT_PAGINA_TITULO_SOBRE', 'Conheça a nossa empresa');
 define('TXT_PAGINA_TITULO_HISTORIA', 'História');

@@ -197,10 +197,12 @@ class Visao{
 
 	        foreach( $this->dl3_areas as $a )
 		        $mst = str_replace("[{$a}/]", $this->_area_dl3($this->conteudo, $a), $mst);
+
+            !$r and print($mst);
+            return $mst;
         } // Fim if( !empty($this->conteudo) )
 
-	    !$r and print($mst);
-	    return $mst;
+	    return null;
     } // Fim do método _mostrarconteudo
 
 

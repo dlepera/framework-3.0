@@ -48,8 +48,8 @@ define('TXT_DICA_FORM_FILTRO', 'O que deseja encontrar?');
 define('TXT_ROTULO_BUSCAR_MODULO', 'Ir para...');
 define('TXT_ROTULO_PUBLICAR', 'Publicar?');
 define('TXT_ROTULO_SENHA_ATUAL', 'Senha atual');
-define('TXT_ROTULO_SENHA_NOVA', 'Nova senha');
-define('TXT_ROTULO_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
+// define('TXT_ROTULO_SENHA_NOVA', 'Nova senha');
+// define('TXT_ROTULO_SENHA_NOVA_CONF', 'Confirme a sua nova senha');
 
 # -> Opções
 define('TXT_OPCAO_SELECIONE_UMA_OPCAO', 'Selecione uma opção');

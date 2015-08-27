@@ -38,12 +38,12 @@ class ConfiguracaoSite extends Principal{
 
 
 
-    /**
+    /*
      * Desabilitar os métodos de edição
      *
      * @return void
      */
-    public function _salvar(){ return; }
+    public function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){ return; }
     public function _remover(){ return; }
     public function _alternarpublicacao(){ return; }
 } // Fim do Modelo ConfiguracaoSite

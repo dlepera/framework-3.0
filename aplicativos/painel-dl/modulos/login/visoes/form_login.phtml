@@ -9,18 +9,16 @@
 
 !isset($params) and $params = $this->_obterparams();
 
-$mod = $params['modelo'];
-
 ?>
 
 [DL3-CONTEUDO]
     <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('texto', 'login', 'login', $mod->login, TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
+	        <?= $this->aux_form->_campo_geral('texto', 'login', 'login', '', TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
+	        <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', '', TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">

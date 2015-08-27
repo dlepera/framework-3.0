@@ -36,7 +36,8 @@ $mod = $params['modelo'];
 
         <p class="form-paragr">
             <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, [
-	            'pattern' => $params['expreg'], 'required' => 'required'
+	            'pattern' => isset($params['expreg']) ? $params['expreg'] : null,
+                'required' => 'required'
             ]); ?>
         </p>
 

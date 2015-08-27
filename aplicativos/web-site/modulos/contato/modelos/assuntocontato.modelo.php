@@ -35,6 +35,6 @@ class AssuntoContato extends GeralM\Principal{
 	/*
 	 * Impedir a alteração e exclusão dos registros
 	 */
-    public function _salvar(){ return; }
+    public function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){ return; }
     public function _remover(){ return; }
 } // Fim do Modelo AssuntoContato

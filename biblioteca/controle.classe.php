@@ -12,9 +12,8 @@ use \Admin\Controle as AdminC;
 class Controle{
     private $modulo, $controle, $acao, $params = [];
 
-    /**
+    /*
      * 'Gets' e 'Sets' das propriedades
-     * -------------------------------------------------------------------------
      */
     public function __get($n){ return m_get($this, $n); } // Fim do método __get
     public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
@@ -38,7 +37,10 @@ class Controle{
         return !isset($v) ? (array)$this->params : $this->params = (array)$v;
     } // Fim do método _params
 
-    public function __construct($m, $c, $a, array $p = []){
+
+
+
+	public function __construct($m, $c, $a, array $p = []){
         $this->_modulo($m);
         $this->_controle($c);
         $this->_acao($a);
@@ -47,37 +49,34 @@ class Controle{
 
 
 
-    /**
-     * Validar o controle
-     *
-     * Verificar se o controle foi carregado e se o método / ação existe dentro dele
-     *
-     * @return bool Retorna true se o controle e ação são válidos ou false caso contrário
-     */
+
+	/**
+	 * Validar o controle
+	 *
+	 * Verificar se o controle foi carregado e se o método / ação existe dentro dele
+	 *
+	 * @return bool Retorna true se o controle e ação são válidos ou false caso contrário
+	 */
     public function _validar(){
         return class_exists($this->controle) || method_exists($this->controle, $this->acao);
     } // Fim do método _validar
 
 
 
-    /**
-     * Exceutar o controle solicitado
-     */
+
+	/**
+	 * Exceutar o controle solicitado
+	 */
     public function _executar(){
         if( !$this->_validar() )
             throw new Exception('A ação não pôde ser executada!', 1500);
 
         $c = new $this->controle();
 
-        if( \DL3::$aut_o instanceof \Autenticacao && $_SESSION['usuario_conf_reset'] &&
-            ($this->modulo != 'admin' && $this->controle != '\Admin\Controle\Usuario' && $this->acao != '_alterarsenha') ):
-
-            return  call_user_func_array(
-                [new AdminC\Usuario(), '_formalterarsenha'], []
-            );
-        endif;
-
-        return call_user_func_array(
+        return \DL3::$aut_o instanceof \Autenticacao && $_SESSION['usuario_conf_reset'] &&
+            $this->modulo !== 'admin' && $this->controle !== '\Admin\Controle\Usuario' && $this->acao !== '_alterarsenha'
+        ? call_user_func_array([new AdminC\Usuario(), '_formalterarsenha'], [])
+        : call_user_func_array(
             [$c, $this->acao],
             !empty($this->params) ? $this->params : []
         );

@@ -54,10 +54,10 @@ class ContatoSite extends GeralM\Principal{
 
 
 
-	/**
-	 * Impedir que o contato recebido do site seja alterado
+    /*
+     * Impedir o salvamento de registros
      */
-    protected function _salvar(){ return; } // Fim do método _salvar
+    public function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){ return; } // Fim do método _salvar
 
 
 

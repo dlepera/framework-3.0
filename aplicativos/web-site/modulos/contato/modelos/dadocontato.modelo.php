@@ -22,6 +22,7 @@ class DadoContato extends GeralM\Principal{
 
 
 
+
     public function __construct($pk = null){
         parent::__construct('dl_site_dados_contato', 'dado_contato_');
 
@@ -39,6 +40,6 @@ class DadoContato extends GeralM\Principal{
 	/*
 	 * Desativar os métodos _salvar e _remover
 	 */
-    public function _salvar(){ return; }
+    public function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){ return; }
     public function _remover(){ return; }
 } // Fim do Modelo DadoContato

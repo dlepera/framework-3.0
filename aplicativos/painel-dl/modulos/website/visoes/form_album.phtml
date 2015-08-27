@@ -35,7 +35,7 @@ $mod = $params['modelo'];
             <?php endif; ?>
 
 	        <p class="form-paragr">
-		        <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, TXT_DICA_PUBLICAR_REGISTRO, $mod->publicar ? 'CHECKED' : ''); ?>
+		        <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? 'CHECKED' : ''); ?>
 	        </p>
         </fieldset>
 

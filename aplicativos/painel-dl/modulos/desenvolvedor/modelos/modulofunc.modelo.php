@@ -47,19 +47,19 @@ class ModuloFunc extends GeralM\Principal{
 
 
 
-	/**
-	 * Salvar determinado registro
-	 * Obs.: Inicialmente esse método  só é utilizado para inclusão de registros
-	 *
-	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
-	 * @param array   $ci  Vetor com os campos a serem considerados
-	 * @param array   $ce  Vetor com os campos a serem desconsiderados
-	 * @param bool    $ipk Define se o campo PK será considerado para inserção
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
-	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
+    /**
+     * Salvar determinado registro
+     * Obs.: Inicialmente esse método  só é utilizado para inclusão de registros
+     *
+     * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+     * @param array   $ci  Vetor com os campos a serem considerados
+     * @param array   $ce  Vetor com os campos a serem desconsiderados
+     * @param bool    $ipk Define se o campo PK será considerado para inserção
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
         if( $r && $s ){

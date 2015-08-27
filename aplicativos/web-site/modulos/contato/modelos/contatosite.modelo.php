@@ -14,15 +14,6 @@ use \Geral\Modelo as GeralM;
 class ContatoSite extends GeralM\Principal{
     protected $id, $nome, $email, $telefone, $assunto, $mensagem, $delete = 0;
 
-    public function __construct($id=null){
-        parent::__construct('dl_site_contatos', 'contato_site_');
-
-        if( empty($id) )
-            $this->_selecionarPK((int)$id);
-    } // Fim do método __construct
-
-
-
     /*
      * 'Gets' e 'Sets' das propriedades
      */
@@ -47,20 +38,26 @@ class ContatoSite extends GeralM\Principal{
     } // Fim do método _mensagem
 
 
+    public function __construct($id = null){
+        parent::__construct('dl_site_contatos', 'contato_site_');
+        $this->_selecionarPK($id);
+    } // Fim do método __construct
 
 
-	/**
-	 * Salvar determinado registro
-	 *
-	 * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
-	 * @param array   $ci  Vetor com os campos a serem considerados
-	 * @param array   $ce  Vetor com os campos a serem desconsiderados
-	 * @param bool    $ipk Define se o campo PK será considerado para inserção
-	 *
-	 * @return mixed
-	 * @throws \Exception
-	 */
-	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
+
+
+    /**
+     * Salvar determinado registro
+     *
+     * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
+     * @param array   $ci  Vetor com os campos a serem considerados
+     * @param array   $ce  Vetor com os campos a serem desconsiderados
+     * @param bool    $ipk Define se o campo PK será considerado para inserção
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         return !$this->reg_vazio ? 0 : parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 

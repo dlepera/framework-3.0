@@ -56,7 +56,7 @@ class LeituraContato extends GeralM\Principal{
      * @return mixed
      * @throws \Exception
      */
-	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
+    protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         if( !$this->reg_vazio || $this->_verificarleitura() ) return 0;
 
         # Obter a data atual

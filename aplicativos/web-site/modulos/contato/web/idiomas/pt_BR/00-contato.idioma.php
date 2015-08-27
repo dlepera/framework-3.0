@@ -20,7 +20,6 @@ define('TXT_ROTULO_EMAIL', 'E-mail');
 define('TXT_ROTULO_FONE', 'Telefone');
 define('TXT_ROTULO_ASSUNTO', 'Assunto');
 define('TXT_ROTULO_MENSAGEM', 'Mensagem');
-define('TXT_ROTULO_ALT_MASK_FONE', 'Meu telefone possui o 9º dígito');
 
 # -> Botões
 define('TXT_BOTAO_ENVIAR', 'Enviar');

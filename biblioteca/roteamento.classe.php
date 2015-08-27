@@ -65,14 +65,17 @@ class Roteamento{
 	 *               configurado para a rota
 	 */
     private function _obterparams($r){
+        # Verificar se a rota passada é um array
+	    $ev = isset($r) && is_array($r);
+
         # String de parâmetros
-        $sp = is_array($r) ? $r['params'] : $r;
+        $sp = !$ev ? $r : array_key_exists('params', $r) ? $r['params'] : '';
 
         # Verificar se foram passados outros parâmetros
-        $op = is_array($r) ? preg_grep('~(controle|acao|params)~', array_keys($r), PREG_GREP_INVERT) : false;
+        $op = $ev ? preg_grep('~(controle|acao|params)~', array_keys($r), PREG_GREP_INVERT) : false;
 
         # Verificar se os parâmetros foram configurados na rota
-        if( !preg_match('~/\:[a-z_]+~', $sp) && !$op ) return null;
+        if( !preg_match('~/\:[a-z_]+~', $sp) && !$op ) return [];
 
         # Vetor a ser retornado
         $vp = [];
@@ -84,11 +87,13 @@ class Roteamento{
         $sop = preg_grep('~^:~', explode('/', trim($sp, '/')));
         $url = explode('/', $this->url);
 
-        foreach( $sop as $c => $p )
-            $vp[preg_replace('~^:~', '', $p)] = $url[$c];
+        foreach( $sop as $c => $p ){
+	        if( array_key_exists($c, $url) )
+	            $vp[preg_replace('~^:~', '', $p)] = $url[$c];
+        } // Fim foreach
 
         return $vp;
-    } // Fim do método $r
+    } // Fim do método _obterparams
 
 
 

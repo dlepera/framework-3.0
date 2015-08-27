@@ -23,7 +23,7 @@ $mod = $params['modelo'];
     /*
      * TAREFA: Carregar a foto sem precisar recarregar a página
      */
-    if( !$params['inserindo'] ): ?>
+    if( !$params['incluindo'] ): ?>
 	<form id="form-foto-perfil" action="admin/usuarios/salvar-foto" enctype="multipart/form-data" class="usr-alterar-foto">
 		<input type="hidden" name="id" value="<?= $mod->id; ?>"/>
 

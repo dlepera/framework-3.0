@@ -37,7 +37,7 @@ $le  = $params['log-email'];
             <?= $mod->telefone; ?>
         </p>
 
-        <?php if( !is_null($params['assunto-descr']) ): ?>
+        <?php if( isset($params['assunto-descr']) ): ?>
         <p class="det-paragr" style="color: <?= $params['assunto-cor']; ?>;">
             <span class="det-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</span>
             <?= $params['assunto-descr']; ?>

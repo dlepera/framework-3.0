@@ -50,7 +50,7 @@ class Album extends GeralM\Principal{
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	protected function _salvar($s = true, $ci = null, $ce = null, $ipk = false){
+	protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
 		if( $s && $r ){

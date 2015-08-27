@@ -151,7 +151,7 @@ abstract class Principal{
         # Resultados da consulta
         $rs = $sql->fetchAll();
 
-        return !is_null($pos) ? $rs[$pos < 0 ? count($rs) + $pos : $pos] : $rs;
+        return isset($pos) && !empty($rs) ? $rs[$pos < 0 ? count($rs) + $pos : $pos] : $rs;
     } // Fim do método _listar
 
 
