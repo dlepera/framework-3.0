@@ -7,7 +7,7 @@
  * @Data	: 04/01/2015 23:17:52
  */
 
-ini_set('display_errors', 'On');
+// ini_set('display_errors', 'On');
 
 # Configurações da aplicação
 $ap_raiz    = 'framework-3.0';
