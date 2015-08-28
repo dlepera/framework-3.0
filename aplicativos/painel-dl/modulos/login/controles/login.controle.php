@@ -81,8 +81,8 @@ class Login extends GeralC\Principal{
         # Verificar se o usuário solicitou recentemente a alteração da senha,
         # pois em caso positivo será usada a mesma hash
         $lr = $mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id', 0, 1, 0);
-		// var_dump($lr);
-        if( is_null($lr) ){
+
+        if( empty($lr) ){
 	        $mr->usuario    = $lu['usuario_id'];
 	        $mr->hash       = date(\DL3::$bd_dh_formato_completo);
 	        $mr->_salvar();
