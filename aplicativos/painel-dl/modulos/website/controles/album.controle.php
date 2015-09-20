@@ -15,22 +15,11 @@ use \WebSite\Modelo as WebM;
 class Album extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\Album(), 'website', TXT_MODELO_ALBUM);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-	        $post = filter_input_array(INPUT_POST, [
-		        'id'        => FILTER_VALIDATE_INT,
-		        'nome'      => FILTER_SANITIZE_STRING,
-		        'publicar'  => FILTER_VALIDATE_BOOLEAN
-	        ]);
-
-	        # Converter o encode
-	        \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-	        # Selecionar as informações atuais
-	        $this->modelo->_selecionarPK($post['id']);
-
-	        \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
+        $this->_carregar_post([
+            'id'        => FILTER_VALIDATE_INT,
+            'nome'      => FILTER_SANITIZE_STRING,
+            'publicar'  => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -40,11 +29,14 @@ class Album extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('album_id, album_nome, foto_album_imagem,'
-            . " ( CASE album_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+        $this->_listapadrao('album_id AS ' . TXT_LISTA_TITULO_ID . ','
+	        . " CONCAT('<img src=\"" . \DL3::$dir_relativo . "', foto_album_imagem, '\" class=\"tbl-imagem capa-album\" alt=\"\"/>') AS " . TXT_LISTA_TITULO_CAPA . ','
+            . ' album_nome AS ' . TXT_LISTA_TITULO_NOME . ','
+            . " ( CASE album_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '" . TXT_LISTA_TITULO_PUBLICADO . "'",
             'album_nome', null);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/form_filtro');
         $this->_carregarhtml('lista_albuns');
         $this->visao->titulo = TXT_PAGINA_TITULO_ALBUNS_FOTOS;
 
@@ -53,11 +45,11 @@ class Album extends GeralC\PainelDL{
 	    $qt = [];
 
 	    foreach( $la as $a )
-		    $qt[$a['album_id']] = $this->modelo->_qtde_fotos($a['album_id']);
-
+		    $qt[$a[TXT_LISTA_TITULO_ID]] = $this->modelo->_qtde_fotos($a[TXT_LISTA_TITULO_ID]);
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'website/albuns-de-fotos/');
+        $this->visao->_adparam('form-acao', 'website/albuns-de-fotos/excluir-albuns');
         $this->visao->_adparam('campos', [
             ['valor' => 'album_nome', 'texto' => TXT_ROTULO_NOME]
         ]);
@@ -76,8 +68,8 @@ class Album extends GeralC\PainelDL{
         $inc = $this->_formpadrao('album', 'albuns-de-fotos/salvar', 'albuns-de-fotos/salvar', 'website/albuns-de-fotos', $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_album');
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_ALBUM : TXT_PAGINA_TITULO_EDITAR_ALBUM;
 
 	    # Fotos
 	    $mf = new WebM\FotoAlbum();

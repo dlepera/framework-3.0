@@ -13,25 +13,27 @@
 
 [DL3-CONTEUDO]
 	<?php if( $params['msg-reset?'] ): ?>
-    <p class="msg-info"><?= MSG_RESET_SENHA_PROX_LOGIN; ?></p>
+    <p class="msg-info"><?php echo MSG_RESET_SENHA_PROX_LOGIN; ?></p>
 	<?php endif; ?>
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
         <p class="form-paragr">
-            <?= $this->aux_form->_campo_geral('senha', 'senha_atual', 'senha-atual', '', TXT_ROTULO_SENHA_ATUAL, null, ['required' => 'required']); ?>
+            <?php echo $this->aux_form->_campo_geral('senha', 'senha_atual', 'senha-atual', '', TXT_ROTULO_SENHA_ATUAL, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('senha', 'senha_nova', 'senha-nova', '', TXT_ROTULO_SENHA_NOVA, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('senha', 'senha_nova', 'senha-nova', '', TXT_ROTULO_SENHA_NOVA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('senha', 'senha_nova_conf', 'senha-nova-conf', '', TXT_ROTULO_SENHA_NOVA_CONF, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('senha', 'senha_nova_conf', 'senha-nova-conf', '', TXT_ROTULO_SENHA_NOVA_CONF, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

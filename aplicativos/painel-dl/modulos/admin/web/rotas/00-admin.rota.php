@@ -14,9 +14,7 @@ $rotas['^(home|index|)$'] = [
 
 
 
-/*
- * Grupos de usuários
- */
+// Grupos de usuários ----------------------------------------------------------------------------------------------- //
 $rotas['^(grupos-de-usuarios/lista|grupos-de-usuarios)$'] = [
     'controle'  =>  'GrupoUsuario',
     'acao'      =>  'mostrarlista'
@@ -57,10 +55,7 @@ $rotas['^grupos-de-usuarios/alternar-publicacao/(publicar|ocultar)$'] = [
 ];
 
 
-
-/*
- * Usuários
- */
+// Usuários --------------------------------------------------------------------------------------------------------- //
 $rotas['^(usuarios/lista|usuarios)$'] = [
     'controle'  =>  'Usuario',
     'acao'      =>  'mostrarlista'
@@ -121,9 +116,7 @@ $rotas['^usuarios/desbloquear-usuarios$'] = [
 
 
 
-/*
- * Configuração de envio de e-mails
- */
+// Configuração de envio de e-mails --------------------------------------------------------------------------------- //
 $rotas['^(envio-de-emails/lista|envio-de-emails)$'] = [
     'controle'  =>  'ConfigEmail',
     'acao'      =>  'mostrarlista'

@@ -105,11 +105,12 @@ class Upload{
 			$qt++;
 
 			# Obter as informações desse arquivo
-			$i = arquivos::_obterinfos($a['tmp']);
+			$i = \Arquivos::_obterinfos($a['tmp']);
+			$ext = !empty($i['extensao']) ? $i['extensao'] : end(explode('.', $a['nome']));
 
 			# Verificar se a extensão do arquivo deve ser aceita ou se não há
 			# limitação das extensões
-			if( count($this->extensoes) > 0 && !in_array($i['extensao'], $this->extensoes) ):
+			if( count($this->extensoes) > 0 && !in_array($i['extensao'], $this->extensoes) ){
 				# Remover o arquivo temporário para não ter o risco de sobrecarregar o servidor
 				unlink($a['tmp']);
 
@@ -121,17 +122,18 @@ class Upload{
 
 				# Passar para o próximo passo do laço
 				continue;
-			endif;
+			} // Fim if( count($this->extensoes) > 0 && !in_array($i['extensao'], $this->extensoes) )
 
 			$n = $this->_definir_nome($i['nome'], $nm);
-			$c = "{$d}/{$n}.{$i['extensao']}";
+			$c = "{$d}/{$n}.{$ext}";
 
 			if( !$se ){
 				$q = 0;
-				while( file_exists( $c ) ) $c = "{$d}/{$n}-{$q}.{$i['extensao']}" AND $q++;
+				while( file_exists( $c ) )
+					$c = "{$d}/{$n}-{$q}.{$ext}" and $q++;
 			} // Fim if( !$se )
 
-			move_uploaded_file($a['tmp'], $c) AND $this->salvos[] = $c;
+			move_uploaded_file($a['tmp'], $c) and $this->salvos[] = $c;
 		} // Fim foreach
 
 		return count($this->salvos);

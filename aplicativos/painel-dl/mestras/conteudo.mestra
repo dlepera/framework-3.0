@@ -12,8 +12,10 @@ $params = $this->_obterparams();
 
 ?>
 
+[DL3-HEAD/]
+
 <section class="dl3-conteudo">
-    <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
+    <h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
 
     [DL3-CONTEUDO/]
 </section>

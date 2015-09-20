@@ -23,9 +23,8 @@ class Modelo extends GeralM\Principal{
 
 
 
-    public function __construct($pk = ''){
+    public function __construct($pk = null){
         parent::__construct('tabela', 'prefixo');
-
         $this->_selecionarPK($pk);
     } // Fim do método __construct
 } // Fim do Modelo Modelo

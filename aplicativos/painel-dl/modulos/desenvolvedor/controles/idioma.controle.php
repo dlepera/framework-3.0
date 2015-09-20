@@ -15,23 +15,12 @@ use \Desenvolvedor\Modelo as DevM;
 class Idioma extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new DevM\Idioma(), 'desenvolvedor', TXT_MODELO_IDIOMA);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-                'id'        => FILTER_VALIDATE_INT,
-                'descr'     => FILTER_SANITIZE_STRING,
-                'sigla'     => FILTER_SANITIZE_STRING,
-                'publicar'  => FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
+        $this->_carregar_post([
+            'id'        => FILTER_VALIDATE_INT,
+            'descr'     => FILTER_SANITIZE_STRING,
+            'sigla'     => FILTER_SANITIZE_STRING,
+            'publicar'  => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -41,16 +30,18 @@ class Idioma extends GeralC\PainelDL{
      * Mostrar a lista de registros
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('idioma_id, idioma_descr, idioma_sigla,'
-            . " ( CASE idioma_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+        $this->_listapadrao('idioma_id AS '. TXT_LISTA_TITULO_ID .', idioma_descr AS '. TXT_LISTA_TITULO_DESCR .', idioma_sigla AS '. TXT_LISTA_TITULO_SIGLA .','
+            . " ( CASE idioma_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '". TXT_LISTA_TITULO_PUBLICADO ."'",
             'idioma_descr', null);
 
         # Visão
-        $this->_carregarhtml('lista_idiomas');
+	    $this->_carregarhtml('comum/visoes/form_filtro', null, 1);
+	    $this->_carregarhtml('comum/visoes/lista_padrao', null, 2);
         $this->visao->titulo = TXT_PAGINA_TITULO_IDIOMAS;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'desenvolvedor/idiomas/');
+        $this->visao->_adparam('form-acao', 'desenvolvedor/idiomas/remover-idioma');
         $this->visao->_adparam('campos', [
             ['valor' => 'idioma_descr', 'texto' => TXT_ROTULO_DESCRICAO],
             ['valor' => 'idioma_sigla', 'texto' => TXT_ROTULO_SIGLA]
@@ -67,10 +58,10 @@ class Idioma extends GeralC\PainelDL{
 	 * @param string $mst Nome da página mestra a ser carregada
 	 */
     protected function _mostrarform($pk = null, $mst = 'padrao'){
-        $inc = $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $pk);
+        $this->_formpadrao('idioma', 'idiomas/salvar', 'idiomas/salvar', 'desenvolvedor/idiomas', $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_idioma', $mst);
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_IDIOMA : TXT_PAGINA_TITULO_EDITAR_IDIOMA;
     } // Fim do método _mostrarform
 } // Fim do Controle Tema

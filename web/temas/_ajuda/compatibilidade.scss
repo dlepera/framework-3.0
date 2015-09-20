@@ -12,9 +12,9 @@
  */
 @mixin _flex-box(){
     display: -webkit-flex;
-    display: -o-flex;
+    /* display: -o-flex;
     display: -moz-flex;
-    display: -ms-flex;
+    display: -ms-flex; */
     display: flex;
 }
 
@@ -67,7 +67,7 @@
  *  ----------
  *  Efeito de transicao
  */
-@mixin _transition($v:all 1s){
+@mixin _transition($v: all 1s) {
     -webkit-transition: $v;
     -o-transition: $v;
     -moz-transition: $v;
@@ -78,9 +78,9 @@
 /**
  * Aplicar uma animação
  */
-@mixin _animation($v){
-	-webkit-animation: $v;
-	-moz-animation: $v;
-	-o-animation: $v;
-	animation: $v;
+@mixin _animation($v) {
+    -webkit-animation: $v;
+    -moz-animation: $v;
+    -o-animation: $v;
+    animation: $v;
 }

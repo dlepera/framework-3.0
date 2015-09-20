@@ -23,6 +23,50 @@ class PainelDL extends Principal{
             $mm->_listarmenu('M.modulo_publicar = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link, M.modulo_ordem')
             : $mm->_listar('M.modulo_publicar = 1 AND M.modulo_menu = 1 AND M.modulo_pai IS NOT NULL', 'M.modulo_ordem, M.modulo_nome', 'M.modulo_id, M.modulo_pai, M.modulo_nome, M.modulo_descr, M.modulo_link, M.modulo_ordem');
 
+        # Adicionar alguns links específicos do Painel-DL
+	    $this->visao->aux_links->_novo_link('publicar', [
+		    'data-ajax' => true,
+		    'data-ajax-msg' => TXT_AJAX_PUBLICANDO_REGISTRO,
+		    'data-acao' => 'publicar-registro',
+		    'class' => 'com-icone ico-publicar'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('ocultar', [
+		    'data-ajax' => true,
+		    'data-ajax-msg' => TXT_AJAX_PUBLICANDO_REGISTRO,
+		    'data-acao' => 'ocultar-registro',
+		    'class' => 'com-icone ico-nao-publicar'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('detalhes', [
+		    'class' => 'com-icone ico-detalhes'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('lista', [
+		    'class' => 'com-icone ico-lista'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('bloquear', [
+		    'data-ajax' => true,
+		    'data-ajax-msg' => TXT_AJAX_BLOQUEANDO_USUARIOS,
+		    'data-acao' => 'bloquear-usuarios',
+		    'class' => 'com-icone ico-bloquear'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('desbloquear', [
+		    'data-ajax' => true,
+		    'data-ajax-msg' => TXT_AJAX_DESBLOQUEANDO_USUARIOS,
+		    'data-acao' => 'desbloquear-usuarios',
+		    'class' => 'com-icone ico-desbloquear'
+	    ]);
+
+	    $this->visao->aux_links->_novo_link('testar-email', [
+		    'data-ajax' => true,
+		    'data-ajax-msg' => TXT_AJAX_ENVIANDO_EMAIL,
+		    'data-acao' => 'testar-email',
+		    'class' => 'com-icone ico-email'
+	    ]);
+
         # Dados do usuário
         $mus = new AdminM\Usuario($_SESSION['usuario_id']);
 

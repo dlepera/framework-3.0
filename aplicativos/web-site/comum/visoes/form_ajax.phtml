@@ -14,11 +14,11 @@
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $sf = $('#form-<?= $params['form-id']; ?>')._formulario({
+    $sf = $('#form-<?php echo $params['form-id']; ?>')._formulario({
         depois: function(){
-            window.location = '<?= $params['url-depois']; ?>';
+            window.location = '<?php echo $params['url-depois']; ?>';
         },
-        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+        aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
     });
     //]]>
 </script>

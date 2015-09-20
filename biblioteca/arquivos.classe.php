@@ -59,12 +59,18 @@ class Arquivos{
         'application/x-navimap' => 'map',
 
         /* Web */
-        'text/html'=>'html', 'text/asp'=>'asp', 'application/php'=>'php', 'application/x-javascript'=>'js', 'application/x-httpd-imap'=>'imap', 'message/rfc822'=>'mht'
+        'text/html'=>'html', 'text/asp'=>'asp', 'application/php'=>'php', 'application/x-javascript'=>'js', 'application/x-httpd-imap' => 'imap', 'message/rfc822' => 'mht',
+
+        # Chaves de criptografia
+        'application/x-pkcs12' => 'p12',
+
+		# Mime type desconhecido
+		'application/octet-stream' => ''
     ];
    	
 
 
-
+	// Arquivos ----------------------------------------------------------------------------------------------------- //
 	/**
 	 * Criar um arquivo e inserir o conteúdo
 	 *
@@ -101,26 +107,26 @@ class Arquivos{
 	 *
 	 * @return array
 	 */
-    public static function _obterinfos($caminho=''){
+    public static function _obterinfos($caminho = ''){
         # Obter nome
         $nome = end(explode('.', basename($caminho)));
         
-        if( extension_loaded('fileinfo') ):
-            $fo = finfo_open();
-            
-            $mimetype   = finfo_file($fo, $caminho, FILEINFO_MIME_TYPE);
-            $mimeencode = finfo_file($fo, $caminho, FILEINFO_MIME_ENCODING);
-        else:
-            # Obter o Mime-Type
-            $mimetype = mime_content_type($caminho);
+        if( extension_loaded('fileinfo') ){
+	        $fo = finfo_open();
 
-            # Obter o encode
-            # ** Sem o finfo não foi possível encontrar o ENCODE do arquivo
-            $mimeencode = '';
-        endif;
+	        $mimetype = finfo_file($fo, $caminho, FILEINFO_MIME_TYPE);
+	        $mimeencode = finfo_file($fo, $caminho, FILEINFO_MIME_ENCODING);
+        } else {
+	        # Obter o Mime-Type
+	        $mimetype = mime_content_type($caminho);
+
+	        # Obter o encode
+	        # ** Sem o finfo não foi possível encontrar o ENCODE do arquivo
+	        $mimeencode = '';
+        } // Fim if( extension_loaded('fileinfo') )
 
         # Obter a extensão
-        $extensao = self::$extensoes[$mimetype];
+        $extensao =  self::$extensoes[$mimetype];
 
         # Obter o tamanho do arquivo
         $tamanho = sprintf('%u', filesize($caminho)); // Previnindo para arquivos com tamanho maior que 2GB
@@ -137,6 +143,7 @@ class Arquivos{
 
 
 
+	// Diretórios --------------------------------------------------------------------------------------------------- //
 	/**
 	 * Remover diretórios, com a opção de remover os arquivos dentro dos
 	 * diretórios de maneira recursiva. Semelhante ao rm -r do linux

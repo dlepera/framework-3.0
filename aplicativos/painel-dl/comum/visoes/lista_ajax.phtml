@@ -20,13 +20,13 @@
             // Remover o item da lista
             $el.find('tbody :checked').parents('tr').remove();
         },
-        aparencia: { tema: '<?= DL3::$plugin_formulario_tema; ?>', estilo: null }
+        aparencia: { tema: '<?php echo DL3::$plugin_formulario_tema; ?>', estilo: null }
     });
 
     $pg = $('#paginacao')._paginacao({
-        pgtotal : <?= $params['total-pg']; ?>,
+        pgtotal : <?php echo $params['total-pg']; ?>,
         mostrar : 5,
-        tema    : '<?= \DL3::$plugin_paginacao_tema; ?>'
+        tema    : '<?php echo \DL3::$plugin_paginacao_tema; ?>'
     });
 
     $('.com-marcados > *:first-child,.sem-registros > *:first-child').attr({ 'colspan': $('.tbl-titulos > .tbl-linha:first-child > *').length });

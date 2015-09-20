@@ -15,25 +15,14 @@ use \WebSite\Modelo as WebM;
 class Institucional extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\Institucional(), 'website', TXT_MODELO_SOBRE);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-                'id' => FILTER_VALIDATE_INT,
-                'historia' => FILTER_DEFAULT,
-                'missao' => FILTER_DEFAULT,
-                'visao' => FILTER_DEFAULT,
-                'valores' => FILTER_DEFAULT,
-                'publicar' => FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
+        $this->_carregar_post([
+            'id' => FILTER_VALIDATE_INT,
+            'historia' => FILTER_DEFAULT,
+            'missao' => FILTER_DEFAULT,
+            'visao' => FILTER_DEFAULT,
+            'valores' => FILTER_DEFAULT,
+            'publicar' => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -67,6 +56,7 @@ class Institucional extends GeralC\PainelDL{
         $this->_formpadrao('instit', 'institucional/salvar', 'institucional/salvar', 'website/institucional', $id['ID']);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_instit');
         $this->visao->titulo = TXT_PAGINA_TITULO_EDITAR_INSTITUCIONAL;
     } // Fim do método _mostrarform

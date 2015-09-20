@@ -14,44 +14,44 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>"<?php $params['incluindo'] and print(' enctype="multipart/form-data"');?>>
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>"<?php $params['incluindo'] and print(' enctype="multipart/form-data"');?>>
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_ALBUM_FOTOS; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_ALBUM_FOTOS; ?></legend>
 
             <p class="form-paragr">
-                <?= $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
+                <?php echo $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <?php if( $params['incluindo'] ): ?>
             <p class="form-paragr">
-	            <?= $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple'], $params['extensoes']); ?>
+	            <?php echo $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple'], $params['extensoes']); ?>
             </p>
             <?php endif; ?>
 
 	        <p class="form-paragr">
-		        <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? 'CHECKED' : ''); ?>
+		        <?php echo $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? 'CHECKED' : ''); ?>
 	        </p>
         </fieldset>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 
     <?php if( !$params['incluindo'] ): ?>
     <form id="form-fotos" method="post" action="website/albuns-de-fotos/incluir-fotos" enctype="multipart/form-data" class="form-upload-simples">
-        <input type="hidden" name="foto_album" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="foto_album" value="<?php echo $mod->id; ?>"/>
 
         <fieldset class="form-grupo">
             <legend class="form-legenda">
-	            <?= TXT_LEGENDA_FOTOS; ?>
+	            <?php echo TXT_LEGENDA_FOTOS; ?>
 
 	            <span class="log-registro">
 		            (<?php switch($params['qtde-fotos']){
@@ -64,19 +64,19 @@ $mod = $params['modelo'];
 
 
             <span class="form-paragr">
-                <?= $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple'], $params['extensoes']); ?>
+                <?php echo $this->aux_form->_arquivo_upload('fotos[]', 'arq-fotos', TXT_ROTULO_FOTOS, ['multiple' => 'multiple', 'required' => 'required'], $params['extensoes']); ?>
             </span>
 
 	        <span class="form-botoes" style="margin-left: .5em;">
-		        <button type="submit" class="btn-upload"><?= TXT_BOTAO_SALVAR_FOTOS; ?></button>
+                <?php echo $this->aux_form->_botao('upload', TXT_BOTAO_SALVAR_FOTOS); ?>
 	        </span>
         </fieldset>
     </form>
 
-    <form id="form-remover-fotos" method="post" action="website/albuns-de-fotos/excluir-fotos" class="mostrar-fotos flexivel">
+    <form id="form-remover-fotos" method="post" action="website/albuns-de-fotos/excluir-fotos" class="mostrar-fotos flex-grade">
         <?php foreach( $params['fotos'] as $f ): ?>
-        <figure class="album-foto col-4">
-            <img src="..<?= $f['foto_album_imagem']; ?>" class="af-imagem" alt=""/>
+        <figure class="album-foto flex-item tres-col bd-registro">
+            <img src="<?php echo \DL3::$dir_relativo . $f['foto_album_imagem']; ?>" class="af-imagem" alt=""/>
 
             <figcaption class="af-infos">
                 <p>
@@ -91,16 +91,20 @@ $mod = $params['modelo'];
 
                 <p class="af-links">
                     <?php if( $f['foto_album_capa'] == 1 ): ?>
-                    <span class="af-capa"><?= MSG_CAPA; ?></span>
-                    <?php endif; ?>
+                    <span class="af-capa"><?php echo TXT_DIVERSOS_CAPA; ?></span>
+                    <?php endif;
 
-                    <a href="javascript:" onclick="CarregarForm('website/albuns-de-fotos/editar-foto/<?= $f['foto_album_id']; ?>', function(){ return true; }, function(){ window.location.reload(); });" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR;?>">
-                        <?= TXT_LINK_EDITAR; ?>
-                    </a>
+                    echo $this->aux_links->_link('editar', 'javascript:', TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false, [
+		                'data-acao' => 'carregar-form',
+		                'data-acao-param-html' => "website/albuns-de-fotos/editar-foto/{$f['foto_album_id']}",
+		                'data-ajax' => true,
+		                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO
+	                ]); ?>
 
-                    <label for="id-foto-<?= $f['foto_album_id']; ?>" class="so-icone ico-remover" style="display:inline;"></label>
-                    <input type="checkbox" name="id[]" id="id-foto-<?= $f['foto_album_id']; ?>" value="<?= $f['foto_album_id']; ?>"
-                           style="visibility: hidden; width: 0;" onchange="$fr.submit();"/>
+	                <label>
+		                <input type="checkbox" name="id[]" value="<?php echo $f['foto_album_id']; ?>" class="bd-registro-id" style="visibility: hidden;"/>
+		                <?php echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER, false); ?>
+	                </label>
                 </p>
             </figcaption>
         </figure>
@@ -117,14 +121,14 @@ $mod = $params['modelo'];
         depois: function(){
             window.location.reload();
         },
-        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
+        aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
     });
 
-    $fr = $('#form-remover-fotos')._formulario({
+    $el = $('#form-remover-fotos')._formulario({
         depois: function(){
             window.location.reload();
         },
-        aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
+        aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: 'formulario' }
     });
     //]]>
 </script>

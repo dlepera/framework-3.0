@@ -30,6 +30,13 @@ class WebSite extends Geral\PainelDL{
     } // Fim do método _index
 
 
+    public function _sobre(){
+	    # Visao
+	    $this->_carregarhtml('sobre_sistema');
+	    $this->visao->titulo = TXT_PAGINA_TITULO_PAINELDL_SOBRE;
+    } // Fim do método _sobre
+
+
 
 
 	/**
@@ -48,11 +55,11 @@ class WebSite extends Geral\PainelDL{
         $m_ga->_selecionar_principal();
 
         # Conectar ao Google Analytics
-        $o_ga = new \gapi($m_ga->usuario, $m_ga->senha);
+        $o_ga = new \gapi($m_ga->_conta_completa(), $m_ga->p12);
 
         # Retornar as informações
         $o_ga->requestReportData(
-            $m_ga->perfil_id, $dimensao, $metricas, null, null,
+            $m_ga->perfil_id, $dimensao, !isset($metricas) ? ['visits'] : $metricas, null, null,
             \Funcoes::_formatardatahora($dt_inicio, 'Y-m-d'), \Funcoes::_formatardatahora($dt_fim, 'Y-m-d')
         );
 

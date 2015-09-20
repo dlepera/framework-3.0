@@ -19,7 +19,7 @@ class ConfigEmail extends GeralM\Principal{
      * 'Gets' e 'Sets' das propriedades
      */
     public function _titulo($v = null){
-        return $this->titulo = filter_var(!isset($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
+        return $this->titulo = filter_var(!isset($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING, FILTER_FLAG_EMPTY_STRING_NULL);
     } // Fim do método _titulo
 
     public function _host($v = null){
@@ -27,7 +27,8 @@ class ConfigEmail extends GeralM\Principal{
     } // Fim do método _host
 
     public function _porta($v = null){
-        return $this->porta = filter_var(!isset($v) ? $this->porta : $v, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
+        return $this->porta = filter_var(!isset($v) ? $this->porta : $v, FILTER_VALIDATE_INT,
+            ['options' => ['default' => 25, 'min_range' => 1, 'max_range' => 65535]]);
     } // Fim do método _porta
 
     public function _autent($v = null){

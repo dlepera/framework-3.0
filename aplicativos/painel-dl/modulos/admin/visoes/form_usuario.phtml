@@ -14,10 +14,8 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
     <?php if( $params['msg-usuario-bloq?'] ): ?>
-    <p class="msg-atencao"><?= MSG_USUARIO_BLOQUEADO; ?></p>
+    <p class="msg-atencao"><?php echo MSG_USUARIO_BLOQUEADO; ?></p>
     <?php endif;
 
     /*
@@ -25,13 +23,13 @@ $mod = $params['modelo'];
      */
     if( !$params['incluindo'] ): ?>
 	<form id="form-foto-perfil" action="admin/usuarios/salvar-foto" enctype="multipart/form-data" class="usr-alterar-foto">
-		<input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+		<input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
 
 		<?php if( $params['usuario-logado?'] ): ?>
 			<input type="file" name="perfil_foto" id="perfil-foto" class="form-controle"/>
 			<label for="perfil-foto">
-				<?= $mod->_mostrarfoto(\DL3::$dir_relativo, 'g'); ?>
-				<span class="msg-alterar-foto"><?= MSG_USUARIO_ALTERAR_FOTO; ?></span>
+				<?php echo $mod->_mostrarfoto(\DL3::$dir_relativo, 'g'); ?>
+				<span class="msg-alterar-foto"><?php echo MSG_USUARIO_ALTERAR_FOTO; ?></span>
 			</label>
 		<?php else:
 			echo $mod->_mostrarfoto(\DL3::$dir_relativo, 'g');
@@ -39,145 +37,147 @@ $mod = $params['modelo'];
 	</form>
 	<?php endif; ?>
 
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_DADOS_PESSOAIS; ?></legend>
 
             <p class="form-paragr">
-                <?= $this->aux_form->_campo_geral('texto', 'info_nome', 'info-nome', $mod->info_nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
+                <?php echo $this->aux_form->_campo_geral('texto', 'info_nome', 'info-nome', $mod->info_nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('email', 'info_email', 'info-email', $mod->info_email, TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('email', 'info_email', 'info-email', $mod->info_email, TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-				<?= $this->aux_form->_campo_telefone('info_telefone', 'info-telefone', $mod->info_telefone, TXT_ROTULO_TELEFONE, null, ['pattern' => \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL)]); ?>
+				<?php echo $this->aux_form->_campo_telefone('info_telefone', 'info-telefone', $mod->info_telefone, TXT_ROTULO_TELEFONE, null, ['pattern' => \Funcoes::_expreg_form(EXPREG_TELEFONE_GERAL)]); ?>
             </p>
 
             <p class="form-paragr">
-                <span class="form-rotulo"><?= TXT_ROTULO_SEXO; ?>:</span><br/>
-                <input type="radio" name="info_sexo" id="info-sexo-m" value="M"<?php $mod->info_sexo == 'M' and print(' CHECKED'); ?>/>
+                <span class="form-rotulo"><?php echo TXT_ROTULO_SEXO; ?>:</span><br/>
+                <input type="radio" name="info_sexo" id="info-sexo-m" value="M"<?php $mod->info_sexo === 'M' and print(' CHECKED'); ?>/>
+                <label for="info-sexo-m"><?php echo TXT_OPCAO_MASCULINO; ?></label>
 
-                <label for="info-sexo-m"><?= TXT_OPCAO_MASCULINO; ?></label>
-
-                <input type="radio" name="info_sexo" id="info-sexo-f" value="F"<?php $mod->info_sexo == 'F' and print(' CHECKED'); ?>/>
-                <label for="info-sexo-f"><?= TXT_OPCAO_FEMININO; ?></label>
+                <input type="radio" name="info_sexo" id="info-sexo-f" value="F"<?php $mod->info_sexo === 'F' and print(' CHECKED'); ?>/>
+                <label for="info-sexo-f"><?php echo TXT_OPCAO_FEMININO; ?></label>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_PREFERENCIAS; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_PREFERENCIAS; ?></legend>
 
             <p class="form-paragr">
 	            <?php echo $this->aux_form->_combo_select('pref_idioma', 'pref-idioma', $mod->pref_idioma, TXT_ROTULO_IDIOMA, null, ['required' => 'required'], $params['idiomas']);
 
-	            if( $params['novo-idioma?'] ): ?>
-                <a href="javascript:" onclick="CarregarForm('desenvolvedor/idiomas/novo', null, function(){ CarregarSelect($('#pref-idioma'), 'desenvolvedor/idiomas/carregar-select'); });" class="com-icone ico-inserir ico-select">
-                    <?= TXT_LINK_NOVO_IDIOMA; ?>
-                </a>
-                <?php endif; ?>
+	            if( $params['novo-idioma?'] ):
+		            echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVO, TXT_MODELO_IDIOMA), null, true, [
+			            'data-ajax' => true,
+			            'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
+			            'data-acao' => 'carregar-form',
+			            'data-acao-param-html' => 'desenvolvedor/idiomas/novo',
+			            'data-acao-param-func' => "CarregarSelect($('#sel-pref-idioma'), 'desenvolvedor/idiomas/carregar-select')"
+		            ]);
+	            endif; ?>
             </p>
 
             <p class="form-paragr">
 	            <?php echo $this->aux_form->_combo_select('pref_tema', 'pref-tema', $mod->pref_tema, TXT_ROTULO_TEMA, null, ['required' => 'required'], $params['temas']);
 
-                if( $params['novo-tema?'] ): ?>
-                <a href="javascript:" onclick="CarregarForm('desenvolvedor/temas/novo', null, function(){ CarregarSelect($('#pref-tema'), 'desenvolvedor/temas/carregar-select'); });" class="com-icone ico-inserir ico-select">
-                    <?= TXT_LINK_NOVO_TEMA; ?>
-                </a>
-                <?php endif; ?>
+                if( $params['novo-tema?'] ):
+	                echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVO, TXT_MODELO_TEMA), null, true, [
+		                'data-ajax' => true,
+		                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
+		                'data-acao' => 'carregar-form',
+		                'data-acao-param-html' => 'desenvolvedor/temas/novo',
+		                'data-acao-param-func' => "CarregarSelect($('#sel-pref-tema'), 'desenvolvedor/temas/carregar-select')"
+	                ]);
+                endif; ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_combo_select('pref_formato_data', 'pref-formato-data', $mod->pref_formato_data, TXT_ROTULO_FORMATO_DATA, null, ['required' => 'required'], $params['formatos-data']); ?>
+	            <?php echo $this->aux_form->_combo_select('pref_formato_data', 'pref-formato-data', $mod->pref_formato_data, TXT_ROTULO_FORMATO_DATA, null, ['required' => 'required'], $params['formatos-data']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('numero', 'pref_num_registros', 'pref-num-registros', $mod->pref_num_registros, TXT_ROTULO_NUM_REGISTROS, MSG_DICA_USUARIO_NUM_REGISTROS, [
+	            <?php echo $this->aux_form->_campo_geral('numero', 'pref_num_registros', 'pref-num-registros', $mod->pref_num_registros, TXT_ROTULO_NUM_REGISTROS, TXT_DICA_USUARIO_NUM_REGISTROS, [
 		            'min' => 5, 'max' => 99, 'required' => 'required'
 	            ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('pref_exibir_id', 'chk-exibir-id', TXT_ROTULO_EXIBIR_ID, TXT_DICA_EXIBIR_ID, $mod->pref_exibir_id ? ' CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('pref_exibir_id', 'chk-exibir-id', TXT_ROTULO_EXIBIR_ID, TXT_DICA_EXIBIR_ID, $mod->pref_exibir_id ? ' CHECKED' : ''); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('pref_filtro_menu', 'chk-filtro-menu', TXT_ROTULO_FILTRO_MENU, TXT_DICA_FILTRO_MENU, $mod->pref_filtro_menu ? ' CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('pref_filtro_menu', 'chk-filtro-menu', TXT_ROTULO_FILTRO_MENU, TXT_DICA_FILTRO_MENU, $mod->pref_filtro_menu ? ' CHECKED' : ''); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_ACESSO_SISTEMA; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_ACESSO_SISTEMA; ?></legend>
 
             <?php if( $params['incluindo'] || !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
-                <!-- label for="info-grupo" class="form-rotulo"><?= TXT_ROTULO_GRUPO; ?>:</label><br/>
-                <select name="info_grupo" id="info-grupo" class="form-controle" required>
-                    <option value=""><?= TXT_OPCAO_SELECIONE_UMA_OPCAO; ?></option>
-
-                    <?php foreach( $params['grupos-usuarios'] as $o ): ?>
-                    <option value="<?= $o['VALOR']; ?>"<?php $mod->info_grupo == $o['VALOR'] || ($params['incluindo'] && $mod->padrao) and print(' SELECTED'); ?>>
-                        <?= $o['TEXTO']; ?>
-                    </option>
-                    <?php endforeach; ?>
-                </select -->
-
 	            <?php echo $this->aux_form->_combo_select('info_grupo', 'info-grupo', $mod->info_grupo, TXT_ROTULO_GRUPO, null, ['required' => 'required'], $params['grupos-usuarios']);
 
-                if( $params['novo-grupo?'] ): ?>
-                <a href="javascript:" onclick="CarregarForm('admin/grupos-de-usuarios/novo', null, function(){ CarregarSelect($('#info-grupo'), 'admin/grupos-de-usuarios/carregar-select'); });" class="com-icone ico-inserir ico-select">
-                    <?= TXT_LINK_NOVO_GRUPO_USUARIO; ?>
-                </a>
-                <?php endif; ?>
+                if( $params['novo-grupo?'] ):
+	                echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVO, TXT_MODELO_GRUPOUSUARIO), null, true, [
+		                'data-ajax' => true,
+		                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
+		                'data-acao' => 'carregar-form',
+		                'data-acao-param-html' => 'admin/grupos-de-usuarios/novo',
+		                'data-acao-param-func' => "CarregarSelect($('#sel-info-grupo'), 'admin/grupos-de-usuarios/carregar-select')"
+	                ]);
+                endif; ?>
             </p>
             <?php elseif( $params['usuario-logado?'] ): ?>
             <p class="form-paragr">
-                <?= TXT_ROTULO_GRUPO, ':<br/>', $params['grupo-descr']; ?>
-                <input type="hidden" name="info_grupo" value="<?= $mod->info_grupo; ?>"/>
+                <?php echo TXT_ROTULO_GRUPO, ':<br/>', $params['grupo-descr']; ?>
+                <input type="hidden" name="info_grupo" value="<?php echo $mod->info_grupo; ?>"/>
             </p>
             <?php endif;
 
             if( $params['incluindo'] ): ?>
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'info_login', 'info-login', '', TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('texto', 'info_login', 'info-login', '', TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('senha', 'info_senha', 'info-senha', '', TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('senha', 'info_senha', 'info-senha', '', TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('senha', 'info_senha_conf', 'conf-senha', '', TXT_ROTULO_CONF_SENHA, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('senha', 'info_senha_conf', 'conf-senha', '', TXT_ROTULO_CONF_SENHA, null, ['required' => 'required']); ?>
             </p>
             <?php else: ?>
-	        <span class="form-rotulo"><?= TXT_ROTULO_LOGIN; ?>:</span><br/>
-	        <?= $mod->info_login; ?>
+	        <span class="form-rotulo"><?php echo TXT_ROTULO_LOGIN; ?>:</span><br/>
+	        <?php echo $mod->info_login; ?>
 	        <?php endif;
 
             if( !$params['usuario-logado?'] ): ?>
             <p class="form-paragr">
                 <input type="checkbox" name="conf_reset" id="conf-reset"<?php $mod->conf_reset and print(' CHECKED'); ?>/>
-                <label for="conf-reset"><?= TXT_ROTULO_RESET; ?></label><br/>
-                <span class="form-dica"><?= MSG_DICA_USUARIO_RESET; ?></span>
+                <label for="conf-reset"><?php echo TXT_ROTULO_RESET; ?></label><br/>
+                <span class="form-dica"><?php echo TXT_DICA_USUARIO_RESET; ?></span>
             </p>
 
             <p class="form-paragr">
                 <input type="checkbox" name="conf_bloq" id="conf-bloq"<?php $mod->conf_bloq  and print(' CHECKED'); ?>/>
-                <label for="conf-bloq"><?= TXT_ROTULO_BLOQ; ?></label><br/>
-                <span class="form-dica"><?= MSG_DICA_USUARIO_BLOQ; ?></span>
+                <label for="conf-bloq"><?php echo TXT_ROTULO_BLOQ; ?></label><br/>
+                <span class="form-dica"><?php echo TXT_DICA_USUARIO_BLOQ; ?></span>
             </p>
             <?php endif; ?>
         </fieldset>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]
@@ -185,16 +185,16 @@ $mod = $params['modelo'];
 [DL3-SCRIPTS]
 <script>
     //<![CDATA[
-    $('#info-telefone')._mascara('<?= strlen($mod->info_fone) === 14 || $params['incluindo'] ? MASK_TELEFONE_CELULAR_8 : MASK_TELEFONE_CELULAR_9; ?>');
+    $('#tel-info-telefone')._mascara('<?php echo strlen($mod->info_fone) <= 14 || $params['incluindo'] ? MASK_TELEFONE_CELULAR_8 : MASK_TELEFONE_CELULAR_9; ?>');
 
     $('.alt-mask-fone').on('change',
-	    { msk8: '<?= MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?= MASK_TELEFONE_CELULAR_9; ?>' },
+	    { msk8: '<?php echo MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?php echo MASK_TELEFONE_CELULAR_9; ?>' },
 	    AlternarMaskFone
     );
 
     $('#form-foto-perfil')._formulario({
-	    depois      : function(){ window.location.reload(); },
-	    aparencia   : { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+	    depois: function(){ window.location.reload(); },
+	    aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
     }).find(':file').on('change', function(){ $(this).parents('form').submit(); });
     //]]>
 </script>

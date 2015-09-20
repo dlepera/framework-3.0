@@ -9,12 +9,16 @@
 
 !isset($params) and $params = $this->_obterparams();
 
-if( !$params['incluindo'] ): ?>
-<p class="log-registro">
-    <?php !empty($params['dt-inc'])
-		and printf(MSG_REGISTRO_CRIADO .'<br/>', $params['u-inc'], $params['dt-inc']);
+?>
 
-    !empty($params['dt-alt'])
-        and printf(MSG_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']); ?>
-</p>
-<?php endif;
+[DL3-CONTEUDO]
+	<?php if( !$params['incluindo'] ): ?>
+	<p class="log-registro">
+	    <?php !empty($params['dt-inc'])
+			and printf(TXT_DIVERSOS_REGISTRO_CRIADO .'<br/>', $params['u-inc'], $params['dt-inc']);
+
+	    !empty($params['dt-alt'])
+	        and printf(TXT_DIVERSOS_REGISTRO_ATUALIZADO, $params['u-alt'], $params['dt-alt']); ?>
+	</p>
+	<?php endif; ?>
+[/DL3-CONTEUDO]

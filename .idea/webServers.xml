@@ -14,6 +14,9 @@
       <webServer id="c9ddd4a2-6c37-4084-9585-6c507025c1e7" name="Local - Personal Pizza" url="http://localhost/personal-pizza-3.0">
         <fileTransfer mountedRoot="$PROJECT_DIR$/../personal-pizza-3.0" accessType="MOUNT" />
       </webServer>
+      <webServer id="620624ba-2b04-4317-9244-ef5d70687da1" name="FrameworkDL3 - v3.4" url="http://localhost">
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../../framework-dl3/v3.4" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>

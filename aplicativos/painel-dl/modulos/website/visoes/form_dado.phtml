@@ -15,39 +15,44 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_combo_select('tipo', 'tipo', $mod->tipo, TXT_ROTULO_TIPO, null, ['required' => 'required'],
+	        <?php echo $this->aux_form->_combo_select('tipo', 'tipo', $mod->tipo, TXT_ROTULO_TIPO, null, ['required' => 'required'],
 		        array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['tipos'])
 	        ); ?>
 
-            <?php if( $params['novo-tipo?'] ): ?>
-            <a href="javascript:" onclick="CarregarForm('website/tipos-de-dados/novo', null, function(){ CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select'); });" class="com-icone ico-inserir">
-                <?= TXT_LINK_NOVO_TIPO_DADO; ?>
-            </a>
-            <?php endif; ?>
+            <?php
+	        if( $params['novo-tipo?'] )
+                echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVO, TXT_MODELO_TIPODADOCONTATO), null, true, [
+	                'data-acao' => 'carregar-form',
+	                'data-acao-param-html' => 'website/tipos-de-dados/novo',
+                    'data-acao-param-func' => "CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select')",
+	                'data-ajax' => true,
+	                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO
+                ]);
+	        ?>
         </p>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, [
+            <?php echo $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, [
 	            'pattern' => isset($params['expreg']) ? $params['expreg'] : null,
                 'required' => 'required'
             ]); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]
@@ -57,7 +62,7 @@ $mod = $params['modelo'];
     //<![CDATA[
     <?php if( !empty($params['mascara']) ): ?>
     // Aplicar a máscara
-    $('#txt-descr')._mascara('<?= $params['mascara']; ?>');
+    $('#txt-descr')._mascara('<?php echo $params['mascara']; ?>');
     <?php endif; ?>
 
     $('#sel-tipo').on('change', function(){

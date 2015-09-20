@@ -77,16 +77,23 @@ class Login extends GeralC\Principal{
             throw new \Exception(ERRO_LOGIN_RECUPERARSENHA_USUARIO_NAO_LOCALIZADO, 1404);
 
         $mr = new LoginM\Recuperacao();
+        $mr->_selecionarUK(['usuario', 'status'], [$lu['usuario_id'], 'E']);
+
+	    if( $mr->reg_vazio ){
+		    $mr->usuario    = $lu['usuario_id'];
+		    $mr->hash       = date(\DL3::$bd_dh_formato_completo);
+		    $mr->_salvar();
+	    } // if( $mr->reg_vazio )
 
         # Verificar se o usuário solicitou recentemente a alteração da senha,
         # pois em caso positivo será usada a mesma hash
-        $lr = $mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id', 0, 1, 0);
+        /* $lr = $mr->_listar("recuperacao_usuario = {$lu['usuario_id']} AND recuperacao_status = 'E'", null, 'recuperacao_id', 0, 1, 0);
 
         if( empty($lr) ){
 	        $mr->usuario    = $lu['usuario_id'];
 	        $mr->hash       = date(\DL3::$bd_dh_formato_completo);
 	        $mr->_salvar();
-        } else $mr->_selecionarPK($lr['recuperacao_id']);
+        } else $mr->_selecionarPK($lr['recuperacao_id']); */
 
         # Link de recuperação da senha
         $lk = strtolower(
@@ -97,7 +104,7 @@ class Login extends GeralC\Principal{
 
         # Enviar o e-mail
         $obj_e = new \Email();
-        $obj_e->_enviar($lu['usuario_info_email'], TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA, sprintf(MSG_EMAIL_CORPO_RECUPERAR_SENHA, $lu['usuario_info_nome'], $lk, $lk));
+        $obj_e->_enviar($lu['usuario_info_email'], TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA, sprintf(TXT_EMAIL_CORPO_RECUPERAR_SENHA, $lu['usuario_info_nome'], $lk, $lk));
         $obj_e->_gravarlog(__CLASS__, 'dl_painel_usuarios_recuperacoes', $mr->id);
 
         \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');

@@ -14,36 +14,36 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
-        <input type="hidden" name="foto_album" value="<?= $mod->foto_album; ?>"/>
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
+        <input type="hidden" name="foto_album" value="<?php echo $mod->foto_album; ?>"/>
 
         <figure class="mostrar-imagem">
-            <img src="..<?= $mod->imagem; ?>" alt=""/>
+            <img src="<?php echo \DL3::$dir_relativo . $mod->imagem; ?>" alt=""/>
         </figure>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('texto', 'titulo', 'titulo', $mod->apelido, TXT_ROTULO_TITULO); ?>
+	        <?php echo $this->aux_form->_campo_geral('texto', 'titulo', 'titulo', $mod->apelido, TXT_ROTULO_TITULO); ?>
         </p>
 
         <p class="form-paragr">
-            <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCR; ?>:</label><br/>
-            <textarea name="descr" id="txt-descr" class="form-controle form-controle-textarea"><?= $mod->descr; ?></textarea>
+            <label for="txt-descr" class="form-rotulo"><?php echo TXT_ROTULO_DESCR; ?>:</label><br/>
+            <textarea name="descr" id="txt-descr" class="form-controle form-controle-textarea"><?php echo $mod->descr; ?></textarea>
         </p>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_chk_sim_nao('capa', 'capa', TXT_ROTULO_CAPA, MSG_DICA_ALBUMFOTO_CAPA, $mod->capa ? ' CHECKED' : ''); ?>
+            <?php echo $this->aux_form->_chk_sim_nao('capa', 'capa', TXT_ROTULO_CAPA, MSG_DICA_ALBUMFOTO_CAPA, $mod->capa ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+            <?php echo $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

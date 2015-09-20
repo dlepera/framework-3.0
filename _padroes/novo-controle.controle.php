@@ -14,21 +14,10 @@ use \Geral\Controle as GeralC;
 class Controle extends GeralC\Principal{
     public function __construct(){
         parent::__construct(new \Modelo, '', TXT_MODELO_);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ):
-            $post = filter_input_array(INPUT_POST, [
-                'id'        =>  FILTER_VALIDATE_INT,
-                'publicar'  =>  FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        endif;
+        $this->_carregar_post([
+            'id'        =>  FILTER_VALIDATE_INT,
+            'publicar'  =>  FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -40,11 +29,12 @@ class Controle extends GeralC\Principal{
         $this->_listapadrao('[campos]', '[ordem]', null);
 
         # Visão
-        $this->_carregarhtml('lista_');
+        $this->_carregarhtml('comum/visoes/lista_padrao');
         $this->visao->titulo = TXT_PAGINA_TITULO_;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', '');
+        $this->visao->_adparam('form-acao', '');
         $this->visao->_adparam('campos', [
             ['valor' => '', 'texto' => '']
         ]);
@@ -59,10 +49,9 @@ class Controle extends GeralC\Principal{
 	 * @param bool $mst Nome da página mestra a ser carregada
 	 */
     public function _mostrarform($pk = null, $mst = null){
-        $inc = $this->_formpadrao('[id formulario]', '[acao de inclusao]', '[acao de edicao]', '[url de redirecionamento]', $pk);
+        $this->_formpadrao('[id formulario]', '[acao de inclusao]', '[acao de edicao]', '[url de redirecionamento]', $pk);
 
         # Visão
         $this->_carregarhtml('form_', $mst);
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO : TXT_PAGINA_TITULO_EDITAR;
     } // Fim do método _mostrarform
 } // Fim do Controle Controle

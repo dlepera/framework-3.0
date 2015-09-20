@@ -12,7 +12,10 @@ namespace WebSite\Modelo;
 use \Geral\Modelo as GeralM;
 
 class GoogleAnalytics extends GeralM\Principal{
-    protected $id, $apelido, $usuario, $senha, $perfil_id, $codigo_ua, $principal = 0, $publicar = 1, $delete = 0;
+	const DOMINIO_GSERVICE = '@developer.gserviceaccount.com';
+	const DIR_P12 = 'web/uploads/google-api/';
+
+    protected $id, $apelido, $usuario, $p12, $perfil_id, $codigo_ua, $principal = 0, $publicar = 1, $delete = 0;
 
     /*
      * 'Gets' e 'Sets' das propriedades
@@ -22,12 +25,12 @@ class GoogleAnalytics extends GeralM\Principal{
     } // Fim do méodo _apelido
 
     public function _usuario($v = null){
-        return $this->usuario = filter_var(!isset($v) ? $this->usuario : $v, FILTER_VALIDATE_EMAIL);
+        return $this->usuario = filter_var(!isset($v) ? $this->usuario : $v, FILTER_SANITIZE_STRING);
     } // Fim do méodo _usuario
 
-    public function _senha($v = null){
-        return $this->senha = filter_var(!isset($v) ? $this->senha : $v);
-    } // Fim do méodo _senha
+    public function _p12($v = null){
+	    return $this->p12 = filter_var(!isset($v) ? $this->p12 : $v);
+    } // Fim do método _p12
 
     public function _perfil_id($v = null){
         return $this->perfil_id = filter_var(!isset($v) ? $this->perfil_id : $v, FILTER_VALIDATE_INT);
@@ -68,6 +71,11 @@ class GoogleAnalytics extends GeralM\Principal{
         # qualquer outro registro
         $this->principal and \DL3::$bd_conex->exec("UPDATE {$this->bd_tabela} SET {$this->bd_prefixo}principal = 0");
 
+		# Fazer o upload do arquivo
+		$oup = new \Upload(self::DIR_P12, 'p12');
+		$oup->conf_bloq_extensao = true;
+		$oup->_salvar($this->apelido, true) and $this->p12 = preg_replace('~^\./~', '', $oup->salvos[0]);
+
         return parent::_salvar($s, $ci, $ce, $ipk);
     } // Fim do método _salvar
 
@@ -80,4 +88,10 @@ class GoogleAnalytics extends GeralM\Principal{
     public function _selecionar_principal(){
 	    return $this->_selecionarUK('principal', 1);
     } // Fim do método _selecionar_principal
+
+
+
+	public function _conta_completa(){
+		return $this->usuario . self::DOMINIO_GSERVICE;
+	} // Fim do método _conta_completa
 } // Fim do Modelo GoogleAnalytics

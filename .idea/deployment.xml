@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="FrameworkDL-3.0" overwriteAll="false" persistUploadOnCheckin="false" exclude=".svn;.cvs;.idea;.DS_Store;.git*;.hg;.htaccess;config.codekit;sass;.sass-*;_ajuda">
+  <component name="PublishConfigData" serverName="FrameworkDL3 - v3.4" overwriteAll="false" persistUploadOnCheckin="false" exclude=".svn;.cvs;.idea;.DS_Store;.git*;.hg;.htaccess;config.codekit;sass;.sass-*;_ajuda">
     <serverData>
-      <paths name="FrameworkDL-3.0">
+      <paths name="FrameworkDL3 - v3.4">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/framework-3.0" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/teste" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="Local - Barlabares">

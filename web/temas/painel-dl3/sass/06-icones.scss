@@ -6,108 +6,126 @@
  */
 
 
-
-@import '../../_ajuda/compatibilidade.scss';
-@import '../_ajuda/configuracoes.scss';
-
+@import '../../_ajuda/compatibilidade';
+@import '../_ajuda/config';
 
 
-/* -----------------------------------------------------------------------------
- *  Links com icones
- * -------------------------------------------------------------------------- */
+
+// Configurações ---------------------------------------------------------------------------------------------------- //
+// Ícones
+/**
+ *  Vetor com todos os ícones as serem criados
+ *
+ *  @format - classe cor icone
+ */
+$icos: 'inserir' #65bb0e '\e70a',
+	'editar' orange '\e606',
+	'remover' red '\e70f',
+	'detalhes' #1291b5 '\e622',
+	'email' #aabbff '\e785',
+	'bloquear' #9f2626 '\e68f',
+	'desbloquear' #65bb0e '\e690',
+	'voltar' #900 '\e667',
+	'duvida' #069 '\e709',
+	'publicar' #65bb0e '\e661',
+	'nao-publicar' #BBB '\e660',
+	'lista' #DB4437 '\e6bb',
+	'home' #3C90A1 '\e600';
+
+
+
+// Links com icones ------------------------------------------------------------------------------------------------- //
 $_ln: 2.1em;
-$_mg: .5em;
+$_mg: .75em;
 
-.com-icone{
-	/* Visual */
+.com-icone {
+	// Visual
 	display: inline-block;
 
-	/* Margens */
-	margin-top 		: $_mg;
-	margin-bottom 	: $_mg;
+	// Margens
+	margin-top: $_mg;
+	margin-bottom: $_mg;
 }
 
-.com-icone:before{
-    /* Visual */
-    display 		: inline-block;
-	border-radius 	: 50%;
-    
-    /* Texto */
-    font-family : 'icones';
-    text-align  : center;
-    line-height : $_ln + .15em;
-    font-size   : 1em; 
-    
-    /* Alinhamento */
-    vertical-align: middle;
-    
-    /* Tamanho */
-    width   : $_ln;
-    height  : $_ln;
+.com-icone::before {
+	// Visual 
+	display: inline-block;
+	border-radius: 50%;
 
-	/* Margens */
+	// Texto
+	font-family: 'icones';
+	text-align: center;
+	line-height: $_ln + .15em;
+	font-size: 1em;
+
+	// Alinhamento
+	vertical-align: middle;
+
+	// Tamanho
+	width: $_ln;
+	height: $_ln;
+
+	// Margens
 	margin-right: .35em;
 
-	/* Transição */
+	// Transição
 	@include _transition(background-color .5s);
 }
 
-.so-icone{
-    /* Texto */
-	color 		: transparent !important;
-	text-indent : -9999px;
-	word-break 	: break-all;
+.so-icone {
+	// Texto
+	color: transparent !important;
+	text-indent: -9999px;
+	word-break: break-all;
 
-	/* Tamanho */
-	width 	: $_ln + ($_ln * .5);
-	height 	: $_ln;
+	// Tamanho
+	width: $_ln + ($_ln * .5);
+	height: $_ln;
 
-	/* Posicionamento */
+	// Posicionamento
 	position: relative;
 
-	/* Visual */
+	// Visual
 	display: inline-block;
+
+	// Margens
+	margin-top: $_mg;
+	margin-bottom: $_mg;
 }
 
-.so-icone:before{
-    @extend .com-icone:before;
+.so-icone::before {
+	@extend .com-icone::before;
 
-	/* Margens */
-	margin-left : $_mg;
+	// Margens
+	margin-left: $_mg;
 	margin-right: $_mg;
 
-	/* Posicionamento */
+	// Posicionamento
 	position: absolute;
-	left 	: 0;
+	left: 0;
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Montar os ícones
- * -------------------------------------------------------------------------- */
-@each $ico in $icos{
-    $cl: nth($ico,1);
-    $co: nth($ico,2);
-    $ic: nth($ico,3);
-    
-    .ico-#{$cl}{
-        /* Texto */
-        color: $co;
-    }
-    
-    .ico-#{$cl}:before{
-        /* Texto */
-        content     : $ic;
-        color       : $co !important;
-        text-indent : 0;
+// Montar os ícones ------------------------------------------------------------------------------------------------- //
+@each $classe, $cor, $icone in $icos{
+	.ico-#{$classe} {
+		// Texto
+		color: $cor;
+	}
+
+	.ico-#{$classe}:before {
+		// Texto
+		content: $icone;
+		color: $cor !important;
+		text-indent: 0;
 
 		/* Teste */
-		background-color: lighten($co, 45%);
-    }
+		background-color: lighten($cor, 45%);
+	}
 
-	.ico-#{$cl}:hover:before{
-		/* Visual */
-		background-color: lighten($co, 37.5%);
+	.ico-#{$classe}:hover:before {
+		// Visual
+		background-color: lighten($cor, 37.5%);
 	}
 }

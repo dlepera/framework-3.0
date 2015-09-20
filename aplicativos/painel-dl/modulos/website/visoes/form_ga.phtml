@@ -14,54 +14,68 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>" enctype="multipart/form-data">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_campo_geral('texto', 'apelido', 'apelido', $mod->apelido, TXT_ROTULO_APELIDO, null, ['required' => 'required']); ?>
+            <?php echo $this->aux_form->_campo_geral('texto', 'apelido', 'apelido', $mod->apelido, TXT_ROTULO_APELIDO, null, ['required' => 'required']); ?>
         </p>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_CONTA_GOOGLE; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('email', 'usuario', 'usuario', $mod->usuario, TXT_ROTULO_USUARIO, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('texto', 'usuario', 'usuario', $mod->usuario, TXT_ROTULO_USUARIO, null, [
+		            'style' => 'width: 20%;',
+		            'required' => 'required'
+	            ]); ?>
+	            @developer.gserviceaccount.com
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
+                <?php echo $this->aux_form->_arquivo_upload('p12', 'p12', TXT_ROTULO_P12, [
+	                'required' => $mod->p12 === '' ? 'required' : null
+                ], 'p12'); ?>
+	            <br/><span class="form-dica"><?php echo TXT_DICA_P12; ?></span>
+
+	            <?php if( $mod->p12 !== '' ): ?>
+	                <br/>
+		            <a href="<?php echo \DL3::$dir_relativo . $mod->p12; ?>" target="_blank" class="com-icone ico-detalhes">
+			            <?php echo TXT_LINK_DOWNLOAD_ARQUIVO_ATUAL; ?>
+		            </a>
+	            <?php endif; ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_CONFIGURACOES; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('numero', 'perfil_id', 'perfil-id', $mod->perfil_id, TXT_ROTULO_PERFIL, null, [
+	            <?php echo $this->aux_form->_campo_geral('numero', 'perfil_id', 'perfil-id', $mod->perfil_id, TXT_ROTULO_PERFIL, null, [
 		            'min' => 10000, 'max' => 999999999, 'required' => 'required'
 	            ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'codigo_ua', 'codigo-ua', $mod->codigo_ua, TXT_ROTULO_CODIGO_UA, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('texto', 'codigo_ua', 'codigo-ua', $mod->codigo_ua, TXT_ROTULO_CODIGO_UA, null, ['required' => 'required']); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('principal', 'principal', TXT_ROTULO_PUBLICAR, null, $mod->principal ? ' CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('principal', 'principal', TXT_ROTULO_PRINCIPAL, null, $mod->principal ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+	        <?php
+	        echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+	        echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+	        ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

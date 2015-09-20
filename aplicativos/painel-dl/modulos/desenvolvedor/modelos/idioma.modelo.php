@@ -18,11 +18,11 @@ class Idioma extends GeralM\Principal{
      * 'Gets' e 'Sets' das propriedades
      */
     public function _descr($v = null){
-        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING);
+        return $this->descr = filter_var(!isset($v) ? $this->descr : $v, FILTER_SANITIZE_STRING, FILTER_FLAG_EMPTY_STRING_NULL);
     } // Fim do método _descr
 
     public function _sigla($v = null){
-        return $this->sigla = filter_var(!isset($v) ? $this->sigla : $v, FILTER_SANITIZE_STRING);
+        return $this->sigla = filter_var(!isset($v) ? $this->sigla : $v, FILTER_SANITIZE_STRING, FILTER_FLAG_EMPTY_STRING_NULL);
     } // Fim do método _sigla
 
 

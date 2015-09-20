@@ -2,23 +2,64 @@
  * @Autor	: Diego Lepera
  * @E-mail	: dlepera88@gmail.com
  * @Projeto	: FrameworkDL
- * @Data	: 12/05/2015 19:48:23
+ * @Data   	: 14/09/2015 14:59:21
  */
 
-@import '../../_ajuda/compatibilidade.scss';
+
+@import '../_ajuda/config';
+@import '../_ajuda/flexivel';
+
+
+// Configurações ---------------------------------------------------------------------------------------------------- //
+$nome-componente: 'dl3-rodape';
+
+
+// Rodapé da página ------------------------------------------------------------------------------------------------- //
+.#{$nome-componente} {
+	$cor-txt: #777;
+
+	// Margens
+	margin: .75rem 0;
+
+	// Texto
+	color: $cor-txt;
+	text-align: center;
+
+	> .lk-sobre-sistema {
+		// Texto
+		color: $cor-txt;
+	}
+}
 
 
 
-/* -----------------------------------------------------------------------------
- *  Rodapé
- * -------------------------------------------------------------------------- */
-.dl3-rodape{
-    /* Flex */
-    @include _flex(100%);
-    
-    /* Margens */
-    margin: .5em 0;
-    
-    /* Texto */
-    color: #888;
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/desktops/config';
+
+@include _tela-desktops {
+	@include _componentes-pg($nome-componente, $rodape-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
+}
+
+
+
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/tablets/config';
+
+@include _tela-tablets {
+	@include _componentes-pg($nome-componente, $rodape-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
+}
+
+
+
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@import '../_ajuda/smartphones/config';
+
+@include _tela-smartphone {
+	@include _componentes-pg($nome-componente, $rodape-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
 }

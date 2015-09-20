@@ -23,8 +23,8 @@ class Recuperacao extends GeralM\Principal{
     } // Fim do método _usuario
 
     public function _hash($v = null){
-        return !isset($v) ? (string)$this->hash
-        : $this->hash = (string)md5(crypt($v));
+	    $v = $this->reg_vazio ? md5(crypt($v)) : $v;
+        return $this->hash = filter_var(!isset($v) ? $this->hash : $v);
     } // Fim do método _hash
 
     public function _status($v = null){

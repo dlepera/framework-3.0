@@ -25,7 +25,7 @@ class Autenticacao{
         'usuario_info_login'            =>  'root',
         'usuario_info_senha'            =>  '64eedda5e60fdb52fc29aa903ce9002a', /* MD5 x 2 */
         'idioma_sigla'                  =>  'pt_BR',
-        'tema_diretorio'                =>  'painel-dl/',
+        'tema_diretorio'                =>  'painel-dl3/',
         'formato_data_completo'         =>  'd/m/Y H:i',
         'formato_data_data'             =>  'd/m/Y',
         'formato_data_hora'             =>  'H:i',

@@ -11,26 +11,40 @@
 
 ?>
 
-<form id="form-filtro" method="get" class="form-filtro">
-	<?= $this->aux_form->_campo_geral('busca', 't', 't', $params['get-t'], null, null, [
-		'placeholder' => TXT_DICA_FORM_FILTRO, 'required' => 'required']
-	); ?>
-    <?php
-    $qc = count($params['campos']);
+[DL3-CONTEUDO]
+	<form id="form-filtro" method="get" class="form-filtro">
+		<div class="flex-grade">
+			<p class="form-paragr flex-item tres-col">
+				<?php echo $this->aux_form->_campo_geral('busca', 't', 't', $params['get-t'], TXT_ROTULO_BUSCAR_POR, null, [
+					'placeholder' => TXT_DICA_FORM_FILTRO, 'required' => 'required']
+				); ?>
+			</p>
 
-    if( $qc === 1 ): ?>
-    <input type="hidden" name="c" value="<?= $params['campos'][0]['valor']; ?>"/>
-    <input type="hidden" name="o" value="<?= $params['campos'][0]['valor']; ?>"/>
-    <?php elseif( $qc > 1 ):
-        echo $this->aux_form->_combo_select('c', 'c', $params['get-c'], null, null, [], $params['campos']);
-		echo $this->aux_form->_combo_select('o', 'o', $params['get-o'], null, null, [], $params['campos']);
-    endif; ?>
+		    <?php $qc = count($params['campos']);
 
-    <?php if( $params['filtro?'] ): ?>
-    <a href="javascript:" onclick="self.location = '<?= filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
-        <?= TXT_LINK_LIMPAR_FILTRO; ?>
-    </a>
-    <?php endif; ?>
+		    if( $qc === 1 ): ?>
+		    <input type="hidden" name="c" value="<?php echo $params['campos'][0]['valor']; ?>"/>
+		    <input type="hidden" name="o" value="<?php echo $params['campos'][0]['valor']; ?>"/>
+		    <?php elseif( $qc > 1 ): ?>
+			    <p class="form-paragr flex-item tres-col">
+		            <?php echo $this->aux_form->_combo_select('c', 'c', $params['get-c'], TXT_ROTULO_NO_CAMPO, null, [], $params['campos']); ?>
+			    </p>
 
-    <button type="submit" class="btn-filtrar"><?= TXT_BOTAO_FILTRAR; ?></button>
-</form>
+				<p class="form-paragr flex-item tres-col">
+					<?php echo $this->aux_form->_combo_select('o', 'o', $params['get-o'], TXT_ROTULO_ORDENAR_POR, null, [], $params['campos']); ?>
+				</p>
+		    <?php endif; ?>
+
+			<p class="form-botoes flex-item tres-col" style="text-align: left;">
+				<br/>
+			    <?php if( $params['filtro?'] ): ?>
+			    <a href="javascript:" onclick="self.location = '<?php echo filter_input(INPUT_SERVER, 'REDIRECT_URL'); ?>';" class="a-limpar-filtro">
+			        <?php echo TXT_LINK_LIMPAR_FILTRO; ?>
+			    </a>
+			    <?php endif; ?>
+
+		        <button type="submit" class="btn-filtrar"><?php echo TXT_BOTAO_FILTRAR; ?></button>
+			</p>
+		</div>
+	</form>
+[/DL3-CONTEUDO]

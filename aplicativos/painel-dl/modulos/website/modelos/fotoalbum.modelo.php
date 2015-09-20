@@ -71,7 +71,7 @@ class FotoAlbum extends GeralM\Principal{
 
         foreach( $oup->salvos as $f ){
 	        $this->id       = null;
-	        $this->imagem   = preg_replace('~^\.~', '', $f);
+	        $this->imagem   = preg_replace('~^\./~', '', $f);
 	        $this->publicar = 1;
 	        // $this->_salvar();
 	        $this->__call('_salvar');
@@ -108,7 +108,9 @@ class FotoAlbum extends GeralM\Principal{
 	 * Remover o registro e a foto vinculada a ele
 	 */
     protected function _remover(){
+        $foto = ".{$this->imagem}";
+
         # Excluir a foto vinculada
-        return unlink(".{$this->imagem}") and parent::_remover();
+        return unlink($foto) || !file_exists($foto) and parent::_remover();
     } // Fim do método _remover
 } // Fim do Modelo FotoAlbum

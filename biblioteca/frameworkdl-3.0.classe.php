@@ -73,11 +73,11 @@ function m_get($o, $p){
  * @param string $p Nome da propriedade a ser obtida ou alterada
  * @param mixed $v  Valor a ser atribuído à propriedade
  */
-function m_set($o,$p,$v){
+function m_set($o, $p, $v){
     $s = "_{$p}";
-
+	
     if( property_exists($o, $p) && method_exists($o, $s) )
-        return $o->{$s}($v);
+        return $o->{$s}(isset($v) && is_scalar($v) ? urldecode($v) : $v);
 } // Fim da função m_set
 
 
@@ -92,6 +92,11 @@ function m_set($o,$p,$v){
  */
 
 class FrameworkDL3{
+	/**
+	 * Informações sobre o framework DL3
+	 */
+	const FWORK_NOME = 'Framework DL3', FWORK_VERSAO = '3.4';
+
     # Diretórios da aplicação
     # Alguns deles não deverão ser alterados, portanto são definidos como
     # constantes
@@ -114,7 +119,10 @@ class FrameworkDL3{
     # Configurações da aplicação
     private $ap_raiz, $ap_nome, $ap_modulo, $ap_idioma = 'pt_BR', $ap_rotas = [], $ap_timezone = 'America/Sao_Paulo';
     public static $ap_titulo, $ap_home, $ap_content_type = 'text/html', $ap_charset = 'utf-8', $ap_http,
-            $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
+        $ap_base_html = '/', $ap_versao_jquery = '2.1.4', $ap_favicon = 'favicon.ico', $ap_versao = '1.0';
+
+	# Informações do autor do sistema / site
+	public static $autor_nome = 'Diego Lepera', $autor_email = 'dlepera88@gmail.com', $autor_site = 'http://diegolepera.com.br/';
 
     # Diretórios usados para montar as páginas HTML
     public static $dir_temas = 'web/temas/', $dir_js = 'web/js/', $dir_imgs = 'web/imgs/', $dir_relativo = '';

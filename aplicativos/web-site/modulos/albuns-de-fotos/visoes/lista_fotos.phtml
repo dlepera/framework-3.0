@@ -22,7 +22,7 @@
         naveg: true,
         fotos: [
             <?php foreach( $params['fotos'] as $f ): ?>
-            { src: './<?= $f['foto_album_imagem']; ?>', titulo: '<?= $f['foto_album_titulo']; ?>', descr: '<?= $f['foto_album_descr']; ?>' },
+            { src: './<?php echo $f['foto_album_imagem']; ?>', titulo: '<?php echo $f['foto_album_titulo']; ?>', descr: '<?php echo $f['foto_album_descr']; ?>' },
             <?php endforeach; ?>
         ]
     });

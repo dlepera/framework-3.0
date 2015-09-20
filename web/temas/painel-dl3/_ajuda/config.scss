@@ -1,0 +1,67 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 15/01/2015 11:58:21
+ */
+
+// Tela ------------------------------------------------------------------------------------------------------------- //
+$tela-limite-smart: 800px;
+$tela-limite-tablet: 1000px;
+$grid-tamanho-max: 1140px;
+$grid-tamanho-x: 90%;
+
+
+// Desktops
+@mixin _tela-desktops {
+	@media (min-width: $tela-limite-tablet + 1px) {
+		@content;
+	}
+}
+
+
+// Todos os dispositivos móveis: tablets e smartphones
+@mixin _tela-disp-moveis {
+	@media (max-width: $tela-limite-tablet) {
+		@content;
+	}
+}
+
+
+// Tablets
+@mixin _tela-tablets {
+	@media (min-width: $tela-limite-smart + 1px) and (max-width: $tela-limite-tablet) {
+		@content;
+	}
+}
+
+
+// Smartphones
+@mixin _tela-smartphone {
+	@media (max-width: $tela-limite-smart) {
+		@content;
+	}
+}
+
+
+
+// Layout ----------------------------------------------------------------------------------------------------------- //
+$layout-borda-padrao: 1px solid #EEE;
+$layout-sombra-padrao: 0 0 5px rgba(0, 0, 0, .4);
+$layout-html-fundo: #F4F7FB;
+$layout-titulo-h1: #6a8397;
+$layout-titulo-h2: #6a8397;
+$layout-titulo-h3: inherit;
+$layout-titulo-h4: inherit;
+$layout-titulo-h5: inherit;
+$layout-titulo-h6: inherit;
+$layout-titulo-h7: inherit;
+
+
+
+// Menu de navegação ------------------------------------------------------------------------------------------------ //
+$mnnv-cor-fundo: #3C90A1;
+$mnnv-links-texto: #FFF;
+$mnnv-sbmn-cor-fundo: #FFF;
+$mnnv-sbmn-links-texto: orange;
+$mnnv-sbmn-texto: #999;

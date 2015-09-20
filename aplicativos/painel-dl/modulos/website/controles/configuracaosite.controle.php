@@ -16,22 +16,11 @@ use \Desenvolvedor\Modelo as DevM;
 class ConfiguracaoSite extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\ConfiguracaoSite(), 'website', TXT_MODELO_CONFIGURACAOSITE);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-                'id' => FILTER_VALIDATE_INT,
-                'tema' => FILTER_VALIDATE_INT,
-                'formato_data' => FILTER_VALIDATE_INT
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD')
+        $this->_carregar_post([
+            'id' => FILTER_VALIDATE_INT,
+            'tema' => FILTER_VALIDATE_INT,
+            'formato_data' => FILTER_VALIDATE_INT
+        ]);
     } // Fim do método __construct
 
 
@@ -44,6 +33,7 @@ class ConfiguracaoSite extends GeralC\PainelDL{
         $this->_formpadrao('config', null, 'configuracoes/salvar', 'website/configuracoes', 1);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_configuracao');
         $this->visao->titulo = TXT_PAGINA_TITULO_CONFIGURACAOSITE;
 

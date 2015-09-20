@@ -7,21 +7,16 @@
 
 
 
-@import '../_ajuda/configuracoes.scss';
+@import '../_ajuda/config';
 
 
-
-/* -----------------------------------------------------------------------------
- *  Login
- *  -> Desktops
- * -------------------------------------------------------------------------- */
-@media screen and (min-width:$tela-tablet + 1px){
-    #dl3-grid.grid-login{
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@include _tela-desktops {
+    #dl3-grid.grid-login {
         /* Tamanho */
-        width   : $grid-tamanho-x / 3;
-        height  : $grid-tamanho-y / 3;
+        width: $grid-tamanho-x / 3;
         
-        .form-controle{
+        .form-controle {
             /* Tamanho */
             width: 100%;
         }
@@ -30,14 +25,13 @@
 
 
 
-/* Tablets ------------------------------------------------------------------ */
-@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
-    #dl3-grid.grid-login{
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@include _tela-tablets {
+    #dl3-grid.grid-login {
         /* Tamanho */
-        width   : $grid-tamanho-x / 1.5;
-        height  : $grid-tamanho-y / 1.5;
+        width: $grid-tamanho-x / 1.5;
         
-        .form-controle{
+        .form-controle {
             /* Tamanho */
             width: 100%;
         }
@@ -46,14 +40,13 @@
 
 
 
-/* Smartphones -------------------------------------------------------------- */
-@media screen and (max-width:$tela-smart){
-    #dl3-grid.grid-login{
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@include _tela-smartphone {
+    #dl3-grid.grid-login {
         /* Tamanho */
-        width   : $grid-tamanho-x;
-        height  : $grid-tamanho-y;
+        width: $grid-tamanho-x;
         
-        .form-controle{
+        .form-controle {
             /* Tamanho */
             width: 100%;
         }

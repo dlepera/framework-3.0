@@ -12,6 +12,7 @@ require_once 'phpmailer/class.phpmailer.php';
 require_once 'phpmailer/class.smtp.php';
 
 use \Geral\Modelo as GeralM;
+use \Admin\Modelo as AdminM;
 
 class Email{
     # Instâncias utilizadas
@@ -23,7 +24,7 @@ class Email{
         $this->obj_pm->SetLanguage('br');
 
         # Instanciar o modelo ConfigEmail
-        $this->mod_ce = new GeralM\ConfigEmail();
+        $this->mod_ce = new AdminM\ConfigEmail();
 
         # Instanciar o modelo LogEmail
         $this->mod_le = new GeralM\LogEmail();
@@ -119,11 +120,11 @@ class Email{
      */
     public function _gravarlog($classe = null, $tabela = null, $idreg = null){
         # Informações do Log
-        $this->mod_le->config   = $this->mod_ce->id;
-        $this->mod_le->ip       = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-        $this->mod_le->classe   = $classe;
-        $this->mod_le->tabela   = $tabela;
-        $this->mod_le->idreg    = $idreg;
+	    $this->mod_le->config = $this->mod_ce->id;
+	    $this->mod_le->ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+	    $this->mod_le->classe = $classe;
+	    $this->mod_le->tabela = $tabela;
+	    $this->mod_le->idreg = $idreg;
 
         return $this->mod_le->_salvar();
     } // Fim do método _gravarlog
@@ -138,7 +139,7 @@ class Email{
      */
     public function _exibirlog(){
         return (
-            "<p style='text-align: left !important;'><b>Data:</b> {$this->mod_le->data_criacao}<br>"
+            "<p style='text-align: left !important;'><b>Data:</b> {$this->mod_le->mod_lr->data_criacao}<br>"
             . "<b>Status:</b> {$this->mod_le->status}<br>"
             . "<b>Mensagem:</b> {$this->mod_le->mensagem}</p>"
         );

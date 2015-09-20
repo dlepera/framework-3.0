@@ -1,47 +1,46 @@
 <?php
-
 /**
- * @Autor	: Diego Lepera
- * @E-mail	: d_lepera@hotmail.com
- * @Projeto	: FrameworkDL
- * @Data	: 09/01/2015 10:08:52
+ * Created by PhpStorm.
+ * User: dlepera
+ * Date: 28/08/15
+ * Time: 16:00
  */
 
-# Nomes de modelos
+// Modelos ---------------------------------------------------------------------------------------------------------- //
 define('TXT_MODELO_GRUPOUSUARIO', 'grupo de usuário');
 define('TXT_MODELO_USUARIO', 'usuário');
 define('TXT_MODELO_CONFIGEMAIL', 'configuração de envio de email');
+define('TXT_MODELO_TEMA', 'tema');
+define('TXT_MODELO_IDIOMA', 'idioma');
 
-# Títulos de páginas
+
+// Páginas ---------------------------------------------------------------------------------------------------------- //
+# -> Títulos
 define('TXT_PAGINA_TITULO_GRUPOS_USUARIOS', 'Grupos de usuários');
-define('TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO', 'Cadastrar um novo grupo de usuário');
-define('TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO', 'Atualizar esse grupo de usuário');
 define('TXT_PAGINA_TITULO_USUARIOS', 'Usuários');
-define('TXT_PAGINA_TITULO_NOVO_USUARIO', 'Cadastrar um novo usuário');
-define('TXT_PAGINA_TITULO_EDITAR_USUARIO', 'Atualizar as informações desse usuário');
 define('TXT_PAGINA_TITULO_CONFIGURACOES_ENVIO_EMAIL', 'Configurações de envio de e-mails');
-define('TXT_PAGINA_TITULO_NOVO_CONFIGEMAIL', 'Incluir uma nova configuração de envio de e-mails');
-define('TXT_PAGINA_TITULO_EDITAR_CONFIGEMAIL', 'Editar essa configurção de envio de e-mails');
 
-# Links
-define('TXT_LINK_NOVO_GRUPO_USUARIO', 'Novo grupo de usuário');
-define('TXT_LINK_NOVO_USUARIO', 'Novo usuário');
-define('TXT_LINK_NOVO_IDIOMA', 'Novo idioma');
-define('TXT_LINK_NOVO_TEMA', 'Novo tema');
-define('TXT_LINK_NOVO_CONFIGEMAIL', 'Nova configuração de e-mail');
+
+// Links ------------------------------------------------------------------------------------------------------------ //
 define('TXT_LINK_TESTAR_CONFIGURACAO', 'Testar configuração');
 
-# Tabelas
+# -> Title
+define('TXT_LINK_TITLE_TESTAR_CONFIGURACAO_EMAIL', 'Enviar e-mail de teste dessa configuração');
+
+
+// Listas ----------------------------------------------------------------------------------------------------------- //
 # -> Títulos
 define('TXT_LISTA_TITULO_DESCR', 'Descrição');
 define('TXT_LISTA_TITULO_GRUPO', 'Grupo');
 define('TXT_LISTA_TITULO_NOME', 'Nome');
 define('TXT_LISTA_TITULO_EMAIL', 'E-mail');
 define('TXT_LISTA_TITULO', 'Título');
-define('TXT_LISTA_HOST', 'Host');
-define('TXT_LISTA_PRINCIPAL', 'Principal?');
+define('TXT_LISTA_TITULO_HOST', 'Host');
+define('TXT_LISTA_TITULO_PRINCIPAL', 'Principal?');
+define('TXT_LISTA_TITULO_BLOQUEADO', 'Bloqueado?');
 
-# Formulários
+
+// Formulários ------------------------------------------------------------------------------------------------------ //
 # -> Legendas
 define('TXT_LEGENDA_DADOS_PESSOAIS', 'Dados pessoais');
 define('TXT_LEGENDA_PREFERENCIAS', 'Preferências');
@@ -83,10 +82,18 @@ define('TXT_ROTULO_HTML', 'HTML?');
 define('TXT_ROTULO_PRINCIPAL', 'Principal?');
 define('TXT_ROTULO_SELECIONAR_TODOS', 'Selecionar todos');
 define('TXT_ROTULO_DEBUG', 'Habilitar o debug?');
+define('TXT_ROTULO_SENHA_NOVA', 'Nova senha');
+define('TXT_ROTULO_SENHA_NOVA_CONF', 'Confirmar a nova senha');
 
 # -> Dicas
 define('TXT_DICA_EXIBIR_ID', 'Deseja ver o ID do registro nas listas?');
 define('TXT_DICA_FILTRO_MENU', 'Mostra um filtro para localizar as opções do menu.');
+define('TXT_DICA_USUARIO_RESET', 'Força o usuário a resetar sua senha imediatamente ao próximo login.');
+define('TXT_DICA_USUARIO_BLOQ', 'Bloqueia a conta de usuário para fazer login no sistema.');
+define('TXT_DICA_USUARIO_NUM_REGISTROS', 'Define a quantidade de registros a serem exibidos por página');
+define('TXT_DICA_EMAIL_HTML', 'Quando essa opção é marcada, os e-mails são enviados em formato HTML. Do contrário, apenas texto puro, sem formatação.');
+define('TXT_DICA_EMAIL_PRINCIPAL', 'Define qual configuração será usada para o envio quando mais de uma configuração for cadastrada no sistema.');
+define('TXT_DICA_DEBUG', 'Habilitar o debugger do PHPMailer faz com que a classe exiba mensagens mais detalhadas para melhor compreensão de erros.');
 
 # -> Exemplos
 define('TXT_EXEMPLO_HOST_SMTP', 'Ex.: smtp.dominio.com.br');
@@ -99,46 +106,36 @@ define('TXT_OPCAO_NENHUMA', 'Nenhuma');
 define('TXT_OPCAO_TLS', 'TLS - Transport Layer Security');
 define('TXT_OPCAO_SSL', 'SSL - Secure Socket Layer');
 
-# Mensagens diversas
-define('MSG_DICA_USUARIO_RESET', 'Força o usuário a resetar sua senha imediatamente ao próximo login.');
-define('MSG_DICA_USUARIO_BLOQ', 'Bloqueia a conta de usuário para fazer login no sistema.');
-define('MSG_DICA_USUARIO_NUM_REGISTROS', 'Define a quantidade de registros a serem exibidos por página');
-define('MSG_DICA_EMAIL_HTML', 'Quando essa opção é marcada o corpo dos e-mails enviados é formatdo em HTML. Do contrário, apenas texto puro, sem formatação.');
-define('MSG_DICA_EMAIL_PRINCIPAL', 'Define qual configuração será usada para o envio quando mais de uma configuração for cadastrada no sistema.');
+
+// Diversos --------------------------------------------------------------------------------------------------------- //
 define('MSG_USUARIO_BLOQUEADO', '<b>Atenção:</b> Esse usuário está bloqueado e, portanto, não tem acesso ao sistema.');
 define('MSG_USUARIO_ALTERAR_FOTO', 'Alterar foto');
-define('MSG_DICA_DEBUG', 'Habilitar o debugger do PHPMailer faz com que a classe exiba mensagens mais detalhadas para melhor compreensão de erros.');
 
-# E-mails
+
+// E-mails ---------------------------------------------------------------------------------------------------------- //
 # -> Assuntos
 define('TXT_EMAIL_ASSUNTO_TESTE', 'Teste de configuração');
 
 # -> Conteúdos
-define('TXT_EMAIL_CONTEUDO_TESTE', 'Este é apenas um teste da configuração.');
+define('TXT_EMAIL_CONTEUDO_TESTE', <<<HTML
+Este é apenas um teste de configuração (%s).<br/>
+SMTP: %s:%d<br/>
+Origem: %s
+HTML
+);
 
 
-
+// Classes ---------------------------------------------------------------------------------------------------------- //
 /*
- * Admin\Modelo\ConfigEmail
- */
-# Sucessos
-define('SUCESSO_CONFIGEMAIL_TESTAR', 'A configuração foi testada com sucesso!');
-
-# Erros
-define('ERRO_CONFIGEMAIL_TESTAR', 'Erro! A configuração não conseguiu enviar o e-mail de teste.<p>%s</p>');
-
-
-
-/*
- * Admin\Modelo\Usuario
- * Admin\Controle\Usuario
+ * AdminM\Usuario()
+ * AdminC\Usuario()
  */
 # Sucessos
 define('SUCESSO_USUARIO_ALTERARSENHA', 'Sua senha foi alterada com sucesso!');
 define('SUCESSO_USUARIO_BLOQUEAR_UM', 'Usuário bloqueado com sucesso!');
-define('SUCESSO_USUARIO_BLOQUEAR_VARIOS', 'Foram bloqueados %d usuários de um total de %d seleccionados!');
+define('SUCESSO_USUARIO_BLOQUEAR_VARIOS', 'Foram bloqueados %d usuários de um total de %d selecionados!');
 define('SUCESSO_USUARIO_DESBLOQUEAR_UM', 'Usuário desbloqueado com sucesso!');
-define('SUCESSO_USUARIO_DESBLOQUEAR_VARIOS', 'foram desbloqueados %d usuários de um total de %d selecionados!');
+define('SUCESSO_USUARIO_DESBLOQUEAR_VARIOS', 'Foram desbloqueados %d usuários de um total de %d selecionados!');
 define('SUCESSO_USUARIOS_SALVAR_FOTO', 'Foto de perfil salva com sucesso!');
 
 # Erros
@@ -151,3 +148,13 @@ define('ERRO_USUARIO_SALVAR_LOGIN_JA_CADASTRADO', '<b>Nome de usuário inválido
 define('ERRO_USUARIO_SALVAR_EMAIL_JA_CADASTRADO', '<b>E-mail inválido!</b><p>O e-mail informado já está sendo usado por outro usuário.</p><p>Por favor, utilize um e-mail diferente.</p>');
 define('ERRO_USUARIO_SALVAR_FOTO_OUTRO_USUARIO', 'Você não pode salvar fotos para o perfil de outro usuário!');
 define('ERRO_USUARIO_VALIDAR_SENHA_IGUAL_LOGIN', 'A senha não pode ser igual ao nome de usuário utilizado pelo usuário!');
+
+
+/*
+ * AdminM\ConfigEmail()
+ */
+# Sucessos
+define('SUCESSO_CONFIGEMAIL_TESTAR', 'A configuração foi testada com sucesso!');
+
+# Erros
+define('ERRO_CONFIGEMAIL_TESTAR', 'Erro! A configuração não conseguiu enviar o e-mail de teste.<p>%s</p>');

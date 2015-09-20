@@ -9,31 +9,32 @@
 
 !isset($params) and $params = $this->_obterparams();
 
+$campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
+
 ?>
 
 [DL3-CONTEUDO]
-    <!-- Inserir um novo registro -->
-    <?php if( $params['perm-inserir?'] ): ?>
-    <a href="<?= $params['dir-lista']; ?>novo" class="com-icone ico-inserir"><?= TXT_LINK_NOVO_USUARIO; ?></a>
-    <?php endif;
+	<nav class="dl3-links">
+	    <!-- Inserir um novo registro -->
+		<?php if( $params['opcoes']['inserir?'] )
+			echo $this->aux_links->_link('inserir', "{$params['dir-lista']}novo", $params['link-inserir']); ?>
+	</nav>
 
-    include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/form_filtro.phtml'; ?>
-
-    <form id="form-editar-lista" method="post" action="<?= $params['dir-lista']; ?>excluir-usuarios">
+    <form id="form-editar-lista" method="post" action="<?php echo $params['form-acao']; ?>">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
             <thead class="tbl-titulos">
                 <tr class="tbl-linha">
                     <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
-                    <?php if( $params['exibir-id'] ): ?>
-                    <th id="th-id" class="tbl-celula-id"><?= TXT_LISTA_TITULO_ID; ?></th>
-                    <?php endif; ?>
+                    <?php
+                    if( $params['exibir-id?'] )
+                        echo $this->aux_lista->_celula_titulo('th-id', TXT_LISTA_TITULO_ID, ['class' => 'tbl-celula-id']);
 
-                    <th id="th-grupo" class="v-desk"><?= TXT_LISTA_TITULO_GRUPO; ?></th>
-                    <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
-                    <th id="th-email" class="v-desk"><?= TXT_LISTA_TITULO_EMAIL; ?></th>
-					
-                    <th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
+                    foreach( $campos[0] as $tt => $lt )
+						echo $this->aux_lista->_celula_titulo($this->aux_lista->_th_id($tt), $tt);
+
+                    echo $this->aux_lista->_celula_titulo('th-opcoes', TXT_LISTA_TITULO_OPCOES, ['class' => 'tbl-celula-opcoes']);
+                    ?>
                 </tr>
             </thead>
 
@@ -41,44 +42,36 @@
                 <?php if( !count($params['lista']) )
                     echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
-                foreach( $params['lista'] as $l ): ?>
+                foreach( $params['lista'] as $k => $l ): ?>
                 <tr class="tbl-linha">
-                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?= $l['usuario_id']; ?>"/></td>
-                    <?php if( $params['exibir-id'] ): ?>
-                    <td headers="th-id" class="tbl-celula-id"><?= $l['usuario_id']; ?></td>
-                    <?php endif; ?>
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?php echo $l['ID']; ?>"/></td>
+                    <?php if( $params['exibir-id?'] )
+                        echo $this->aux_lista->_celula_comum('th-id', $l['ID'], ['class' => 'tbl-celula-id']);
 
-                    <td headers="th-grupo" class="v-desk"><?= $l['grupo_usuario_descr']; ?></td>
-                    <td headers="th-nome" class="tbl-celula-infos">
-                        <?= $l['usuario_info_nome']; ?><br/>
-	                    <span class="v-smart"><?= $l['grupo_usuario_descr']; ?></span>
-                    </td>
-                    <td headers="th-email" class="v-desk"><?= $l['usuario_info_email']; ?></td>
+                    foreach( $campos[$k] as $k2 => $c )
+	                    echo $this->aux_lista->_celula_comum(
+                            $this->aux_lista->_th_id($k2), $c,
+		                    ['class' => preg_match('~<br\/?>~', $c) ? 'tbl-celula-infos' : null]
+                        ); ?>
 
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
-                        <?php if( $params['perm-bloquear?'] ):
-                            if( $l['usuario_conf_bloq'] == 0 ): ?>
-                            <a href="javascript:" onclick="SelecionarLinha(this, true); $el._executar('<?= $params['dir-lista']; ?>bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIO; ?>">
-                                <?= TXT_LINK_BLOQUEAR; ?>
-                            </a>
-                            <?php else: ?>
-                            <a href="javascript:" onclick="SelecionarLinha(this, true); $el._executar('<?= $params['dir-lista']; ?>desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIO; ?>">
-                                <?= TXT_LINK_DESBLOQUEAR; ?>
-                            </a>
-                            <?php endif;
-                        endif;
+	                    <?php
+	                    # Editar esse registro
+	                    if( $params['opcoes']['editar?'] ){
+		                    echo $l[TXT_LISTA_TITULO_BLOQUEADO] === 'Sim'
+                                ? $this->aux_links->_link('desbloquear', 'javascript:', TXT_LINK_DESBLOQUEAR, TXT_LINK_TITLE_DESBLOQUEAR_USUARIO, false, [
+				                    'data-acao-param-dir' => "{$params['dir-lista']}desbloquear-usuarios"
+			                    ])
+			                    : $this->aux_links->_link('bloquear', 'javascript:', TXT_LINK_BLOQUEAR, TXT_LINK_TITLE_BLOQUEAR_USUARIO, false, [
+				                    'data-acao-param-dir' => "{$params['dir-lista']}bloquear-usuarios"
+			                    ]);
 
-                        if( $params['perm-editar?'] ): ?>
-                        <a href="<?= $params['dir-lista']; ?>editar/<?= $l['usuario_id']; ?>" class="so-icone ico-editar" title="<?= TXT_LINK_TITLE_EDITAR; ?>">
-                            <?= TXT_LINK_EDITAR; ?>
-                        </a>
-                        <?php endif;
+                            echo $this->aux_links->_link('editar', "{$params['dir-lista']}editar/{$l['ID']}", TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false);
+                        } // Fim if( $params['opcoes']['editar?'] )
 
-                        if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:" onclick="SelecionarLinha(this, true); $el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER; ?>">
-                            <?= TXT_LINK_REMOVER; ?>
-                        </a>
-                        <?php endif; ?>
+	                    # Remover esse registro
+	                    if( $params['opcoes']['remover?'] )
+		                    echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER, false); ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -88,21 +81,20 @@
                 <?php if( count($params['lista']) ): ?>
                 <tr class="tbl-linha com-marcados">
                     <td>
-                        <?php if( $params['perm-remover?'] ): ?>
-                        <a href="javascript:" onclick="$el.submit();" class="so-icone ico-remover" title="<?= TXT_LINK_TITLE_REMOVER_SELECIONADOS; ?>">
-                            <?= TXT_LINK_REMOVER; ?>
-                        </a>
-                        <?php endif;
+	                    <?php
+	                    if( $params['opcoes']['editar?'] ){
+		                    echo $this->aux_links->_link('desbloquear', 'javascript:', TXT_LINK_DESBLOQUEAR, TXT_LINK_TITLE_DESBLOQUEAR_USUARIO, false, [
+			                    'data-acao-param-dir' => "{$params['dir-lista']}desbloquear-usuarios"
+		                    ]);
 
-                        if( $params['perm-bloquear?'] ): ?>
-                        <a href="javascript:" onclick="$el._executar('<?= $params['dir-lista']; ?>bloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-bloquear" title="<?= TXT_LINK_TITLE_BLOQUEAR_USUARIOS_SELECIONADOS; ?>">
-                            <?= TXT_LINK_BLOQUEAR; ?>
-                        </a>
+		                    echo $this->aux_links->_link('bloquear', 'javascript:', TXT_LINK_BLOQUEAR, TXT_LINK_TITLE_BLOQUEAR_USUARIO, false, [
+			                    'data-acao-param-dir' => "{$params['dir-lista']}bloquear-usuarios"
+		                    ]);
+	                    } // Fim if( $params['opcoes']['editar?'] )
 
-                        <a href="javascript:" onclick="$el._executar('<?= $params['dir-lista']; ?>desbloquear-usuarios', null, function(){ window.location.reload(); });" class="so-icone ico-desbloquear" title="<?= TXT_LINK_TITLE_DESBLOQUEAR_USUARIOS_SELECIONADOS; ?>">
-                            <?= TXT_LINK_DESBLOQUEAR; ?>
-                        </a>
-                        <?php endif; ?>
+	                    # Remover registros
+	                    if( $params['opcoes']['remover?'] )
+		                    echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER_SELECIONADOS, false); ?>
                     </td>
                 </tr>
                 <?php endif; ?>

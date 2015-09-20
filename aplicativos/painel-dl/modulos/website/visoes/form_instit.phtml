@@ -18,48 +18,48 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_HISTORIA; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_HISTORIA; ?></legend>
 
             <p class="form-paragr">
-                <textarea name="historia" class="form-controle form-controle-textarea"><?= $mod->historia; ?></textarea>
+                <?php echo $this->aux_form->_caixa_texto('historia', 'historia', $mod->historia); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_MISSAO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_MISSAO; ?></legend>
 
             <p class="form-paragr">
-                <textarea name="missao" class="form-controle form-controle-textarea"><?= $mod->missao; ?></textarea>
+                <?php echo $this->aux_form->_caixa_texto('missao', 'missao', $mod->missao); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_VISAO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_VISAO; ?></legend>
 
             <p class="form-paragr">
-                <textarea name="visao" class="form-controle form-controle-textarea"><?= $mod->visao; ?></textarea>
+	            <?php echo $this->aux_form->_caixa_texto('visao', 'visao', $mod->visao); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_VALORES; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_VALORES; ?></legend>
 
             <p class="form-paragr">
-                <textarea name="valores" class="form-controle form-controle-textarea"><?= $mod->valores; ?></textarea>
+	            <?php echo $this->aux_form->_caixa_texto('valores', 'valores', $mod->valores); ?>
             </p>
         </fieldset>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+	        <?php
+	        echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+	        echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+	        ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

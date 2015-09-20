@@ -293,17 +293,19 @@ class Funcoes{
 
 
 
-	/**
-	 * Serializar um vetor, podendo escolher se ele será codificado para URL ou não
-	 *
-	 * @param array      $v   Vetor a ser seializado
-	 * @param string     $s   Separador das informações
-	 * @param bool|false $url Se true, a string será retornada codificada para URL, caso contrário não
-	 *
-	 * @return string
-	 */
-    public static function _array_serialize($v, $s = ', ', $url = false){
-	    $vs = http_build_query($v, null, $s);
-	    return $url ? $vs : urldecode($vs);
+    /**
+     * Serializar um vetor, podendo escolher se ele será codificado para URL ou não
+     *
+     * @param array  $v Vetor a ser seializado
+     * @param string $s Separador das informações
+     * @param string|null $a Aspas a serem utilizadas para envolver o valor
+     *
+     * @return string
+     */
+    public static function _array_serialize(array $v = [], $s = ', ', $a = null){
+        return implode($s, array_map(function($k) use ($v, $a){
+            $vl = $k === 'pattern' ? self::_expreg_form($v[$k]) : $v[$k];
+            return isset($vl) ? "{$k}={$a}{$vl}{$a}" : null;
+        }, array_keys($v)));
     } // Fim do método _array_serialize
 } // Fim da classe Funções

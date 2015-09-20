@@ -15,25 +15,14 @@ use \WebSite\Modelo as WebM;
 class FotoAlbum extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\FotoAlbum(), 'website', TXT_MODELO_FOTO);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-                'id' => FILTER_VALIDATE_INT,
-                'foto_album' => FILTER_VALIDATE_INT,
-                'titulo' => FILTER_SANITIZE_STRING,
-                'descr' => FILTER_SANITIZE_STRING,
-                'capa' => FILTER_VALIDATE_BOOLEAN,
-                'publicar' => FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
+        $this->_carregar_post([
+            'id' => FILTER_VALIDATE_INT,
+            'foto_album' => FILTER_VALIDATE_INT,
+            'titulo' => FILTER_SANITIZE_STRING,
+            'descr' => FILTER_SANITIZE_STRING,
+            'capa' => FILTER_VALIDATE_BOOLEAN,
+            'publicar' => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -49,6 +38,7 @@ class FotoAlbum extends GeralC\PainelDL{
         $this->_formpadrao('foto', 'albuns-de-fotos/salvar-foto', 'albuns-de-fotos/salvar-foto', 'website/albuns-de-fotos', $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_foto', $mst);
         $this->visao->titulo = TXT_PAGINA_TITULO_EDITAR_FOTO;
     } // Fim do método _mostrarform

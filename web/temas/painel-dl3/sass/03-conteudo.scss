@@ -2,88 +2,95 @@
  * @Autor	: Diego Lepera
  * @E-mail	: dlepera88@gmail.com
  * @Projeto	: FrameworkDL
- * @Data	: 12/05/2015 16:48:04
+ * @Data   	: 14/09/2015 14:26:21
  */
 
 
-@import '../../_ajuda/compatibilidade.scss';
-@import '../../_ajuda/geometricas.scss';
-@import '../_ajuda/cores.scss';
-@import '../_ajuda/configuracoes.scss';
+@import '../_ajuda/config';
+@import '../_ajuda/flexivel';
 
 
-/* -----------------------------------------------------------------------------
- *  Conteúdo
- *  -> Cores
- * -------------------------------------------------------------------------- */
-.dl3-conteudo{
-    /* Visual */
-    background-color: $c-cont-fundo;
-    
-    /* Texto */
-    color: $c-cont-txt;
+
+// Configurações ---------------------------------------------------------------------------------------------------- //
+$nome-componente: 'dl3-conteudo';
+
+
+
+// Conteúdo da página ----------------------------------------------------------------------------------------------- //
+.#{$nome-componente} {
+	// Visual
+	background-color: #FFF;
+	border-radius: 5px;
+	border: $layout-borda-padrao;
+
+	// Margens
+	padding-top: 1em;
+	padding-bottom: 1em;
+
+	// Posicionamento
+	position: relative;
+	
+	> .titulo-h1{
+		// Texto
+		font-variant: small-caps;
+		font-size   : 1.5em;
+		line-height : 2em;
+		font-weight : normal;
+		color: $layout-titulo-h1;
+		
+		// Visual
+		border-bottom: $layout-borda-padrao;
+		
+		// Margens
+		margin-bottom: 1em;
+	}
+	
+	> .titulo-h2{
+		// Texto
+		font-variant: small-caps;
+		font-size   : 1.3em;
+		line-height : 1.3em;
+		font-weight : normal;
+		color: $layout-titulo-h2;
+		
+		// Visual
+		border-left: 3px solid $layout-titulo-h2;
+		
+		// Margens
+		margin      : 1em 0;
+		padding-left: .35em;
+	}
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Conteudo
- *  -> Visual e comportamento
- * -------------------------------------------------------------------------- */
-.dl3-conteudo{
-    /* Flex */
-    @include _flex(100%);
-    
-    /* Visual */
-    border          : $borda-suave;
-    border-radius   : 5px;
-    
-    /* Margens */
-    padding: 1em;
-    
-    /* Posicionamento */
-    position: relative;
-    
-    > .titulo-h1{
-        /* Texto */
-        font-variant: small-caps;
-        font-size   : 1.5em; 
-        line-height : 2em;
-        font-weight : normal; 
-        
-        /* Visual */
-        border-bottom: $borda-suave;
-        
-        /* Margens */
-        margin-bottom: 1em;
-    }
-    
-    > .titulo-h2{
-        /* Texto */
-        font-variant: small-caps;
-        font-size   : 1.3em; 
-        line-height : 1.3em;
-        font-weight : normal;
-        
-        /* Visual */
-        border-left: 3px solid $c-titulo-h2;
-        
-        /* Margens */
-        margin      : 1em 0;
-        padding-left: .35em;
-    }
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/desktops/config';
+
+@include _tela-desktops {
+	@include _componentes-pg($nome-componente, $conteudo-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
 }
 
 
 
-/* Desktops ----------------------------------------------------------------- */
-@media screen and (min-width:$tela-tablet + 1px){
-    
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/tablets/config';
+
+@include _tela-tablets {
+	@include _componentes-pg($nome-componente, $conteudo-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
 }
 
 
 
-/* Tablets e smartphones ---------------------------------------------------- */
-@media screen and (max-width:$tela-tablet){
-    
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@import '../_ajuda/smartphones/config';
+
+@include _tela-smartphone {
+	@include _componentes-pg($nome-componente, $conteudo-qtde-cols, $flex-padding, 0, $flex-qtde-cols) {
+
+	}
 }

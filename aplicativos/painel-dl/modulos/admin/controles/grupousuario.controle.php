@@ -16,23 +16,12 @@ use \Desenvolvedor\Modelo as DevM;
 class GrupoUsuario extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new AdminM\GrupoUsuario(), 'admin', TXT_MODELO_GRUPOUSUARIO);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-	        $post = filter_input_array(INPUT_POST, [
-                'id'        => FILTER_VALIDATE_INT,
-                'descr'     => FILTER_SANITIZE_STRING,
-                'funcs'     => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY],
-                'publicar'  => FILTER_VALIDATE_BOOLEAN
-	        ]);
-
-	        # Converter o encode
-	        \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-	        # Selecionar as informações atuais
-	        $this->modelo->_selecionarPK($post['id']);
-
-	        \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input_array )
+		$this->_carregar_post([
+            'id'        => FILTER_VALIDATE_INT,
+            'descr'     => FILTER_SANITIZE_STRING,
+            'funcs'     => ['filter' => FILTER_VALIDATE_INT, 'flags' => FILTER_REQUIRE_ARRAY],
+            'publicar'  => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -42,16 +31,18 @@ class GrupoUsuario extends GeralC\PainelDL{
      * Mostrar a lista de registros
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('grupo_usuario_id, grupo_usuario_descr,'
-            . " ( CASE grupo_usuario_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+        $this->_listapadrao('grupo_usuario_id AS ' . TXT_LISTA_TITULO_ID . ', grupo_usuario_descr AS ' . TXT_LISTA_TITULO_DESCR . ','
+            . " ( CASE grupo_usuario_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '" . TXT_LISTA_TITULO_PUBLICADO . "'",
 	        'grupo_usuario_descr', null);
 
         # Visão
-        $this->_carregarhtml('lista_grupos');
+	    $this->_carregarhtml('comum/visoes/form_filtro', null, 1);
+	    $this->_carregarhtml('comum/visoes/lista_padrao', null, 2);
         $this->visao->titulo = TXT_PAGINA_TITULO_GRUPOS_USUARIOS;
 
         # Parâmetro
 	    $this->visao->_adparam('dir-lista', 'admin/grupos-de-usuarios/');
+        $this->visao->_adparam('form-acao', 'admin/grupos-de-usuarios/excluir-grupo');
         $this->visao->_adparam('campos',[
             ['valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_DESCR]
         ]);
@@ -70,8 +61,8 @@ class GrupoUsuario extends GeralC\PainelDL{
         $inc = $this->_formpadrao('grupo', 'grupos-de-usuarios/salvar', 'grupos-de-usuarios/salvar', 'admin/grupos-de-usuarios',  $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_grupo', $mst);
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_GRUPOUSUARIO : TXT_PAGINA_TITULO_EDITAR_GRUPOUSUARIO;
 
         # Sub-módulos
         $mm = new DevM\Modulo();
@@ -85,8 +76,7 @@ class GrupoUsuario extends GeralC\PainelDL{
         $this->visao->_adparam('sub-modulos', $ls);
         $this->visao->_adparam('funcs', $lf);
 
-        # Usuário que está logado não pode alterar as permissões do seu próprio
-        # grupo, exceção apenas para o root
+        # Usuário que está logado não pode alterar as permissões do seu próprio grupo, exceção apenas para o root
         $this->visao->_adparam('mostrar-perms?', $inc || ($this->modelo->id != $_SESSION['usuario_info_grupo'] || $_SESSION['usuario_id'] == -1));
 
         if( !$inc ){

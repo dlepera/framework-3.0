@@ -14,28 +14,26 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_GRUPO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_GRUPO; ?></legend>
 
             <p class="form-paragr">
-                <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
+                <?php echo $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('publicar', 'chk-publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
             </p>
         </fieldset>
 
         <?php if( $params['mostrar-perms?'] ): ?>
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_PERMISSOES; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_PERMISSOES; ?></legend>
 
             <ul class="grp-funcs">
                 <?php
@@ -47,7 +45,7 @@ $mod = $params['modelo'];
 
                         if( count($sm_k) > 0 ): ?>
                         <li class="grp-modulo">
-                            <p class="grp-nm-modulo"><?= $mm['modulo_nome']; ?></p>
+                            <p class="grp-nm-modulo"><?php echo $mm['modulo_nome']; ?></p>
 
                             <?php foreach( $sm_k as $k1 ):
                                 $sm     = $params['sub-modulos'][$k1];
@@ -57,21 +55,21 @@ $mod = $params['modelo'];
                                 ));
 
                                 if( count($fc_k) > 0 ): ?>
-                                <p class="grp-nm-submodulo"><?= $sm['modulo_nome']; ?><p>
+                                <p class="grp-nm-submodulo"><?php echo $sm['modulo_nome']; ?></p>
 
-                                <ul class="grp-submodulo flexivel">
+                                <ul class="grp-submodulo flex-grade">
                                     <?php foreach( $fc_k as $k2 ):
                                         $fc = $params['funcs'][$k2]; ?>
-                                        <li class="grp-func col-3">
-                                            <input type="checkbox" name="funcs[]" id="func-mod-<?= $fc['func_modulo_id']; ?>" value="<?= $fc['func_modulo_id']; ?>"
+                                        <li class="grp-func flex-item seis-col">
+                                            <input type="checkbox" name="funcs[]" id="func-mod-<?php echo $fc['func_modulo_id']; ?>" value="<?php echo $fc['func_modulo_id']; ?>"
                                                 <?php in_array($fc['func_modulo_id'], $mod->funcs) and print(' CHECKED'); ?>/>
-                                            <label for="func-mod-<?= $fc['func_modulo_id']; ?>"><?= $fc['func_modulo_descr']; ?></label>
+                                            <label for="func-mod-<?php echo $fc['func_modulo_id']; ?>"><?php echo $fc['func_modulo_descr']; ?></label>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
 
-                                <input type="checkbox" id="selc-todos-<?= $k1; ?>"<?php !$params['incluindo'] and print(' CHECKED'); ?>/>
-                                <label for="selc-todos-<?= $k1; ?>" class="form-rotulo"><?= TXT_ROTULO_SELECIONAR_TODOS; ?></label>
+                                <input type="checkbox" id="selc-todos-<?php echo $k1; ?>"<?php !$params['incluindo'] and print(' CHECKED'); ?>/>
+                                <label for="selc-todos-<?php echo $k1; ?>" class="form-rotulo"><?php echo TXT_ROTULO_SELECIONAR_TODOS; ?></label>
                                 <?php endif;
                             endforeach; ?>
                         </li>
@@ -84,12 +82,12 @@ $mod = $params['modelo'];
 
         if( !$params['incluindo'] ): ?>
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_MEMBROS; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_MEMBROS; ?></legend>
 
             <table class="lista-registros">
                 <thead class="tbl-titulos">
                     <tr class="tbl-linha">
-                        <th id="th-nome"><?= TXT_LISTA_TITULO_NOME; ?></th>
+                        <?php echo $this->aux_lista->_celula_titulo('nome', TXT_LISTA_TITULO_NOME); ?>
                     </tr>
                 </thead>
 
@@ -99,7 +97,7 @@ $mod = $params['modelo'];
 
                     foreach( $params['membros'] as $l ): ?>
                     <tr class="tbl-linha">
-                        <td headers="th-nome"><?= $l['usuario_info_nome']; ?></td>
+	                    <?php echo $this->aux_lista->_celula_comum('nome', $l['usuario_info_nome']); ?>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -108,8 +106,10 @@ $mod = $params['modelo'];
         <?php endif; ?>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]
@@ -119,18 +119,18 @@ $mod = $params['modelo'];
     //<![CDATA[
     // Selecionar todos os checkbox de um determinado sub-módulo
     $(':checkbox[id^="selc-todos-"]').on('change', function(){
-        $(this).each(function(){
-            var $th = $(this);
-            var chk = this.checked;
+	    $(this).each(function(){
+		    var $th = $(this);
+		    var chk = this.checked;
 
-            $th.prev().find(':checkbox').each(function(){
-                this.checked = chk;
-            });
-        });
+		    $th.prev().find(':checkbox').each(function(){
+			    this.checked = chk;
+		    });
+	    });
     });
 
     $('.grp-submodulo :checkbox').not(':checked').parents('.grp-submodulo').each(function(){
-        $(this).next()[0].checked = false;
+	    $(this).next()[0].checked = false;
     });
     //]]>
 </script>

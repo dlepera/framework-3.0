@@ -12,60 +12,60 @@
 ?>
 
 [DL3-CONTEUDO]
-    <div class="widgets flexivel">
-        <div class="widget hm-usuario col-2">
-            <h2 class="wg-titulo"><?= TXT_WIDGET_TITULO_MINHA_CONTA; ?></h2>
+    <div class="widgets flex-grade">
+        <div class="widget hm-usuario flex-item seis-col">
+            <h2 class="wg-titulo"><?php echo TXT_WIDGET_TITULO_MINHA_CONTA; ?></h2>
 
             <p class="wg-conteudo">
-                <?= TXT_ROTULO_NOME .": {$_SESSION['usuario_info_nome']}"; ?><br/>
-                <?= TXT_ROTULO_EMAIL .": {$_SESSION['usuario_info_email']}"; ?><br/>
-                <?= TXT_ROTULO_LOGIN .": {$_SESSION['usuario_info_login']}"; ?><br/>
-                <?= TXT_ROTULO_GRUPO .": {$_SESSION['grupo_usuario_descr']}"; ?><br/>
-                <?= TXT_ROTULO_ULTIMO_LOGIN .': '. \Funcoes::_formatardatahora($_SESSION['usuario_ultimo_login'], $_SESSION['formato_data_completo']); ?><br/>
+                <?php echo TXT_ROTULO_NOME .": {$_SESSION['usuario_info_nome']}"; ?><br/>
+                <?php echo TXT_ROTULO_EMAIL .": {$_SESSION['usuario_info_email']}"; ?><br/>
+                <?php echo TXT_ROTULO_LOGIN .": {$_SESSION['usuario_info_login']}"; ?><br/>
+                <?php echo TXT_ROTULO_GRUPO .": {$_SESSION['grupo_usuario_descr']}"; ?><br/>
+                <?php echo TXT_ROTULO_ULTIMO_LOGIN .': '. \Funcoes::_formatardatahora($_SESSION['usuario_ultimo_login'], $_SESSION['formato_data_completo']); ?><br/>
             </p>
 
             <p class="wg-conteudo">
                 <a href="admin/usuarios/minha-conta" class="wg-link com-icone ico-detalhes">
-                    <?= TXT_LINK_EDITAR_DADOS; ?>
+                    <?php echo TXT_LINK_EDITAR_DADOS; ?>
                 </a>
             </p>
         </div>
 
-        <div class="widget hm-contatos col-2">
-            <h2 class="wg-titulo"><?= TXT_RELATORIO_TITULO_CONTATOS; ?></h2>
-            <?= $params['rel-contatos']; ?>
+        <div class="widget hm-contatos flex-item seis-col">
+            <h2 class="wg-titulo"><?php echo TXT_RELATORIO_TITULO_CONTATOS; ?></h2>
+            <?php echo $params['rel-contatos']; ?>
 
             <p class="wg-conteudo">
                 <a href="website/contatos-recebidos" class="wg-link com-icone ico-detalhes">
-                    <?= TXT_LINK_TODOS_CONTATOS; ?>
+                    <?php echo TXT_LINK_TODOS_CONTATOS; ?>
                 </a>
             </p>
         </div>
 
-        <div class="widget hm-analytics col-2">
-            <h2 class="wg-titulo"><?= TXT_RELATORIO_TITULO_ACESSOS_MENSAIS; ?></h2>
+        <div class="widget hm-analytics flex-item seis-col">
+            <h2 class="wg-titulo"><?php echo TXT_RELATORIO_TITULO_ACESSOS_MENSAIS; ?></h2>
 
-            <p class="msg-atencao wg-conteudo">As estatísticas do Google Analytics estão temporáriamente fora de funcionamento.</p>
-            <!-- ul id="ga" class="wg-conteudo">
+            <!-- p class="msg-atencao wg-conteudo">As estatísticas do Google Analytics estão temporáriamente fora de funcionamento.</p -->
+            <ul id="ga" class="wg-conteudo">
                 <li class="ga-valor atras-2">
-                    <h3><?= MSG_MES; ?></h3>
+                    <h3><?php echo TXT_DIVERSOS_MES; ?></h3>
                     <div class="visitas"></div>
                 </li>
 
                 <li class="ga-valor atras-1">
-                    <h3><?= MSG_MES; ?></h3>
+                    <h3><?php echo TXT_DIVERSOS_MES; ?></h3>
                     <div class="visitas"></div>
                 </li>
 
                 <li class="ga-valor atual">
-                    <h3><?= MSG_MES; ?></h3>
+                    <h3><?php echo TXT_DIVERSOS_MES; ?></h3>
                     <div class="visitas"></div>
                 </li>
-            </ul -->
+            </ul>
 
             <p class="wg-conteudo">
                 <a href="website/google-analytics" class="wg-link com-icone ico-detalhes">
-                    <?= TXT_LINK_CONFIGURACOES_GOOGLE_ANALYTICS; ?>
+                    <?php echo TXT_LINK_CONFIGURACOES_GOOGLE_ANALYTICS; ?>
                 </a>
             </p>
         </div>
@@ -77,7 +77,7 @@
     //<![CDATA[
     function GoogleAnalytics(dt_inicio, dt_fim, dimensao, metricas, $objeto){
         $.ajax({
-            url     : 'home/google-analytics/acessos/'+ dt_inicio +'/'+ dt_fim +'/'+ dimensao,
+            url     : 'home/google-analytics/acessos/' + dt_inicio + '/' + dt_fim + '/' + dimensao,
             dataType: 'json',
             success : function(json){
                 $objeto.find('h3').html($objeto.find('h3').html() +' '+ json[0].dimensao);
@@ -88,20 +88,20 @@
                     /* Tamanho */
                     width: 'auto',
                     height: '20px'
-                }).attr({ src: '<?= \DL3::$dir_relativo . \DL3::$dir_temas . 'painel-dl/css/imagens/loading-min.gif'; ?>' }).appendTo($objeto.find('> .visitas'));
+                }).attr({ src: '<?php echo \DL3::$dir_relativo . \DL3::$dir_temas . 'painel-dl/css/imagens/loading-min.gif'; ?>' }).appendTo($objeto.find('> .visitas'));
             }
         });
     }
 
     // Acessos mensais
     // Mês atual
-    // GoogleAnalytics('<?= date('Y-m-01'); ?>', '<?= date('Y-m-t'); ?>', 'month', null, $('#ga > .atual'));
+    GoogleAnalytics('<?php echo date('Y-m-01'); ?>', '<?php echo date('Y-m-t'); ?>', 'month', null, $('#ga > .atual'));
 
     // Mês passado
-    // GoogleAnalytics('<?= date('Y-m-01', strtotime('-1 month')); ?>', '<?= date('Y-m-t', strtotime('-1 month')); ?>', 'month', null, $('#ga > .atras-1'));
+    GoogleAnalytics('<?php echo date('Y-m-01', strtotime('-1 month')); ?>', '<?php echo date('Y-m-t', strtotime('-1 month')); ?>', 'month', null, $('#ga > .atras-1'));
 
     // 2 meses atrás
-    // GoogleAnalytics('<?= date('Y-m-01', strtotime('-2 month')); ?>', '<?= date('Y-m-t', strtotime('-2 month')); ?>', 'month', null, $('#ga > .atras-2'));
+    GoogleAnalytics('<?php echo date('Y-m-01', strtotime('-2 month')); ?>', '<?php echo date('Y-m-t', strtotime('-2 month')); ?>', 'month', null, $('#ga > .atras-2'));
     //]]>
 </script>
 [/DL3-SCRIPTS]

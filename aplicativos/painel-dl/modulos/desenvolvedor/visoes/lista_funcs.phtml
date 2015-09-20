@@ -11,16 +11,27 @@
 ?>
 
 [DL3-CONTEUDO]
-	<form id="form-remover-func" method="post" action="desenvolvedor/modulos/apagar-funcionalidade">
+	<h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_FUNCIONALIDADES; ?></h2>
+
+	<nav class="dl3-links">
+		<?php echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVA, TXT_MODELO_MODULOFUNC), '', true, [
+			'data-ajax' => true,
+			'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
+			'data-acao' => 'carregar-form',
+			'data-acao-param-html' => "desenvolvedor/modulos/funcionalidades/novo/{$mod->id}"
+		]); ?>
+	</nav>
+
+	<form id="form-remover-func" method="post" action="desenvolvedor/modulos/funcionalidades/excluir">
 		<table class="lista-registros">
 			<thead class="tbl-titulos">
-			<tr class="tbl-linha">
-				<th id="th-id" class="tbl-celula-id"><input type="checkbox"/></th>
+				<tr class="tbl-linha">
+					<th id="th-chk" class="tbl-celula-id"><input type="checkbox"/></th>
 
-				<th id="th-descr"><?= TXT_LISTA_TITULO_DESCR; ?></th>
+					<th id="th-descr"><?php echo TXT_LISTA_TITULO_DESCR; ?></th>
 
-				<th id="th-opcoes" class="tbl-celula-opcoes"><?= TXT_LISTA_TITULO_OPCOES; ?></th>
-			</tr>
+					<th id="th-opcoes" class="tbl-celula-opcoes"><?php echo TXT_LISTA_TITULO_OPCOES; ?></th>
+				</tr>
 			</thead>
 
 			<tbody class="tbl-conteudo">
@@ -29,14 +40,21 @@
 
 			foreach( $params['funcs'] as $l ): ?>
 				<tr class="tbl-linha">
-					<td headers="th-id" class="tbl-celula-id">
-						<input type="checkbox" name="id[]" value="<?= $l['VALOR']; ?>"/>
+					<td headers="th-chk" class="tbl-celula-id">
+						<input type="checkbox" name="id[]" value="<?php echo $l['VALOR']; ?>"/>
 					</td>
-					<td headers="th-descr"><?= $l['TEXTO']; ?></td>
+					<td headers="th-descr"><?php echo $l['TEXTO']; ?></td>
+
 					<td headers="th-opcoes" class="tbl-celula-opcoes">
-						<a href="javascript:" onclick="SelecionarLinha(this, true); $rf.submit();" class="so-icone ico-remover">
-							<?= TXT_LINK_REMOVER;?>
-						</a>
+						<?php
+						echo $this->aux_links->_link('editar', 'javascript:', TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false, [
+							'data-ajax' => true,
+							'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
+							'data-acao' => 'carregar-form',
+							'data-acao-param-html' => "desenvolvedor/modulos/funcionalidades/editar/{$l['VALOR']}"
+						]);
+						echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER, false);
+						?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -47,11 +65,11 @@
 
 [DL3-SCRIPTS]
 	<script>
-		$rf = $('#form-remover-func')._formulario({
+		$el = $('#form-remover-func')._formulario({
 			depois: function(){
 			$('.lista-registros :checked').parents('tr').remove();
 			},
-			aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+			aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
 		});
 	</script>
 [/DL3-SCRIPTS]

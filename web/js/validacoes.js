@@ -120,3 +120,22 @@ function ValidaUpload(a){
 
 	return true;
 } // Fim ValidaUpload(a)
+
+
+/**
+ * Alterar a mensagem de validação de acordo com o status de validação e a condição
+ *
+ * @param {bool} condicao Expressão booleana para definir a alteração da mensagem
+ * @param {object} campo DOM do campo a ser validado
+ * @param {string} mensagem Mensagem a ser exibida para o caso do campo não ser validado corretamente
+ *
+ * @returns {*}
+ * @constructor
+ */
+function FormValidacao(condicao, campo, mensagem){
+	return condicao
+		? campo.setCustomValidity(mensagem)
+		: !campo.validity.valid && campo.validationMessage === mensagem
+		? campo.setCustomValidity('')
+		: null;
+} // Fim function Validacao(consicao, campo, mensagem)

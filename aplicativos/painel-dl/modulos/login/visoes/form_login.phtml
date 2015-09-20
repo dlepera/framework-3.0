@@ -12,20 +12,20 @@
 ?>
 
 [DL3-CONTEUDO]
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('texto', 'login', 'login', '', TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('texto', 'login', 'login', '', TXT_ROTULO_LOGIN, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', '', TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('senha', 'senha', 'senha', '', TXT_ROTULO_SENHA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-entrar"><?= TXT_BOTAO_ENTRAR; ?></button>
+            <?php echo $this->aux_form->_botao('entrar', TXT_BOTAO_ENTRAR); ?>
 
             <a href="login/esqueci-minha-senha" class="com-icone ico-duvida ico-esqueci-senha">
-                <?= TXT_LINK_ESQUECI_MINHA_SENHA; ?>
+                <?php echo TXT_LINK_ESQUECI_MINHA_SENHA; ?>
             </a>
         </p>
     </form>

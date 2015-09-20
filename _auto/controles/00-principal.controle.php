@@ -21,6 +21,13 @@ abstract class Principal{
 
 
 
+	/**
+	 * Instanciar a classe
+	 *
+	 * @param object $m  Instância do modelo referente a esse controle
+	 * @param string $nm Nome do diretório a ser considerado para a visão
+	 * @param string $nc Nome do modelo / controle
+	 */
     public function __construct($m, $nm, $nc){
         $this->visao    = new \Visao($nm);
         $this->modelo   = $m;
@@ -133,6 +140,9 @@ abstract class Principal{
         # Incluir o script AJAX
         $ajax and $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
 
+	    # Título da página
+	    $this->visao->titulo = $inc ? sprintf(TXT_PAGINA_TITULO_CADASTRAR_NOVO, $this->nome) : sprintf(TXT_PAGINA_TITULO_EDITAR_ESSE, $this->nome);
+
         # Parâmetros
         $this->visao->_adparam('form-id', $form_id);
         $this->visao->_adparam('form-action', \DL3::$modulo_atual .'/'. ($inc ? $form_ia : $form_ea));
@@ -189,19 +199,21 @@ abstract class Principal{
         $l = $this->modelo->{$m}($f = implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, !isset($get_pg) ? 1 : $get_pg, $qr);
 
         # Nome da classe
-        $cl = get_called_class();
+        $classe = get_called_class();
+	    $autent = \DL3::$aut_o instanceof \Autenticacao;
 
         # Parâmetros
         $this->visao->_adparam('lista', $l);
-        $this->visao->_adparam('total-pg', ceil($this->modelo->_qtde_registros($f)/$qr));
+	    $this->visao->_adparam('total-pg', ceil($this->modelo->_qtde_registros($f) / $qr));
         $this->visao->_adparam('filtro?', !empty($get_c));
-        $this->visao->_adparam('exibir-id', $eid);
-
-        if( \DL3::$aut_o instanceof \Autenticacao ){
-            $this->visao->_adparam('perm-inserir?', $pi = \DL3::$aut_o->_verificarperm($cl, '_mostrarform') && \DL3::$aut_o->_verificarperm($cl, '_salvar'));
-            $this->visao->_adparam('perm-editar?', $pi);
-            $this->visao->_adparam('perm-remover?', \DL3::$aut_o->_verificarperm($cl, '_remover'));
-        } // Fim if( \DL3::$aut_o instanceof \Autenticacao )
+        $this->visao->_adparam('exibir-id?', $eid);
+        $this->visao->_adparam('link-inserir', sprintf(TXT_LINK_NOVO, $this->nome));
+        $this->visao->_adparam('opcoes', [
+	        'inserir?' => $pi = $autent && \DL3::$aut_o->_verificarperm($classe, '_mostrarform') && \DL3::$aut_o->_verificarperm($classe, '_salvar'),
+	        'editar?'  => $autent && $pi,
+	        'remover?' => $autent && \DL3::$aut_o->_verificarperm($classe, '_remover'),
+	        'publicar?' => $autent && property_exists($this->modelo, 'publicar') && $pi
+        ]);
     } // Fim do método _listapadrao
 
 
@@ -250,11 +262,34 @@ abstract class Principal{
         $qt->t = count($tid);
         $qt->e = 0;
 
-        foreach( $tid as $id ):
-            $this->modelo->_selecionarPK($id);
-            $qt->e += (int)$this->modelo->{$m}();
-        endforeach;
+        foreach( $tid as $id ){
+	        $this->modelo->_selecionarPK($id);
+	        $qt->e += (int)$this->modelo->{$m}();
+        } // Fim foreach
 
         return $qt;
     } // Fim do método _executaremlote
+
+
+
+
+	/**
+	 * Receber dados do _POST, tratá-los e carregá-los no modelo
+	 *
+	 * @param array $dados Vetor com as informações referentes aos filtros a serem aplicados
+	 */
+	protected function _carregar_post(array $dados = []){
+		!filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' and exit(0);
+
+		$post = filter_input_array(INPUT_POST, $dados);
+
+		# Converter o encode
+		\Funcoes::_converterencode($post, \DL3::$ap_charset);
+
+		# Selecionar as informações atuais
+		$this->modelo->_selecionarPK($post['id']);
+
+		# Carregar o modelo com as informações recebidas
+		\Funcoes::_vetor2objeto($post, $this->modelo);
+	} // Fim do método _carregarpost
 } // Fim do controle Principal

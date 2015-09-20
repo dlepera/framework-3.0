@@ -1,21 +1,43 @@
 <?php
-
 /**
- * @Autor	: Diego Lepera
- * @E-mail	: d_lepera@hotmail.com
- * @Projeto	: FrameworkDL
- * @Data	: 07/01/2015 14:21:09
+ * Created by PhpStorm.
+ * User: dlepera
+ * Date: 28/08/15
+ * Time: 16:00
  */
 
-# Modelos
+
+// Modelos ---------------------------------------------------------------------------------------------------------- //
 define('TXT_MODELO_SOBRE', 'sobre');
 
-# Títulos de páginas
+
+// Páginas ---------------------------------------------------------------------------------------------------------- //
+# -> Títulos
 define('TXT_PAGINA_TITULO_SOBRE', 'Conheça a nossa empresa');
 define('TXT_PAGINA_TITULO_HISTORIA', 'História');
 define('TXT_PAGINA_TITULO_MISSAO', 'Missão');
 define('TXT_PAGINA_TITULO_VISAO', 'Visão');
 define('TXT_PAGINA_TITULO_VALORES', 'Valores');
 
-# Mensagens diversas
-// define('MSG_SOBRE_HISTORIA', '<p>A história da nossa empresa.</p>');
+
+// Links ------------------------------------------------------------------------------------------------------------ //
+
+
+// Listas ----------------------------------------------------------------------------------------------------------- //
+# -> Títulos
+
+
+// Formulários ------------------------------------------------------------------------------------------------------ //
+# -> Legendas
+
+# -> Rótulos
+
+
+# -> Dicas
+
+# -> Exemplos
+
+# -> Opções
+
+
+// Diversos --------------------------------------------------------------------------------------------------------- //

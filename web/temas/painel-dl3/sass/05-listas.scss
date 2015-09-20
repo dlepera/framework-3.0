@@ -6,124 +6,346 @@
  */
 
 
+@import '../_ajuda/config.scss';
+@import '../../_ajuda/compatibilidade.scss';
 
-@import '../_ajuda/configuracoes.scss';
+
+
+// Listas de registros ---------------------------------------------------------------------------------------------- //
+.lista-registros {
+	$ln: 3em;
+
+	// Tamanho
+	width: 100%;
+
+	// Visual
+	border-spacing: 0;
+	border-collapse: collapse;
+
+	.tbl-titulos {
+		.tbl-linha {
+			th:not(.tbl-celula-chk):not(.tbl-celula-id) {
+				// Texto
+				text-align: left;
+			}
+
+			th {
+				// Texto
+				color: #888;
+			}
+		}
+	}
+
+	.tbl-rodape {
+		// Visual
+		border-top: $layout-borda-padrao;
+
+		> .com-marcados {
+			// Visual
+			background: url('imagens/icone-com-marcados.png') no-repeat top left;
+
+			> *:first-child {
+				// Margens
+				padding-left: 35px;
+			}
+		}
+	}
+
+	// Linhas
+	.tbl-linha {
+		// Tamanho
+		height: $ln;
+	}
+
+	// Células
+	.tbl-celula-infos {
+		// Texto
+		color: #888;
+
+		// Margens
+		padding-top: .35em;
+		padding-bottom: .35em;
+	}
+
+	.tbl-imagem {
+		// Visual
+		background: #FFF;
+		border: $layout-borda-padrao;
+
+		// Margens
+		padding: .25em;
+	}
+
+	.tbl-celula-infos::first-line {
+		// Texto
+		color: #000;
+	}
+}
 
 
 
-/* -----------------------------------------------------------------------------
- *  Listas de registros
- * -------------------------------------------------------------------------- */
-.lista-registros{
-    $ln: 3em;
-    
-    /* Tamanho */
-    width: 100%;
-    
-    /* Visual */
-    border-spacing  : 0;
-    border-collapse : collapse;
-    
-    .tbl-titulos{
-        /* Visual */
-        border-bottom: $borda-suave;
-        
-        /* Texto */
-        text-align  : left;
-        color       : #888;
-    }
-    
-    .tbl-conteudo{
-        > .tbl-linha:nth-child(odd){
-            /* Visual */
-            background: #FFF;
-        }
-        
-        > .tbl-linha:nth-child(even){
-            /* Visual */
-            background: #EFEFEF;
-        }
-    }
-    
-    .tbl-rodape{
-        /* Visual */
-        border-top: $borda-suave;
-        
-        > .com-marcados{
-            /* Visual */
-            background: url('imagens/icone-com-marcados.png') no-repeat top left;
-            
-            > *:first-child{
-                /* Margens */
-                padding-left: 35px;
-            }
-        }
-    }
-    
-    /* Linhas */
-    .tbl-linha{
-        height: $ln;
-    }
-    
-    /* Celulas */
-    .tbl-celula-chk{
-        /* Tamanho */
-        width: 30px;
-        
-        /* Texto */
-        text-align: center;
-    }
-    
-    .tbl-celula-id{
-        /* Tamanho */
-        width: 5%;
-        
-        /* Texto */
-        text-align: center;
-        
-        /* Visual */
-        border-right: $borda-suave;
-        
-        /* Margens */
-        padding: 0 .5em;
-    }
-    
-    .tbl-celula-id + *{
-        /* Margens */
-        padding-left: .75em;
-    }
-    
-    .tbl-celula-infos{
-        /* Texto */
-        color: #888;
-        
-        /* Margens */
-        padding-top     : .35em;
-        padding-bottom  : .35em;
-        
-        .tbl-imagem{
-            /* Alinhamento */
-            vertical-align: top;
-            
-            /* Tamanho */
-            max-width : 25%;
+/* Desktops --------------------------------------------------------------------------------------------------------- */
+@include _tela-desktops {
+	.lista-registros {
+		.tbl-titulos {
+			// Visual
+			border-bottom: $layout-borda-padrao;
+		}
+
+		.tbl-conteudo {
+			> .tbl-linha:nth-child(odd) {
+				// Visual
+				background: #FFF;
+			}
+
+			> .tbl-linha:nth-child(even) {
+				// Visual
+				background: #EFEFEF;
+			}
+		}
+
+		/* Células */
+		.tbl-celula-chk {
+			// Tamanho
+			width: 30px;
+
+			// Texto
+			text-align: center;
+		}
+
+		.tbl-celula-id {
+			// Tamanho
+			width: 5%;
+
+			// Texto
+			text-align: center;
+
+			// Visual
+			border-right: $layout-borda-padrao;
+
+			// Margens
+			padding: 0 .5em;
+		}
+
+		.tbl-celula-id + * {
+			// Margens
+			padding-left: .75em;
+		}
+
+		.tbl-imagem {
+			// Alinhamento
+			vertical-align: top;
+
+			// Tamanho
+			max-width: 25%;
 			max-height: 6em;
-            
-            /* Visual */
-            background  : #FFF;
-            border      : $borda-suave;
-            
-            /* Margens */
-			margin-right: .35em;
-            padding 	: .25em;
 
-			/* Posicionamento */
+			// Margens
+			margin-right: .35em;
+
+			// Posicionamento
 			float: left;
-        }
-    }
-    
-    .tbl-celula-infos:first-line{
-        /* Texto */
-        color: initial;
-    }
+		}
+	}
+}
+
+
+
+/* Tablets e smartphones -------------------------------------------------------------------------------------------- */
+@include _tela-disp-moveis {
+	.lista-registros {
+		$ln: 4em;
+
+		/* Flex */
+		@include _flex-box;
+		@include _flex-flow(wrap row);
+
+		// Tamanho
+		width: auto;
+
+		// Posicionamento
+		position: relative;
+
+		.tbl-titulos {
+			// Visual
+			border-right: $layout-borda-padrao;
+
+			> .tbl-linha {
+				// Tamanho
+				width: 100%;
+			}
+		}
+
+		.tbl-conteudo {
+			@include _flex-box();
+
+			// Visual
+			overflow-y: hidden;
+			overflow-x: auto;
+
+			// Texto
+			white-space: nowrap;
+
+			.tbl-celula-opcoes {
+				// Texto
+				text-align: center;
+			}
+
+			.tbl-linha:not(:last-child) {
+				// Margens
+				margin-right: $layout-borda-padrao;
+			}
+		}
+
+		.tbl-rodape {
+			$tm: 100%;
+			
+			/* Flex */
+			@include _flex($tm);
+
+			// Tamanho
+			width: $tm;
+		}
+
+		.tbl-titulos, .tbl-conteudo {
+			.tbl-linha {
+				// Visual
+				display: inline-block;
+
+				// Tamanho
+				height: 100%;
+
+				// Margens
+				padding: .5em .75em;
+
+				> * {
+					// Visual
+					display: block;
+
+					// Texto
+					white-space: nowrap;
+
+					// Tamanho
+					width: 100%;
+
+					// Margens
+					margin: .7em 0;
+
+					// Posicionamento
+					position: relative;
+				}
+
+				> *:not(.tbl-celula-chk):not(.tbl-celula-id):not(.tbl-celula-opcoes) {
+					// Tamanho
+					height: $ln;
+				}
+
+				/* Centralizar o texto verticalmente */
+				> *::before {
+					/* Conteúdo */
+					content: '';
+
+					// Visual
+					display: inline-block;
+
+					// Tamanho
+					width: 1px;
+					height: 100%;
+
+					// Alinhamento
+					vertical-align: middle;
+				}
+
+				.tbl-celula-conteudo {
+					// Visual
+					display: inline-block;
+
+					// Alinhamento
+					vertical-align: middle;
+
+					// Tamanho
+					max-height: 100%;
+				}
+			}
+		}
+
+		/* Células */
+		.tbl-celula-id {
+			// Visual
+			border-bottom: $layout-borda-padrao;
+
+			// Margens
+			margin-bottom: .75em;
+		}
+
+		.tbl-celula-chk, .tbl-celula-id, .tbl-celula-opcoes {
+			// Tamanho
+			height: $ln / 2;
+		}
+
+		.tbl-imagem {
+			// Tamanho
+			max-height: $ln;
+			width: auto;
+		}
+	}
+
+	.lista-registros::after {
+		/* Conteúdo */
+		content: '';
+	}
+}
+
+
+
+/* Tablets ---------------------------------------------------------------------------------------------------------- */
+@include _tela-tablets {
+	.lista-registros {
+		.tbl-titulos {
+			$tm: 19%;
+
+			// Flex
+			@include _flex($tm);
+
+			// Tamanho
+			width: $tm;
+		}
+
+		.tbl-conteudo {
+			$tm: 80%;
+
+			/* Flex */
+			@include _flex($tm);
+
+			// Tamanho
+			width: $tm;
+		}
+	}
+}
+
+
+
+/* Smatphones ------------------------------------------------------------------------------------------------------- */
+@include _tela-smartphone {
+	.lista-registros {
+		.tbl-titulos {
+			$tm: 40%;
+
+			// Flex
+			@include _flex($tm);
+
+			// Tamanho
+			width: $tm;
+		}
+
+		.tbl-conteudo {
+			$tm: 60%;
+
+			// Flex
+			@include _flex($tm);
+
+			// Tamanho
+			width: $tm;
+		}
+	}
 }

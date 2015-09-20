@@ -18,42 +18,40 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_SERVIDOR; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_SERVIDOR; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'titulo', 'titulo', $mod->titulo, TXT_ROTULO_TITULO, null, [
+	            <?php echo $this->aux_form->_campo_geral('texto', 'titulo', 'titulo', $mod->titulo, TXT_ROTULO_TITULO, null, [
 	                'required' => 'required'
                 ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'host', 'host', $mod->host, TXT_ROTULO_HOST, null, [
+	            <?php echo $this->aux_form->_campo_geral('texto', 'host', 'host', $mod->host, TXT_ROTULO_HOST, null, [
 		            'placeholder' => TXT_EXEMPLO_HOST_SMTP, 'required' => 'required'
 	            ]); ?> :
 
-	            <?= $this->aux_form->_campo_geral('numero', 'porta', 'porta', $mod->porta, null, null, [
+	            <?php echo $this->aux_form->_campo_geral('numero', 'porta', 'porta', $mod->porta, null, null, [
 		            'required' => 'required', 'min' => 1, 'max' => 65535
 	            ]); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_AUTENTICACAO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_AUTENTICACAO; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('autent', 'chk-autent', TXT_ROTULO_REQUER_AUTENT, null, $mod->autent ? 'CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('autent', 'chk-autent', TXT_ROTULO_REQUER_AUTENT, null, $mod->autent ? 'CHECKED' : ''); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_combo_select('cripto', 'cripto', $mod->cripto, TXT_ROTULO_TIPO_CRIPTO, null, [], [
+	            <?php echo $this->aux_form->_combo_select('cripto', 'cripto', $mod->cripto, TXT_ROTULO_TIPO_CRIPTO, null, [], [
 		            ['VALOR' => '', 'TEXTO' => TXT_OPCAO_NENHUMA],
 		            ['VALOR' => 'tls', 'TEXTO' => TXT_OPCAO_TLS],
 		            ['VALOR' => 'ssl', 'TEXTO' => TXT_OPCAO_SSL]
@@ -61,55 +59,56 @@ $mod = $params['modelo'];
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'conta', 'conta', $mod->conta, TXT_ROTULO_CONTA); ?>
+	            <?php echo $this->aux_form->_campo_geral('texto', 'conta', 'conta', $mod->conta, TXT_ROTULO_CONTA); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA); ?>
+	            <?php echo $this->aux_form->_campo_geral('senha', 'senha', 'senha', $mod->senha, TXT_ROTULO_SENHA); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_CONFIGURACOES_ENVIO; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'de_nome', 'de-nome', $mod->de_nome, TXT_ROTULO_DE_NOME, null, [
+	            <?php echo $this->aux_form->_campo_geral('texto', 'de_nome', 'de-nome', $mod->de_nome, TXT_ROTULO_DE_NOME, null, [
 		            'required' => 'required'
 	            ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('email', 'de_email', 'de-email', $mod->de_email, TXT_ROTULO_DE_EMAIL, null, [
+	            <?php echo $this->aux_form->_campo_geral('email', 'de_email', 'de-email', $mod->de_email, TXT_ROTULO_DE_EMAIL, null, [
 		            'placeholder' => TXT_EXEMPLO_EMAIL, 'required' => 'required'
 	            ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('email', 'responder_para', 'responder-para', $mod->responder_para, TXT_ROTULO_RESPONDER_PARA, null, [
+	            <?php echo $this->aux_form->_campo_geral('email', 'responder_para', 'responder-para', $mod->responder_para, TXT_ROTULO_RESPONDER_PARA, null, [
 		            'placeholder' => TXT_EXEMPLO_EMAIL, 'required' => 'required'
 	            ]); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('html', 'chk-html', TXT_ROTULO_HTML, MSG_DICA_EMAIL_HTML, $mod->html ? 'CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('html', 'chk-html', TXT_ROTULO_HTML, TXT_DICA_EMAIL_HTML, $mod->html ? 'CHECKED' : ''); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('principal', 'chk-principal', TXT_ROTULO_PRINCIPAL, MSG_DICA_EMAIL_PRINCIPAL, $mod->principal ? 'CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('principal', 'chk-principal', TXT_ROTULO_PRINCIPAL, TXT_DICA_EMAIL_PRINCIPAL, $mod->principal ? 'CHECKED' : ''); ?>
         </p>
 
 	    <p class="form-paragr">
-		    <?= $this->aux_form->_chk_sim_nao('debug', 'chk-debug', TXT_ROTULO_DEBUG, MSG_DICA_DEBUG, $mod->debug ? 'CHECKED' : ''); ?>
+		    <?php echo $this->aux_form->_chk_sim_nao('debug', 'chk-debug', TXT_ROTULO_DEBUG, TXT_DICA_DEBUG, $mod->debug ? 'CHECKED' : ''); ?>
 	    </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
 
-            <?php if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
-            <a href="javascript:" onclick="$sf._executar('admin/envio-de-emails/testar-configuracao/<?= $mod->id; ?>');" class="com-icone ico-email">
-                <?= TXT_LINK_TESTAR_CONFIGURACAO; ?>
+            if( !$params['incluindo'] && $params['perm-testar?'] ): ?>
+            <a href="javascript:" onclick="$sf._executar('admin/envio-de-emails/testar-configuracao/<?php echo $mod->id; ?>');" data-ajax="1" data-ajax-msg="<?php echo TXT_AJAX_ENVIANDO_EMAIL; ?>" class="com-icone ico-email">
+                <?php echo TXT_LINK_TESTAR_CONFIGURACAO; ?>
             </a>
             <?php endif; ?>
         </p>

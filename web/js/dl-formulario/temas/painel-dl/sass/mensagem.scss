@@ -14,132 +14,128 @@ $msgs: 'sucesso' green '\e710',
 		'erro' red '\e70f',
 		'atencao' #FFA500 '\e707';
 
-.#{$tema}{
+.#{$tema} {
 	/* Elementos ---------------------------------------------------------------------------------------------------- */
-	&-div{
-		/* Posicionamento */
+	&-div {
+		// Posicionamento
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 10;
 		
-		/* Tamanho */
+		// Tamanho
 		width: 100%;
 		height: 100%;
 
-		/* Visual */
+		// Visual
 		background: rgba(0, 0, 0, .75);
 		border: none;
 
-		/* Margens */
+		// Margens
 		padding: 2em 0;
 	}
 
-	&-div:before{
-		/* Texto */
+	&-div::before {
+		// Texto
 		content: '';
 
-		/* Visual */
+		// Visual
 		display: none;
 	}
 
-	&-paragr{
-		/* Tamanho */
+	&-paragr {
+		// Tamanho
 		width: 100%;
 
-		/* Visual */
+		// Visual
 		background: #FFF;
 
-		/* Texto */
+		// Texto
 		text-align: center;
 		font-size: x-large;
 
-		/* Margens */
+		// Margens
 		padding: 1em 10vw;
 
-		/* Posicionamento */
+		// Posicionamento
 		position: absolute;
 		top: 50%;
 
-		/* Transformar */
+		// Transformar
 		@include _transform(translateY(-50%));
 
-		/* Animar */
+		// Animação
 		@include _animation(para-direita-passando .7s);
 	}
 
-	&-paragr:before{
-		/* Texto */
+	&-paragr:before {
+		// Texto
 		font-family: 'icones';
 		font-size: 3em;
 		opacity: .3;
 
-		/* Alinhamento */
+		// Alinhamento
 		vertical-align: middle;
 
-		/* Margens */
+		// Margens
 		margin: 0 .5em;
 	}
 
-	&-tempo{
-		/* Texto */
+	&-tempo {
+		// Texto
 		color: #FFF;
 		text-align: center;
 
-		/* Visual */
+		// Visual
 		display: block;
 
-		/* Margem */
+		// Margens
 		margin: auto;
 
-		/* Tamanho */
+		// Tamanho
 		width: 35%;
 	}
 
-	&-botao{
+	&-botao {
 		$tm: 2.75em;
 
-		/* Visual */
+		// Visual
 		border: 2px solid #FFF;
 		border-radius: 50%;
 
-		/* Texto */
+		// Texto
 		color: #FFF;
 		text-align: center;
 		line-height: $tm - .25em;
 
-		/* Tamanho */
+		// Tamanho
 		width: $tm;
 		height: $tm;
 
-		/* Posicionamento */
+		// Posicionamento
 		position: absolute;
 		top: 0;
 		right: 15%;
 
-		/* Transformar */
+		// Transformar
 		@include _transform(translateY(-45%));
 	}
 
 	/* Tipos de mensagens ------------------------------------------------------------------------------------------- */
-	@each $msg in $msgs{
-		$tp: nth($msg, 1);
-		$co: nth($msg, 2);
-		$tx: nth($msg, 3);
-
-		.msg-#{$tp}{
-			.#{$tema}-paragr{
-				/* Texto */
+	@each $tp, $co, $tx in $msgs{
+		.msg-#{$tp} {
+			.#{$tema}-paragr {
+				// Texto
 				color: $co;
 			}
-			
-			.#{$tema}-paragr:before{
-				/* Texto */
+
+			.#{$tema}-paragr::before {
+				// Texto
 				content: $tx;
 			}
 
-			.#{$tema}-botao{
-				/* Visual */
+			.#{$tema}-botao {
+				// Visual
 				background: $co;
 			}
 		}
@@ -151,8 +147,8 @@ $msgs: 'sucesso' green '\e710',
 /* Desktop ---------------------------------------------------------------------------------------------------------- */
 @media screen and (min-width: $tela-tablet + 1px){
 	.#{$tema}{
-		&-paragr:before{
-			/* Visual */
+		&-paragr::before{
+			// Visual
 			display: inline-block;
 		}
 	}
@@ -163,8 +159,8 @@ $msgs: 'sucesso' green '\e710',
 /* Smartphones ------------------------------------------------------------------------------------------------------ */
 @media screen and (max-width: $tela-smart){
 	.#{$tema}{
-		&-paragr:before{
-			/* Visual */
+		&-paragr::before{
+			// Visual
 			display: block;
 		}
 	}

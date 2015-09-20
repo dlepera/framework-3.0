@@ -1,0 +1,419 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 12/05/2015 21:29:50
+ */
+
+
+@import '../_ajuda/config';
+@import '../../_ajuda/compatibilidade';
+
+
+
+// Configurações ---------------------------------------------------------------------------------------------------- //
+$btn: 'salvar' green '\e710',
+	'cancelar' red '\e70d',
+	'filtrar' #AAA '\e686',
+	'entrar' green '\e713',
+	'enviar' #aabbff '\e784',
+	'upload' #069 '\e6c3';
+
+
+// Mixins ----------------------------------------------------------------------------------------------------------- //
+@mixin _campos-alfanum($pseudo-classe: null) {
+	&-texto#{$pseudo-classe},
+	&-numero#{$pseudo-classe},
+	&-data#{$pseudo-classe},
+	&-cpf#{$pseudo-classe},
+	&-cnpj#{$pseudo-classe},
+	&-senha#{$pseudo-classe},
+	&-busca#{$pseudo-classe},
+	&-select#{$pseudo-classe},
+	&-email#{$pseudo-classe},
+	&-fone#{$pseudo-classe},
+	&-textarea#{$pseudo-classe},
+	&-arquivo#{$pseudo-classe}
+	{ @content; }
+}
+
+@mixin _campos-alfa($pseudo-classe: null) {
+	&-texto#{$pseudo-classe},
+	&-senha#{$pseudo-classe},
+	&-busca#{$pseudo-classe},
+	&-select#{$pseudo-classe},
+	&-email#{$pseudo-classe},
+	&-textarea#{$pseudo-classe},
+	&-arquivo#{$pseudo-classe}
+	{ @content; }
+}
+
+@mixin _campos-num($pseudo-classe: null) {
+	&-numero#{$pseudo-classe},
+	&-data#{$pseudo-classe},
+	&-cpf#{$pseudo-classe},
+	&-cnpj#{$pseudo-classe},
+	&-fone#{$pseudo-classe}
+	{ @content; }
+}
+
+
+
+// Formulário ------------------------------------------------------------------------------------------------------- //
+form {
+	.form {
+		// Parágrafo
+		&-paragr {
+			// Margens
+			margin: 1rem 0;
+		}
+
+
+		// Rótulos e dicas
+		&-rotulo, &-dica {
+			// Visual
+			display: inline-block;
+
+			// Margens
+			padding: .35rem 0;
+		}
+
+
+		// Dicas
+		&-dica {
+			// Posicionamento
+			position: relative;
+
+			// Margens
+			padding-left: 1.35rem;
+
+			// Texto
+			color: #888;
+		}
+
+		&-dica::before {
+			// Texto
+			content: '\e709';
+			font-family: 'icones';
+			color: #069;
+
+			// Posicionamento
+			position: absolute;
+			top: 50%;
+			left: 0;
+
+			// Transformar
+			@include _transform(translateY(-50%));
+		}
+
+
+		// Botões
+		&-botoes {
+			// Texto
+			text-align: center;
+
+			// Margens
+			margin-top: 2rem;
+
+			*:not(:first-child) {
+				// Margens
+				margin-left: 2rem;
+			}
+		}
+
+
+		// Grupo de campos (fieldset)
+		&-grupo {
+			// Visual
+			border: none;
+
+			// Margens
+			margin: 0;
+		}
+
+		&-grupo:not(:first-child) {
+			// Margens
+			margin-top: 2rem;
+		}
+
+
+		// Legendas
+		&-legenda {
+			// Texto
+			color: orange;
+			font-size: 1.2em;
+			
+			// Visual
+			border-bottom: 1px dashed #EEE;
+
+			// Tamanho
+			width: 100%;
+
+			// Margens
+			padding: .35rem 0;
+		}
+
+
+		// Controles personalizados
+		&-controle {
+			$tm: 3rem;
+
+			// Controles alfanuméricos
+			@include _campos-alfanum {
+				// Visual
+				border: $layout-borda-padrao;
+				border-radius: 12px;
+				background-color: #FFF;
+
+				// Margens
+				padding: 0 .35rem;
+
+				// Tamanho
+				height: $tm;
+
+				// Transição
+				@include _transition(.5s);
+			}
+			
+			
+			@include _campos-alfanum(':focus') {
+				// Visual
+				border-color: orange;
+			}
+
+
+			// Cor
+			&-cor {
+				// Visual
+				border-radius: 50%;
+
+				// Tamanho
+				width: $tm;
+				height: $tm;
+			}
+
+
+			// Caixa de texto
+			&-textarea {
+				// Tamanho
+				height: 15rem;
+
+				// Margens
+				padding: .5rem;
+			}
+		}
+
+		// Caixa de seleção sim / não
+		&-chk-sim-nao {
+			// Tamanho
+			width: 0;
+			height: 0;
+
+			// Posicionamento
+			position: fixed;
+			top: -9999px;
+			left: -9999px;
+
+			// Visual
+			opacity: 0;
+		}
+
+		$cf: #EFEFEF;
+		$cb: darken($cf, 10%);
+
+		&-chk-sim-nao + label {
+			// Visual
+			display: inline-block;
+			border-radius: 30px;
+			border: 2px solid $cb;
+			background: $cf;
+
+			// Tamanho
+			width: 5em;
+			height: 3em;
+
+			// Posicionamento
+			position: relative;
+		}
+
+		&-chk-sim-nao + label:hover {
+			// Visual
+			cursor: pointer;
+		}
+
+		&-chk-sim-nao + label::before {
+			// Visual
+			background: #FFF;
+			border-radius: 50%;
+			display: block;
+
+			// Tamanho
+			width: 3em;
+			height: calc(3em - 2px);
+
+			// Texto
+			content: 'Não';
+			line-height: 3em;
+			text-align: center;
+			color: $cb;
+
+			// Posicionamento
+			position: absolute;
+			top: -1px;
+			left: 0;
+
+			// Transições
+			@include _transition(left .5s);
+
+			// Visual
+			border-right: 1px solid darken($cb, 10%);
+			border-left: none;
+		}
+
+		$cf: #ebfee7;
+		$cb: darken($cf, 30%);
+
+		&-chk-sim-nao:checked + label {
+			// Visual
+			background: $cf;
+			border-color: $cb;
+		}
+
+		&-chk-sim-nao:checked + label::before {
+			// Texto
+			content: 'Sim';
+			color: darken($cb, 20%);
+
+			// Posicionamento
+			left: calc(50% - 9px);
+
+			// Visual
+			border-right: none;
+			border-left: 1px solid darken($cb, 10%);
+		}
+	}
+
+	// Botões personalizados
+	[class^="btn-"] {
+		// Visual
+		border: none;
+		background: none;
+
+		// Texto
+		font-size: 1em;
+
+		// Margens
+		padding: .5em 0;
+	}
+
+	[class^="btn-"]::before {
+		// Texto
+		font-family: 'icones';
+
+		// Visual
+		display: inline-block;
+
+		// Alinhamento
+		vertical-align: middle;
+
+		// Margens
+		margin-right: .5rem;
+	}
+
+	[class^="btn-"]:hover{
+		/* Visual */
+		cursor: pointer;
+	}
+
+	@each $classe, $cor, $icone in $btn{
+		.btn-#{$classe}{
+			// Texto
+			color: $cor;
+		}
+
+		.btn-#{$classe}::before{
+			// Texto
+			content: $icone;
+		}
+	}
+
+
+	// Controles alfanuméricos dentro de itens de grade flexível
+	.flex-item {
+		.form {
+			&-controle {
+				// Controles alfanuméricos
+				@include _campos-alfa {
+					// Tamanho
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+
+
+// Formulário de filtro de registros -------------------------------------------------------------------------------- //
+.form-filtro {
+	.flex-item:first-child {
+		// Margens
+		padding-left: 0;
+	}
+
+	.flex-item:last-child {
+		// Margens
+		padding-right: 0;
+	}
+}
+
+
+
+/* Desktops --------------------------------------------------------------------------------------------------------- */
+@include _tela-desktops {
+	form {
+		.form {
+			&-controle {
+				// Controles alfanuméricos
+				@include _campos-alfa {
+					// Tamanho
+					width: 30%;
+				}
+			}
+		}
+	}
+}
+
+
+
+/* Tablets ---------------------------------------------------------------------------------------------------------- */
+@include _tela-tablets {
+	form {
+		.form {
+			&-controle {
+				// Controles alfanuméricos
+				@include _campos-alfa {
+					// Tamanho
+					width: 60%;
+				}
+			}
+		}
+	}
+}
+
+
+
+/* Smatphones ------------------------------------------------------------------------------------------------------- */
+@include _tela-smartphone {
+	form {
+		.form {
+			&-controle {
+				// Controles alfanuméricos
+				@include _campos-alfa {
+					// Tamanho
+					width: 100%;
+				}
+			}
+		}
+	}
+}

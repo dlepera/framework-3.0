@@ -13,10 +13,7 @@ $rotas['^(home|index|)$'] = [
 ];
 
 
-
-/*
- * Contatos recebidos do site
- */
+// Contatos recebidos do site --------------------------------------------------------------------------------------- //
 $rotas['^(contatos-recebidos/lista|contatos-recebidos)$'] = [
     'controle'  =>  'ContatoSite',
     'acao'      =>  'mostrarlista'
@@ -25,7 +22,7 @@ $rotas['^(contatos-recebidos/lista|contatos-recebidos)$'] = [
 $rotas['^contatos-recebidos/mostrar-detalhes/\d+$'] = [
     'controle'  =>  'ContatoSite',
     'acao'      =>  'mostrardetalhes',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^contatos-recebidos/apagar-contato$'] = [
@@ -34,10 +31,7 @@ $rotas['^contatos-recebidos/apagar-contato$'] = [
 ];
 
 
-
-/*
- * Assuntos para contato
- */
+// Assuntos para contato -------------------------------------------------------------------------------------------- //
 $rotas['^(assuntos-contato/lista|assuntos-contato)$'] = [
     'controle'  =>  'AssuntoContato',
     'acao'      =>  'mostrarlista'
@@ -53,7 +47,7 @@ $rotas['^assuntos-contato/novo(/[a-z]+)?$'] = [
 $rotas['^assuntos-contato/(editar|alterar)/\d+$'] = [
     'controle'  =>  'AssuntoContato',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^assuntos-contato/remover-assunto$'] = [
@@ -74,9 +68,7 @@ $rotas['^assuntos-contato/alternar-publicacao/(publicar|ocultar)$'] = [
 
 
 
-/*
- * Tipos de dados para contato
- */
+// Tipos de dados para contato -------------------------------------------------------------------------------------- //
 $rotas['^(tipos-de-dados/lista|tipos-de-dados)$'] = [
     'controle'  =>  'TipoDadoContato',
     'acao'      =>  'mostrarlista'
@@ -92,7 +84,7 @@ $rotas['^tipos-de-dados/novo(/[a-z]+)?$'] = [
 $rotas['^tipos-de-dados/(editar|alterar)/\d+'] = [
     'controle'  =>  'TipoDadoContato',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^tipos-de-dados/remover-tipo-de-dado$'] = [
@@ -122,10 +114,7 @@ $rotas['^tipos-de-dados/alternar-publicacao/(publicar|ocultar)$'] = [
 ];
 
 
-
-/*
- * Configurações do Google Analytics
- */
+// Configurações do Google Analytics -------------------------------------------------------------------------------- //
 $rotas['^(google-analytics/lista|google-analytics)$'] = [
     'controle'  =>  'GoogleAnalytics',
     'acao'      =>  'mostrarlista'
@@ -141,7 +130,7 @@ $rotas['^google-analytics/novo(/[a-z]+)?$'] = [
 $rotas['^google-analytics/(editar|alterar)/\d+'] = [
     'controle'  =>  'GoogleAnalytics',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^google-analytics/excluir-configuracao$'] = [
@@ -161,10 +150,7 @@ $rotas['^google-analytics/alternar-publicacao/(publicar|ocultar)$'] = [
 ];
 
 
-
-/*
- * Dados para contato
- */
+// Dados para contato ----------------------------------------------------------------------------------------------- //
 $rotas['^(dados-para-contato/lista|dados-para-contato)$'] = [
     'controle'  =>  'DadoContato',
     'acao'      =>  'mostrarlista'
@@ -180,7 +166,7 @@ $rotas['^dados-para-contato/novo(/[a-z]+)?$'] = [
 $rotas['^dados-para-contato/(editar|alterar)/\d+$'] = [
     'controle'  =>  'DadoContato',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^dados-para-contato/excluir-dados$'] = [
@@ -200,10 +186,7 @@ $rotas['^dados-para-contato/alternar-publicacao/(publicar|ocultar)$'] = [
 ];
 
 
-
-/*
- * Álbum de fotos
- */
+// Álbum de fotos --------------------------------------------------------------------------------------------------- //
 $rotas['^(albuns-de-fotos/lista|albuns-de-fotos)$'] = [
     'controle'  =>  'Album',
     'acao'      =>  'mostrarlista'
@@ -219,7 +202,7 @@ $rotas['^albuns-de-fotos/novo(/[a-z]+)?$'] = [
 $rotas['^albuns-de-fotos/(editar|alterar)/\d+$'] = [
     'controle'  =>  'Album',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^albuns-de-fotos/excluir-albuns$'] = [
@@ -251,7 +234,7 @@ $rotas['^albuns-de-fotos/salvar-foto$'] = [
 $rotas['^albuns-de-fotos/editar-foto/\d+(/[a-z]+)?$'] = [
     'controle'  =>  'FotoAlbum',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id/:mst'
+    'params'    =>  '/-/-/:pk/:mst'
 ];
 
 $rotas['^albuns-de-fotos/excluir-fotos$'] = [
@@ -260,10 +243,7 @@ $rotas['^albuns-de-fotos/excluir-fotos$'] = [
 ];
 
 
-
-/*
- *  Informações institucionais
- */
+// Informações institucionais --------------------------------------------------------------------------------------- //
 $rotas['^institucional$'] = [
     'controle'  =>  'Institucional',
     'acao'      =>  'mostrarinfos'
@@ -280,10 +260,7 @@ $rotas['^institucional/salvar$'] = [
 ];
 
 
-
-/*
- * Configurações do site
- */
+// Configurações do site -------------------------------------------------------------------------------------------- //
 $rotas['^configuracoes$'] = [
     'controle'  =>  'ConfiguracaoSite',
     'acao'      =>  'mostrarform'

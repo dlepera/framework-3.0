@@ -5,8 +5,6 @@
       <entry url="file://$PROJECT_DIR$">
         <entryData>
           <resourceRoots>
-            <path value="file://$PROJECT_DIR$/web/temas/painel-dl" />
-            <path value="file://$PROJECT_DIR$/web/temas/painel-dl3" />
             <path value="file://$PROJECT_DIR$/web/temas/website" />
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl/css" />
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl3/css" />

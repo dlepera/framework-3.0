@@ -15,22 +15,30 @@ $mod = $params['modelo'];
 
 [DL3-CONTEUDO]
     <?php if( $mod->historia != '' ): ?>
-    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_HISTORIA; ?></h2>
-    <p class="instit-historia"><?= nl2br($mod->historia); ?></p>
+        <div class="sobre-historia">
+            <h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_HISTORIA; ?></h2>
+            <p class="instit-historia"><?php echo nl2br($mod->historia); ?></p>
+        </div>
     <?php endif;
 
     if( $mod->missao != '' ): ?>
-    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_MISSAO; ?></h2>
-    <p class="instit-missao"><?= nl2br($mod->missao); ?></p>
+        <div class="sobre-missao">
+            <h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_MISSAO; ?></h2>
+            <p class="instit-missao"><?php echo nl2br($mod->missao); ?></p>
+        </div>
     <?php endif;
 
     if( $mod->visao != '' ): ?>
-    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_VISAO; ?></h2>
-    <p class="instit-visao"><?= nl2br($mod->visao); ?></p>
+        <div class="sobre-visao">
+		    <h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_VISAO; ?></h2>
+	        <p class="instit-visao"><?php echo nl2br($mod->visao); ?></p>
+        </div>
     <?php endif;
 
     if( $mod->valores != '' ): ?>
-    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_VALORES; ?></h2>
-    <p class="instit-valores"><?= nl2br($mod->valores); ?></p>
+	    <div class="sobre-valores">
+		    <h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_VALORES; ?></h2>
+		    <p class="instit-valores"><?php echo nl2br($mod->valores); ?></p>
+	    </div>
     <?php endif; ?>
 [/DL3-CONTEUDO]

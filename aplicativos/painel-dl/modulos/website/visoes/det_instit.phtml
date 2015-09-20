@@ -14,29 +14,27 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <p>
-        <a href="website/institucional/editar" class="com-icone ico-editar">
-            <?= TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS; ?>
-        </a>
-    </p>
+    <nav class="dl3-links">
+        <?php echo $this->aux_links->_link('editar', 'website/institucional/editar', TXT_LINK_EDITAR_INFOS_INSTITUCIONAIS); ?>
+    </nav>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_PAGINA_TITULO_HISTORIA; ?></summary>
-        <p><?= nl2br($mod->historia); ?></p>
+        <summary class="det-titulo"><?php echo TXT_PAGINA_TITULO_HISTORIA; ?></summary>
+        <p><?php echo nl2br($mod->historia); ?></p>
     </details>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_PAGINA_TITULO_MISSAO; ?></summary>
-        <p><?= nl2br($mod->missao); ?></p>
+        <summary class="det-titulo"><?php echo TXT_PAGINA_TITULO_MISSAO; ?></summary>
+        <p><?php echo nl2br($mod->missao); ?></p>
     </details>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_PAGINA_TITULO_VISAO; ?></summary>
-        <p><?= nl2br($mod->visao); ?></p>
+        <summary class="det-titulo"><?php echo TXT_PAGINA_TITULO_VISAO; ?></summary>
+        <p><?php echo nl2br($mod->visao); ?></p>
     </details>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_PAGINA_TITULO_VALORES; ?></summary>
-        <p><?= nl2br($mod->valores); ?></p>
+        <summary class="det-titulo"><?php echo TXT_PAGINA_TITULO_VALORES; ?></summary>
+        <p><?php echo nl2br($mod->valores); ?></p>
     </details>
 [/DL3-CONTEUDO]

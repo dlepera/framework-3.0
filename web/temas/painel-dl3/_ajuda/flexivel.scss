@@ -6,74 +6,68 @@
  */
 
 
-@import '../../_ajuda/compatibilidade.scss';
-@import 'configuracoes.scss';
+@import '../../_ajuda/compatibilidade';
+@import 'config';
 
-/* -----------------------------------------------------------------------------
- *  Grade Flexivel
- * -------------------------------------------------------------------------- */
-.flexivel{
-    /* Flex */
-    @include _flex-box();
-    @include _flex-flow(row wrap);
+
+$numeros: 'uma' 1, 'duas' 2, 'tres' 3, 'quatro' 4, 'cinco' 5, 'seis' 6, 'sete' 7, 'oito' 8, 'nove' 9, 'dez' 10, 'onze' 11, 'doze' 12;
+
+// Funções ---------------------------------------------------------------------------------------------------------- //
+@mixin _colunas($qtde, $padding, $espaco, $total) {
+	$uma_coluna: 100% / $total;
+	$qtde_espacos: ($total / $qtde) - 1;
+	$n_colunas: if($qtde_espacos % 2 == 0,
+			(($uma_coluna * $qtde) - $espaco),
+			(($uma_coluna * $qtde) - (($qtde_espacos * $espaco) / ($total / $qtde)))
+	);
+
+	// Flex
+	@include _flex($n_colunas);
+
+	// Tamanho
+	max-width: $n_colunas;
+
+	// Margens
+	padding-left: $padding;
+	padding-right: $padding;
+	margin-left: $espaco;
+
+	// Tamanho
+	@include _box-sizing();
+}
+
+@mixin _primeira_coluna(){
+	// Margens
+	margin-left: 0;
+}
+
+@mixin _gerar-colunas($qtde, $padding, $espaco) {
+	@for $i from 1 through $qtde {
+		$n: nth($numeros, $i);
+		$txt: nth($n, 1);
+		$num: nth($n, 2);
+		$smg: ceil($qtde / $i);
+
+		// Criar as colunas
+		.#{$txt}-col {
+			@include _colunas($num, $padding, $espaco, $qtde);
+		}
+
+		// Remover a margem esquerda das colunas que não precisam
+		.#{$txt}-col:nth-child(#{$smg}n + 1) {
+			@include _primeira_coluna;
+		}
+	}
 }
 
 
-/* Desktops */
-@media screen and (min-width:$tela-tablet + 1px){
-    .flexivel{
-        $mv: 1%; /* Margem vertical */
-        $mh: .55%; /* Margem horizontal */
-        
-        @for $i from 2 through $flex-qtde-cols{
-            $tm : (100% / $i) - ($mh * 2); /* Tamanho da coluna */
-            $mhf: (100% - ($tm * $i)) / ($i + ($i - 2)); /* Margem horizontal final */
-            
-            > .col-#{$i}{
-                /* Flex */
-                @include _flex($tm);
-                
-                /* Tamanho */
-                max-width: $tm;
-                
-                /* Margens */
-                margin: $mv $mhf;
-            }
-            
-            /* Config das margens */
-            .col-#{$i}:nth-child(#{$i}n+1){ margin-left: 0; }
-            .col-#{$i}:nth-child(#{$i}n+#{$i}){ margin-right: 0; }
-        }
-    }
-}
+// Definir os tamanhos dos componentes da página: topo, menu, conteúdo e rodapé
+@mixin _componentes-pg($classe, $qtde-cols, $padding, $margem, $total-cols) {
+	.#{$classe} {
+		// Flex
+		@include _colunas($qtde-cols, $padding, $margem, $total-cols);
+		@include _primeira_coluna;
 
-
-
-/* Tablets e smartphones */
-@media screen and (max-width:$tela-tablet){
-    .flexivel{
-        $mv: 2%; /* Margem vertical */
-        $mh: .5%; /* Margem horizontal */
-        
-        @for $i from 2 through $flex-qtde-cols{
-            $qc : floor($i / 2); /* Quatidade de colunas real para esse dispositivo */
-            $tm : (100% / $qc) - if($qc > 1, ($mh * 2), 0); /* Tamanho da coluna */
-            $mhf: (100% - ($tm * $qc)) / ($qc + ($qc - 2)); /* Margem horizontal final */
-            
-            > .col-#{$i}{
-                /* Flex */
-                @include _flex($tm);
-                
-                /* Tamanho */
-                max-width: $tm;
-                
-                /* Margens */
-                margin: $mv if($qc > 1, $mhf, 0);
-            }
-            
-            /* Config das margens */
-            .col-#{$i}:nth-child(#{$qc}n+1){ margin-left: 0; }
-            .col-#{$i}:nth-child(#{$qc}n+#{$qc}){ margin-right: 0; }
-        }
-    }
+		@content;
+	}
 }

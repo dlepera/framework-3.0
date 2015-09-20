@@ -22,7 +22,7 @@ class GrupoUsuario extends GeralM\Principal{
     } // Fim do método _descr
 
     public function _funcs($v = null){
-        return $this->funcs = filter_var(!isset($v) ? $this->funcs : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+        return $this->funcs = filter_var(!isset($v) ? $this->funcs : $v, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY | FILTER_FORCE_ARRAY);
     } // Fim do método _funcs
 
 
@@ -49,10 +49,12 @@ class GrupoUsuario extends GeralM\Principal{
     protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
+	    # Salvar o permissionamento atual e remover o antigo
         if( $s && $this->id != $_SESSION['usuario_info_grupo'] ){
-	        # Salvar o permissionamento atual e remover o antigo
-	        $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
-	        $sql->execute([':id' => $this->id]);
+            if( !$this->reg_vazio ){
+	            $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE {$this->bd_prefixo}id = :id");
+	            $sql->execute([':id' => $this->id]);
+            } // Fim if( !$this->reg_vazio )
 
 	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_grupos_funcs VALUES (:id, :func)");
 	        foreach( $this->funcs as $f ) $sql->execute([':id' => $this->id, ':func' => $f]);

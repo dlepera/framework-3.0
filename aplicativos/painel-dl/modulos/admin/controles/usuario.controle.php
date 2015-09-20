@@ -20,54 +20,47 @@ use \Desenvolvedor\Modelo as DevM;
 class Usuario extends GeralC\PainelDL{
     public function __construct(){
 	    parent::__construct(new AdminM\Usuario(), 'admin', TXT_MODELO_USUARIO);
-
-	    if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-		    $post = filter_input_array(INPUT_POST, [
-			    'id'                => FILTER_VALIDATE_INT,
-			    'info_grupo'        => FILTER_VALIDATE_INT,
-			    'info_nome'         => FILTER_SANITIZE_STRING,
-			    'info_email'        => FILTER_VALIDATE_EMAIL,
-			    'info_telefone'     => FILTER_SANITIZE_STRING,
-			    'info_sexo'         => FILTER_SANITIZE_STRING,
-			    'info_login'        => FILTER_SANITIZE_STRING,
-			    'info_senha'        => FILTER_DEFAULT,
-			    'info_senha_conf'   => FILTER_DEFAULT,
-			    'pref_idioma'       => FILTER_VALIDATE_INT,
-			    'pref_tema'         => FILTER_VALIDATE_INT,
-			    'pref_formato_data' => FILTER_VALIDATE_INT,
-			    'pref_num_registros' => FILTER_VALIDATE_INT,
-			    'pref_exibir_id'    => FILTER_VALIDATE_BOOLEAN,
-			    'pref_filtro_menu'  => FILTER_VALIDATE_BOOLEAN,
-			    'conf_reset'        => FILTER_VALIDATE_BOOLEAN,
-			    'conf_bloq'         => FILTER_VALIDATE_BOOLEAN
-		    ]);
-
-		    # Converter o encode
-		    \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-		    # Selecionar as informações atuais
-		    $this->modelo->_selecionarPK($post['id']);
-
-		    \Funcoes::_vetor2objeto($post, $this->modelo);
-	    } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' )
+		$this->_carregar_post([
+			'id'                => FILTER_VALIDATE_INT,
+			'info_grupo'        => FILTER_VALIDATE_INT,
+			'info_nome'         => FILTER_SANITIZE_STRING,
+			'info_email'        => FILTER_VALIDATE_EMAIL,
+			'info_telefone'     => FILTER_SANITIZE_STRING,
+			'info_sexo'         => FILTER_SANITIZE_STRING,
+			'info_login'        => FILTER_SANITIZE_STRING,
+			'info_senha'        => FILTER_DEFAULT,
+			'info_senha_conf'   => FILTER_DEFAULT,
+			'pref_idioma'       => FILTER_VALIDATE_INT,
+			'pref_tema'         => FILTER_VALIDATE_INT,
+			'pref_formato_data' => FILTER_VALIDATE_INT,
+			'pref_num_registros' => FILTER_VALIDATE_INT,
+			'pref_exibir_id'    => FILTER_VALIDATE_BOOLEAN,
+			'pref_filtro_menu'  => FILTER_VALIDATE_BOOLEAN,
+			'conf_reset'        => FILTER_VALIDATE_BOOLEAN,
+			'conf_bloq'         => FILTER_VALIDATE_BOOLEAN
+		]);
     } // Fim do método __construct
 
 
 
 
-    /**
-     * Mostrar a lista de registros
-     */
+	/**
+	 * Mostrar a lista de registros
+	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('usuario_id, usuario_info_nome, usuario_info_email, grupo_usuario_descr, usuario_conf_bloq',
-                'usuario_info_nome, usuario_info_sexo', null);
+        $this->_listapadrao('usuario_id AS ' . TXT_LISTA_TITULO_ID . ', usuario_info_nome AS ' . TXT_LISTA_TITULO_NOME . ','
+	        . " usuario_info_email AS '" . TXT_LISTA_TITULO_EMAIL . "', grupo_usuario_descr AS '" . TXT_LISTA_TITULO_GRUPO . "',"
+	        . " ( CASE usuario_conf_bloq WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '" . TXT_LISTA_TITULO_BLOQUEADO . "'",
+            'usuario_info_nome, usuario_info_sexo', null);
 
         # Visão
+	    $this->_carregarhtml('comum/visoes/form_filtro');
         $this->_carregarhtml('lista_usuarios');
         $this->visao->titulo = TXT_PAGINA_TITULO_USUARIOS;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'admin/usuarios/');
+        $this->visao->_adparam('form-acao', 'admin/usuarios/excluir-usuarios');
         $this->visao->_adparam('campos', [
             ['valor' => 'grupo_usuario_descr', 'texto' => TXT_ROTULO_GRUPO],
             ['valor' => 'usuario_info_nome', 'texto' => TXT_ROTULO_NOME],
@@ -89,8 +82,8 @@ class Usuario extends GeralC\PainelDL{
         $inc = $this->_formpadrao('usuario', 'usuarios/salvar', 'usuarios/salvar', $rd, $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_usuario');
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_USUARIO : TXT_PAGINA_TITULO_EDITAR_USUARIO;
 
         $m_gu = new AdminM\GrupoUsuario();
         $l_gu = $m_gu->_carregarselect('grupo_usuario_publicar = 1', false);

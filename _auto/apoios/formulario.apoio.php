@@ -20,7 +20,7 @@ HTML;
 
 
 	const CHK_SIM_NAO = <<<HTML
-<input type="checkbox" name="%s" id="%s" class="form-alternar" %s/>\n
+<input type="checkbox" name="%s" id="%s" class="form-chk-sim-nao" %s/>\n
 <label for="%s"></label>\n
 HTML;
 
@@ -41,6 +41,19 @@ HTML;
 <label for="alt-mask-%s">%s</label><br/>
 </span><br/>\n
 HTML;
+
+
+	const CAIXA_TEXTO = <<<HTML
+<textarea name="%s" id="%s" class="form-controle form-controle-textarea"%s>%s</textarea>
+HTML;
+
+
+	const BOTAO = <<<HTML
+<button%s>%s</button>
+HTML;
+
+
+
 
 
 
@@ -186,6 +199,42 @@ HTML;
 	];
 
 
+	private $conf_botoes = [
+		'salvar' => [
+			'type' => 'submit',
+			'class' => 'btn-salvar',
+			'data-ajax' => true,
+			'data-ajax-msg' => TXT_AJAX_SALVANDO_REGISTRO
+		],
+
+		'cancelar' => [
+			'type' => 'reset',
+			'class' => 'btn-cancelar'
+		],
+
+		'enviar-email' => [
+			'type' => 'submit',
+			'class' => 'btn-enviar',
+			'data-ajax' => true,
+			'data-ajax-msg' => TXT_AJAX_ENVIANDO_EMAIL
+		],
+
+		'entrar' => [
+			'type' => 'submit',
+			'class' => 'btn-entrar',
+			'data-ajax' => true,
+			'data-ajax-msg' => TXT_AJAX_ACESSANDO
+		],
+
+		'upload' => [
+			'type' => 'submit',
+			'class' => 'btn-upload',
+			'data-ajax' => true,
+			'data-ajax-msg' => TXT_AJAX_SALVANDO_ARQUIVO
+		]
+	];
+
+
 
 
 	/**
@@ -215,7 +264,7 @@ HTML;
 
 		isset($rtl) and $in .= sprintf(self::ROTULO, $cf['id'], $rtl);
 		isset($dc) and $in .= sprintf(self::DICA, $dc);
-		$in .= "<input ". $this->_vetor2string($cf) ."/>\n";
+		$in .= "<input ". \Funcoes::_array_serialize($cf, ' ', '"') ."/>\n";
 
 		return $in;
 	} // Fim do método _campo_geral
@@ -264,8 +313,10 @@ HTML;
 	 */
 	public function _chk_sim_nao($nm, $id, $rtl = null, $dc = null, $ou = ''){
 		$chk = '';
+		// TAREFA: Manter esse tratamento até fazer a revisão de todos os formulários
+		$id = 'chk-' . preg_replace('~^(chk-)~', '', $id);
 
-		isset($rtl) and $chk .= '<span class="form-rotulo">'. $rtl .'</span><br/>';
+		isset($rtl) and $chk .= '<span class="form-rotulo">' . $rtl . '</span><br/>';
 		isset($dc) and $chk .= sprintf(self::DICA, $dc);
 		
 		return $chk . sprintf(self::CHK_SIM_NAO, $nm, $id, $ou, $id);
@@ -293,7 +344,7 @@ HTML;
 		isset($rtl) and $cbo .= sprintf(self::ROTULO, $id, $rtl);
 		isset($dc) and $cbo .= sprintf(self::DICA, $dc);
 
-		$cbo .= sprintf(self::COMBO_SELECT, $nm, "sel-{$id}", $this->_vetor2string($ou));
+		$cbo .= sprintf(self::COMBO_SELECT, $nm, "sel-{$id}", \Funcoes::_array_serialize($ou, ' ', '"'));
 
 		# Incluir as opções
 		foreach( $op as $o ){
@@ -335,17 +386,138 @@ HTML;
 
 
 
+
 	/**
-	 * Converter um vetor em uma string de pares de chaves e valores
+	 * Montar caixa de texto com múltiplas linhas
 	 *
-	 * @param array $vt Vetor a ser convertido
+	 * @param string $nm  Nome do campo
+	 * @param string $id  ID atribuído a esse campo
+	 * @param mixed  $vl  Valor inicial do campo
+	 * @param string $rtl Rótulo de referência do campo
+	 * @param string $dc  Dica vinculada a esse campo
+	 * @param array  $ou  Outras configurações do campo
 	 *
-	 * @return string|null
+	 * @return string
+	 * @throws \Exception
 	 */
-	private function _vetor2string(array $vt){
-		return implode(' ', array_map(function($k) use ($vt){
-			$vl = $k === 'pattern' ? \Funcoes::_expreg_form($vt[$k]) : $vt[$k];
-			return isset($vl) ? "{$k}=\"{$vl}\"" : null;
-		}, array_keys($vt)));
-	} // Fim do método _vetor2string
-} // Fim da classe Apoio
+	public function _caixa_texto($nm, $id, $vl = null, $rtl = null, $dc = null, array $ou = []){
+		$txt = '';
+		$id = "cxt-{$id}";
+
+		isset($rtl) and $txt .= sprintf(self::ROTULO, $id, $rtl);
+		isset($dc) and $txt .= sprintf(self::DICA, $dc);
+
+		return $txt . sprintf(self::CAIXA_TEXTO, $nm, $id, \Funcoes::_array_serialize($ou, ' ', '"'), $vl);
+	} // Fim do método _caixa_texto
+
+
+
+	// Botões ------------------------------------------------------------------------------------------------------ //
+	/**
+	 * Montar botão de formulário
+	 *
+	 * @param string|null $tipo  Tipo do botão a ser criado
+	 * @param string      $texto Texto a ser exibido no botão
+	 * @param array       $ou    Outras configurações do botão
+	 *
+	 * @return int
+	 */
+	public function _botao($tipo = null, $texto = 'Botão', array $ou = []){
+		$atributos_vetor = isset($tipo) && array_key_exists($tipo, $this->conf_botoes)
+			? array_merge($this->conf_botoes[$tipo], $ou)
+			: $ou;
+
+		$atributos_string = !empty($atributos_vetor) ? ' ' . \Funcoes::_array_serialize($atributos_vetor, ' ', '"') : '';
+
+		return sprintf(self::BOTAO, $atributos_string, $texto);
+	} // Fim do método _botao
+
+
+
+
+	/**
+	 * Criar um novo botão
+	 *
+	 * @param string $nome  Nome do botão a ser criado
+	 * @param array  $botao Atributos padrão do novo botão
+	 *
+	 * @throws \Exception
+	 */
+	public function _novo_botao($nome, array $botao = []){
+		if( array_key_exists($nome, $this->conf_botoes) )
+			throw new \Exception(ERRO_FORMULARIO_TIPO_JA_EXISTE, 1403);
+
+		$this->conf_botoes[$nome] = $botao;
+	} // Fim do método _novo_botao
+
+
+
+
+	/**
+	 * Remover as configurações de um botão
+	 *
+	 * @param $nome
+	 */
+	public function _excluir_botao($nome){
+		unset($this->conf_botoes[$nome]);
+	} // Fim do método _excluir_botao
+
+
+
+
+	/**
+	 * Montar botão de formulário
+	 *
+	 * @param string $texto Texto a ser exibido no botão
+	 * @param array  $ou    Outras configurações do botão
+	 *
+	 * @return int
+	 */
+	public function _botao_salvar($texto, array $ou = []){
+		return $this->_botao($texto, array_merge($ou, $this->conf_botoes['salvar']));
+	} // Fim do método _botao_salvar
+
+
+
+
+	/**
+	 * Montar botão de formulário
+	 *
+	 * @param string $texto Texto a ser exibido no botão
+	 * @param array  $ou    Outras configurações do botão
+	 *
+	 * @return int
+	 */
+	public function _botao_cancelar($texto, array $ou = []){
+		return $this->_botao($texto, array_merge($ou, $this->conf_botoes['cancelar']));
+	} // Fim do método _botao_cancelar
+
+
+
+	/**
+	 * Montar botão de formulário
+	 *
+	 * @param string $texto Texto a ser exibido no botão
+	 * @param array  $ou    Outras configurações do botão
+	 *
+	 * @return int
+	 */
+	public function _botao_enviar_email($texto, array $ou = []){
+		return $this->_botao($texto, array_merge($ou, $this->conf_botoes['enviar-email']));
+	} // Fim do método _botao_enviar_email
+
+
+
+
+	/**
+	 * Montar botão de formulário
+	 *
+	 * @param string $texto Texto a ser exibido no botão
+	 * @param array  $ou    Outras configurações do botão
+	 *
+	 * @return int
+	 */
+	public function _botao_entrar($texto, array $ou = []){
+		return $this->_botao($texto, array_merge($ou, $this->conf_botoes['entrar']));
+	} // Fim do método _botao_entrar
+} // Fim da classe Formulario

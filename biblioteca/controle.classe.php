@@ -71,14 +71,31 @@ class Controle{
         if( !$this->_validar() )
             throw new Exception('A ação não pôde ser executada!', 1500);
 
-        $c = new $this->controle();
-
-        return \DL3::$aut_o instanceof \Autenticacao && $_SESSION['usuario_conf_reset'] &&
-            $this->modulo !== 'admin' && $this->controle !== '\Admin\Controle\Usuario' && $this->acao !== '_alterarsenha'
-        ? call_user_func_array([new AdminC\Usuario(), '_formalterarsenha'], [])
-        : call_user_func_array(
-            [$c, $this->acao],
-            !empty($this->params) ? $this->params : []
-        );
+	    return \DL3::$aut_o instanceof \Autenticacao && $_SESSION['usuario_conf_reset'] && $this->modulo !== 'admin' && $this->controle !== '\Admin\Controle\Usuario' && $this->acao !== '_alterarsenha'
+	        ? $this->_chamar_metodo(new AdminC\Usuario(), '_formalterarsenha', [])
+		    : $this->_chamar_metodo(new $this->controle(), $this->acao, !empty($this->params) ? $this->params : []);
     } // Fim do método _executar
+
+
+
+
+	/**
+	 * Chamar um determinado método
+	 *
+	 * @param mixed  $classe Instância da classe
+	 * @param string $metodo Nome do método a ser executado
+	 * @param array  $args   Vetor associativo dos parâmetros a serem passado ao método
+	 *
+	 * @return mixed
+	 */
+    public function _chamar_metodo($classe, $metodo, array $args = []){
+		$rfx_m = new ReflectionMethod($classe, $metodo);
+	    $params = array_map(function(&$v){ return (string)$v->name; }, $rfx_m->getParameters());
+	    $pass = [];
+
+	    foreach( $params as $p )
+		    $pass[] = array_key_exists($p, $args) ? $args[$p] : null;
+
+	    return call_user_func_array([$classe, $metodo], $pass);
+    } // Fim do método _chamar_metodo
 } // Fim da classe Controle

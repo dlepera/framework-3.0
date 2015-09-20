@@ -14,16 +14,16 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('texto', 'login', 'login', $mod->login, TXT_ROTULO_LOGIN_OU_EMAIL, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('texto', 'login', 'login', $mod->login, TXT_ROTULO_LOGIN_OU_EMAIL, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-enviar"><?= TXT_BOTAO_ENVIAR; ?></button>
+            <?php echo $this->aux_form->_botao('enviar-email', TXT_BOTAO_ENVIAR); ?>
 
             <a href="javascript:" class="com-icone ico-voltar" onclick="history.back();">
-                <?= TXT_LINK_VOLTAR; ?>
+                <?php echo TXT_LINK_VOLTAR; ?>
             </a>
         </p>
     </form>

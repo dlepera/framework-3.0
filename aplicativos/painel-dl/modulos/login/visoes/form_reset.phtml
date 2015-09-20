@@ -14,22 +14,27 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
-        <input type="hidden" name="id" value="<?= $params['id']; ?>"/>
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
+        <input type="hidden" name="id" value="<?php echo $params['id']; ?>"/>
 
 	    <p class="msg-atencao"><?php printf(TXT_DIVERSOS_AVISO_USUARIO_RESET_SENHA, $params['nome-usuario']); ?></p>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_campo_geral('senha', 'senha_nova', 'senha-nova', null, TXT_ROTULO_SENHA_NOVA, null, ['required' => 'required']); ?>
+            <?php echo $this->aux_form->_campo_geral('senha', 'senha_nova', 'senha-nova', null, TXT_ROTULO_SENHA_NOVA, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('senha', 'senha_nova_conf', 'senha-conf', null, TXT_ROTULO_SENHA_CONF, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('senha', 'senha_nova_conf', 'senha-conf', null, TXT_ROTULO_SENHA_CONF, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <button type="submit" class="btn-salvar"><?php echo TXT_BOTAO_SALVAR; ?></button>
+            <button type="reset" class="btn-cancelar"><?php echo TXT_BOTAO_CANCELAR; ?></button>
+
+	        <?php
+	        echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+	        echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+	        ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

@@ -65,19 +65,18 @@ function MoverCursor(o, p){ return o.setSelectionRange(p, p); } // Fim AlterarCu
 function SelecionarLinha(obj, u){
     var tag = obj.tagName;
     var $linha = tag === 'TR' ? $(obj)
-            : $(obj).parents('tr');
+            : $(obj).parents('tr, .bd-registro');
 
     // Alterar o estilo da linha
     $linha.addClass('tr-selec');
     
     // Remover a seleção das outras linhas
-    console.log(u);
     if( u === true )
         $linha.parents('tbody').find(':checkbox').prop('checked', false);
     
     if( obj.type !== 'checkbox' ){
         // Selecionar o checkbox dentro da linha
-        $linha.find('td:first-child :checkbox').each(function() {
+        $linha.find('td:first-child :checkbox, :checkbox.bd-registro-id').each(function() {
             $(this).prop('checked', true);
             return true;
         });
@@ -98,7 +97,7 @@ function SelecionarLinha(obj, u){
  */
 function CarregarHTML(controle, id_html){
     // Definir valores padrão
-    var id  = id_html || 'html-'+ ($('.sobre-tela').length-1);
+    var id  = id_html || 'html-'+ $('.sobre-tela').length;
     var mst = 'conteudo';
     
     // Criar a DIV
@@ -107,7 +106,8 @@ function CarregarHTML(controle, id_html){
     $.ajax({
         url     : controle.replace(/^\/+|\/+$/g, '') +'/'+ mst,
         dataType: 'html',
-        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o conteúdo HTML
+        async   : false, // Essa requisição precisa ser SÍNCRONA para impedir que a função retorne o jQuery sem o
+						 // conteúdo HTML
         success : function(html){
             // Carregar o conteúdo HTML
            	$html.html(html).appendTo($('body'));
@@ -144,22 +144,36 @@ function CarregarHTML(controle, id_html){
  * @returns {jQuery|CarregarForm.$form|CarregarHTML.$html}
  */
 function CarregarForm(form, id_html, func_depois){
-    var $form = CarregarHTML(form, id_html);
+    var $html = CarregarHTML(form, id_html);
+	var $form = $html.find('form');
+
+    $form.off('reset').on('reset', function(evt){
+		$html.fadeOut('fast', function(){
+			$(this).remove();
+		});
+
+		// Parar a execução do evento
+		evt.preventDefault();
+		evt.stopPropagation();
+	}).off('submit')._formulario({
+		depois: function(){
+			$html.fadeOut('fast', function(){
+				$(this).remove();
+			});
+
+			if( typeof func_depois === 'function')
+				func_depois();
+		},
+		aparencia: { tema: plugin_formulario_tema }
+	});
+	/*.on('submit', function(evt){
+		evt.preventDefault();
+		evt.stopPropagation();
+
+		$form._executar($form.attr('action'), undefined, func_depois);
+	}); */
     
-    // Alterar algumas propriedades do formulário
-    $form.find('form')._formulario({
-        depois      : function(){
-            $form.find('form').trigger('reset');
-            if( typeof func_depois === 'function' ) func_depois();
-        },
-        aparencia   : { tema: plugin_formulario_tema, estilo: 'formulario' }
-    }).on('reset', function(){
-        $form.fadeOut('fast', function(){
-            $form.remove();
-        });
-    });
-    
-    return $form;
+    return $html;
 } // Fim function CarregarForm(form, id_html)
 
 
@@ -181,6 +195,7 @@ function MsgStatus(msg){
  * @returns {void}
  */
 function CarregarSelect($s, c){
+	console.log($s, c);
     $.ajax({
         url     : c,
         dataType: 'json',
@@ -294,11 +309,10 @@ function AlternarMaskFone(evt){
 	var tel = $th.data('telefone');
 
 	$(tel)._mascara(this.checked ? evt.data.msk9 : evt.data.msk8).trigger('focus');
-}
+} // Fim function AlternarMaskFone(evt)
 
 
-// Alterar o selector 'contains' do jQuery para que seja
-// case insensitive
+// Alterar o selector 'contains' do jQuery para que seja case insensitive
 $.expr[':'].contains = $.expr.createPseudo(function(arg){
     return function(elem){
         return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
@@ -307,14 +321,41 @@ $.expr[':'].contains = $.expr.createPseudo(function(arg){
 
 
 
-/**
- * Configuração da execução do AJAX
- */
+// Configuração de execução do AJAX --------------------------------------------------------------------------------- //
+var $ajax_contexto = $(document);
+var ajax_msg = 'Processando, por favor aguarde...';
+
+function AjaxContexto(contexto){
+	var contexto = contexto || $('html');
+
+	// Identificar o contexto que o AJAX deve utilizar
+	$('[data-ajax="1"]', contexto).on('click.__ajax', function(){
+		$ajax_contexto = $(this);
+	});
+} // Fim AjaxContexto
+
+AjaxContexto();
+
+
 $.ajaxSetup({
-    beforeSend  : function(){
-        $(document.createElement('div')).attr('id', 'carregando').html(
-            '<p class="carregando">Processando, por favor aguarde...</p>'
-        ).appendTo($('body')).fadeIn('fast');
+    beforeSend: function(){
+		ajax_msg = $ajax_contexto.data('ajax-msg') || ajax_msg;
+
+		if( $ajax_contexto !== undefined ){
+			$ajax_contexto.addClass('nao-clicavel');
+
+			// Incluir o ícone de carregamento
+			if( $ajax_contexto.is(':button, :submit, :reset, a') )
+				$ajax_contexto.addClass('ico-carregando');
+
+			// Desabilitar o botão
+			if( $ajax_contexto.is(':button, :submit, :reset') )
+				$ajax_contexto.prop('disabled', true);
+		} // Fim if( $ajax_contexto !== undefined )
+
+        $(document.createElement('p')).addClass('msg-carregando')
+			.html(ajax_msg)
+			.appendTo($('#dl3-carregando'));
     },
 
 	statusCode: {
@@ -323,13 +364,25 @@ $.ajaxSetup({
 		500: function(x){ MsgStatus(x.responseText); }
 	},
 
-    complete    : function(){
-        $('#carregando').fadeOut('fast', function(){
-            $(this).remove();
-        });
+    complete: function(){
+        $('#dl3-carregando')
+			.find(':contains(' + ajax_msg + ')')
+			.fadeOut('fast', function(){ $(this).remove(); });
+
+		if( $ajax_contexto !== undefined ){
+			$ajax_contexto.removeClass('nao-clicavel ico-carregando');
+
+			// Reabilitar o botão
+			$ajax_contexto.prop('disabled', false);
+
+			$ajax_contexto = $(document);
+		} // Fim if( $ajax_contexto !== undefined )
     }
 });
 
+
+
+// ------------------------------------------------------------------------------------------------------------------ //
 $(document).ready(function(){
 	// Alterar o comportamento dos campos do tipo 'number'
 	// Substituir a ',' por '.' automaticamente
@@ -338,7 +391,7 @@ $(document).ready(function(){
 		var kc 	= event.keyCode || event.charCode || event.which;
 		var vl 	= $th.val().replace('.', '');
 
-		if( kc == 188 ){
+		if( kc === 188 ){
 			$th.val(vl +'.');
 			return false;
 		} // Fim if( kc == 188 )

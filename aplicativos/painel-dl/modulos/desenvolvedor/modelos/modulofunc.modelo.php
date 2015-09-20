@@ -12,7 +12,7 @@ namespace Desenvolvedor\Modelo;
 use \Geral\Modelo as GeralM;
 
 class ModuloFunc extends GeralM\Principal{
-    protected $id, $func_modulo, $descr, $classe, $metodos, $grupos = [], $delete = 0;
+    protected $id, $func_modulo, $descr, $classe, $metodos = [], $grupos = [], $delete = 0;
 
     /*
      * 'Gets' e 'Sets' das propriedades
@@ -30,7 +30,7 @@ class ModuloFunc extends GeralM\Principal{
     } // Fim do método _descr
 
     public function _metodos($v = null){
-        return $this->metodos = filter_var(!isset($v) ? $this->metodos : $v, FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+        return $this->metodos = filter_var(!isset($v) ? $this->metodos : array_filter($v), FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY | FILTER_FORCE_ARRAY);
     } // Fim do método _metodos
 
     public function _grupos($v = null){
@@ -49,7 +49,6 @@ class ModuloFunc extends GeralM\Principal{
 
     /**
      * Salvar determinado registro
-     * Obs.: Inicialmente esse método  só é utilizado para inclusão de registros
      *
      * @param boolean $s   Define se o registro será salvo ou apenas será gerada a query de insert/update
      * @param array   $ci  Vetor com os campos a serem considerados
@@ -62,7 +61,17 @@ class ModuloFunc extends GeralM\Principal{
     protected function _salvar($s = true, array $ci = null, array $ce = null, $ipk = false){
         $r = parent::_salvar($s, $ci, $ce, $ipk);
 
-        if( $r && $s ){
+        if( $s ){
+            if( !$this->reg_vazio ){
+	            # Remover os métodos atuais dessa função
+	            $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_funcs_metodos WHERE metodo_func = :id");
+	            $sql->execute([':id' => $this->id]);
+
+	            # Remover os grupos atuais dessa função
+	            $sql = \DL3::$bd_conex->prepare("DELETE FROM dl_painel_grupos_funcs WHERE func_modulo_id = :id");
+	            $sql->execute([':id' => $this->id]);
+            } // Fim if( !$this->reg_vazio )
+
 	        # Incluir os métodos
 	        $sql = \DL3::$bd_conex->prepare("INSERT INTO dl_painel_funcs_metodos (metodo_func, metodo_func_descr) VALUES (:id, :metodo)");
 
@@ -93,12 +102,25 @@ class ModuloFunc extends GeralM\Principal{
 	 */
 	public function _selecionarPK($v, $a = null){
         if( parent::_selecionarPK($v, $a) ){
-	        $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE func_modulo = :id");
+	        # Selecionar os métodos dessa classe
+	        $sql = \DL3::$bd_conex->prepare("SELECT metodo_func_descr FROM dl_painel_funcs_metodos WHERE metodo_func = :id");
 	        $sql->execute([':id' => $this->id]);
 
 	        if( $sql === false ) return;
 
 	        $this->metodos = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
+
+	        # Selecionar os grupos dessa classe
+	        $sql = \DL3::$bd_conex->prepare("SELECT grupo_usuario_id FROM dl_painel_grupos_funcs WHERE func_modulo_id = :id");
+	        $sql->execute([':id' => $this->id]);
+
+	        if( $sql === false ) return;
+
+	        $this->grupos = $sql->fetchAll(\PDO::FETCH_COLUMN, 0);
+
+	        return true;
         } // Fim if( parent::_selecionarPK($v, $a) )
+
+		return false;
     } // Fim do método _selecionarPK
 } // Fim do Modelo ModuloFunc

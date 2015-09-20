@@ -5,28 +5,29 @@
  * @Data   	: 12/05/2015 17:20:21
  */
 
-@import '../../_ajuda/compatibilidade.scss';
-@import '../_ajuda/flexivel.scss';
-@import '../_ajuda/cores.scss';
+
+
+@import '../../_ajuda/compatibilidade';
+@import '../_ajuda/flexivel';
 
 
 
-/* CSS Reset ---------------------------------------------------------------- */
-*, *:before, *:after{
+// CSS Reset -------------------------------------------------------------------------------------------------------- //
+*, *::before, *::after {
     /* Margens */
-    margin  :0;
-    padding :0;
+    margin: 0;
+    padding: 0;
     
-    /* Visual */
-    list-style  : none;
-    outline     : 0;
+    // Visual
+    list-style: none;
+    outline: 0;
     
     /* Texto */
-    font-weight     : inherit;
-    font-style      : inherit;
-    font-size       : 13px;
-    font-family     : inherit;
-    text-decoration : none;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 13px;
+    font-family: inherit;
+    text-decoration: none;
     
     /* Tamanho */
     @include _box-sizing();
@@ -34,98 +35,84 @@
 
 
 
-/* Fontes ------------------------------------------------------------------- */
-@font-face{
-    font-family : 'icones';
-    src         : url('fontes/icomoon.ttf');
+// Fontes ----------------------------------------------------------------------------------------------------------- //
+@font-face {
+    font-family: 'icones';
+    src: url('../css/fontes/icomoon.ttf');
 }
 
-@font-face{
-    font-family : 'logotipo';
-    src         : url('fontes/neuropol.ttf');
+@font-face {
+    font-family: 'logotipo';
+    src: url('../css/fontes/neuropol.ttf');
 }
 
 
-/* TAGs --------------------------------------------------------------------- */
-body{
-    /* Visual */
-    background-color: $c-html-fundo;
+// TAGs ------------------------------------------------------------------------------------------------------------- //
+body {
+    // Visual
+    background-color: $layout-html-fundo;
     
-    /* Texto */
+    // Texto
     font-family: 'geral', sans-serif;
     
-    /* Margens */
-    padding-top: 3em;
+    // Margens
+    padding-top: 4rem;
 }
 
-img,video,audio{
-    /* Tamanho */
-    max-width   : 100%;
-    max-height  : 100%;
+img, video, audio, embed, object {
+    // Tamanho
+    max-width: 100%;
+    max-height: 100%;
 }
 
-b{ 
-    /* Texto */
-    font-size   : inherit;
-    font-weight : bold;
+b {
+    // Texto
+    font-size: inherit;
+    font-weight: bold;
 }
 
 
 
-/* Grid do layout ----------------------------------------------------------- */
-#dl3-grid{
-    /* Tamanho */
-    width   : $grid-tamanho-x;
-    height  : $grid-tamanho-y;
+// Grid do layout --------------------------------------------------------------------------------------------------- //
+#dl3-grid {
+    // Tamanho
+    width: $grid-tamanho-x;
+    max-width: $grid-tamanho-max;
     
-    /* Flex */
-    @include _flex-box();
-    @include _flex-flow(wrap row);
-    
-    /* Margens */
+    // Margens
     margin: auto;
 }
 
 
 
-/* Títulos ------------------------------------------------------------------ */
-.titulo-h1{ color: $c-titulo-h1; }
-.titulo-h2{ color: $c-titulo-h2; }
-.titulo-h3{ color: $c-titulo-h3; }
-.titulo-h4{ color: $c-titulo-h4; }
-.titulo-h5{ color: $c-titulo-h5; }
-.titulo-h6{ color: $c-titulo-h6; }
-
-
-
-/* Controle de visualização ------------------------------------------------- */
-/* Desktops ----------------------------------------------------------------- */
-@media screen and (min-width:$tela-tablet + 1px){
-    .v-tablet, .v-tablet:before, .v-tablet:after,
-    .v-smart, .v-smart:before, .v-smart:after{
-        /* Visual */
+// Controle de visualização ----------------------------------------------------------------------------------------- //
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@include _tela-desktops {
+    .v-tablet:not(.v-desk), .v-tablet:not(.v-desk)::before, .v-tablet:not(.v-desk)::after,
+    .v-smart:not(.v-desk), .v-smart:not(.v-desk)::before, .v-smart:not(.v-desk)::after {
+        // Visual
         display: none;
     }
 }
 
 
 
-/* Tablets ------------------------------------------------------------------ */
-@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
-    .v-desk, .v-desk:before, .v-desk:after,
-    .v-smart, .v-smart:before, .v-smart:after{
-        /* Visual */
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@include _tela-tablets {
+    .v-desk:not(.v-tablet), .v-desk:not(.v-tablet)::before, .v-desk:not(.v-tablet)::after,
+    .v-smart:not(.v-tablet), .v-smart:not(.v-tablet)::before, .v-smart:not(.v-tablet)::after {
+        // Visual
         display: none;
     }
 }
 
 
 
-/* Smartphone---------------------------------------------------------------- */
-@media screen and (max-width:$tela-tablet + 1px){
-    .v-tablet, .v-tablet:before, .v-tablet:after,
-    .v-desk, .v-desk:before, .v-desk:after{
-        /* Visual */
+// Smartphone ------------------------------------------------------------------------------------------------------- //
+@include _tela-smartphone {
+    .v-tablet:not(.v-tablet), .v-tablet:not(.v-tablet)::before, .v-tablet:not(.v-tablet)::after,
+    .v-desk:not(.v-tablet), .v-desk:not(.v-tablet)::before, .v-desk:not(.v-tablet)::after {
+        // Visual
         display: none;
     }
 }

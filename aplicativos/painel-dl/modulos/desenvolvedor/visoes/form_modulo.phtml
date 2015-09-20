@@ -14,61 +14,60 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
+    <h2 class="titulo-h2"><?php echo TXT_PAGINA_TITULO_MODULO; ?></h2>
 
-    <h2 class="titulo-h2"><?= TXT_PAGINA_TITULO_MODULO; ?></h2>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_MODULO; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_MODULO; ?></legend>
 
             <?php if( $params['modulos-pai'] != false ): ?>
             <p class="form-paragr">
-	            <?= $this->aux_form->_combo_select('pai', 'pai', $mod->pai, TXT_ROTULO_MODULO_PAI, null, [],
+	            <?php echo $this->aux_form->_combo_select('pai', 'pai', $mod->pai, TXT_ROTULO_MODULO_PAI, null, [],
 		            array_merge([['VALOR' => '', 'TEXTO' => TXT_OPCAO_SELECIONE_UMA_OPCAO]], $params['modulos-pai'])
 	            ); ?>
             </p>
             <?php endif; ?>
 
             <p class="form-paragr">
-                <?= $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
+                <?php echo $this->aux_form->_campo_geral('texto', 'nome', 'nome', $mod->nome, TXT_ROTULO_NOME, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-                <label for="txt-descr" class="form-rotulo"><?= TXT_ROTULO_DESCRICAO; ?>:</label><br/>
-                <textarea name="descr" id="txt-descr" class="form-controle form-controle-textarea"><?= $mod->descr; ?></textarea>
+                <?php echo $this->aux_form->_caixa_texto('descr', 'descr', $mod->descr, TXT_ROTULO_DESCRICAO); ?>
             </p>
         </fieldset>
 
         <fieldset class="form-grupo">
-            <legend class="form-legenda"><?= TXT_LEGENDA_MENU; ?></legend>
+            <legend class="form-legenda"><?php echo TXT_LEGENDA_MENU; ?></legend>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_chk_sim_nao('menu', 'menu', TXT_ROTULO_MENU, TXT_DICA_MODULO_MENU, $mod->menu ? ' CHECKED' : ''); ?>
+	            <?php echo $this->aux_form->_chk_sim_nao('menu', 'menu', TXT_ROTULO_MENU, TXT_DICA_MODULO_MENU, $mod->menu ? ' CHECKED' : ''); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('texto', 'link', 'link', $mod->link, TXT_ROTULO_LINK, null, ['required' => 'required']); ?>
+	            <?php echo $this->aux_form->_campo_geral('texto', 'link', 'link', $mod->link, TXT_ROTULO_LINK, null, ['required' => 'required']); ?>
             </p>
 
             <p class="form-paragr">
-	            <?= $this->aux_form->_campo_geral('numero', 'ordem', 'ordem', $mod->ordem, TXT_ROTULO_ORDEM, null, [
+	            <?php echo $this->aux_form->_campo_geral('numero', 'ordem', 'ordem', $mod->ordem, TXT_ROTULO_ORDEM, null, [
 		            'min' => -99, 'max' => 99, 'required' => 'required'
 	            ]); ?>
             </p>
         </fieldset>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

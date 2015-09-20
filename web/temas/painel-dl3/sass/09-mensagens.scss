@@ -7,58 +7,49 @@
 
 
 
-/* -----------------------------------------------------------------------------
- *  Mensagens
- * -------------------------------------------------------------------------- */
+// Mensagens -------------------------------------------------------------------------------------------------------- //
 $msg: 'sucesso' #080 '\e710',
     'atencao' #FFA500 '\e707',
     'info' #069 '\e70c',
     'erro' #F00 '\e70f';
 
-    
-[class^="msg-"]{
-    /* Margens */
-    padding : .5em 1em;
-    margin  : 1em 0;
+[class^="msg-"] {
+    // Margens
+    padding: .5em 1em;
+    margin: 1em 0;
 }
 
-[class^="msg-"]:before{
-    /* Texto */
-    font-family : 'icones';
-    font-size   : 1.3em;
+[class^="msg-"]::before {
+    // Texto
+    font-family: 'icones';
+    font-size: 1.3em;
     
-    /* Visual */
+    // Visual
     display: inline-block;
     
-    /* Margens */
+    // Margens
     margin-right: 0.35em;
     
-    /* Alinhamento */
+    // Alinhamento
     vertical-align: middle;
     
-    /* Tamanho */
+    // Tamanho
     height: 100%;
 }
 
-
-
-@each $m in $msg{
-    $cl: nth($m,1);
-    $co: nth($m,2);
-    $ic: nth($m,3);
-    
-    .msg-#{$cl}{
-        /* Texto */
-        color: $co;
+@each $classe, $cor, $icone in $msg {
+    .msg-#{$classe} {
+        // Texto
+        color: $cor;
         
-        /* Visual */
-        border-top      : 1px solid $co;
-        border-bottom   : 1px solid $co;
-        background      : change_color($co,$alpha:.08);
+        // Visual
+        border-top: 1px solid $cor;
+        border-bottom: 1px solid $cor;
+        background: change_color($cor, $alpha: .08);
     }
     
-    .msg-#{$cl}:before{
+    .msg-#{$classe}::before {
         /* Texto */
-        content: $ic;
+        content: $icone;
     }
 }

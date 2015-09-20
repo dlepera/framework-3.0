@@ -14,32 +14,32 @@ $mod = $params['modelo'];
 ?>
 
 [DL3-CONTEUDO]
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/titulo_h2.phtml'; ?>
-
-    <form id="form-<?= $params['form-id']; ?>" method="post" action="<?= $params['form-action']; ?>">
+    <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo $params['form-action']; ?>">
         <?php if( !$params['incluindo'] ): ?>
-        <input type="hidden" name="id" value="<?= $mod->id; ?>"/>
+        <input type="hidden" name="id" value="<?php echo $mod->id; ?>"/>
         <?php endif; ?>
 
         <p class="form-paragr">
-            <?= $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, ['required' => 'required']); ?>
+            <?php echo $this->aux_form->_campo_geral('texto', 'descr', 'descr', $mod->descr, TXT_ROTULO_DESCR, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('email', 'email', 'email', $mod->email, TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('email', 'email', 'email', $mod->email, TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_campo_geral('cor', 'cor', 'cor', $mod->cor, TXT_ROTULO_COR, null, ['required' => 'required']); ?>
+	        <?php echo $this->aux_form->_campo_geral('cor', 'cor', 'cor', $mod->cor, TXT_ROTULO_COR, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">
-	        <?= $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
+	        <?php echo $this->aux_form->_chk_sim_nao('publicar', 'publicar', TXT_ROTULO_PUBLICAR, null, $mod->publicar ? ' CHECKED' : ''); ?>
         </p>
 
         <p class="form-botoes">
-            <button type="submit" class="btn-salvar"><?= TXT_BOTAO_SALVAR; ?></button>
-            <button type="reset" class="btn-cancelar"><?= TXT_BOTAO_CANCELAR; ?></button>
+            <?php
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

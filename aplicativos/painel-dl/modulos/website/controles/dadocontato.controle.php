@@ -15,23 +15,12 @@ use \WebSite\Modelo as WebM;
 class DadoContato extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\DadoContato(), 'website', TXT_MODELO_DADOCONTATO);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-	            'id' => FILTER_VALIDATE_INT,
-	            'tipo' => FILTER_VALIDATE_INT,
-	            'descr' => FILTER_SANITIZE_STRING,
-	            'publicar' => FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' )
+        $this->_carregar_post([
+            'id' => FILTER_VALIDATE_INT,
+            'tipo' => FILTER_VALIDATE_INT,
+            'descr' => FILTER_SANITIZE_STRING,
+            'publicar' => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -41,16 +30,19 @@ class DadoContato extends GeralC\PainelDL{
 	 * Mostrar a lista de registros
 	 */
     protected function _mostrarlista(){
-        $this->_listapadrao('dado_contato_id, dado_contato_descr, tipo_dado_descr,'
-            . " ( CASE dado_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+        $this->_listapadrao('dado_contato_id AS ' . TXT_LISTA_TITULO_ID . ', dado_contato_descr AS ' . TXT_LISTA_TITULO_DESCR . ','
+            . ' tipo_dado_descr AS ' . TXT_LISTA_TITULO_TIPO . ','
+            . " ( CASE dado_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '" . TXT_LISTA_TITULO_PUBLICADO . "'",
             'tipo_dado_descr, dado_contato_descr', null);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/form_filtro');
         $this->_carregarhtml('lista_dados');
         $this->visao->titulo = TXT_PAGINA_TITULO_DADOS_CONTATO;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'website/dados-para-contato/');
+        $this->visao->_adparam('form-acao', 'website/dados-para-contato/excluir-dados');
         $this->visao->_adparam('campos', [
             ['valor' => 'dado_contato_descr', 'texto' => TXT_ROTULO_DESCR],
             ['valor' => 'tipo_dado_descr', 'texto' => TXT_ROTULO_TIPO]
@@ -70,8 +62,8 @@ class DadoContato extends GeralC\PainelDL{
         $inc = $this->_formpadrao('dado', 'dados-para-contato/salvar', 'dados-para-contato/salvar', 'website/dados-para-contato', $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_dado', $mst);
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_DADOCONTATO : TXT_PAGINA_TITULO_EDITAR_DADOCONTATO;
 
         $m_td = new WebM\TipoDadoContato();
         $l_td = $m_td->_carregarselect('tipo_dado_publicar = 1', false);

@@ -7,566 +7,365 @@
 
 
 
-@import '../../_ajuda/compatibilidade.scss';
-@import '../../_ajuda/geometricas.scss';
-@import '../_ajuda/configuracoes.scss';
-@import '../_ajuda/cores.scss';
+@import '../../_ajuda/compatibilidade';
+@import '../../_ajuda/geometricas';
+@import '../_ajuda/config';
 
 
 
-/* -----------------------------------------------------------------------------
- *  Incluir trecho HTML por cima da pagina
- * -------------------------------------------------------------------------- */
-.sobre-tela{
-    /* Tamanho */
-    width   : 100%;
-    height  : 100%;
+// Incluir trecho HTML por cima da pagina --------------------------------------------------------------------------- //
+.sobre-tela {
+    // Tamanho
+    width: 100%;
+    height: 100%;
     
-    /* Posicionamento */
+    // Posicionamento
     position: fixed;
-    top     : 0;
-    left    : 0;
-    z-index : 1;
+    top: 0;
+    left: 0;
+    z-index: 1;
     
-    /* Visual */
-    background: rgba(0,0,0,.4);
+    // Visual
+    background: rgba(0, 0, 0, .4);
     
-    > .dl3-conteudo{
-        /* Posicionamento */
+    > .dl3-conteudo {
+        // Posicionamento
         position: absolute;
-        top     : 50%;
-        left    : 50%;
+        top: 50%;
+        left: 50%;
         
-        /* Visual */
+        // Visual
         overflow-y: auto;
+
+	    // Tamanho
+	    max-height: 80%;
         
-        /* Transformar */
+        // Transformar
         @include _transform(translateY(-50%) translateX(-50%));
     }
-    
-    > .btn-fechar{
+
+    > .btn-fechar {
         $tm: 2em;
-        
-        /* Visual */
-        border          : 1px solid #FFF;
-        border-radius   : 50%;
-        background      : #000;
-        box-shadow      : $sombra-padrao;
-        
-        /* Texto */
-        color       : #FFF;
-        line-height : $tm;
-        
-        /* Tamanho */
-        width   : $tm;
-        height  : $tm;
-        
-        /* Margens */
-        margin  : 0;
-        padding : 0;
-        
-        /* Posicionamento */
+
+        // Visual
+        border: 1px solid #FFF;
+        border-radius: 50%;
+        background: #000;
+        box-shadow: $layout-sombra-padrao;
+
+        // Texto
+        color: #FFF;
+        line-height: $tm;
+
+        // Tamanho
+        width: $tm;
+        height: $tm;
+
+        // Margens
+        margin: 0;
+        padding: 0;
+
+        // Posicionamento
         position: absolute;
-        
-        /* Transformar */
+	    top: 10%;
+	    right: 10%;
+
+        // Transformar
         @include _transform(translateX(50%) translateY(-50%));
     }
-    
-    > .btn-fechar:focus{
-        /* Visual */
+
+    > .btn-fechar:focus {
+        // Visual
         outline: none;
     }
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Exibir foto de perfil
- * -------------------------------------------------------------------------- */
-.usr-perfil-foto{
-    /* Visual */
-    display: inline-block;
-    
-    > .foto{
-        /* Visual */
-        border-radius   : 50%;
-        border          : $borda-suave;
-        background      : #FFF;
-        
-        /* Tamanho */
-        max-width   : 100%;
-        max-height  : 100%;
-        
-        /* Margens */
-        margin: auto;
-        
-        /* Alinhamento */
-        vertical-align: middle;
-    }
-}
+// Exibir cor ------------------------------------------------------------------------------------------------------- //
+.mostrar-cor {
+	// Formas geométricas
+    @include _circulo(attr(data-cor), 10px);
 
-.usr-perfil-foto.tam-p{
-    /* Tamanho */
-    width   : 40px;
-    height  : 40px;
-    
-    .foto{
-        /* Margens */
-        padding: 3px;
-    }
-}
-
-.usr-perfil-foto.tam-m{
-    /* Tamanho */
-    width   : 60px;
-    height  : 60px;
-    
-    .foto{
-        /* Margens */
-        padding: 4px;
-    }
-}
-
-.usr-perfil-foto.tam-g{
-    /* Tamanho */
-    width   : 90px;
-    height  : 90px;
-    
-    .foto{
-        /* Margens */
-        padding: 5px;
-    }
-}
-
-
-
-/* -----------------------------------------------------------------------------
- *  Foto de perfil
- * -------------------------------------------------------------------------- */
-.usr-alterar-foto{
-    /* Visual */
-    display: inline-block;
-    
-    /* Tamanho */
-    width   : auto;
-    height  : auto;
-    
-    /* Margens */
-    margin  : 0;
-    padding : 0;
-    
-    /* Posicionamento */
-    position: absolute;
-    right   : 2em;
-    
-    > #perfil-foto{
-        /* Visual */
-        opacity: 0;
-        
-        /* Tamanho */
-        width   : 0;
-        height  : 0;
-        
-        /* Posicionamento */
-        position: absolute;
-        top     : -9999px;
-        left    : -9999px;
-    }
-    
-    .msg-alterar-foto{
-        /* Posicionamento */
-        position: absolute;
-        top     : 0;
-        left    : 0;
-        z-index : 1;
-        
-        /* Tamanho */
-        width   : 100%;
-        height  : 100%;
-        
-        /* Texto */
-        color           : #FFF;
-        text-align      : center;
-        text-transform  : uppercase;
-        
-        /* Visual */
-        background      : rgba(0,0,0,.5);
-        border-radius   : 50%;
-        opacity         : 0;
-        
-        /* Margens */
-		margin  : 0;
-		padding : 2.5em 0;
-        
-        @include _transition(opacity .5s);
-    }
-	
-	.msg-alterar-foto:hover{
-		/* Visual */
-		cursor: pointer;
-	}
-}
-
-.usr-alterar-foto:hover{
-    .msg-alterar-foto{
-        /* Visual */
-        opacity: 1;
-    }
-}
-
-
-
-/* -----------------------------------------------------------------------------
- *  Logs de registros
- * -------------------------------------------------------------------------- */
-.log-registro{
-    /* Texto */
-    color       : #888;
-    font-size   : 1em;
-    line-height : 1.5em;
-    
-    /* Margens */
-    margin: .5em 0;
-}
-
-
-
-/* -----------------------------------------------------------------------------
- *  Exibir cores
- * -------------------------------------------------------------------------- */
-.mostrar-cor{
-    /* Tamanho */
-    min-width   : 10px;
-    min-height  : 10px;
-    
-    /* Visual */
-    display         : inline-block;
-    border-radius   : 50%;
-    
-    /* Margens */
+    // Margens
     margin-right: .5em;
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Mostrar o álbum de fotos
- * -------------------------------------------------------------------------- */
-.mostrar-fotos{
-    .album-foto{
-        /* Margens */
-        padding: .5em;
-        
-        /* Posicionamento */
-        position: relative;
-        
-        /* Visual */
-        border          : $borda-suave;
-        border-radius   : 10px;
-        
-        > .af-imagem{
-            /* Tamanho */
-            max-width   : 100%;
-            max-height  : 100%;
-            
-            /* Visual */
-            display: block;
-            
-            /* Margens */
-            margin: auto;
-        }
-        
-        > .af-infos{
-            /* Margens */
-            margin-top  : 1em;
-            padding     : .5em;
-            
-            /* Tamanho */
-            width: 100%;
-            
-            > .af-links{
-                /* Margens */
-                margin: .5em 0;
-            }
-            
-            .af-capa{
-                /* Visual */
-                display         : inline-block;
-                background      : orange;
-                border-radius   : 5px;
-                
-                /* Texto */
-                color: #FFF;
-                
-                /* Margens */
-                padding: .1em .5em;
-            }
-        }
-    }
+// Mostrar imagem única --------------------------------------------------------------------------------------------- //
+.mostrar-imagem {
+	> img {
+		// Visual
+		border: $layout-borda-padrao;
+		background: #FFF;
+		display: block;
+
+		// Margens
+		padding: .35em;
+		margin: auto;
+	}
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Configuracao de funcionalidades por grupos
- * -------------------------------------------------------------------------- */
-.grp-funcs{
-    .grp-modulo{
-        $c-grp-txt: #900;
-        
-        > .grp-nm-modulo{
-            /* Texto */
-            color       : $c-grp-txt;
-            font-weight : bold;
-            
-            /* Margens */
-            padding: 1em 0;
-        }
-        
-        > .grp-nm-modulo:after{
-            /* Triangulo */
-            @include _triangulo-baixo($c-grp-txt, 5px, 5px);
-            
-            /* Texto */
-            content: '';
-            
-            /* Alinhamento */
-            vertical-align: middle;
-            
-            /* Visual */
-            display: inline-block;
-            
-            /* Margens */
-            margin-left: 1em;
-        }
-        
-        > .grp-nm-submodulo{
-            /* Visual */
-            border-bottom: $borda-suave;
-            
-            /* Texto */
-            line-height : 2em;
-            font-style  : italic;
-            font-weight : bold;
-            
-            /* Margens */
-            padding: .5em 0;
-        }
-    }
-    
-    .grp-submodulo{
-        /* Flex */
-        @include _flex-box();
-        @include _flex-flow(row wrap);
-        
-        /* Margens */
-        padding: 0 1em;
-        
-        /* Visual */
-        background: #efefef;
-    }
+// Widtgets --------------------------------------------------------------------------------------------------------- //
+.widgets {
+	> .widget {
+		// Visual
+		border: 1px solid lighten($mnnv-cor-fundo, 45%);
+		
+		// Margens
+		padding-top: 3.5em;
+		
+		// Posicionamento
+		position: relative;
+		
+		> .wg-titulo {
+			// Posicionamento
+			position: absolute;
+			top: 0;
+			left: 0;
+			
+			// Tamanho
+			width: 100%;
+			
+			// Visual
+			background: lighten($mnnv-cor-fundo, 50%);
+			
+			// Texto
+			color: lighten($mnnv-cor-fundo, 10%);
+			font-weight: normal;
+			line-height: 2.2em;
+			font-size: 1.1em;
+			text-indent: .7em;
+			
+			// Margens
+			margin: 0;
+			padding: 0;
+		}
+		
+		> .wg-conteudo {
+			// Tamanho
+			width: 100%;
+		}
+	}
+	
+	.hm-analytics {
+		> ul {
+			/* Flex */
+			@include _flex-box;
+			
+			> .ga-valor {
+				/* Flex */
+				@include _flex(33.3%);
+				
+				// Texto
+				text-align: center;
+				font-size: 1.2em;
+				
+				> h3 {
+					// Texto
+					color: orange;
+					font-variant: small-caps;
+					font-weight: normal;
+				}
+				
+				> .visitas {
+					// Texto
+					color: #888;
+					font-size: 2em;
+				}
+			}
+		}
+	}
+}
+
+
+// Mostrar mensagens de incompatibilidade --------------------------------------------------------------------------- //
+.incompativel {
+	// Visual
+	display: block;
+	background: red;
+
+	// Tamanho
+	width: 100%;
+
+	// Texto
+	color: #FFF;
+	text-align: center;
+
+	// Posicionamento
+	position: fixed;
+	top: 7vh;
+	left: 0;
+	z-index: 2;
+
+	// Margens
+	padding: .75em 5vw;
+	margin-top: .75em;
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Mostrar usuario que leram o contato
- * -------------------------------------------------------------------------- */
-.leituras{
-    /* Margens */
-    padding: 0;
-    
-    > .item-leitura{
-        /* Margens */
-        padding: .5em 0;
-        
-        /* Visual */
-        list-style-position: inside;
-    }
-    
-    > .item-leitura:not(:last-child){
-        /* Visual */
-        border-bottom: $borda-suave;
-    }
+// Informações sobre o sistema -------------------------------------------------------------------------------------- //
+.sobre {
+	&-logotipo {
+		// Texto
+		text-align: center;
+
+		// Posicionamento
+		position: static !important;
+
+		// Margens
+		padding: 2rem;
+
+		> img {
+			// Margens
+			padding: 1rem;
+		}
+	}
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Carregando
- * -------------------------------------------------------------------------- */
-.carregando{
-    /* Visual */
-    background      : rgba(0,0,0,.6);
-    border-radius   : 8px;
-    
-    /* Texto */
-    color       : #FFF;
-    text-align  : center;
-    
-    /* Posicionamento */
-    position: fixed;
-    bottom  : 1em;
-    left    : 1em;
-    
-    /* Margens */
-    padding: .5em 5em;
-}
-
-.carregando:after{
-    /* Texto */
-    content:  url('imagens/loading-pontos.gif');
-    
-    /* Visual */
-    display: block;
+// Navegação de links ----------------------------------------------------------------------------------------------- //
+.dl3-links {
+	 > *:not(:first-child) {
+		// Margens
+		margin-left: 2rem;
+	 }
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Mostrar imagem unica
- * -------------------------------------------------------------------------- */
-.mostrar-imagem{
-    > img{
-        /* Visual */
-        border      : $borda-suave;
-        background  : #FFF;
-        display     : block;
+// Menssagem de carregando ------------------------------------------------------------------------------------------ //
+#dl3-carregando {
+	// Posicionamento
+	position: fixed;
+	bottom: 1rem;
+	left: 5%;
 
-        /* Margens */
-        padding : .35em;
-        margin  : auto;
-    }
+	> .msg-carregando {
+		// Visual
+		background-color: rgba(0, 0, 0, .6);
+		border-radius: 10px;
+
+		// Tamanho
+		width: 100%;
+
+		// Texto
+		color: #FFF;
+		text-align: center;
+
+		// Margens
+		padding: .35rem 1rem;
+	}
+
+	> .msg-carregando::after {
+		// Texto
+		content: url("imagens/loading-pontos.gif");
+
+		// Margens
+		margin-top: .5rem;
+
+		// Visual
+		display: block;
+	}
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Widtgets
- * -------------------------------------------------------------------------- */
-.widgets{
-    > .widget{
-        /* Visual */
-        border: 1px solid lighten($c-mnnv-fundo,45%);
-        
-        /* Margens */
-        padding: 3.5em .5em .5em .5em;
-        
-        /* Posicionamento */
-        position: relative;
-        
-        > .wg-titulo{
-            /* Posicionamento */
-            position: absolute;
-            top     : 0;
-            left    : 0;
-            
-            /* Tamanho */
-            width: 100%;
-            
-            /* Visual */
-            background: lighten($c-mnnv-fundo,50%);
-            
-            /* Texto */
-            color       : lighten($c-mnnv-fundo,10%);
-            font-weight : normal;
-            line-height : 2.2em;
-            font-size   : 1.1em;
-            text-indent : .7em; 
-            
-            /* margens */
-            margin  : 0;
-            padding : 0;
-        }
-        
-        > .wg-conteudo{
-            /* Tamanho */
-            width: 100%;
-        }
-    }
-    
-    .hm-analytics{
-        > ul{
-            /* Flex */
-            @include _flex-box();
-
-            > .ga-valor{
-                /* Flex */
-                @include _flex(33.3%);
-                
-                /* Texto */
-                text-align: center;
-                font-size : 1.2em;
-                
-                > h3{
-                    /* Texto */
-                    color       : orange;
-                    font-variant: small-caps;
-                    font-weight : normal;
-                }
-                
-                > .visitas{
-                    /* Texto */
-                    color       : #888;
-                    font-size   : 2em;
-                }
-            }
-        }
-    }
+// Não clicável ----------------------------------------------------------------------------------------------------- //
+.nao-clicavel {
+	// Texto
+	color: #AAA !important;
 }
 
 
-/* Mostrar mensagens de incompatibilidade */
-.incompativel{
-    /* Visual */
-    display: block;
-    background: red;
+// Exibir o loader -------------------------------------------------------------------------------------------------- //
+.ico-carregando::after {
+	// Texto
+	content: ''/* url("imagens/loading-min.gif") */;
 
-    /* Tamanho */
-    width: 100%;
+	// Visual
+	display: inline-block;
+	background: url('imagens/loading-min.gif');
+	background-size: contain;
 
-    /* Texto */
-    color: #FFF;
-    text-align: center;
+	// Margens
+	margin-left: .35rem;
 
-    /* Posicionamento */
-    position: fixed;
-    top: 7vh;
-    left: 0;
-    z-index: 2;
+	// Alinhamento
+	vertical-align: middle;
 
-    /* Margens */
-    padding: .75em 5vw;
-    margin-top: .75em;
-}
-
-
-/* Desktops ----------------------------------------------------------------- */
-@media screen and (min-width:$tela-tablet + 1px){
-    .sobre-tela{
-        > .dl3-conteudo{
-            /* Tamanho */
-            width       : 80%;
-            max-height  : 80%;
-        }
-        
-        > .btn-fechar{
-            /* Posicionamento */
-            top     : 10%;
-            right   : 10%;
-        }
-    }
-    
-    .mostrar-imagem{
-        /* Tamanho */
-        width: 50%;
-        
-        /* Posicionamento */
-        position: absolute;
-        right   : 0;
-    }
+	// Tamanho
+	height: 16px;
+	width: 16px;
 }
 
 
 
-/* Tablets e smartphones ---------------------------------------------------- */
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@include _tela-desktops {
+	.sobre-tela {
+		> .dl3-conteudo {
+			// Tamanho
+			width: 80%;
+		}
+	}
+
+	.mostrar-imagem {
+		// Tamanho
+		width: 50%;
+
+		// Posicionamento
+		position: absolute;
+		right: 0;
+	}
+
+	#dl3-carregando {
+		// Tamanho
+		width: 25%;
+	}
+}
+
+
+
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@include _tela-tablets {
+	#dl3-carregando {
+		// Tamanho
+		width: 50%;
+
+		// Margens
+		margin: 0 auto;
+	}
+
+	.sobre-tela {
+		> .dl3-conteudo {
+			// Tamanho
+			width: 90%;
+		}
+	}
+}
+
+
+
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@include _tela-smartphone {
+	#dl3-carregando {
+		// Tamanho
+		width: 75%;
+
+		// Margens
+		margin: 0 auto;
+	}
+
+	.sobre-tela {
+		> .dl3-conteudo {
+			// Tamanho
+			width: 90%;
+		}
+	}
+}

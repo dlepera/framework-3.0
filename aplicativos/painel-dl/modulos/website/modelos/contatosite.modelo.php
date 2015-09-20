@@ -74,20 +74,20 @@ class ContatoSite extends GeralM\Principal{
         $num = $this->_qtde_registros();
 
         $lis = $this->_listar(
-            '1=1 GROUP BY assunto_contato_id', 'assunto_contato_descr',
-            "COUNT({$this->bd_prefixo}id) AS QTDE, COALESCE(assunto_contato_descr, '". MSG_ASSUNTO_NAO_INFORMADO ."') AS DESCR, COALESCE(assunto_contato_cor, '#000') AS COR"
+            '1 = 1 GROUP BY assunto_contato_id', 'QTDE DESC, assunto_contato_descr',
+            "COUNT({$this->bd_prefixo}id) AS QTDE, COALESCE(assunto_contato_descr, '". TXT_DIVERSOS_ASSUNTO_NAO_INFORMADO ."') AS DESCR, COALESCE(assunto_contato_cor, '#000') AS COR"
         );
 
         $tabela = '<table class="wg-conteudo"><tbody>';
 
-        foreach($lis as $d):
-            $p100 = round(($d['QTDE']*100)/$num);
+        foreach($lis as $d){
+            $p100 = round(($d['QTDE'] * 100) / $num);
 
             $tabela .= "<tr style='color: {$d['COR']}'>"
                 . "<td>{$d['DESCR']}</td>"
                 . "<td>{$d['QTDE']} ({$p100}%)</td>"
                 . '</tr>';
-        endforeach;
+        } // Fim foreach
 
         $tabela .= '</tbody><tfoot>'
                 . '<tr style="color: #000">'

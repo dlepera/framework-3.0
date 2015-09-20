@@ -1,0 +1,54 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: dlepera
+ * Date: 15/09/15
+ * Time: 14:44
+ */
+
+!isset($params) and $params = $this->_obterparams();
+
+?>
+
+[DL3-CONTEUDO]
+	<div class="sobre flex-grade">
+		<figure class="sobre-logotipo mostrar-imagem flex-item seis-col">
+			<img src="<?php echo \DL3::$dir_relativo . \DL3::$dir_temas . $_SESSION['tema_diretorio']; ?>/css/imagens/logotipo.png" alt=""/>
+		</figure>
+
+		<div class="sobre-infos flex-item seis-col">
+			<details class="detalhes" open>
+				<summary class="det-titulo"><?php echo TXT_SUMARIO_PAINELDL; ?></summary>
+
+				<p class="det-paragr">
+					<span class="det-rotulo"><?php echo TXT_ROTULO_VERSAO_SISTEMA; ?>:</span>
+					<?php echo 'v' . \DL3::$ap_versao; ?>
+				</p>
+
+				<p class="det-paragr">
+					<span class="det-rotulo"><?php echo TXT_ROTULO_DESENVOLVIDO_POR; ?>:</span>
+					<?php echo \DL3::$autor_nome; ?>
+
+					<?php if( !empty(\DL3::$autor_email) ): ?>
+					<br/>
+					<a href="mailto: <?php echo \DL3::$autor_email; ?>"><?php echo \DL3::$autor_email; ?></a>
+					<?php endif; ?>
+
+					<?php if( !empty(\DL3::$autor_site) ): ?>
+						<br/>
+						<a href="<?php echo \DL3::$autor_site; ?>" target="_blank"><?php echo \DL3::$autor_site; ?></a>
+					<?php endif; ?>
+				</p>
+			</details>
+
+			<details class="detalhes" open>
+				<summary class="det-titulo"><?php echo \DL3::FWORK_NOME; ?></summary>
+
+				<p class="det-paragr">
+					<span class="det-rotulo"><?php echo TXT_ROTULO_VERSAO_FRAMEWORK; ?>:</span>
+					<?php echo 'v' . \DL3::FWORK_VERSAO; ?>
+				</p>
+			</details>
+		</div>
+	</div>
+[/DL3-CONTEUDO]

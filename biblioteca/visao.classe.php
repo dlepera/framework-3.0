@@ -23,7 +23,7 @@ class Visao{
     private $titulo, $cont_mestra;
 
     # Auxiliares
-	private $aux_numero, $aux_form;
+	public $aux_numero, $aux_form, $aux_lista, $aux_links;
 
 
 
@@ -33,10 +33,14 @@ class Visao{
 
 	    include_once '_auto/apoios/numero.apoio.php';
         include_once '_auto/apoios/formulario.apoio.php';
+        include_once '_auto/apoios/listas.apoio.php';
+        include_once '_auto/apoios/links.apoio.php';
 
 	    # Auxiliares
 	    $this->aux_numero = new ApoioG\Numero();
         $this->aux_form = new ApoioG\Formulario();
+        $this->aux_lista = new ApoioG\Lista();
+        $this->aux_links = new ApoioG\Link();
     } // Fim do método __construct
 
     public function __destruct(){

@@ -16,53 +16,53 @@ $le  = $params['log-email'];
 
 [DL3-CONTEUDO]
     <p class="log-registro">
-        <?php printf(MSG_CONTATO_DT_ENVIO, $mod->mod_lr->data_criacao); ?>
+        <?php printf(TXT_DIVERSOS_CONTATO_DT_ENVIO, $mod->mod_lr->data_criacao); ?>
     </p>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_SUMARIO_CONTATO; ?></summary>
+        <summary class="det-titulo"><?php echo TXT_SUMARIO_CONTATO; ?></summary>
 
         <p class="det-paragr">
-            <span class="det-rotulo"><?= TXT_ROTULO_NOME; ?>:</span>
-            <?= $mod->nome; ?>
+            <span class="det-rotulo"><?php echo TXT_ROTULO_NOME; ?>:</span>
+            <?php echo $mod->nome; ?>
         </p>
 
         <p class="det-paragr">
-            <span class="det-rotulo"><?= TXT_ROTULO_EMAIL; ?>:</span>
-            <a href="mailto:<?= $mod->email; ?>;"><?= $mod->email; ?></a>
+            <span class="det-rotulo"><?php echo TXT_ROTULO_EMAIL; ?>:</span>
+            <a href="mailto:<?php echo $mod->email; ?>;"><?php echo $mod->email; ?></a>
         </p>
 
         <p class="det-paragr">
-            <span class="det-rotulo"><?= TXT_ROTULO_TELEFONE; ?>:</span>
-            <?= $mod->telefone; ?>
+            <span class="det-rotulo"><?php echo TXT_ROTULO_TELEFONE; ?>:</span>
+            <?php echo $mod->telefone; ?>
         </p>
 
         <?php if( isset($params['assunto-descr']) ): ?>
-        <p class="det-paragr" style="color: <?= $params['assunto-cor']; ?>;">
-            <span class="det-rotulo"><?= TXT_ROTULO_ASSUNTO; ?>:</span>
-            <?= $params['assunto-descr']; ?>
+        <p class="det-paragr" style="color: <?php echo $params['assunto-cor']; ?>;">
+            <span class="det-rotulo"><?php echo TXT_ROTULO_ASSUNTO; ?>:</span>
+            <?php echo $params['assunto-descr']; ?>
         </p>
         <?php endif; ?>
 
         <p class="det-paragr">
-            <span class="det-rotulo"><?= TXT_ROTULO_MENSAGEM; ?>:</span>
-            <?= nl2br($mod->mensagem); ?>
+            <span class="det-rotulo"><?php echo TXT_ROTULO_MENSAGEM; ?>:</span>
+            <?php echo nl2br($mod->mensagem); ?>
         </p>
     </details>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_SUMARIO_ENVIO_EMAIL; ?></summary>
+        <summary class="det-titulo"><?php echo TXT_SUMARIO_ENVIO_EMAIL; ?></summary>
 
         <p class="det-paragr">
-            <span class="det-rotulo"><?= TXT_ROTULO_STATUS; ?>:</span>
+            <span class="det-rotulo"><?php echo TXT_ROTULO_STATUS; ?>:</span>
             <?php switch( $le->status ):
                 case 'E':
-                    echo MSG_EMAIL_ENVIADO, '<br/>',
+                    echo TXT_DIVERSOS_EMAIL_ENVIADO, '<br/>',
                         '<b>', TXT_ROTULO_DT_ENVIO, ':</b> ',
                         $le->mod_lr->data_criacao;
                     break;
                 case 'F':
-                    echo MSG_EMAIL_FALHOU, '<br/>',
+                    echo TXT_DIVERSOS_EMAIL_FALHOU, '<br/>',
                         '<b>', TXT_ROTULO_MSG_ERRO, ':</b><br/>',
                         nl2br($le->mensagem);
                     break;
@@ -71,7 +71,7 @@ $le  = $params['log-email'];
     </details>
 
     <details class="detalhes" open>
-        <summary class="det-titulo"><?= TXT_SUMARIO_QUEM_LEU; ?></summary>
+        <summary class="det-titulo"><?php echo TXT_SUMARIO_QUEM_LEU; ?></summary>
 
         <?php if( !count($params['leituras']) ):
             echo MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO;
@@ -79,7 +79,7 @@ $le  = $params['log-email'];
         <ol reversed="reversed" class="log-registro leituras">
             <?php foreach( $params['leituras'] as $l ): ?>
             <li class="item-leitura">
-                <?= \Funcoes::_formatardatahora($l['leitura_contato_data'], $_SESSION['formato_data_completo']) ." {$l['USUARIO']}"; ?>
+                <?php echo \Funcoes::_formatardatahora($l['leitura_contato_data'], $_SESSION['formato_data_completo']) ." {$l['USUARIO']}"; ?>
             </li>
             <?php endforeach; ?>
         </ol>

@@ -14,9 +14,7 @@ $rotas['^(home|index|)$'] = [
 
 
 
-/*
- * Módulos
- */
+// Módulos ---------------------------------------------------------------------------------------------------------- //
 $rotas['^(modulos/lista|modulos)$'] = [
     'controle'  =>  'Modulo',
     'acao'      =>  'mostrarlista'
@@ -30,7 +28,7 @@ $rotas['^modulos/novo$'] = [
 $rotas['^modulos/(editar|alterar)/\d+$'] = [
     'controle'  =>  'Modulo',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^modulos/atualizar-modulo$'] = $rotas['^modulos/instalar-modulo$'] = [
@@ -43,15 +41,6 @@ $rotas['^modulos/desinstalar-modulo$'] = [
     'acao'      =>  'remover'
 ];
 
-$rotas['^modulos/inserir-funcionalidade$'] = [
-    'controle'  =>  'Modulo',
-    'acao'      =>  'novafunc'
-];
-
-$rotas['^modulos/apagar-funcionalidade$'] = [
-    'controle'  =>  'Modulo',
-    'acao'      =>  'removerfunc'
-];
 
 $rotas['^modulos/alternar-publicacao/(publicar|ocultar)$'] = [
     'controle'  =>  'Modulo',
@@ -59,9 +48,32 @@ $rotas['^modulos/alternar-publicacao/(publicar|ocultar)$'] = [
     'params'    =>  '/-/-/:a'
 ];
 
-/*
- *  Filtro de módulos para o menu
- */
+
+// Funcionalidades -------------------------------------------------------------------------------------------------- //
+$rotas['^modulos/funcionalidades/novo/\d+(/[a-z]+)?$'] = [
+	'controle'  =>  'ModuloFunc',
+	'acao'      =>  'mostrarform',
+	'params'    =>  '/-/-/-/:md/:mst'
+];
+
+$rotas['^modulos/funcionalidades/editar/\d+(/[a-z]+)?$'] = [
+	'controle'  =>  'ModuloFunc',
+	'acao'      =>  'mostrarform',
+	'params'    =>  '/-/-/-/:pk/:mst'
+];
+
+$rotas['^modulos/funcionalidades/salvar$'] = [
+	'controle'  =>  'ModuloFunc',
+	'acao'      =>  'salvar'
+];
+
+$rotas['^modulos/funcionalidades/excluir$'] = [
+    'controle'  =>  'ModuloFunc',
+    'acao'      =>  'remover'
+];
+
+
+// Filtro de módulos para o menu ------------------------------------------------------------------------------------ //
 $rotas['^modulos/filtro-menu$'] = [
     'controle'  =>  'Modulo',
     'acao'      =>  'filtromenu',
@@ -69,10 +81,7 @@ $rotas['^modulos/filtro-menu$'] = [
 ];
 
 
-
-/*
- * Temas
- */
+// Temas ------------------------------------------------------------------------------------------------------------ //
 $rotas['^(temas/lista|temas)$'] = [
     'controle'  =>  'Tema',
     'acao'      =>  'mostrarlista'
@@ -88,7 +97,7 @@ $rotas['^temas/novo(/[a-z]+)?$'] = [
 $rotas['^temas/(editar|alterar)/\d+$'] = [
     'controle'  =>  'Tema',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^temas/atualizar-tema$'] = $rotas['^temas/instalar-tema$'] = [
@@ -114,9 +123,7 @@ $rotas['^temas/alternar-publicacao/(publicar|ocultar)$'] = [
 
 
 
-/*
- * Idiomas
- */
+// Idiomas ---------------------------------------------------------------------------------------------------------- //
 $rotas['^(idiomas/lista|idiomas)$'] = [
     'controle'  =>  'Idioma',
     'acao'      =>  'mostrarlista'
@@ -132,7 +139,7 @@ $rotas['^idiomas/novo(/[a-z]+)?$'] = [
 $rotas['^idiomas/(editar|alterar)/\d+$'] = [
     'controle'  =>  'Idioma',
     'acao'      =>  'mostrarform',
-    'params'    =>  '/-/-/:id'
+    'params'    =>  '/-/-/:pk'
 ];
 
 $rotas['^idiomas/salvar$'] = [

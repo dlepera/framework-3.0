@@ -52,7 +52,7 @@ class Modulo extends GeralM\Principal{
                 . " LEFT JOIN {$this->bd_tabela} AS S ON( S.{$this->bd_prefixo}id = M.{$this->bd_prefixo}pai )"
                 . ' WHERE M.%sdelete = 0';
 
-        $this->__selecionarPK($pk);
+        $this->_selecionarPK($pk);
     } // Fim do método __construct
 
 

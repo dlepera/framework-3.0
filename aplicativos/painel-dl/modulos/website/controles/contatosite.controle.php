@@ -25,16 +25,19 @@ class ContatoSite extends GeralC\PainelDL{
      * Mostrar a lista de registros
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('contato_site_id, contato_site_nome, contato_site_email, log_registro_data_criacao,'
-                . " ( CASE COALESCE(contato_site_assunto, 0) WHEN 0 THEN 'Não informado' ELSE assunto_contato_descr END ) AS ASSUNTO",
-                'log_registro_data_criacao DESC', null);
+        $this->_listapadrao('contato_site_id AS ' . TXT_LISTA_TITULO_ID . ', log_registro_data_criacao AS ' . TXT_LISTA_TITULO_DATA . ','
+            . " ( CASE COALESCE(contato_site_assunto, 0) WHEN 0 THEN 'Não informado' ELSE assunto_contato_descr END ) AS '" . TXT_LISTA_TITULO_ASSUNTO . "',"
+            . ' contato_site_nome AS ' . TXT_LISTA_TITULO_NOME . ", contato_site_email AS '" . TXT_LISTA_TITULO_EMAIL . "'",
+            'log_registro_data_criacao DESC', null);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/form_filtro');
         $this->_carregarhtml('lista_contatos');
         $this->visao->titulo = TXT_PAGINA_TITULO_CONTATOS_RECEBIDOS;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'website/contatos-recebidos/');
+        $this->visao->_adparam('form-acao', 'website/contatos-recebidos/apagar-contato');
         $this->visao->_adparam('campos', [
             ['valor' => 'contato_site_nome', 'texto' => TXT_ROTULO_NOME],
             ['valor' => 'contato_site_email', 'texto' => TXT_ROTULO_EMAIL],

@@ -1,474 +1,445 @@
 /**
  * @Autor	: Diego Lepera
- * @E-mail	: d_lepera@hotmail.com
+ * @E-mail	: dlepera88@gmail.com
  * @Projeto	: FrameworkDL
- * @Data        : 19/12/2014 17:41:35
+ * @Data   	: 12/05/2015 17:20:21
  */
 
-@import '../../_ajuda/compatibilidade.scss';
-@import '../../_ajuda/geometricas.scss';
-@import '../_ajuda/cores.scss';
-@import '../_ajuda/configuracoes.scss';
 
-/* -----------------------------------------------------------------------------
- *  Menu principal
- *  -> Cores
- * -------------------------------------------------------------------------- */
-.dl3-menu{
-    /* Visual */
-    background-color: $c-mnnv-fundo;
-    
-    /* Texto */
-    color: $c-mnnv-txt;
-    
-    > .menu-principal{
-        .menu-texto{
-            /* Texto */
-            color: $c-mnnv-links;
-        }
-        
-        .menu-item:hover .menu-texto,
-        .menu-item:hover{
-            /* Texto */
-            color: $c-mnnv-links-h;
-        }
-    }
-    
-    .sub-menu{
-        /* Visual */
-        background-color: $c-mnnv-sub-fundo;
-        
-        /* Texto */
-        color: $c-mnnv-sub-txt;
-        
-        .sm-texto{
-            /* Texto */
-            color: $c-mnnv-sub-links;
-        }
-        
-        .sm-texto:hover{
-            /* Texto */
-            color: $c-mnnv-sub-links-h;
-        }
-    }
+@import '../_ajuda/config';
+@import '../_ajuda/flexivel';
+@import '../../_ajuda/geometricas';
+
+
+
+// Configurações ---------------------------------------------------------------------------------------------------- //
+$nome-componente: 'dl3-menu';
+
+
+
+// Menu de navegação ------------------------------------------------------------------------------------------------ //
+.#{$nome-componente} {
+	// Flex
+	@include _flex-box;
+	@include _flex-flow(nowrap);
+
+	// Posicionamento
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1;
+
+	// Visual
+	background-color: $mnnv-cor-fundo;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .35);
+
+	// Tamanho
+	width: 100%;
+	height: 3rem;
+	
+	> .menu-principal {
+		> .menu-item {
+			> .menu-texto {
+				// Texto
+				color: $mnnv-links-texto;
+				line-height: 3rem;
+
+				// Tamanho
+				width: 100%;
+
+				// Visual
+				display: inline-block;
+			}
+
+			> .sub-menu {
+				// Visual
+				background-color: $mnnv-sbmn-cor-fundo;
+
+				> .sm-item {
+					// Texto
+					color: $mnnv-sbmn-texto;
+
+					> .sm-texto {
+						// Texto
+						color: $mnnv-sbmn-links-texto;
+						font-size: 1.1em;
+
+						// Visual
+						display: block;
+
+						// Margens
+						margin-bottom: .5rem;
+					}
+				}
+			}
+		}
+	}
+	
+	> #form-filtro-modulos {
+		// Margens
+		margin: 0;
+		padding: .35em .9em;
+		
+		// Tamanho
+		height: 2.85em;
+		
+		> .form-paragr {
+			// Tamanho
+			width: 100%;
+			height: 100%;
+			
+			// Margens
+			margin: 0;
+			padding: 0;
+			
+			// Visual
+			background: #FFF;
+			border-radius: 20px;
+			
+			// Posicionamento
+			position: relative;
+			
+			> .form-rotulo {
+				// Visual
+				display: none;
+			}
+			
+			> .form-controle-busca {
+				// Visual
+				border: none;
+				background: none;
+				
+				// Tamanho
+				width: 100%;
+				height: 100%;
+			}
+		}
+		
+		> .form-paragr::after {
+			// Texto
+			content: '\e686';
+			font-family: 'icones';
+			color: #CCC;
+			font-size: 1.5em;
+			text-align: center;
+			
+			// Tamanho
+			width: 2em;
+			
+			// Posicionamento
+			position: absolute;
+			right: 0;
+			top: 50%;
+			
+			// Transformar
+			@include _transform(translateY(-45%));
+		}
+		
+		> .menu-filtro {
+			// Posicionamento
+			position: absolute;
+			right: 1em;
+			
+			// Visual
+			border-radius: 10px;
+			box-shadow: 0 0 5px rgba(0, 0, 0, .35);
+			background: #FFF;
+			overflow: auto;
+			
+			// Margens
+			padding: 0 1em;
+
+			.sub-menu {
+				> .sm-item {
+					// Visual
+					background: none;
+
+					// Margens
+					padding: 5% 0;
+
+					// Visual
+					border-bottom: 1px solid #EEE;
+
+					// Texto
+					color: $mnnv-sbmn-texto;
+
+					> .sm-texto {
+						// Visual
+						display: block;
+
+						// Texto
+						line-height: 2rem;
+						color: $mnnv-sbmn-links-texto;
+					}
+				}
+			}
+			
+			.sm-item:last-child {
+				// Visual
+				border: none;
+			}
+		}
+	}
 }
 
 
 
-/* -----------------------------------------------------------------------------
- *  Menu principal
- *  -> Visual e comportamento
- * -------------------------------------------------------------------------- */
-.dl3-menu{
-    /* Flex */
-    @include _flex-box();
-    
-    /* Posicionamento */
-    position: fixed;
-    top     : 0;
-    left    : 0;
-    z-index : 1;
-    
-    /* Tamanho */
-    width   : 100%;
-    height  : $cf-mnnv-altura;
-    
-    /* Visual */
-    box-shadow: $sombra-padrao;
-    
-    > .menu-principal{
-        > .menu-item{
-            > .sub-menu{
-                > .sm-item{
-                    > .sm-texto{
-                        /* Texto */
-                        font-size: 1.1em;
-                    }
-                }
-            }
-        }
-    }
-    
-    > #form-filtro-modulos{
-        /* Margens */
-        margin  : 0;
-        padding : .35em .9em;
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/desktops/config';
 
-        /* Tamanho */
-        height: 2.85em;
-        
-        > .form-paragr{
-            /* Tamanho */
-            width   : 100%;
-            height  : 100%;
-            
-            /* Margens */
-            margin  : 0;
-            padding : 0;
-            
-            /* Visual */
-            background      : #FFF;
-            border-radius   : 20px;
-            
-            /* Posicionamento */
-            position: relative;
-            
-            > .form-rotulo{
-                /* Visual */
-                display: none;
-            }
-            
-            > input{
-                /* Visual */
-                border      : none;
-                background  : none;
-                
-                /* Tamanho */
-                width   : 100%;
-                height  : 100%;
-            }
-        }
-        
-        > .form-paragr:after{
-            /* Texto */
-            content     : '\e686';
-            font-family : 'icones';
-            color       : #CCC;
-            font-size   : 1.5em;
-            text-align  : center;
+@include _tela-desktops {
+	$qtde-cols-menu: 9.5;
+	$qtde-cols-filtro: $flex-qtde-cols - $qtde-cols-menu;
 
-            /* Tamanho */
-            width: 2em;
+	.#{$nome-componente} {
+		> .menu-principal {
+			// Flex
+			@include _colunas($qtde-cols-menu, 0, 0, $flex-qtde-cols);
+			@include _flex-box;
 
-            /* Posicionamento */
-            position: absolute;
-            right   : 0;
-            top     : 50%;
+			> .menu-item {
+				// Flex
+				@include _flex(auto);
 
-            /* Transformar */
-            @include _transform(translateY(-45%));
-        }
-        
-        > .menu-filtro{
-            /* Posicionamento */
-            position: absolute;
-            right   : 1em;
+				> .menu-texto {
+					// Texto
+					text-align: center;
+				}
 
-            /* Visual */
-            border-radius   : 10px;
-            box-shadow      : $sombra-padrao;
-            background      : #FFF;
-            overflow        : auto; 
+				> .sub-menu {
+					// Flex
+					@include _flex-box;
+					@include _flex-flow(row wrap);
 
-            /* Margens */
-            padding: 0 1em;
+					// Posicionamento
+					position: absolute;
+					left: 0;
 
-            .sm-item{
-                /* Visual */
-                background: none;
+					// Tamanho
+					width: 100%;
 
-                /* Margens */
-                padding: 5% 0;
+					// Visual
+					display: none;
+					border-bottom: 1px solid #EEE;
 
-                /* Visual */
-                border-bottom: $borda-suave;
-                
-                > .sm-texto{
-                    /* Visual */
-                    display: block;
-                    
-                    /* Texto */
-                    line-height: 2em;
-                }
-            }
+					// Margens
+					padding: 1rem 0;
 
-            .sm-item:last-child{
-                /* Visual */
-                border: none;
-            }
-        }
-    }
+					> .sm-item {
+						// Flex
+						@include _colunas(4, $flex-padding, $flex-espaco, $flex-qtde-cols);
+
+						// Margens
+						margin-top: 1em;
+					}
+
+					// Ajustar as margens
+					> .sm-item:nth-child(1),
+					> .sm-item:nth-child(2),
+					> .sm-item:nth-child(3) {
+						// Margens
+						margin-top: 0;
+					}
+				}
+			}
+
+			> .menu-item:hover {
+				// Visual
+				background-color: $mnnv-sbmn-cor-fundo;
+
+				> .menu-texto {
+					// Texto
+					color: $mnnv-sbmn-links-texto;
+				}
+
+				> .sub-menu {
+					// Flex
+					@include _flex-box;
+				}
+			}
+		}
+
+		> #form-filtro-modulos {
+			// Flex
+			@include _colunas($qtde-cols-filtro, 2%, 0, $flex-qtde-cols);
+
+			> .menu-filtro {
+				// Tamanho
+				width: 30vw;
+				max-height: 60vh;
+			}
+		}
+	}
 }
 
 
 
-/* Desktops ----------------------------------------------------------------- */
-@media screen and (min-width:$tela-tablet + 1px){
-    .dl3-menu{
-        > .menu-principal{
-            /* Flex */
-            @include _flex-box();
-            @include _flex(83%);
-            
-            .menu-texto{
-                /* Visual */
-                display: inline-block;
+// Tablets e smartphones -------------------------------------------------------------------------------------------- //
+@include _tela-disp-moveis {
+	.#{$nome-componente} {
+		.a-mostrar-menu {
+			// Visual
+			display: inline-block;
 
-                /* Tamanho */
-                width   : 100%;
-                height  : 100%;
-            }
+			// Tamanho
+			height: 100%;
 
-            > .menu-item{
-                /* Flex */
-                @include _flex(auto);
-                
-                /* Margens */
-                margin: 0 1%;
-                
-                /* Tamanho */
-                height : $cf-mnnv-altura;
-                
-                > .menu-texto{
-                    /* Texto */
-                    text-align  : center;
-                    line-height : $cf-mnnv-altura;
-                }
-                
-                /* Esconder o sub-menu desse item */
-                > .sub-menu{
-                    /* Flex */
-                    @include _flex-box();
-                    @include _flex-flow(row wrap);
-                    
-                    /* Visual */
-                    display         : none;
-                    border-bottom   : $borda-suave;
-                    
-                    /* Posicionamento */
-                    position: absolute;
-                    left    : 0;
-                    
-                    /* Tamanho */
-                    width: 100%;
-                    
-                    > .sm-item{
-                        $tm: 33.33%;
-                        
-                        /* Flex */
-                        @include _flex($tm);
-                        
-                        /* Tamanho */
-                        max-width: $tm;
-                        
-                        /* Margens */
-                        padding: 1% 2%;
-                        
-                        > .sm-texto{
-                            /* Visual */
-                            display: block;
-                            
-                            /* Texto */
-                            line-height: 2em;
-                        }
-                    }
-                }
-            }
-            
-            /* Ajustar as margens */
-            > .menu-item:first-child{ margin-left: 0; }
-            > .menu-item:last-child{ margin-right: 0; }
-            
-            > .menu-item:hover{
-                /* Visual */
-                background: #FFF;
+			// Posicionamento
+			position: relative;
+		}
 
-                > .sub-menu{
-                    /* Flex */
-                    @include _flex-box();
-                }
-            }
-        }
-        
-        > #form-filtro-modulos{
-            /* Flex */
-            @include _flex(17%);
-            
-            > .menu-filtro{
-                /* Tamanho */
-                width       : 30vw;
-                max-height  : 60vh;
-            }
-        }
-    }
+		.a-mostrar-menu::before {
+			// Texto
+			content: '\e6bd';
+			font-family: 'icones';
+			color: $mnnv-links-texto;
+			font-size: 1.5rem;
+
+			// Margens
+			margin-left: .75em;
+
+			// Posicionamento
+			position: absolute;
+			top: 50%;
+
+			// Transformar
+			@include _transform(translateY(-50%));
+		}
+
+		.a-mostrar-menu:hover + .menu-principal,
+		.menu-principal:hover {
+			// Posicionamento
+			left: 0;
+		}
+
+		.menu-principal {
+			// Posicionamento
+			position: fixed;
+			top: 0;
+			left: -100%;
+			// left: 0;
+			z-index: 10;
+
+			// Tamanho
+			height: 100vh;
+
+			// Visual
+			background-color: $mnnv-cor-fundo;
+			overflow-y: auto;
+			box-shadow: 0 0 8px rgba(0, 0, 0, .35);
+
+			// Transição
+			@include _transition(left .7s);
+
+			> .menu-item {
+				// Posicionamento
+				position: relative;
+
+				> .menu-texto {
+					// Margens
+					padding: 0 1rem;
+
+					// Posicionamento
+					position: relative;
+				}
+
+				> .sub-menu {
+					// Margens
+					padding: .75rem 1rem;
+
+					> .sm-item {
+						// Margens
+						padding: .75rem 0;
+					}
+
+					> .sm-item:hover {
+						// Visual
+						background-color: transparentize($mnnv-cor-fundo, .9);
+					}
+				}
+
+				> .menu-texto::after {
+					// Texto
+					content: '';
+
+					// Formas geométricas
+					@include _triangulo-baixo(#FFF, 5px, 5px);
+
+					// Posicionamento
+					position: absolute;
+					right: 5%;
+					top: 50%;
+
+					// Transformar
+					@include _transform(translateY(-50%));
+				}
+			}
+		}
+	}
 }
 
 
 
-/* Tablets ------------------------------------------------------------------ */
-@media screen and (min-width:$tela-smart + 1px) and (max-width:$tela-tablet){
-    .dl3-menu{
-        > .menu-principal{
-            /* Tamanho */
-            width: 50vw;
-        }
-        
-        > #form-filtro-modulos{
-            > .menu-filtro{
-                /* Tamanho */
-                width       : 50vw;
-                max-height  : 80vh;
-            }
-        }
-    }
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@import '../_ajuda/tablets/config';
+
+@include _tela-tablets {
+	$qtde-cols-menu: $flex-qtde-cols * .7;
+	$qtde-cols-filtro: $flex-qtde-cols - $qtde-cols-menu;
+
+	.#{$nome-componente} {
+		> .a-mostrar-menu {
+			// Flex
+			@include _colunas($qtde-cols-menu, 0, 0, $flex-qtde-cols);
+		}
+
+		> .menu-principal {
+			// Tamanho
+			width: 40vw;
+		}
+
+		> #form-filtro-modulos {
+			// Flex
+			@include _colunas($qtde-cols-filtro, 2%, 0, $flex-qtde-cols);
+
+			> .menu-filtro {
+				// Tamanho
+				width: 60vw;
+				max-height: 60vh;
+			}
+		}
+	}
 }
 
 
 
-/* Smartphones -------------------------------------------------------------- */
-@media screen and (max-width:$tela-smart){
-    .dl3-menu{
-        > .menu-principal{
-            /* Tamanho */
-            width: 75vw;
-        }
-        
-        > #form-filtro-modulos{
-            > .menu-filtro{
-                /* Tamanho */
-                width       : 75vw;
-                max-height  : 80vh;
-            }
-        }
-    }
-}
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@import '../_ajuda/smartphones/config';
 
+@include _tela-smartphone {
+	$qtde-cols-menu: 3;
+	$qtde-cols-filtro: $flex-qtde-cols - $qtde-cols-menu;
 
+	.#{$nome-componente} {
+		> .a-mostrar-menu {
+			// Flex
+			@include _colunas($qtde-cols-menu, 0, 0, $flex-qtde-cols);
+		}
 
-/* Tablets e smartphones ---------------------------------------------------- */
-@media screen and (max-width:$tela-tablet){
-    .dl3-menu{
-        > .menu-principal{
-            /* Posicionamento */
-            position: fixed;
-            top     : 0;
-            left    : -100%;
-            z-index : 2;
-            
-            /* Tamanho */
-            height: 100vh;
-            
-            /* Visual */
-            background: #FFF;
-            box-shadow: $sombra-padrao;
-            overflow-y: auto;
-            
-            /* Transicao */
-            @include _transition(left .75s);
-            
-            > .menu-item{
-                > .menu-texto{
-                    /* Visual */
-                    background      : $c-mnnv-fundo;
-                    display         : block;
-                    border-bottom   : 1px solid #FFF;
-                    
-                    /* Tamanho */
-                    width: 100%;
-                    
-                    /* Texto */
-                    line-height: 3em;
-                    text-indent: 1em;
-                    
-                    /* Margens */
-                    padding: 0 3%;
-                    
-                    /* Posicionamento */
-                    position: relative;
-                }
-                
-                > .menu-texto:after{
-                    /* Triangulo */
-                    @include _triangulo-baixo($c-mnnv-links, 5px, 5px);
-                    
-                    /* Texto */
-                    content: '';
-                    
-                    /* Posicionamento */
-                    position: absolute;
-                    top     : 50%;
-                    right   : 1.5em;
-                    
-                    /* Transformar */
-                    @include _transform(translateY(-50%));
-                }
-                
-                > .sub-menu{
-                    /* Margens 
-                    padding: 0 5%;*/
-                    
-                    > .sm-item{
-                        /* Margens */
-                        margin  : 3.5% 0;
-                        padding : .35em 5%;
-                        
-                        > .sm-texto{
-                            /* Visual */
-                            display: block;
-                            
-                            /* Texto */
-                            line-height: 2em;
-                        }
-                    }
-                    
-                    > .sm-item:hover{
-                        /* Visual */
-                        background: lighten($c-mnnv-fundo,50%);
-                    }
-                }
-            }
-            
-            > .menu-item:hover{
-                > .menu-texto{
-                    /* Texto */
-                    color: #FFF;
-                }
-            }
-        }
-        
-        > #form-filtro-modulos{
-            /* Tamanho */
-            width: 50%;
-            
-            /* Posicionamento */
-            position: absolute;
-            right   : 1em;
-        }
-        
-        > .a-mostrar-menu{
-            /* Visual */
-            display: inline-block;
+		> .menu-principal {
+			// Tamanho
+			width: 80vw;
+		}
 
-            /* Tamanho */
-            width   : 50%;
-            height  : 100%;
-            
-            /* Posicionamento */
-            position: absolute;
-            left    : 0;
-            z-index : 2; 
-        }
+		> #form-filtro-modulos {
+			// Flex
+			@include _colunas($qtde-cols-filtro, 2%, 0, $flex-qtde-cols);
 
-        > .menu-principal:hover,
-        > .a-mostrar-menu:hover + .menu-principal{
-            /* Posicionamento */
-            left: 0;
-        }
-    }
-    
-    .dl3-menu:before{
-        /* Texto */
-        content     : '\e6bd';
-        color       : $c-mnnv-links;
-        font-family : 'icones';
-        font-size   : 1.8em;
-        
-        /* Posicionamento */
-        position: absolute;
-        top     : 50%;
-        left    : 1em;
-        
-        /* Transformar */
-        @include _transform(translateY(-50%));
-    }
+			> .menu-filtro {
+				// Tamanho
+				width: 75vw;
+				max-height: 80vh;
+			}
+		}
+	}
 }

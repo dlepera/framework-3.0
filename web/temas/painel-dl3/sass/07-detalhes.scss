@@ -5,15 +5,15 @@
  * @Data	: 12/05/2015 22:00:00
  */
 
-@import '../_ajuda/cores.scss';
+
+
+@import '../_ajuda/config.scss';
 
 
 
-/* -----------------------------------------------------------------------------
- *  Detalhes
- * -------------------------------------------------------------------------- */
+// Detalhes --------------------------------------------------------------------------------------------------------- //
 .detalhes{
-    /* Margens */
+    // Margens
     margin-top: 2em;
     
     .det-grupo{
@@ -21,27 +21,27 @@
     }
     
     .det-titulo{
-        /* Texto */
-        color       : $c-mnnv-fundo;
+        // Texto
+        color       : $mnnv-cor-fundo;
         line-height : 2.5em;
         
-        /* Visual */
-        border-bottom: 1px solid $c-mnnv-fundo;
+        // Visual
+        border-bottom: 1px solid $mnnv-cor-fundo;
         
-        /* Margens */
+        // Margens
         margin-bottom: 1em;
     }
     
     .det-paragr{
-        /* Margens */
+        // Margens
         padding: .5em 0;
         
         .det-rotulo{
-            /* Texto */
+            // Texto
             color       : #AAA;
             line-height : 1.5em;
             
-            /* Visual */
+            // Visual
             display: block;
         }
     }

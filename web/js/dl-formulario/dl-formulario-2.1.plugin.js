@@ -32,7 +32,7 @@
 		var msg, ret;
 
 		// Verificar se a resposta é um conteúdo JSON
-		if( /^[?\[{]+(.+)[}\]+]?$/.test(r) ){
+		if( /^[?\[{]{1,}(.+)[}\]{1,}]?$/.test(r) ){
 			var json = $.parseJSON(r);
 			json = /^\[/.test(r) ? json[json.length - 1] : json;
 
@@ -68,7 +68,7 @@
 	 */
 	function ElemMask(msk){
 		var e_msk = msk.replace(/[#_]/g, '');
-			e_msk = /[a-zA-Z]/.test(msk) ? '('+ e_msk +')' : '['+ e_msk +']';
+		e_msk = /[a-zA-Z]/.test(msk) ? '('+ e_msk +')' : '['+ e_msk +']';
 
 		return new RegExp(e_msk, 'g');
 	} // function ElemMask(msk)
@@ -128,7 +128,7 @@
 		$it.each(function(){
 			var n = this.name;
 			var t = this.type;
-			var v = this.value;
+			var v = encodeURIComponent(this.value);
 
 			switch(t){
 				case 'checkbox':
@@ -231,70 +231,66 @@
 			// Realizar a verificação adicional dos campos
 			$th.find('[data-vld-func]').off('.'+ opcoes.namespace)
 				.on('change.'+ opcoes.namespace +' blur.'+ opcoes.namespace, function(){
-				var $th = $(this);
-				var fnc = window[$th.data('vld-func')];
-				var msg = $th.data('vld-msg');
-				var vlr = this.type === 'file' ?
+					var $th = $(this);
+					var fnc = window[$th.data('vld-func')];
+					var msg = $th.data('vld-msg');
+					var vlr = this.type === 'file' ?
 					{ arq: this.files, exts: $th.data('vld-exts'), max: $th.data('vld-max') }
-				: $th.val();
+						: $th.val();
 
-				// Verificar se a função informada existe e se é mesmo uma função
-				if( typeof fnc !== 'function' ){
-					console.error('A função '+ fnc +' não existe ou não pode ser acessada!');
-					return false;
-				} // Fim if( typeof fnc !== 'function' )
+					// Verificar se a função informada existe e se é mesmo uma função
+					if( typeof fnc !== 'function' ){
+						console.error('A função ' + fnc + ' não existe ou não pode ser acessada!');
+						return false;
+					} // Fim if( typeof fnc !== 'function' )
 
-				if( vlr !== '' ){
-					if( !fnc(vlr) ) this.setCustomValidity(msg);
-					else this.setCustomValidity('');
-				} else this.setCustomValidity('');
-				// Fim if( this.value != '' )
-			}).trigger('change');
+					return FormValidacao(vlr !== '' && !fnc(vlr), this, msg);
+				}).trigger('change.' + opcoes.namespace);
 
 			$th.off('.'+ opcoes.namespace)
 				.on('submit.'+ opcoes.namespace, function(evt, controle, antes, depois){
-				// Evitar o submit comum do form
-				evt.stopPropagation();
-				evt.preventDefault();
+					// Evitar o submit comum do form
+					evt.stopPropagation();
+					evt.preventDefault();
 
-				// Simular o evento 'onsubmit'
-				if( !opcoes.antes() || (typeof antes === 'function' && !antes()) ) return false;
+					// Simular o evento 'onsubmit'
+					if( !opcoes.antes() || (typeof antes === 'function' && !antes()) ) return false;
 
-				// Incluir os arquivos
-				if( upload ){
-					var ofd = new FormData();
-					$.each(up_a, function(k, v){ ofd.append(up_n[k], v); });
+					// Incluir os arquivos
+					if( upload ){
+						var ofd = new FormData();
+						$.each(up_a, function(k, v){ ofd.append(up_n[k], v); });
 
-					// Incluir os arquivos normais
-					$.each($th._serialize().split('&'), function(k, v){
-						var er = /^([\w\-\[\]]+)=(.+)?$/;
+						// Incluir os arquivos normais
+						$.each($th._serialize().split('&'), function(k, v){
+							var er = /^([\w\-\[\]]+)=(.+)?$/;
 
-						if( er.test(v) ){
-							var dd = er.exec(v);
-							ofd.append(dd[1], dd[2] || '');
-						} // Fim if( er.test(v) )
-					});
-				} // Fim if( upload )
-
-				$.ajax({
-					url         : controle || opcoes.controle,
-					type        : 'post',
-					data        : ofd || $th._serialize(),
-					cache       : false,
-					processData : !upload,
-					contentType : upload ? false : 'application/x-www-form-urlencoded',
-					success     : function(dados){
-						var resp = TratarResposta(dados);
-
-						$('body')._mostrarmsg({
-							mensagem    : resp.msg,
-							tipo        : ['alerta', resp.ret],
-							botao       : { texto: 'x', funcao: resp.ret === 'msg-sucesso' ? depois || opcoes.depois : function(){ return false; } },
-							aparencia   : { tema: opcoes.aparencia.tema, estilo: 'mensagem' }
+							if( er.test(v) ){
+								var dd = er.exec(v);
+								ofd.append(dd[1], dd[2] || '');
+							} // Fim if( er.test(v) )
 						});
-					}
+					} // Fim if( upload )
+
+					$.ajax({
+						url         : controle || opcoes.controle,
+						type        : 'post',
+						data        : ofd || $th._serialize(),
+						cache       : false,
+						processData : !upload,
+						contentType : upload ? false : 'application/x-www-form-urlencoded',
+						success     : function(dados){
+							var resp = TratarResposta(dados);
+
+							$('body')._mostrarmsg({
+								mensagem    : resp.msg,
+								tipo        : ['alerta', resp.ret],
+								botao       : { texto: 'x', funcao: resp.ret === 'msg-sucesso' ? depois || opcoes.depois : function(){ return false; } },
+								aparencia   : { tema: opcoes.aparencia.tema, estilo: 'mensagem' }
+							});
+						}
+					});
 				});
-			});
 
 			return $th;
 		});

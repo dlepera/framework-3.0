@@ -15,11 +15,11 @@ $params = $this->_obterparams();
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= "{$params['titulo']} :: ". \DL3::$ap_titulo; ?></title>
-    <meta charset="<?= \DL3::$ap_charset; ?>">
+    <title><?php echo "{$params['titulo']} :: ". \DL3::$ap_titulo; ?></title>
+    <meta charset="<?php echo \DL3::$ap_charset; ?>">
 
     <!-- Setar a base do HTML -->
-    <base href="<?= \DL3::$ap_base_html; ?>"/>
+    <base href="<?php echo \DL3::$ap_base_html; ?>"/>
 
     <!-- Tamanho do dispositivo -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -28,38 +28,38 @@ $params = $this->_obterparams();
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
+    <link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
     <!-- Aplicar o tema da página -->
-    <?= \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
+    <?php echo \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
 
     <!-- <head> Conteúdo personalizado </head> -->
     [DL3-HEAD/]
 </head>
 <body>
 	<!-- Verificar JavaScript -->
-	<noscript class="incompativel"><?= TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
+	<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
 
 	<!-- Verificar versão do IE -->
-	<p class="incompativel" id="ie-incompativel" style="display: none;"><?= TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
+	<p class="incompativel" id="ie-incompativel" style="display: none;"><?php echo TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
 
     <div id="dl3-grid">
         <header class="dl3-topo">
-            <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
+            <a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
 
-            <ul class="menu-usuario sem-marcadores">
+            <ul class="menu-usuario">
                 <li class="menu-item">
                     <a href="javascript:" class="menu-texto ico-usuario">
-                        <?= /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
+                        <?php echo /* TXT_LINK_USUARIO */ $_SESSION['usuario_info_nome']; ?>
                     </a>
 
-                    <?= $params['usr-foto']; ?>
+                    <?php echo $params['usr-foto']; ?>
 
-                    <ul class="sub-menu sem-marcadores">
+                    <ul class="sub-menu">
                         <?php if( $params['perm-usr-conta?'] ): ?>
                         <li class="sm-item">
                             <a href="admin/usuarios/minha-conta" class="sm-texto ico-conta">
-                                <?= TXT_LINK_MINHA_CONTA; ?>
+                                <?php echo TXT_LINK_MINHA_CONTA; ?>
                             </a>
                         </li>
                         <?php endif;
@@ -67,14 +67,14 @@ $params = $this->_obterparams();
                         if( $params['perm-usr-senha?'] ): ?>
                         <li class="sm-item">
                             <a href="admin/usuarios/alterar-minha-senha" class="sm-texto ico-senha">
-                                <?= TXT_LINK_ALTERAR_MINHA_SENHA; ?>
+                                <?php echo TXT_LINK_ALTERAR_MINHA_SENHA; ?>
                             </a>
                         </li>
                         <?php endif; ?>
 
                         <li class="sm-item">
-                            <a href="javascript:" onclick="$logout.submit();" class="sm-texto ico-logout">
-                                <?= TXT_LINK_LOGOUT; ?>
+                            <a href="javascript:" id="dl3-logout" data-ajax="1" data-ajax-msg="<?php echo TXT_AJAX_ENCERRANDO_SESSAO; ?>" class="sm-texto ico-logout">
+                                <?php echo TXT_LINK_LOGOUT; ?>
                             </a>
                         </li>
                     </ul>
@@ -85,10 +85,10 @@ $params = $this->_obterparams();
         <nav class="dl3-menu">
             <a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
 
-            <ul id="menu-principal" class="menu-principal sem-marcadores">
+            <ul id="menu-principal" class="menu-principal">
                 <li class="menu-item">
                     <a href="" class="menu-texto">
-                        <?= TXT_LINK_HOME; ?>
+                        <?php echo TXT_LINK_HOME; ?>
                     </a>
                 </li>
 
@@ -102,20 +102,20 @@ $params = $this->_obterparams();
                     if( count($sm_k) > 0 ): ?>
                     <li class="menu-item">
                         <a href="javascript:<?php /* = $mm['modulo_link']; */ ?>" class="menu-texto ico-modulo">
-                            <?= $mm['modulo_nome']; ?>
+                            <?php echo $mm['modulo_nome']; ?>
                         </a>
 
-                        <ul class="sub-menu sem-marcadores">
+                        <ul class="sub-menu">
                             <?php foreach( $sm_k as $k ):
                                 $sm = $params['menu-submodulos'][$k]; ?>
                             <li class="sm-item">
-                                <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
-                                    <?= $sm['modulo_nome']; ?>
+                                <a href="<?php echo $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
+                                    <?php echo $sm['modulo_nome']; ?>
                                 </a>
 
                                 <?php if( !empty($sm['modulo_descr']) ): ?>
                                 <span class="sm-descr">
-                                    <?= nl2br($sm['modulo_descr']); ?>
+                                    <?php echo nl2br($sm['modulo_descr']); ?>
                                 </span>
                                 <?php endif; ?>
                             </li>
@@ -129,11 +129,12 @@ $params = $this->_obterparams();
             <?php if( $params['mostrar-filtro-menu?'] ): ?>
             <form id="form-filtro-modulos">
                 <p class="form-paragr">
-                    <label for="txt-bm" class="form-rotulo"><?= TXT_ROTULO_BUSCAR_MODULO; ?></label>
-                    <input type="text" name="bm" id="txt-bm" placeholder="<?= TXT_ROTULO_BUSCAR_MODULO; ?>" class="form-controle"/>
+	                <?php echo $this->aux_form->_campo_geral('busca', 'bm', 'bm', '', null /* TXT_ROTULO_BUSCAR_MODULO */, null, [
+		                'placeholder' => TXT_ROTULO_BUSCAR_MODULO
+	                ]); ?>
                 </p>
 
-                <ul id="menu-filtro" class="menu-filtro sem-marcadores" style="display:none;">
+                <ul id="menu-filtro" class="menu-filtro" style="display:none;">
                     <?php foreach( $params['menu-modulos'] as $mm ):
                         # Obter os sub-módulos
                         $sm_k = array_keys(
@@ -143,17 +144,17 @@ $params = $this->_obterparams();
                                 ));
                         if( count($sm_k) > 0 ): ?>
                         <li class="menu-item" style="display:none;">
-                            <ul class="sub-menu sem-marcadores">
+                            <ul class="sub-menu">
                                 <?php foreach( $sm_k as $k ):
                                     $sm = $params['menu-submodulos'][$k]; ?>
                                 <li class="sm-item" style="display:none;">
-                                    <a href="<?= $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
-                                        <?= "{$mm['modulo_nome']} > {$sm['modulo_nome']}"; ?>
+                                    <a href="<?php echo $sm['modulo_link']; ?>" class="sm-texto ico-submodulo">
+                                        <?php echo "{$mm['modulo_nome']} > {$sm['modulo_nome']}"; ?>
                                     </a>
 
                                     <?php if( !empty($sm['modulo_descr']) ): ?>
                                     <span class="sm-descr">
-                                        <?= nl2br($sm['modulo_descr']); ?>
+                                        <?php echo nl2br($sm['modulo_descr']); ?>
                                     </span>
                                     <?php endif; ?>
                                 </li>
@@ -168,14 +169,15 @@ $params = $this->_obterparams();
         </nav>
 
         <section class="dl3-conteudo">
-            <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
+            <h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
 
             [DL3-CONTEUDO/]
         </section>
 
         <footer class="dl3-rodape">
-            <?= \DL3::$ap_titulo .' v'. \DL3::$ap_versao .' &copy; '. date('Y'); ?>
-
+            <?php echo \DL3::$ap_titulo . ' v' . \DL3::$ap_versao . ' &copy; ' . date('Y'); ?>
+            |
+            <a href="home/sobre-o-sistema" class="lk-sobre-sistema"><?php echo TXT_LINK_SOBRE_SISTEMA; ?></a>
             [DL3-RODAPE/]
         </footer>
     </div>
@@ -183,18 +185,22 @@ $params = $this->_obterparams();
     <!-- Formulário para fazer logout -->
     <form id="form-logout" method="post" action="login/fazer-logout"></form>
 
+    <!-- Carregando -->
+    <div id="dl3-carregando"></div>
+
     <!-- Javascripts -->
-    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?= \DL3::$ap_versao_jquery; ?>-min.js"></script>
-    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.1.plugin.js"></script>
-    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.1.plugin.js"></script>
-    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
-    <script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.1.plugin.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>painel-dl.js"></script>
 
     <script>
         //<![CDATA[
         $logout = $('#form-logout')._formulario({
             depois: function(){ window.location = $('base').attr('href'); },
-            aparencia: { tema: '<?= \DL3::$plugin_formulario_tema; ?>', estilo: null }
+            aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
         });
 
         // Identificar navegador e versão
@@ -204,7 +210,7 @@ $params = $this->_obterparams();
 	        $('#ie-incompativel').removeAttr('style');
 
         <?php if( $params['mostrar-filtro-menu?'] ): ?>
-        $('#form-filtro-modulos #txt-bm').on('input', function(){
+        $('#form-filtro-modulos #bus-bm').on('input', function(){
             var $th = $(this);
             var $mf = $('#menu-filtro');
             var vlr = $th.val();

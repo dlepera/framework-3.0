@@ -23,12 +23,18 @@ abstract class Principal{
 
 
 
+	/**
+	 * Instanciar a classe
+	 *
+	 * @param string $tbl Nome da tabela
+	 * @param string $pfx Prefixo dos nomes dos campos dessa tabela
+	 */
     public function __construct($tbl, $pfx = ''){
         $this->_bd_tabela($tbl);
         $this->_bd_prefixo($pfx);
 
         get_called_class() !== 'Geral\Modelo\LogRegistro'
-        and $this->mod_lr = new LogRegistro();
+            and $this->mod_lr = new LogRegistro();
     } // Fim do método mágico de construção
 
 
@@ -98,42 +104,37 @@ abstract class Principal{
     } // Fim do método _bd_tabela
 
     public function _id($v = null){
-        if( !property_exists($this, 'id') || (is_null($this->id) && is_null($v)) ) return null;
+        if( !property_exists($this, 'id') || (!isset($this->id) && !isset($v)) ) return null;
         return $this->id = filter_var(!isset($v) ? $this->id : $v);
     } // Fim do método _id
 
     public function _publicar($v = null){
-        if( !property_exists($this, 'publicar') )
-            return null;
-
-        return $this->publicar = filter_var(!isset($v) ? $this->publicar : $v, FILTER_VALIDATE_BOOLEAN);
+        return !property_exists($this, 'publicar') ? null
+            : $this->publicar = filter_var(!isset($v) ? $this->publicar : $v, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _id
 
     public function _delete(){
-        if( !property_exists($this, 'delete') )
-            return null;
-
-        return $this->bd_delete = filter_var($this->delete, FILTER_VALIDATE_BOOLEAN);
+        return !property_exists($this, 'delete') ? null
+	        : $this->bd_delete = filter_var($this->delete, FILTER_VALIDATE_BOOLEAN);
     } // Fim do método _id
 
 
 
 
-    /**
-     * Listar registros de uma tabela
-     *
-     * @param string $flt  Filtro a ser aplicado na listagem
-     * @param string $ord  Ordenação a ser aplicada na listagem
-     * @param string $cpos Campos a serem mostrados na listagem
-     * @param int    $pgn  Número da página, para casos de paginação
-     * @param int    $qtde Quantidade de registros a serem exibidos durante a paginação
-     * @param int    $pos  Posição do registro a ser retornado. Quando null, retorna todos os registros encontrados
-     *
-     * @return array
-     */
+	/**
+	 * Listar registros de uma tabela
+	 *
+	 * @param string $flt  Filtro a ser aplicado na listagem
+	 * @param string $ord  Ordenação a ser aplicada na listagem
+	 * @param string $cpos Campos a serem mostrados na listagem
+	 * @param int    $pgn  Número da página, para casos de paginação
+	 * @param int    $qtde Quantidade de registros a serem exibidos durante a paginação
+	 * @param int    $pos  Posição do registro a ser retornado. Quando null, retorna todos os registros encontrados
+	 *
+	 * @return array
+	 */
     public function _listar($flt = null, $ord = null, $cpos = '*', $pgn = 0, $qtde = 20, $pos = null){
-        $query = substr_count($this->bd_select, '%s') == 2 ?
-            sprintf($this->bd_select, $cpos, $this->bd_tabela)
+        $query = substr_count($this->bd_select, '%s') == 2 ? sprintf($this->bd_select, $cpos, $this->bd_tabela)
             : sprintf($this->bd_select, $cpos, $this->bd_tabela, $this->bd_prefixo);
 
         !empty($flt) and $query .= stripos($query, 'WHERE') > -1 ? " AND {$flt}" : " WHERE {$flt}";
@@ -201,7 +202,7 @@ abstract class Principal{
      * Selecionar um registro através da chave primária (UK - Unique Key)
      *
      * @param mixed  $c Nome do campos a ser pesquisado
-     * @param mixed  $v Valor a ser pesquisado na PK
+     * @param mixed  $v Valor a ser pesquisado na UK
      * @param string $a Alias da tabela principal configurado na consulta
      *
      * @return bool
@@ -224,16 +225,23 @@ abstract class Principal{
 
         $ls = $this->_listar($flt, null, "{$al}*", 0, 1, 0);
 
-        $dd = array_combine(array_map(function($v){ return preg_replace("~^{$this->bd_prefixo}~", '', $v); }, array_keys($ls)), array_values($ls));
+	    # Informar se o registro foi selecionado corretamente antes de carregar as informações
+	    # Dessa forma é fácil identificar se o registro foi selecionado durante o carregamento das informações e, assim,
+	    # poder recuperar valores criptografados, por exemplo. Ex. de utilização: Hash de recuperação de senha
+        $this->reg_vazio = !(bool)$ls;
 
-        \Funcoes::_vetor2objeto($dd, $this);
+	    if( !$this->reg_vazio ){
+		    $dd = array_combine(array_map(function ($v){ return preg_replace("~^{$this->bd_prefixo}~", '', $v); }, array_keys($ls)), array_values($ls));
 
-        # Selecionar o LOG desse registro
-	    isset($this->id) && get_called_class() !== self::LOG_REGISTRO
-	        and $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
+		    \Funcoes::_vetor2objeto($dd, $this);
+
+		    # Selecionar o LOG desse registro
+		    isset($this->id) && get_called_class() !== self::LOG_REGISTRO
+		        and $this->mod_lr->_selecionarPK([$this->bd_tabela, $this->id]);
+	    } // Fim if( $this->reg_vazio )
 
         # Indicar que o registro foi selecionado
-        return !($this->reg_vazio = !(bool)$ls);
+        return !$this->reg_vazio;
     } // Fim do método _selecionarUK
 
 
@@ -312,9 +320,6 @@ abstract class Principal{
         # Informações dos campos
         $cpos = \DL3::$bd_conex->_campos($this->bd_tabela);
 
-        // $v_campos   = [];
-        // $v_valores  = [];
-
 	    $campos = [];
 
         foreach( $cpos as $c ){
@@ -391,25 +396,26 @@ abstract class Principal{
             else $alterar[$c['Field']] = \Funcoes::_var_export_bd($this->{$p});
         } // Fim foreach($c)
 
-        return  "UPDATE {$this->bd_tabela} SET ". \Funcoes::_array_serialize($alterar) ." WHERE ". \Funcoes::_array_serialize($where, ' AND ');
+        return "UPDATE {$this->bd_tabela} SET ". \Funcoes::_array_serialize($alterar) ." WHERE ". \Funcoes::_array_serialize($where, ' AND ');
     } // Fim do método _criar_update
 
 
 
-    /**
-     * Carregar um 'select' com VALOR e TEXTO
-     *
-     * @param string $f     Filtro a ser aplicado na query
-     * @param boolean $e    Define se o resultado será escrito no formato json ou retornado
-     * @param string $v     Nome do campo identificado como 'value' (sem prefixo)
-     * @param string $t     Nome do campo identificado como 'label' (sem prefixo)
-     *
-     * @return array
-     */
+
+	/**
+	 * Carregar um 'select' com VALOR e TEXTO
+	 *
+	 * @param string  $f Filtro a ser aplicado na query
+	 * @param boolean $e Define se o resultado será escrito no formato json ou retornado
+	 * @param string  $v Nome do campo identificado como 'value' (sem prefixo)
+	 * @param string  $t Nome do campo identificado como 'label' (sem prefixo)
+	 *
+	 * @return array
+	 */
     public function _carregarselect($f = null, $e = true, $v = 'id', $t = 'descr'){
         $lis = $this->_listar($f, "{$this->bd_prefixo}{$t}", "{$this->bd_prefixo}{$v} AS VALOR, {$this->bd_prefixo}{$t} AS TEXTO");
 
-        $e and print(json_encode($lis));
+        !isset($e) || $e and print(json_encode($lis));
         return $lis;
     } // Fim _carregarselect
 
@@ -423,6 +429,10 @@ abstract class Principal{
             throw new \Exception(ERRO_PRINCIPAL_ALTERNARPUBLICACAO_PROPRIEDADE_NAO_EXISTE, 1404);
 
         $this->publicar = !$this->publicar;
-        return $this->_salvar();
+
+        return $this->_salvar(true, array_merge(
+	        \DL3::$bd_conex->_identifica_pk($this->bd_tabela),
+	        ["{$this->bd_prefixo}publicar"]
+        ));
     } // Fim do método _alternarpublicacao
 } // Fim do modelo Principal

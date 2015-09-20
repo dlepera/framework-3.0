@@ -15,11 +15,11 @@ $params = $this->_obterparams();
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
-    <meta charset="<?= \DL3::$ap_charset; ?>">
+    <title><?php echo "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
+    <meta charset="<?php echo \DL3::$ap_charset; ?>">
 
     <!-- Setar a base do HTML -->
-    <base href="<?= \DL3::$ap_base_html; ?>"/>
+    <base href="<?php echo \DL3::$ap_base_html; ?>"/>
 
     <!-- Tamanho do dispositivo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,10 +28,10 @@ $params = $this->_obterparams();
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="<?= \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
+    <link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
     <!-- Aplicar o tema da página -->
-    <?= \DL3::_carregartema($params['tema']); ?>
+    <?php echo \DL3::_carregartema($params['tema']); ?>
 
     <!-- Conteúdo personalizado -->
     [DL3-HEAD/]
@@ -39,11 +39,11 @@ $params = $this->_obterparams();
 <body>
     <div id="dl3-grid" class="grid-login">
         <header class="dl3-topo">
-            <a href="" class="logotipo"><?= \DL3::$ap_titulo; ?></a>
+            <a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
         </header>
 
         <section class="dl3-conteudo">
-            <h1 class="titulo-h1"><?= $params['titulo']; ?></h1>
+            <h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
 
             [DL3-CONTEUDO/]
         </section>
@@ -54,12 +54,15 @@ $params = $this->_obterparams();
             [DL3-RODAPE/]
         </footer>
     </div>
+
+    <!-- Carregando -->
+    <div id="dl3-carregando"></div>
 </body>
 </html>
 
 <!-- Javascripts -->
-<script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?= \DL3::$ap_versao_jquery; ?>-min.js"></script>
-<script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.1.plugin.js"></script>
-<script src="<?= \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.1.plugin.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
 
 [DL3-SCRIPTS/]

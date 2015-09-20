@@ -14,13 +14,13 @@
 [DL3-CONTEUDO]
     <div class="albuns">
         <?php foreach( $params['lista'] as $l ): ?>
-        <a href="albuns-de-fotos/fotos/<?= $l['album_id']; ?>">
+        <a href="albuns-de-fotos/fotos/<?php echo $l['album_id']; ?>">
             <figure class="album-info">
-                <img src="./<?= $l['foto_album_imagem']; ?>" alt="<?= $l['album_nome']; ?>" class="album-capa"/>
+                <img src="./<?php echo $l['foto_album_imagem']; ?>" alt="<?php echo $l['album_nome']; ?>" class="album-capa"/>
 
                 <figcaption>
-                    <span class="album-titulo"><?= $l['album_nome']; ?></span><br/>
-                    <span class="album-data"><?= \Funcoes::_formatardatahora($l['log_registro_data_criacao'], 'd/m/Y H:i'); ?></span>
+                    <span class="album-titulo"><?php echo $l['album_nome']; ?></span><br/>
+                    <span class="album-data"><?php echo \Funcoes::_formatardatahora($l['log_registro_data_criacao'], 'd/m/Y H:i'); ?></span>
                 </figcaption>
             </figure>
         </a>

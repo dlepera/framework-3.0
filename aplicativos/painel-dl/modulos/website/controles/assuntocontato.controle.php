@@ -15,24 +15,13 @@ use \WebSite\Modelo as WebM;
 class AssuntoContato extends GeralC\PainelDL{
     public function __construct(){
         parent::__construct(new WebM\AssuntoContato(), 'website', TXT_MODELO_ASSUNTOCONTATO);
-
-        if( filter_input(INPUT_SERVER, 'REQUEST_METHOD') == 'POST' ){
-            $post = filter_input_array(INPUT_POST, [
-                'id' => FILTER_VALIDATE_INT,
-                'descr' => FILTER_SANITIZE_STRING,
-                'email' => FILTER_VALIDATE_EMAIL,
-                'cor' => ['filter' => FILTER_VALIDATE_REGEXP, 'options' => ['regexp' => EXPREG_COR_HEXA]],
-                'publicar' => FILTER_VALIDATE_BOOLEAN
-            ]);
-
-            # Converter o encode
-            \Funcoes::_converterencode($post, \DL3::$ap_charset);
-
-            # Selecionar as informações atuais
-            $this->modelo->_selecionarPK($post['id']);
-
-            \Funcoes::_vetor2objeto($post, $this->modelo);
-        } // Fim if( filter_input(INPUT_SERVER, 'REQUEST_METHOD')
+        $this->_carregar_post([
+            'id' => FILTER_VALIDATE_INT,
+            'descr' => FILTER_SANITIZE_STRING,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'cor' => ['filter' => FILTER_VALIDATE_REGEXP, 'options' => ['regexp' => EXPREG_COR_HEXA]],
+            'publicar' => FILTER_VALIDATE_BOOLEAN
+        ]);
     } // Fim do método __construct
 
 
@@ -42,16 +31,20 @@ class AssuntoContato extends GeralC\PainelDL{
      * Mostrar a lista de registros
      */
     protected function _mostrarlista(){
-        $this->_listapadrao('assunto_contato_id, assunto_contato_descr, assunto_contato_email, assunto_contato_cor,'
-            . " ( CASE assunto_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS PUBLICADO",
+        $this->_listapadrao('assunto_contato_id AS ' . TXT_LISTA_TITULO_ID . ','
+	        . " CONCAT('<span class=\"mostrar-cor\" style=\"background-color: ', assunto_contato_cor,'\" data-cor=\"', assunto_contato_cor, '\"></span>', assunto_contato_descr) AS " . TXT_LISTA_TITULO_DESCR . ','
+            . " assunto_contato_email AS '" . TXT_LISTA_TITULO_EMAIL . "',"
+            . " ( CASE assunto_contato_publicar WHEN 0 THEN 'Não' WHEN 1 THEN 'Sim' END ) AS '" . TXT_LISTA_TITULO_PUBLICADO . "'",
             'assunto_contato_descr', null);
 
         # Visão
-        $this->_carregarhtml('lista_assuntos');
+	    $this->_carregarhtml('comum/visoes/form_filtro');
+        $this->_carregarhtml('comum/visoes/lista_padrao');
         $this->visao->titulo = TXT_PAGINA_TITULO_ASSUNTOS_CONTATO;
 
         # Parâmetros
         $this->visao->_adparam('dir-lista', 'website/assuntos-contato/');
+        $this->visao->_adparam('form-acao', 'website/assuntos-contato/remover-assunto');
         $this->visao->_adparam('campos', [
             ['valor' => 'assunto_contato_descr', 'texto' => TXT_ROTULO_DESCR],
             ['valor' => 'assunto_contato_email', 'texto' => TXT_ROTULO_EMAIL]
@@ -67,10 +60,10 @@ class AssuntoContato extends GeralC\PainelDL{
 	 * @param int $pk PK do registro a ser selecionado
 	 */
     protected function _mostrarform($pk = null){
-        $inc = $this->_formpadrao('assunto', 'assuntos-contato/salvar', 'assuntos-contato/salvar', 'website/assuntos-contato', $pk);
+        $this->_formpadrao('assunto', 'assuntos-contato/salvar', 'assuntos-contato/salvar', 'website/assuntos-contato', $pk);
 
         # Visão
+        $this->_carregarhtml('comum/visoes/titulo_h2');
         $this->_carregarhtml('form_assunto');
-        $this->visao->titulo = $inc ? TXT_PAGINA_TITULO_NOVO_ASSUNTO : TXT_PAGINA_TITULO_EDITAR_ASSUNTO;
     } // Fim do método _mostrarform
 } // Fim do Controle AssuntoContato

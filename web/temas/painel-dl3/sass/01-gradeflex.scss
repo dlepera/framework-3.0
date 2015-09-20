@@ -1,0 +1,52 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data   	: 18/09/2015 17:25:21
+ */
+
+
+
+@import '../../_ajuda/compatibilidade';
+@import '../_ajuda/flexivel';
+
+
+
+// Grade Flexivel --------------------------------------------------------------------------------------------------- //
+.flex{
+	&-grade {
+		// Flex
+		@include _flex-box();
+		@include _flex-flow(row wrap);
+	}
+
+	&-item {
+		// Tamanho
+		// max-width: 100% !important;
+
+		// Margens
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+	}
+}
+
+
+// Smartphones ------------------------------------------------------------------------------------------------------ //
+@media (max-width: $tela-limite-smart) {
+	@import '../_ajuda/smartphones/config';
+	@include _gerar-colunas($flex-qtde-cols, $flex-padding, $flex-espaco);
+}
+
+
+// Tablets ---------------------------------------------------------------------------------------------------------- //
+@media (min-width: $tela-limite-smart) and (max-width: $tela-limite-tablet) {
+	@import '../_ajuda/tablets/config';
+	@include _gerar-colunas($flex-qtde-cols, $flex-padding, $flex-espaco);
+}
+
+
+// Desktops --------------------------------------------------------------------------------------------------------- //
+@media (min-width: $tela-limite-tablet) {
+	@import '../_ajuda/desktops/config';
+	@include _gerar-colunas($flex-qtde-cols, $flex-padding, $flex-espaco);
+}

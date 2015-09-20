@@ -43,27 +43,28 @@ class LogEmail extends Principal{
 
         $this->bd_select = "SELECT %s FROM %s";
 
-        $this->_selecionarUK(['tabela', 'idreg'], [$tbl, $id]);
+        // $this->_selecionarUK(['tabela', 'idreg'], [$tbl, $id]);
+        $this->_selecionarPK([$tbl, $id]);
     } // Fim do método mágico de construção da classe
 
 
 
 
-    /**
-     * Obter ou editar o valor da propriedade $status
-     *
-     * Os status aceitos são:
-     * S: solicitado
-     * E: enviado
-     * F: falha
-     *
-     * @param string $v - string contendo o valor a ser atribuído à $this->status
-     *
-     * @return string - valor da propriedade $status
-     */
+	/**
+	 * Obter ou editar o valor da propriedade $status
+	 *
+	 * Os status aceitos são:
+	 * S: solicitado
+	 * E: enviado
+	 * F: falha
+	 *
+	 * @param string $v String contendo o valor a ser atribuído à $this->status
+	 *
+	 * @return string Valor da propriedade $status
+	 */
     public function _status($v = null){
         return $this->status = filter_var(!isset($v) ? $this->status : $v, FILTER_VALIDATE_REGEXP,
-                [ 'options' => ['regexp' => '~^[SEF]{1}$~'] ]);
+                ['options' => ['regexp' => '~^[SEF]{1}$~']]);
     } // Fim do método _status
 
     public function _mensagem($v = null){
