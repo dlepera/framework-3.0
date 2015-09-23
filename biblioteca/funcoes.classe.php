@@ -281,18 +281,18 @@ class Funcoes{
      * @param array $v Vetor multi-dimensional a ser verificado
      * @param mixed $c Nome ou índice da coluna a ser removida ou ainda um vetor contendo os nomes das colunas
      *
-     * @return array
+     * @return array|null Retorna false se o parâmetro $v não é um array ou o vetor sem a(s) coluna(s) especificadas
      */
     public static function _remover_coluna($v, $c){
-	    return array_map(function ($v) use ($c){
-		    if( isset($v) && is_array($v) ){
-			    if( is_array($c) ){
-				    foreach( $c as $n ) unset($v[$n]);
-			    } else unset($v[$c]);
-		    } // Fim if( isset($v) && is_array($v) )
+	    if( !isset($v) || !is_array($v) ) return false;
 
-		    return $v;
-	    }, $v);
+	    if( isset($c) ){
+		    if( is_array($c) ){
+				foreach( $c as $n ) unset($v[$n]);
+		    } else unset($v[$c]);
+	    } // Fim if( isset($c) )
+
+	    return $v;
     } // Fim do método _remover_coluna
 
 
