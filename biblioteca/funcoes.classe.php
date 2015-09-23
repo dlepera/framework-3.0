@@ -118,40 +118,40 @@ class Funcoes{
         $acentuacao = [];
 
         # Acentuação na letra 'a' minúscula
-        $acentuacao['a'] = ['á', 'Ã ', 'â', 'ã'];
+        $acentuacao['a'] = ['á', 'à', 'â', 'ã'];
 
         # Acentuação na letra 'e' minúscula
-        $acentuacao['e'] = ['é', 'Ã¨', 'ê'];
+        $acentuacao['e'] = ['é', 'ê'];
 
         # Acentuação na letra 'i' minúscula
-        $acentuacao['i'] = ['í', 'Ã¬', 'Ã®'];
+        $acentuacao['i'] = ['í'];
 
         # Acentuação na letra 'o' minúscula
-        $acentuacao['o'] = ['ó', 'Ã²', 'Ã´', 'õ'];
+        $acentuacao['o'] = ['ó', 'ô', 'õ'];
 
         # Acentuação na letra 'u' minúscula
-        $acentuacao['u'] = ['ú', 'Ã¹', 'Ã»'];
+        $acentuacao['u'] = ['ú'];
 
         # Acentuação na letra 'ç' minúscula
         $acentuacao['c'] = ['ç'];
 
         # Acentuação na letra 'A' MAIÃSCULA
-        $acentuacao['A'] = ['Ã', 'Ã', 'Ã', 'Ã'];
+        $acentuacao['A'] = ['Á', 'À', 'Â', 'Ã'];
 
         # Acentuação na letra 'E' MAIÃSCULA
-        $acentuacao['E'] = ['Ã', 'Ã', 'Ã'];
+        $acentuacao['E'] = ['É', 'Ê'];
 
         # Acentuação na letra 'I' MAIÃSCULA
-        $acentuacao['I'] = ['Ã', 'Ã', 'Ã'];
+        $acentuacao['I'] = ['Í'];
 
         # Acentuação na letra 'O' MAIÃSCULA
-        $acentuacao['O'] = ['Ã', 'Ã', 'Ã', 'Ã'];
+        $acentuacao['O'] = ['Ó', 'Ô', 'Õ'];
 
         # Acentuação na letra 'U' MAIÃSCULA
-        $acentuacao['U'] = ['Ã', 'Ã', 'Ã'];
+        $acentuacao['U'] = ['Ú'];
 
-        # Acentuação na letra 'Ã' MAIÃSCULA
-        $acentuacao['C'] = ['Ã'];
+        # Acentuação na letra 'Ç' MAIÃSCULA
+        $acentuacao['C'] = ['Ç'];
 
         # Verificar se o encoding precisa ser ajustado
         $ajustar_encode = $content_type != 'multipart/form-data' && !empty($encode);
@@ -276,18 +276,23 @@ class Funcoes{
 
 
     /**
-     * Remover uma determinada coluna de um array multi-dimensional
+     * Remover uma ou mais colunas de um array multi-dimensional
      *
      * @param array $v Vetor multi-dimensional a ser verificado
-     * @param mixed $c Nome ou índice da coluna a ser removida
+     * @param mixed $c Nome ou índice da coluna a ser removida ou ainda um vetor contendo os nomes das colunas
      *
      * @return array
      */
     public static function _remover_coluna($v, $c){
-        return array_map(function ($v) use ($c){
-            if( isset($v) && is_array($v) ) unset($v[$c]);
-            return $v;
-        }, $v);
+	    return array_map(function ($v) use ($c){
+		    if( isset($v) && is_array($v) ){
+			    if( is_array($c) ){
+				    foreach( $c as $n ) unset($v[$n]);
+			    } else unset($v[$c]);
+		    } // Fim if( isset($v) && is_array($v) )
+
+		    return $v;
+	    }, $v);
     } // Fim do método _remover_coluna
 
 
