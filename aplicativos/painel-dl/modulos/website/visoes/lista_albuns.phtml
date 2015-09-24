@@ -9,7 +9,7 @@
 
 !isset($params) and $params = $this->_obterparams();
 
-$campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
+$campos = \Funcoes::_remover_coluna($params['lista'], [TXT_LISTA_TITULO_ID, 'linha']);
 
 ?>
 
@@ -44,13 +44,13 @@ $campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
 
                 foreach( $params['lista'] as $k => $l ): ?>
                 <tr class="tbl-linha">
-                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?php echo $l['ID']; ?>"/></td>
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?php echo $l[TXT_LISTA_TITULO_ID]; ?>"/></td>
                     <?php if( $params['exibir-id?'] )
-                        echo $this->aux_lista->_celula_comum('th-id', $l['ID'], ['class' => 'tbl-celula-id']);
+                        echo $this->aux_lista->_celula_comum('th-id', $l[TXT_LISTA_TITULO_ID], ['class' => 'tbl-celula-id']);
 
                     foreach( $campos[$k] as $k2 => $c ){
 	                    if( $k2 === TXT_LISTA_TITULO_NOME ){
-		                    $qt = $params['qtdes-fotos'][$l['ID']];
+		                    $qt = $params['qtdes-fotos'][$l[TXT_LISTA_TITULO_ID]];
 
 		                    switch( $qt ){
 			                    case 0: $qt_fotos = TXT_DIVERSOS_NENHUMA_FOTO; break;
@@ -83,7 +83,7 @@ $campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
 
                             # Editar esse registro
                             if( $params['opcoes']['editar?'] )
-                                echo $this->aux_links->_link('editar', "{$params['dir-lista']}editar/{$l['ID']}", TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false);
+                                echo $this->aux_links->_link('editar', "{$params['dir-lista']}editar/{$l[TXT_LISTA_TITULO_ID]}", TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false);
 
                             # Remover esse registro
                             if( $params['opcoes']['remover?'] )

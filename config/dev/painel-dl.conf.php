@@ -10,7 +10,7 @@
 // ini_set('display_errors', 'On');
 
 # Configurações da aplicação
-$ap_raiz    = 'framework-3.0';
+$ap_raiz    = 'framework-dl3';
 $ap_nome    = 'painel-dl';
 $ap_home    = 'painel-dl';
 $ap_titulo  = 'Painel-DL';

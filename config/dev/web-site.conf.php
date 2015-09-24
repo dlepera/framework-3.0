@@ -10,7 +10,7 @@
 // ini_set('display_errors', 'On');
 
 # Configurações da aplicação
-$ap_raiz    = 'framework-3.0';
+$ap_raiz    = 'framework-dl3';
 $ap_nome    = 'web-site';
 $ap_home    = '';
 $ap_titulo  = 'FrameworkDL3.0 || Feito por Diego Lepera';
