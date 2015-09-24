@@ -288,8 +288,10 @@ class Funcoes{
 
 	    if( isset($colunas) ){
 		    foreach( $vetor as $col_n1 => $v ){
-			    foreach( (array)$colunas as $col )
-				    unset($vetor[$col_n1][$col]);
+			    foreach( (array)$colunas as $col ){
+				    if( isset($vetor[$col_n1]) && is_array($vetor[$col_n1]) )
+					    unset($vetor[$col_n1][$col]);
+			    } // Fim foreach( $col )
 		    } // Fim foreach( $col_n1 )
 	    } // Fim if( isset($colunas) )
 
