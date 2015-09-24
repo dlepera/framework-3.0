@@ -273,23 +273,27 @@ abstract class Principal{
 
 
 
-	/**
-	 * Receber dados do _POST, tratá-los e carregá-los no modelo
-	 *
-	 * @param array $dados Vetor com as informações referentes aos filtros a serem aplicados
-	 */
-	protected function _carregar_post(array $dados = []){
-		!filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' and exit(0);
+    /**
+     * Receber dados do _POST, tratá-los e carregá-los no modelo
+     *
+     * @param array $dados Vetor com as informações referentes aos filtros a serem aplicados
+     *
+     * @return array Retorna vetor de dados já tratados
+     */
+    protected function _carregar_post(array $dados = []){
+        !filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' and exit(0);
 
-		$post = filter_input_array(INPUT_POST, $dados);
+        $post = filter_input_array(INPUT_POST, $dados);
 
-		# Converter o encode
-		\Funcoes::_converterencode($post, \DL3::$ap_charset);
+        # Converter o encode
+        \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
-		# Selecionar as informações atuais
-		$this->modelo->_selecionarPK($post['id']);
+        # Selecionar as informações atuais
+        $this->modelo->_selecionarPK($post['id']);
 
-		# Carregar o modelo com as informações recebidas
-		\Funcoes::_vetor2objeto($post, $this->modelo);
-	} // Fim do método _carregarpost
+        # Carregar o modelo com as informações recebidas
+        \Funcoes::_vetor2objeto($post, $this->modelo);
+
+        return $post;
+    } // Fim do método _carregarpost
 } // Fim do controle Principal
