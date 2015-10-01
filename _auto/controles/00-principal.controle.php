@@ -289,7 +289,7 @@ abstract class Principal{
         \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
         # Selecionar as informações atuais
-        $this->modelo->_selecionarPK($post['id']);
+        $this->modelo->reg_vazio || $post['id'] != $this->modelo->id and $this->modelo->_selecionarPK($post['id']);
 
         # Carregar o modelo com as informações recebidas
         \Funcoes::_vetor2objeto($post, $this->modelo);
