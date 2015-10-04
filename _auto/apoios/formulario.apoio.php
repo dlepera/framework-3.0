@@ -93,6 +93,14 @@ HTML;
 			'class' => 'form-controle form-controle-data'
 		],
 
+		'hora' => [
+			'type' => 'time',
+			'name' => '',
+			'id' => 'hr-',
+			'value' => '',
+			'class' => 'form-controle form-controle-data'
+		],
+
 		'data-hora' => [
 			'type' => 'datetime',
 			'name' => '',
