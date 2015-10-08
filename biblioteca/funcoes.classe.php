@@ -312,8 +312,9 @@ class Funcoes{
      */
     public static function _array_serialize(array $v = [], $s = ', ', $a = null){
         return implode($s, array_map(function($k) use ($v, $a){
+	        if( !isset($v[$k]) ) return null;
             $vl = $k === 'pattern' ? self::_expreg_form($v[$k]) : $v[$k];
-            return isset($vl) ? "{$k}={$a}{$vl}{$a}" : null;
+            return "{$k}={$a}{$vl}{$a}";
         }, array_keys($v)));
     } // Fim do método _array_serialize
 } // Fim da classe Funções

@@ -185,14 +185,11 @@ abstract class Principal{
     public function _selecionarPK($v, $a = null){
         if( !isset($v) ) return false;
 
-        $pk = array_map(
-            function($v){ return preg_replace("~^{$this->bd_prefixo}~", '', $v); },
-            \DL3::$bd_conex->_identifica_pk($this->bd_tabela)
-        );
-
+        $pk = \DL3::$bd_conex->_identifica_pk($this->bd_tabela, $this->bd_prefixo);
         $pku = count($pk) < 2 ? $pk[0] : $pk;
+        $vlu = is_array($v) && count($v) < 2 ? $v[0] : $v;
 
-        return $this->_selecionarUK($pku, $v, $a);
+        return $this->_selecionarUK($pku, $vlu, $a);
     } // Fim do método _selecionarPK
 
 
@@ -218,16 +215,18 @@ abstract class Principal{
             $cv = array_combine($c, $v);
             $tf = [];
 
-            foreach( $cv as $k => $t ) $tf[] = "{$al}{$this->bd_prefixo}{$k} = ". var_export($t, true);
+            foreach( $cv as $k => $t ) $tf[] = "{$al}{$this->bd_prefixo}{$k} = " . \Funcoes::_var_export_bd($t);
 
             $flt = implode(' AND ', $tf);
-        } else $flt = "{$al}{$this->bd_prefixo}{$c} = ". var_export($v, true);
+        } else $flt = "{$al}{$this->bd_prefixo}{$c} = " . \Funcoes::_var_export_bd($v);
 
         $ls = $this->_listar($flt, null, "{$al}*", 0, 1, 0);
 
-	    # Informar se o registro foi selecionado corretamente antes de carregar as informações
-	    # Dessa forma é fácil identificar se o registro foi selecionado durante o carregamento das informações e, assim,
-	    # poder recuperar valores criptografados, por exemplo. Ex. de utilização: Hash de recuperação de senha
+	    /*
+	     * Informar se o registro foi selecionado corretamente antes de carregar as informações
+	     * Dessa forma é fácil identificar se o registro foi selecionado durante o carregamento das informações e, assim,
+	     * poder recuperar valores criptografados, por exemplo. Ex. de utilização: Hash de recuperação de senha
+	     */
         $this->reg_vazio = !(bool)$ls;
 
 	    if( !$this->reg_vazio ){

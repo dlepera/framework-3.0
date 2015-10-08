@@ -186,4 +186,7 @@ function _echo_vs_print(){
 // file_exists_vs_is_file();
 // _array_serialize();
 // _concatenacao();
-_echo_vs_print();
+// _echo_vs_print();
+
+setlocale(LC_ALL, 'pt_BR');
+echo date('D');

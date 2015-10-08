@@ -9,7 +9,7 @@
 
 !isset($params) and $params = $this->_obterparams();
 
-$campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
+$campos = \Funcoes::_remover_coluna($params['lista'], [TXT_LISTA_TITULO_ID, 'linha']);
 
 ?>
 
@@ -17,81 +17,92 @@ $campos = \Funcoes::_remover_coluna($params['lista'], 'ID');
     <nav class="dl3-links">
         <!-- Inserir um novo registro -->
         <?php if( $params['opcoes']['inserir?'] )
-            echo $this->aux_lista->_link_inserir("{$params['dir-lista']}novo", $params['link-inserir']); ?>
+            echo $this->aux_links->_link('inserir', "{$params['dir-lista']}novo", $params['link-inserir']); ?>
     </nav>
 
     <form id="form-editar-lista" method="post" action="<?php echo $params['form-acao']; ?>">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
             <thead class="tbl-titulos">
-                <tr class="tbl-linha">
-                    <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
-                    <?php
-                    if( $params['exibir-id?'] )
-                        echo $this->aux_lista->_celula_titulo('th-id', TXT_LISTA_TITULO_ID, ['class' => 'tbl-celula-id']);
+            <tr class="tbl-linha">
+                <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>
+                <?php
+                if( $params['exibir-id?'] )
+                    echo $this->aux_lista->_celula_titulo('th-id', TXT_LISTA_TITULO_ID, ['class' => 'tbl-celula-id']);
 
-                    foreach( $campos[0] as $tt => $lt )
-						echo $this->aux_lista->_celula_titulo($this->aux_lista->_th_id($tt), $tt);
+                foreach( $campos[0] as $tt => $lt )
+                    echo $this->aux_lista->_celula_titulo($this->aux_lista->_th_id($tt), $tt);
 
-                    echo $this->aux_lista->_celula_titulo('th-opcoes', TXT_LISTA_TITULO_OPCOES, ['class' => 'tbl-celula-opcoes']);
-                    ?>
-                </tr>
+                echo $this->aux_lista->_celula_titulo('th-opcoes', TXT_LISTA_TITULO_OPCOES, ['class' => 'tbl-celula-opcoes']);
+                ?>
+            </tr>
             </thead>
 
             <tbody class="tbl-conteudo">
-                <?php if( !count($params['lista']) )
-                    echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
+            <?php if( !count($params['lista']) )
+                echo '<tr class="tbl-linha sem-registros"><td>', MSG_PADRAO_NENHUM_REGISTRO_ENCONTRADO,'</td></tr>';
 
-                foreach( $params['lista'] as $k => $l ): ?>
+            foreach( $params['lista'] as $k => $l ): ?>
                 <tr class="tbl-linha">
-                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?php echo $l['ID']; ?>"/></td>
+                    <td headers="th-chk" class="tbl-celula-chk"><input type="checkbox" name="id[]" value="<?php echo $l[TXT_LISTA_TITULO_ID]; ?>"/></td>
                     <?php if( $params['exibir-id?'] )
-                        echo $this->aux_lista->_celula_comum('th-id', $l['ID'], ['class' => 'tbl-celula-id']);
+                        echo $this->aux_lista->_celula_comum('th-id', $l[TXT_LISTA_TITULO_ID], ['class' => 'tbl-celula-id']);
 
                     foreach( $campos[$k] as $k2 => $c )
-	                    echo $this->aux_lista->_celula_comum(
+                        echo $this->aux_lista->_celula_comum(
                             $this->aux_lista->_th_id($k2), $c,
-		                    ['class' => preg_match('~<br\/?>~', $c) ? 'tbl-celula-infos' : null]
+                            ['class' => preg_match('~<br\/?>~', $c) ? 'tbl-celula-infos' : null]
                         ); ?>
 
                     <td headers="th-opcoes" class="tbl-celula-opcoes">
-	                    <?php
-	                    # Publicar ou ocultar esse registro
-	                    if( $params['opcoes']['publicar?'] ){
-		                    echo $l[TXT_LISTA_TITULO_PUBLICADO] === 'Sim'
-			                    ? $this->aux_lista->_link_ocultar("SelecionarLinha(this, true); AlternarPublicacao('{$params['dir-lista']}alternar-publicacao/ocultar');", TXT_LINK_OCULTAR, TXT_LINK_TITLE_OCULTAR)
-		                        : $this->aux_lista->_link_publicar("SelecionarLinha(this, true); AlternarPublicacao('{$params['dir-lista']}alternar-publicacao/publicar');", TXT_LINK_PUBLICAR, TXT_LINK_TITLE_PUBLICAR);
-						} // Fim if( $params['opcoes']['publicar?'] )
+                            <span class="tbl-celula-conteudo">
+                                <?php
+                                # Publicar ou ocultar esse registro
+                                if( $params['opcoes']['publicar?'] ){
+                                    echo $l[TXT_LISTA_TITULO_PUBLICADO] === 'Sim'
+                                        ? $this->aux_links->_link('ocultar', 'javascript:', TXT_LINK_OCULTAR, TXT_LINK_TITLE_OCULTAR, false, [
+                                            'data-acao-param-dir' => "{$params['dir-lista']}alternar-publicacao/ocultar"
+                                        ])
+                                        : $this->aux_links->_link('publicar', 'javascript:', TXT_LINK_PUBLICAR, TXT_LINK_TITLE_PUBLICAR, false, [
+                                            'data-acao-param-dir' => "{$params['dir-lista']}alternar-publicacao/publicar"
+                                        ]);
+                                } // Fim if( $params['opcoes']['publicar?'] )
 
-	                    # Editar esse registro
-	                    if( $params['opcoes']['editar?'] )
-		                    echo $this->aux_lista->_link_editar("{$params['dir-lista']}editar/{$l['ID']}", TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR);
+                                # Editar esse registro
+                                if( $params['opcoes']['editar?'] )
+                                    echo $this->aux_links->_link('editar', "{$params['dir-lista']}editar/{$l[TXT_LISTA_TITULO_ID]}", TXT_LINK_EDITAR, TXT_LINK_TITLE_EDITAR, false);
 
-	                    # Remover esse registro
-	                    if( $params['opcoes']['remover?'] )
-		                    echo $this->aux_lista->_link_remover('SelecionarLinha(this, true); $el.submit();', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER); ?>
+                                # Remover esse registro
+                                if( $params['opcoes']['remover?'] )
+                                    echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER, false); ?>
+                            </span>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+            <?php endforeach; ?>
             </tbody>
 
             <tfoot class="tbl-rodape">
-                <?php if( count($params['lista']) ): ?>
+            <?php if( count($params['lista']) ): ?>
                 <tr class="tbl-linha com-marcados">
                     <td>
-	                    <?php
-	                    # Publicar e ocultar registros
-	                    if( $params['opcoes']['publicar?'] ){
-		                    echo $this->aux_lista->_link_publicar("AlternarPublicacao('{$params['dir-lista']}alternar-publicacao/publicar');", TXT_LINK_PUBLICAR, TXT_LINK_TITLE_PUBLICAR_SELECIONADOS);
-		                    echo $this->aux_lista->_link_ocultar("AlternarPublicacao('{$params['dir-lista']}alternar-publicacao/ocultar');", TXT_LINK_OCULTAR, TXT_LINK_TITLE_OCULTAR_SELECIONADOS);
-	                    } // Fim if( $params['opcoes']['publicar?'] )
+                        <?php
+                        # Publicar e ocultar registros
+                        if( $params['opcoes']['publicar?'] ){
+                            echo $this->aux_links->_link('publicar', 'javascript:', TXT_LINK_PUBLICAR, TXT_LINK_TITLE_PUBLICAR_SELECIONADOS, false, [
+                                'data-acao-param-dir' => "{$params['dir-lista']}alternar-publicacao/publicar"
+                            ]);
 
-	                    # Remover registros
-	                    if( $params['opcoes']['remover?'] )
-		                    echo $this->aux_lista->_link_remover('$el.submit();', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER_SELECIONADOS); ?>
+                            echo $this->aux_links->_link('ocultar', 'javascript:', TXT_LINK_OCULTAR, TXT_LINK_TITLE_OCULTAR_SELECIONADOS, false, [
+                                'data-acao-param-dir' => "{$params['dir-lista']}alternar-publicacao/ocultar"
+                            ]);
+                        } // Fim if( $params['opcoes']['publicar?'] )
+
+                        # Remover registros
+                        if( $params['opcoes']['remover?'] )
+                            echo $this->aux_links->_link('remover', 'javascript:', TXT_LINK_REMOVER, TXT_LINK_TITLE_REMOVER_SELECIONADOS, false); ?>
                     </td>
                 </tr>
-                <?php endif; ?>
+            <?php endif; ?>
             </tfoot>
         </table>
     </form>

@@ -284,12 +284,23 @@ abstract class Principal{
         !filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST' and exit(0);
 
         $post = filter_input_array(INPUT_POST, $dados);
+	    $igual = true;
+	    $pk_cpo = filter_var(\DL3::$bd_conex->_identifica_pk($this->modelo->bd_tabela, $this->modelo->bd_prefixo), FILTER_SANITIZE_STRING, FILTER_FORCE_ARRAY);
+	    $pk_val = [];
 
         # Converter o encode
         \Funcoes::_converterencode($post, \DL3::$ap_charset);
 
-        # Selecionar as informações atuais
-        $this->modelo->reg_vazio || $post['id'] != $this->modelo->id and $this->modelo->_selecionarPK($post['id']);
+	    /*
+	     * Considerar tanto chaves compostas como simples como vetor para evitar fazer muitas verificações "if".
+	     */
+	    foreach( $pk_cpo as $c ){
+		    $val = $post[$c];
+		    $pk_val[] = $val;
+		    $this->modelo->{$c} != $val and $igual = false;
+	    } // Fim foreach
+
+	    !$igual || $this->modelo->reg_vazio and $this->modelo->_selecionarPK($pk_val);
 
         # Carregar o modelo com as informações recebidas
         \Funcoes::_vetor2objeto($post, $this->modelo);

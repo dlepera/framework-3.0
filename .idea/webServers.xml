@@ -17,6 +17,9 @@
       <webServer id="620624ba-2b04-4317-9244-ef5d70687da1" name="FrameworkDL3 - v3.4" url="http://localhost">
         <fileTransfer mountedRoot="$PROJECT_DIR$/../../framework-dl3/v3.4" accessType="MOUNT" />
       </webServer>
+      <webServer id="4978778c-1165-40a6-8c24-4fcf1feca59e" name="Desenvolvimento" url="http://localhost/framework">
+        <fileTransfer mountedRoot="/Applications/MAMP/htdocs/framework-dl3" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>

@@ -155,13 +155,15 @@ class PDODL extends PDO{
 	/**
 	 * Identificar a chave primária de uma tabela
 	 *
-	 * @param string $tbl Nome da tabela a ser pesquisada
+	 * @param string      $tbl     Nome da tabela a ser pesquisada
+	 * @param string|null $prefixo Se nulo o nome do campo será retornado com o prefixo. Caso contrário deve ser
+	 *                             informado o prefixo a ser removido
 	 *
 	 * @return string|array|void  String com o nome do campo PK ou um vetor com os nomes (chaves compostas) ou void se
 	 *                             não encontrar
 	 * @throws Exception
 	 */
-	public function _identifica_pk($tbl){
+	public function _identifica_pk($tbl, $prefixo = null){
 		if( !$this->_tabela_existe($tbl) ) return;
 
 		$c = 'self::'. $this->driver .'_IDENTIFICA_PK';
@@ -172,7 +174,12 @@ class PDODL extends PDO{
 		$sql = $this->prepare(constant($c), [PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY]);
 		$sql->execute([':base' => $this->bd,  ':tbl' => $tbl]);
 
-		return array_column($sql->fetchAll(\PDO::FETCH_ASSOC), 'NOME_COLUNA');
+		$campos = array_column($sql->fetchAll(\PDO::FETCH_ASSOC), 'NOME_COLUNA');
+
+		return isset($prefixo)
+			? array_map(function($v) use ($prefixo){
+				return preg_replace("~^{$prefixo}~", '', $v);
+			}, $campos) : $campos;
 	} // Fim do método _identifica_pk
 
 

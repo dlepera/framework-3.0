@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="FrameworkDL3 - v3.4" overwriteAll="false" persistUploadOnCheckin="false" exclude=".svn;.cvs;.idea;.DS_Store;.git*;.hg;.htaccess;config.codekit;sass;.sass-*;_ajuda">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Desenvolvimento" overwriteAll="false" createEmptyFolders="true" uploadOnCheckin="620624ba-2b04-4317-9244-ef5d70687da1" exclude=".svn;.cvs;.idea;.DS_Store;.git*;.hg;config.codekit;sass;.sass-*;_ajuda" autoUploadExternalChanges="true">
     <serverData>
+      <paths name="Desenvolvimento">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
+            <excludedPath local="true" path="$PROJECT_DIR$/_padroes" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config/dev-mssql" />
+            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
+            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.gitignore" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
       <paths name="FrameworkDL3 - v3.4">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/framework-3.0" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/framework-3.0" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/teste" />
@@ -13,6 +30,11 @@
             <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
             <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
             <excludedPath local="true" path="$PROJECT_DIR$/aplicativos" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
+            <excludedPath local="true" path="$PROJECT_DIR$/index.php" />
+            <excludedPath local="true" path="$PROJECT_DIR$/robots.txt" />
+            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
           </excludedPaths>
         </serverdata>
       </paths>
@@ -102,5 +124,7 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="FrameworkDL3 - v3.4" />
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
