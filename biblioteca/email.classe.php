@@ -15,133 +15,138 @@ use \Geral\Modelo as GeralM;
 use \Admin\Modelo as AdminM;
 
 class Email{
-    # Instâncias utilizadas
-    private $obj_pm, $mod_ce, $mod_le;
+	# Instâncias utilizadas
+	private $obj_pm, $mod_ce, $mod_le;
 
-    public function __construct(){
-        # Instanciar o PHP-Mailer
-        $this->obj_pm = new PHPMailer();
-        $this->obj_pm->SetLanguage('br');
+	public function __construct(){
+		# Instanciar o PHP-Mailer
+		$this->obj_pm = new PHPMailer();
+		$this->obj_pm->SetLanguage('br');
 
-        # Instanciar o modelo ConfigEmail
-        $this->mod_ce = new AdminM\ConfigEmail();
+		# Instanciar o modelo ConfigEmail
+		$this->mod_ce = new AdminM\ConfigEmail();
 
-        # Instanciar o modelo LogEmail
-        $this->mod_le = new GeralM\LogEmail();
-    } // Fim do método mágico __construct
-
-
-
-
-    /**
-     * Carregar as configurações
-     *
-     * @param int $id ID da configuração a ser carregada. Se não for informado será carregada a configuração flagada
-     *                como 'Principal'
-     */
-    public function _carregarconf($id = null){
-        # Selecionar as configurações principais ou definida pelo ID
-        !isset($id) ? $this->mod_ce->_selecionar_principal() : $this->mod_ce->_selecionarPK($id);
-
-        # Definir servidor como SMTP
-        $this->obj_pm->IsSMTP();
-
-        # Dados do servidor
-        $this->obj_pm->Host = $this->mod_ce->host;
-        $this->obj_pm->Port = $this->mod_ce->porta;
-        $this->obj_pm->SMTPAuth = (bool)$this->mod_ce->autent;
-        $this->obj_pm->SMTPSecure = $this->mod_ce->cripto;
-        $this->obj_pm->Username = $this->mod_ce->conta;
-        $this->obj_pm->Password = $this->mod_ce->senha;
-        $this->obj_pm->From = $this->mod_ce->de_email;
-        $this->obj_pm->FromName = $this->mod_ce->de_nome;
-        $this->obj_pm->AddReplyTo($this->mod_ce->responder_para);
-        $this->obj_pm->IsHTML((bool)$this->mod_ce->html);
-
-        # Habilitar (ou não) o debugger
-        $this->obj_pm->SMTPDebug = (bool)$this->mod_ce->debug;
-    } // Fim do método _carregarconf
+		# Instanciar o modelo LogEmail
+		$this->mod_le = new GeralM\LogEmail();
+	} // Fim do método mágico __construct
 
 
 
 
-    /**
-     * Enviar o e-mail
-     *
-     * @param string $dest    Email ou emails do destinatário separados por ; (ponto e vírgula)
-     * @param string $assunto Assunto do e-mail
-     * @param string $corpo   Corpo do e-mail
-     * @param int    $config  ID da configuração a ser carregada
-     *
-     * @return boolean false em caso de falha e true em caso de sucesso
-     */
-    public function _enviar($dest, $assunto, $corpo, $config = null){
-        # Carregar as configurações
-        $this->_carregarconf($config);
+	/**
+	 * Carregar as configurações
+	 *
+	 * @param int $id ID da configuração a ser carregada. Se não for informado será carregada a configuração flagada
+	 *                como 'Principal'
+	 */
+	public function _carregarconf($id = null){
+		# Selecionar as configurações principais ou definida pelo ID
+		!isset($id) ? $this->mod_ce->_selecionar_principal() : $this->mod_ce->_selecionarPK($id);
 
-        # Garantir que ainda não existam endereços
-        $this->obj_pm->ClearAllRecipients();
+		# Definir servidor como SMTP
+		$this->obj_pm->IsSMTP();
 
-        # Corpo do e-mail
-        $this->obj_pm->Subject = utf8_decode($assunto);
-        $this->obj_pm->Body    = utf8_decode($corpo);
+		# Dados do servidor
+		$this->obj_pm->Host = $this->mod_ce->host;
+		$this->obj_pm->Port = $this->mod_ce->porta;
+		$this->obj_pm->SMTPAuth = (bool)$this->mod_ce->autent;
+		$this->obj_pm->SMTPSecure = $this->mod_ce->cripto;
+		$this->obj_pm->Username = $this->mod_ce->conta;
+		$this->obj_pm->Password = $this->mod_ce->senha;
+		$this->obj_pm->From = $this->mod_ce->de_email;
+		$this->obj_pm->FromName = $this->mod_ce->de_nome;
+		$this->obj_pm->AddReplyTo($this->mod_ce->responder_para);
+		$this->obj_pm->IsHTML((bool)$this->mod_ce->html);
 
-        # Incluir os destinatários
-        $dests = explode(';', $dest);
-
-        foreach( $dests as $d )
-            $this->obj_pm->AddAddress($d);
-
-        # Enviar o e-mail
-        if( !$this->obj_pm->Send() ){
-            $this->mod_le->mensagem = $this->obj_pm->ErrorInfo;
-            $this->mod_le->status = 'F';
-
-            return false;
-        } // Fim if( !$this->obj_pm->Send() )
-
-        $this->mod_le->status = 'E';
-
-        return true;
-    } // Fim do método _enviar
+		# Habilitar (ou não) o debugger
+		$this->obj_pm->SMTPDebug = (bool)$this->mod_ce->debug;
+	} // Fim do método _carregarconf
 
 
 
 
-    /**
-     * Gravar o log da tentativa/envio do e-mail
-     *
-     * @param string $classe Nome da classe que fez o envio do e-mail
-     * @param string $tabela Nome da tabela que contém o registro referenciado pelo envio do e-mail
-     * @param int    $idreg  ID do registro, contido em $tabela que referencia esse envio de e-mail
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    public function _gravarlog($classe = null, $tabela = null, $idreg = null){
-        # Informações do Log
-	    $this->mod_le->config = $this->mod_ce->id;
-	    $this->mod_le->ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-	    $this->mod_le->classe = $classe;
-	    $this->mod_le->tabela = $tabela;
-	    $this->mod_le->idreg = $idreg;
+	/**
+	 * Enviar o e-mail
+	 *
+	 * @param string $dest    Email ou emails do destinatário separados por ; (ponto e vírgula)
+	 * @param string $assunto Assunto do e-mail
+	 * @param string $corpo   Corpo do e-mail
+	 * @param int    $config  ID da configuração a ser carregada
+	 * @param string $cc      Email ou emails que receberão uma cópia, separados por ; (ponto e vírgula)
+	 * @param string $cco     Email ou emails que receberão uma cópia oculta, separados por ; (ponto e vírgula)
+	 *
+	 * @return boolean false em caso de falha e true em caso de sucesso
+	 */
+	public function _enviar($dest, $assunto, $corpo, $config = null, $cc = null, $cco = null){
+		# Carregar as configurações
+		$this->_carregarconf($config);
 
-        return $this->mod_le->_salvar();
-    } // Fim do método _gravarlog
+		# Garantir que ainda não existam endereços
+		$this->obj_pm->ClearAllRecipients();
+
+		# Corpo do e-mail
+		$this->obj_pm->Subject = utf8_decode($assunto);
+		$this->obj_pm->Body    = utf8_decode($corpo);
+
+		# Incluir os destinatários
+		$dests = explode(';', $dest);
+		$dest_cc = explode(';', $cc);
+		$dest_cco = explode(';', $cco);
+
+		foreach( $dests as $d ) $this->obj_pm->AddAddress($d);
+		foreach( $dest_cc as $d ) $this->obj_pm->AddCC($d);
+		foreach( $dest_cco as $d ) $this->obj_pm->AddBCC($d);
+
+		# Enviar o e-mail
+		if( !$this->obj_pm->Send() ){
+			$this->mod_le->mensagem = $this->obj_pm->ErrorInfo;
+			$this->mod_le->status = 'F';
+
+			return false;
+		} // Fim if( !$this->obj_pm->Send() )
+
+		$this->mod_le->status = 'E';
+
+		return true;
+	} // Fim do método _enviar
 
 
 
 
-    /**
-     * Exibir o log caso haja
-     *
-     * @return string Trecho HTML para exibição do LOG
-     */
-    public function _exibirlog(){
-        return (
-            "<p style='text-align: left !important;'><b>Data:</b> {$this->mod_le->mod_lr->data_criacao}<br>"
-            . "<b>Status:</b> {$this->mod_le->status}<br>"
-            . "<b>Mensagem:</b> {$this->mod_le->mensagem}</p>"
-        );
-    } // Fim do método _exibirlog
+	/**
+	 * Gravar o log da tentativa/envio do e-mail
+	 *
+	 * @param string $classe Nome da classe que fez o envio do e-mail
+	 * @param string $tabela Nome da tabela que contém o registro referenciado pelo envio do e-mail
+	 * @param int    $idreg  ID do registro, contido em $tabela que referencia esse envio de e-mail
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 */
+	public function _gravarlog($classe = null, $tabela = null, $idreg = null){
+		# Informações do Log
+		$this->mod_le->config = $this->mod_ce->id;
+		$this->mod_le->ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+		$this->mod_le->classe = $classe;
+		$this->mod_le->tabela = $tabela;
+		$this->mod_le->idreg = $idreg;
+
+		return $this->mod_le->_salvar();
+	} // Fim do método _gravarlog
+
+
+
+
+	/**
+	 * Exibir o log caso haja
+	 *
+	 * @return string Trecho HTML para exibição do LOG
+	 */
+	public function _exibirlog(){
+		return (
+			"<p style='text-align: left !important;'><b>Data:</b> {$this->mod_le->mod_lr->data_criacao}<br>"
+			. "<b>Status:</b> {$this->mod_le->status}<br>"
+			. "<b>Mensagem:</b> {$this->mod_le->mensagem}</p>"
+		);
+	} // Fim do método _exibirlog
 } // Fim da classe Email
