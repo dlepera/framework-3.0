@@ -62,7 +62,7 @@ $params = $this->_obterparams();
 
 <!-- Javascripts -->
 <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
-<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.1.plugin.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin.js"></script>
 <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
 
 [DL3-SCRIPTS/]

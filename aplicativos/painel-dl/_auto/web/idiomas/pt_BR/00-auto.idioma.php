@@ -55,6 +55,9 @@ define('TXT_LISTA_TITULO_ID', 'ID');
 define('TXT_LISTA_TITULO_PUBLICADO', 'Publicado?');
 define('TXT_LISTA_TITULO_OPCOES', 'Opções');
 
+# -> Subtítulos
+define('TXT_LISTA_SUBTITULO_MOSTRANDO_X_REGISTROS', 'Mostrando <b>%d</b> registros de um total de <b>%d</b> encontrados.');
+
 
 // Formulários ------------------------------------------------------------------------------------------------------ //
 # -> Legendas

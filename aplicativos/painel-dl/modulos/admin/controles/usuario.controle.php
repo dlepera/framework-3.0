@@ -159,7 +159,7 @@ class Usuario extends GeralC\PainelDL{
         $this->modelo->_selecionarPK($_SESSION['usuario_id']);
         $this->modelo->_alterarsenha($sn, $sc, $sa);
 
-        \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_USUARIO_ALTERARSENHA, '__msg-sucesso');
     } // Fim do método _alterarsenha
 
 
@@ -188,7 +188,7 @@ class Usuario extends GeralC\PainelDL{
 	        $qe = $this->modelo->_salvar();
         } // Fim foreach
 
-	    return $vlr == 1 ? \Funcoes::_retornar( !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' ) : \Funcoes::_retornar( !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt ), !$qe ? 'msg-erro' : 'msg-sucesso' );
+	    return $vlr == 1 ? \Funcoes::_retornar( !$qe ? ERRO_USUARIO_BLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_BLOQUEAR_UM : SUCESSO_USUARIO_BLOQUEAR_VARIOS, $qe, $qt ), !$qe ? '__msg-erro' : '__msg-sucesso' ) : \Funcoes::_retornar( !$qe ? ERRO_USUARIO_DESBLOQUEAR : sprintf( $qe == 1 ? SUCESSO_USUARIO_DESBLOQUEAR_UM : SUCESSO_USUARIO_DESBLOQUEAR_VARIOS, $qe, $qt ), !$qe ? '__msg-erro' : '__msg-sucesso' );
     } // Fim do método _bloquear
 
 
@@ -196,6 +196,6 @@ class Usuario extends GeralC\PainelDL{
 
     protected function _salvar_foto(){
 		$this->modelo->_salvar_foto();
-		\Funcoes::_retornar(SUCESSO_USUARIOS_SALVAR_FOTO, 'msg-sucesso');
+		\Funcoes::_retornar(SUCESSO_USUARIOS_SALVAR_FOTO, '__msg-sucesso');
 	} // Fim do método _salvar_foto
 } // Fim do Controle Usuario

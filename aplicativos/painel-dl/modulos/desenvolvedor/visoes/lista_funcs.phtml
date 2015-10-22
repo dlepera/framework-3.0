@@ -24,6 +24,10 @@
 
 	<form id="form-remover-func" method="post" action="desenvolvedor/modulos/funcionalidades/excluir">
 		<table class="lista-registros">
+			<?php if( $params['qtde-registros'] > 0 ): ?>
+				<caption class="tbl-subtitulo"><?php printf(TXT_LISTA_SUBTITULO_MOSTRANDO_X_REGISTROS, count($params['lista']), $params['qtde-registros']); ?></caption>
+			<?php endif; ?>
+
 			<thead class="tbl-titulos">
 				<tr class="tbl-linha">
 					<th id="th-chk" class="tbl-celula-id"><input type="checkbox"/></th>

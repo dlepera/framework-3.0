@@ -67,6 +67,10 @@ class PainelDL extends Principal{
 		    'class' => 'com-icone ico-email'
 	    ]);
 
+	    $this->visao->aux_links->_novo_link('voltar', [
+		    'class' => 'com-icone ico-voltar'
+	    ]);
+
         # Dados do usuário
         $mus = new AdminM\Usuario($_SESSION['usuario_id']);
 

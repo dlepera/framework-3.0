@@ -7,35 +7,13 @@
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
-            <excludedPath local="true" path="$PROJECT_DIR$/_padroes" />
-            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
-            <excludedPath local="true" path="$PROJECT_DIR$/config/dev-mssql" />
-            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
-            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
-            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
-            <excludedPath local="true" path="$PROJECT_DIR$/.gitignore" />
-          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="FrameworkDL3 - v3.4">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/framework-3.0" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/teste" />
-            <excludedPath local="true" path="$PROJECT_DIR$/config" />
-            <excludedPath local="true" path="$PROJECT_DIR$/gerar-pacote.sh" />
-            <excludedPath local="true" path="$PROJECT_DIR$/atualizar.tar.bz2" />
-            <excludedPath local="true" path="$PROJECT_DIR$/aplicativos" />
-            <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
-            <excludedPath local="true" path="$PROJECT_DIR$/dl-criar-atualizacao.sh" />
-            <excludedPath local="true" path="$PROJECT_DIR$/index.php" />
-            <excludedPath local="true" path="$PROJECT_DIR$/robots.txt" />
-            <excludedPath local="true" path="$PROJECT_DIR$/bd" />
-          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="Local - Barlabares">

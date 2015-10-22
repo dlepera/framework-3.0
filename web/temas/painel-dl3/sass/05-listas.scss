@@ -22,6 +22,14 @@
 	border-spacing: 0;
 	border-collapse: collapse;
 
+	.tbl-subtitulo {
+		// Texto
+		color: #777;
+
+		// Margens
+		margin-bottom: 1rem;
+	}
+
 	.tbl-titulos {
 		.tbl-linha {
 			th:not(.tbl-celula-chk):not(.tbl-celula-id) {

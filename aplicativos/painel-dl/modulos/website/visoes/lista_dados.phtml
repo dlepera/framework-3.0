@@ -26,6 +26,10 @@ $campos = \Funcoes::_remover_coluna($params['lista'], [TXT_LISTA_TITULO_ID, 'lin
     <form id="form-editar-lista" method="post" action="<?php echo $params['form-acao']; ?>">
         <!-- Exibir a lista com os registros selecionados -->
         <table class="lista-registros">
+	        <?php if( $params['qtde-registros'] > 0 ): ?>
+		        <caption class="tbl-subtitulo"><?php printf(TXT_LISTA_SUBTITULO_MOSTRANDO_X_REGISTROS, count($params['lista']), $params['qtde-registros']); ?></caption>
+	        <?php endif; ?>
+
             <thead class="tbl-titulos">
                 <tr class="tbl-linha">
                     <th id="th-chk" class="tbl-celula-chk"><input type="checkbox"/></th>

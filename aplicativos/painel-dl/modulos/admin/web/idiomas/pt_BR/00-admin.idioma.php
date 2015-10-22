@@ -110,6 +110,7 @@ define('TXT_OPCAO_SSL', 'SSL - Secure Socket Layer');
 // Diversos --------------------------------------------------------------------------------------------------------- //
 define('MSG_USUARIO_BLOQUEADO', '<b>Atenção:</b> Esse usuário está bloqueado e, portanto, não tem acesso ao sistema.');
 define('MSG_USUARIO_ALTERAR_FOTO', 'Alterar foto');
+define('TXT_DIVERSOS_CONFIRMAR_ALTERAR_SENHA', 'Você está prestes a alterar a sua senha e essa tarefa não poderá ser desfeita.<br/><br/>Deseja realmente continuar?');
 
 
 // E-mails ---------------------------------------------------------------------------------------------------------- //

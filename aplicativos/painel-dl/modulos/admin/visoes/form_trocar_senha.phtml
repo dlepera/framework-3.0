@@ -13,7 +13,7 @@
 
 [DL3-CONTEUDO]
 	<?php if( $params['msg-reset?'] ): ?>
-    <p class="msg-info"><?php echo MSG_RESET_SENHA_PROX_LOGIN; ?></p>
+        <p class="msg-info"><?php echo MSG_RESET_SENHA_PROX_LOGIN; ?></p>
 	<?php endif; ?>
 
     <form id="form-<?php echo $params['form-id']; ?>" method="post" action="<?php echo preg_replace('~^[a-z0-9A-Z]+/~', 'admin/', $params['form-action']); ?>">
@@ -31,7 +31,9 @@
 
         <p class="form-botoes">
             <?php
-            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR);
+            echo $this->aux_form->_botao('salvar', TXT_BOTAO_SALVAR, [
+	            'data-acao' => 'confirmar-submit', 'data-acao-param-msg' => TXT_DIVERSOS_CONFIRMAR_ALTERAR_SENHA
+            ]);
             echo $this->aux_form->_botao('cancelar', TXT_BOTAO_CANCELAR);
             ?>
         </p>

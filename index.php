@@ -24,6 +24,6 @@ try{
 } catch (Exception $ex) {
     echo json_encode([
         'mensagem'  =>  $ex->getMessage(),
-        'tipo'      =>  'msg-erro'
+        'tipo'      =>  '__msg-erro'
     ]);
 }

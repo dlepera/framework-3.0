@@ -285,7 +285,7 @@
 							$('body')._mostrarmsg({
 								mensagem    : resp.msg,
 								tipo        : ['alerta', resp.ret],
-								botao       : { texto: 'x', funcao: resp.ret === 'msg-sucesso' ? depois || opcoes.depois : function(){ return false; } },
+								botao       : { texto: 'x', funcao: resp.ret === '__msg-sucesso' ? depois || opcoes.depois : function(){ return false; } },
 								aparencia   : { tema: opcoes.aparencia.tema, estilo: 'mensagem' }
 							});
 						}

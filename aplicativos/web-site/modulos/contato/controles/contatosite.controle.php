@@ -78,6 +78,6 @@ class ContatoSite extends GeralM\WebSite{
 		        throw new \Exception(sprintf(ERRO_CONTATOSITE_ENVIO_EMAIL, $om->_exibirlog()), 1500);
         } // if( class_exists('Email') )
 
-        \Funcoes::_retornar(SUCESSO_CONTATOSITE_ENVIADO, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_CONTATOSITE_ENVIADO, '__msg-sucesso');
     } // Fim do método _enviar
 } // Fim do Controle ContatoSite

@@ -180,7 +180,7 @@ function CarregarForm(form, id_html, func_depois){
 function MsgStatus(msg){
 	$('body')._mostrarmsg({
 		mensagem: msg,
-		tipo: ['alerta', 'msg-erro'],
+		tipo: ['alerta', '__msg-erro'],
 		aparencia: { tema: 'painel-dl', estilo: 'mensagem' }
 	});
 } // Fim CarregarConteudo ($dom, html)

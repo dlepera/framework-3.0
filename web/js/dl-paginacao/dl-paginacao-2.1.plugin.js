@@ -67,7 +67,7 @@
                 CarregarCSS('web/js/dl-paginacao/temas/'+ opcoes.tema +'/css/'+ opcoes.tema +'.css');
 
             // Incluir a classe para o formulário
-            $th.addClass(opcoes.tema);
+            $th.addClass('__pg-plugin ' + opcoes.tema);
         } // if( opcoes.aparencia !== null )
 
 

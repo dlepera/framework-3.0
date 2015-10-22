@@ -20,11 +20,12 @@ $mod = $params['modelo'];
         </p>
 
         <p class="form-botoes">
-            <?php echo $this->aux_form->_botao('enviar-email', TXT_BOTAO_ENVIAR); ?>
-
-            <a href="javascript:" class="com-icone ico-voltar" onclick="history.back();">
-                <?php echo TXT_LINK_VOLTAR; ?>
-            </a>
+            <?php
+            echo $this->aux_form->_botao('enviar-email', TXT_BOTAO_ENVIAR);
+            echo $this->aux_links->_link('voltar', 'javascript:', TXT_LINK_VOLTAR, null, true, [
+	            'onclick' => 'history.back()'
+            ]);
+            ?>
         </p>
     </form>
 [/DL3-CONTEUDO]

@@ -8,6 +8,7 @@
             <path value="file://$PROJECT_DIR$/web/temas/website" />
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl/css" />
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl3/css" />
+            <path value="file://$PROJECT_DIR$/web/js/dl-paginacao/temas/painel-dl/css" />
           </resourceRoots>
         </entryData>
       </entry>

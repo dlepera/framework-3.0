@@ -14,7 +14,7 @@ use \Desenvolvedor\Modelo as DevM;
 use \Admin\Modelo as AdminM;
 use \Login\Modelo as LoginM;
 
-class Login extends GeralC\Principal{
+class Login extends GeralC\PainelDL{
     public function __construct() {
         parent::__construct(null, 'login', null);
     } // Fim do método __construct
@@ -107,7 +107,7 @@ class Login extends GeralC\Principal{
         $obj_e->_enviar($lu['usuario_info_email'], TXT_EMAIL_ASSUNTO_RECUPERACAO_SENHA, sprintf(TXT_EMAIL_CORPO_RECUPERAR_SENHA, $lu['usuario_info_nome'], $lk, $lk));
         $obj_e->_gravarlog(__CLASS__, 'dl_painel_usuarios_recuperacoes', $mr->id);
 
-        \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), 'msg-sucesso');
+        \Funcoes::_retornar(sprintf(SUCESSO_LOGIN_RECUPERARSENHA, $lu['usuario_info_email']), '__msg-sucesso');
     } // Fim do método _recuperarsenha
 
 
@@ -168,7 +168,7 @@ class Login extends GeralC\Principal{
         $mr->status = 'R';
         $mr->_salvar();
 
-        \Funcoes::_retornar(SUCESSO_LOGIN_RESETARSENHA, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_LOGIN_RESETARSENHA, '__msg-sucesso');
     } // Fim do método _resetarsenha
 
 
@@ -182,8 +182,8 @@ class Login extends GeralC\Principal{
         $s = filter_input(INPUT_POST, 'senha');
 
         return \DL3::$aut_o->_fazerlogin($u,$s) ?
-            \Funcoes::_retornar(SUCESSO_LOGIN_FAZERLOGIN, 'msg-sucesso')
-        : \Funcoes::_retornar(ERRO_LOGIN_FAZERLOGIN, 'msg-erro');
+            \Funcoes::_retornar(SUCESSO_LOGIN_FAZERLOGIN, '__msg-sucesso')
+        : \Funcoes::_retornar(ERRO_LOGIN_FAZERLOGIN, '__msg-erro');
     } // Fim do método _fazerlogin
 
 
@@ -194,7 +194,7 @@ class Login extends GeralC\Principal{
      */
     public function _fazerlogout(){
         return \DL3::$aut_o->_fazerlogout() ?
-            \Funcoes::_retornar(SUCESSO_LOGIN_FAZERLOGOUT, 'msg-sucesso')
-        : \Funcoes::_retornar(ERRO_LOGIN_FAZERLOGOUT, 'msg-erro');
+            \Funcoes::_retornar(SUCESSO_LOGIN_FAZERLOGOUT, '__msg-sucesso')
+        : \Funcoes::_retornar(ERRO_LOGIN_FAZERLOGOUT, '__msg-erro');
     } // Fim do método _fazerlogout
 } // Fim do Controle Login

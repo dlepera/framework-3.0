@@ -67,7 +67,7 @@ abstract class Principal{
      */
     protected function _salvar(){
         $this->modelo->_salvar();
-        \Funcoes::_retornar(sprintf(SUCESSO_PADRAO_REGISTRO_SALVO, $this->nome), 'msg-sucesso');
+        \Funcoes::_retornar(sprintf(SUCESSO_PADRAO_REGISTRO_SALVO, $this->nome), '__msg-sucesso');
     } // Fim do método _salvar
 
 
@@ -81,7 +81,7 @@ abstract class Principal{
 
         \Funcoes::_retornar(
             !$qt->e ? ERRO_CONTROLEPRINCIPAL_REMOVER : sprintf($qt->e == 1 ? SUCESSO_CONTROLEPRINCIPAL_REMOVER_UM : SUCESSO_CONTROLEPRINCIPAL_REMOVER_VARIOS, $qt->e, $qt->t),
-            !$qt->e ? 'msg-erro' : 'msg-sucesso'
+            !$qt->e ? '__msg-erro' : '__msg-sucesso'
         );
     } // Fim do método _remover
 
@@ -141,7 +141,9 @@ abstract class Principal{
         $ajax and $this->_carregarhtml('comum/visoes/form_ajax', false, 98);
 
 	    # Título da página
-	    $this->visao->titulo = $inc ? sprintf(TXT_PAGINA_TITULO_CADASTRAR_NOVO, $this->nome) : sprintf(TXT_PAGINA_TITULO_EDITAR_ESSE, $this->nome);
+	    $this->visao->titulo = $inc
+		    ? sprintf(TXT_PAGINA_TITULO_CADASTRAR_NOVO, $this->nome)
+		    : sprintf(TXT_PAGINA_TITULO_EDITAR_ESSE, $this->nome);
 
         # Parâmetros
         $this->visao->_adparam('form-id', $form_id);
@@ -198,13 +200,17 @@ abstract class Principal{
         # Lista
         $l = $this->modelo->{$m}($f = implode(' AND ', $fl), !empty($get_o) ? $get_o : $o, $c, !isset($get_pg) ? 1 : $get_pg, $qr);
 
+	    # Quantidade total de registros
+	    $qtr = $this->modelo->_qtde_registros($f);
+
         # Nome da classe
         $classe = get_called_class();
 	    $autent = \DL3::$aut_o instanceof \Autenticacao;
 
         # Parâmetros
         $this->visao->_adparam('lista', $l);
-	    $this->visao->_adparam('total-pg', ceil($this->modelo->_qtde_registros($f) / $qr));
+	    $this->visao->_adparam('qtde-registros', $qtr);
+	    $this->visao->_adparam('total-pg', ceil($qtr / $qr));
         $this->visao->_adparam('filtro?', !empty($get_c));
         $this->visao->_adparam('exibir-id?', $eid);
         $this->visao->_adparam('link-inserir', sprintf(TXT_LINK_NOVO, $this->nome));
@@ -236,7 +242,7 @@ abstract class Principal{
 
         \Funcoes::_retornar(
             !$qt->e ? $msg[$a][0] : $qt->e == 1 ? $msg[$a][1] : sprintf($msg[$a][2], $qt->e, $qt->t),
-            !$qt->e ? 'msg-erro' : 'msg-sucesso'
+            !$qt->e ? '__msg-erro' : '__msg-sucesso'
         );
     } // Fim do método _alternarpublicacao
 

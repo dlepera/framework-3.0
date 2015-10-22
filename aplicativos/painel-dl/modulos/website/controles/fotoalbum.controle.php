@@ -51,6 +51,6 @@ class FotoAlbum extends GeralC\PainelDL{
 	 */
     protected function _upload(){
         $this->modelo->_upload();
-        \Funcoes::_retornar(SUCESSO_FOTOALBUM_UPLOAD, 'msg-sucesso');
+        \Funcoes::_retornar(SUCESSO_FOTOALBUM_UPLOAD, '__msg-sucesso');
     } // Fim do método _upload
 } // Fim do Controle Controle
