@@ -67,7 +67,7 @@ RewriteRule ^(.*)$ index.php?dl3_u=$1&dl3_c=web-site&dl3_a=dev [QSA]
  # 	ExpiresByType application/vnd.ms-fontobject "access plus 1 week"
  #
  # 	# CSS / JS
- # 	ExpiresByType text/css "access plus 1 year"
+ # 	ExpiresByType text/css "access plus 1 week"
  # 	ExpiresByType application/javascript "access plus 1 week"
  # 	ExpiresByType application/x-javascript "access plus 1 week"
  # </IfModule>
