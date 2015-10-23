@@ -57,7 +57,7 @@ class ContatoSite extends GeralM\WebSite{
 
         # Enviar por e-mail
         if( class_exists('Email') ){
-	        if( !empty($this->modelo->assunto) ){
+	        if( $this->modelo->assunto > 0 ){
 		        $ma = new ContatoM\AssuntoContato();
 		        $la = end($ma->_listar("assunto_contato_id = {$this->modelo->assunto}", null, 'assunto_contato_descr, assunto_contato_email'));
 		        $as = $la['assunto_contato_descr'];
