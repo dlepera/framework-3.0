@@ -16,3 +16,10 @@ RewriteCond %{SCRIPT_FILENAME} index.php$
 
 # Regra para levar o usuário ao conteúdo do site
 RewriteRule ^(.*)$ index.php?dl3_u=$1&dl3_c=web-site&dl3_a=dev [QSA]
+
+# Ativar a compatação dos arquivos
+<ifModule mod_deflate.c>
+    <filesMatch "\.(js|css|html|php|phtml)$">
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+    </filesMatch>
+ </ifModule>
