@@ -1,0 +1,195 @@
+@import '../../_ajuda/compatibilidade';
+@import '../../_ajuda/animacoes';
+@import './_ajuda/flexivel';
+
+$tema: 'galeria-2';
+
+.__fotos-plugin {
+	&.#{$tema} {
+		// Visual
+		background-color: #000;
+
+		// Margens
+		padding: 1rem;
+
+
+		// Fotos ---------------------------------------------------------------------------------------------------- //
+		> .#{$tema}-fotos {
+			// Posicionamento
+			position: relative;
+
+			// Margens
+			margin-bottom: 1rem;
+
+			> .#{$tema}-foto {
+				// Flex
+				@include _flex-box;
+
+				// Animação
+				// @include _animation(para-direita 1s);
+
+				&:not(:first-child) {
+					// Visual
+					display: none;
+				}
+
+				> .#{$tema}-img {
+					// Flex
+					@include _flex(70%);
+
+					// Tamanho
+					max-width: 70%;
+					max-height: 500px;
+				}
+
+				> .#{$tema}-infos {
+					// Flex
+					@include _flex(30%);
+
+					// Margens
+					padding: 0 2em;
+
+					// Texto
+					color: #FFF;
+
+					> .#{$tema}-titulo {
+						// Texto
+						font-variant: small-caps;
+						font-size: 1.5em;
+
+						// Margens
+						margin-bottom: 2rem;
+					}
+				}
+			}
+
+
+			// Navegação e indicadores ------------------------------------------------------------------------------ //
+			> .#{$tema}-naveg,
+			> .#{$tema}-indic {
+				// Texto
+				text-align: center;
+
+				// Margens
+				margin: 0;
+
+				// Tamanho
+				width: 70%;
+
+				// Posicionamento
+				position: absolute;
+				left: 0;
+
+				// Visual
+				background-color: rgba(0, 0, 0, .65);
+				opacity: .5;
+
+				// Transições
+				@include _transition(opacity .35s);
+
+				// Transormar
+				// @include _transform(translateY(-100%));
+
+				> .#{$tema}-link {
+					$tm: 2rem;
+
+					// Visual
+					display: inline-block;
+					border-radius: 50%;
+
+					// Tamanho
+					width: $tm;
+					height: $tm;
+
+					// Texto
+					color: #FFF;
+					line-height: $tm;
+
+					// Transições
+					@include _transition(background .35s);
+
+					&:not(:first-child) {
+						// Margens
+						margin-left: 1rem;
+					}
+
+					&:hover,
+					&.link-atual {
+						// Visual
+						background-color: rgba(0, 0, 0, .75);
+					}
+
+					&.link-atual {
+						// Visual
+						border: 1px solid #EEE;
+					}
+				}
+
+				&:hover {
+					// Visual
+					opacity: 1;
+				}
+			}
+
+
+			// Navegação -------------------------------------------------------------------------------------------- //
+			> .#{$tema}-naveg {
+				// Posicionamento
+				bottom: 0;
+
+				// Margens
+				border-top: 1px solid #EEE;
+			}
+
+
+			// Indicadores ------------------------------------------------------------------------------------------ //
+			> .#{$tema}-indic {
+				// Posicionamento
+				top: 0;
+
+				// Margens
+				border-bottom: 1px solid #EEE;
+			}
+		}
+
+
+		// Miniaturas ----------------------------------------------------------------------------------------------- //
+		> .#{$tema}-minis {
+			// Tamanho
+			width: 100%;
+
+			// Visual
+			overflow-x: auto;
+
+			// Texto
+			white-space: nowrap;
+
+			> .#{$tema}-foto {
+				// Visual
+				display: inline-block;
+
+				// Tamanho
+				height: 7rem;
+
+				> .#{$tema}-img {
+					// Margens
+					padding: .35rem;
+
+					// Visual
+					display: inline-block;
+
+					&:hover {
+						// Visual
+						cursor: pointer;
+					}
+				}
+
+				/* &:not(:nth-child(4n + 1)) {
+					// Margens
+					margin-left: 0;
+				} */
+			}
+		}
+	}
+
+}

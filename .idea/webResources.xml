@@ -9,6 +9,10 @@
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl/css" />
             <path value="file://$PROJECT_DIR$/web/temas/painel-dl3/css" />
             <path value="file://$PROJECT_DIR$/web/js/dl-paginacao/temas/painel-dl/css" />
+            <path value="file://$PROJECT_DIR$/web/js/min/dl-autocompletar/css" />
+            <path value="file://$PROJECT_DIR$/web/js/min/dl-formulario/temas/painel-dl/css" />
+            <path value="file://$PROJECT_DIR$/web/js/min/dl-paginacao/temas/painel-dl/css" />
+            <path value="file://$PROJECT_DIR$/web/js/min/dl-galeria/temas/galeria-2/css" />
           </resourceRoots>
         </entryData>
       </entry>

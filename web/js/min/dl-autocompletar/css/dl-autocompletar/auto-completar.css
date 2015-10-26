@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: d_lepera@hotmail.com
+ * @Projeto	: FrameworkDL
+ * @Data	: 19/08/2014 16:31:02
+ */
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * DIV com os elementos do filtro
+ * ----------------------------------------------------------------------------------------------------------------- */
+.dl-autocompletar.auto-completar{
+    /* Margens e espaçamentos */
+    margin  : 0;
+    padding : 1%;
+    
+    /* Tamanho */
+    box-sizing  : border-box;
+    width       : 75%;
+    max-height  : 200px;
+    
+    /* Aparência */
+    border          : 1px solid #CCC;
+    border-radius   : 8px;
+    overflow-y      : auto;
+    background-color: #FFF;
+    
+    /* Posicionamento */
+    position: relative;
+    left    : 0;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Campo de filtro
+ * ----------------------------------------------------------------------------------------------------------------- */
+ .dl-autocompletar.auto-completar > p{  
+    /* Margens e espaçamentos */
+    margin  : 0 0 1% 0;
+    padding : 0;
+ }
+ 
+.dl-autocompletar.auto-completar [type="search"]{
+    /* Tamanho */
+    width       : 100%;
+    height      : 25px;
+    box-sizing  : border-box;
+    
+    /* Formatação do texto */
+    line-height: 25px;
+    
+    /* Aparência */
+    background          : url('icones/pesquisar-16x16.png') no-repeat left 5px top;
+    border              : none;
+    border-bottom       : 1px solid #CCC; 
+    
+    /* Margens e espaçamentos */
+    padding-left: 20px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Itens do campo
+ * - Comportamento
+ * ----------------------------------------------------------------------------------------------------------------- */
+.dl-autocompletar.auto-completar > [type="radio"]{
+    /* Aparência */
+    opacity: 0;
+    
+    /* Tamanho */
+    width   : 0;
+    height  : 0;
+    
+    /* Posicionamento */
+    position: absolute;
+}
+
+.dl-autocompletar.auto-completar > [type="radio"] + label{
+    /* Aparência */
+    display: none;
+    
+    /* Posicionamento */
+    float: left;
+    
+    /* Tamanho */
+    width: 100%;
+}
+
+.dl-autocompletar.auto-completar > [type="radio"] + label:hover{
+    /* Aparência */
+    cursor: pointer;
+}
+
+.dl-autocompletar.auto-completar > [type="radio"]:checked + label{
+    /* Aparência */
+    display: block !important;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------
+ * Itens do campo
+ * - Aparência
+ * ----------------------------------------------------------------------------------------------------------------- */
+.dl-autocompletar.auto-completar > [type="radio"] + label{
+    /* Margens e espaçamentos */
+    padding: 1%;
+    
+    /* Tamanho */
+    box-sizing: border-box;
+}
+
+.dl-autocompletar.auto-completar > [type="radio"] + label:nth-of-type(odd){
+    /* Aparência */
+    background-color: #EEE;
+}
+
+.dl-autocompletar.auto-completar > [type="radio"]:checked + label{
+    /* Aparência */
+    background: #aeffc8;
+    
+    /* Formatação do texto */
+    color: green;
+}

@@ -79,7 +79,7 @@ $mod = $params['modelo'];
 			            'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
 			            'data-acao' => 'carregar-form',
 			            'data-acao-param-html' => 'desenvolvedor/idiomas/novo',
-			            'data-acao-param-func' => "CarregarSelect($('#sel-pref-idioma'), 'desenvolvedor/idiomas/carregar-select')"
+			            'data-acao-param-func' => "carregarSelect($('#sel-pref-idioma'), 'desenvolvedor/idiomas/carregar-select')"
 		            ]);
 	            endif; ?>
             </p>
@@ -93,7 +93,7 @@ $mod = $params['modelo'];
 		                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
 		                'data-acao' => 'carregar-form',
 		                'data-acao-param-html' => 'desenvolvedor/temas/novo',
-		                'data-acao-param-func' => "CarregarSelect($('#sel-pref-tema'), 'desenvolvedor/temas/carregar-select')"
+		                'data-acao-param-func' => "carregarSelect($('#sel-pref-tema'), 'desenvolvedor/temas/carregar-select')"
 	                ]);
                 endif; ?>
             </p>
@@ -130,7 +130,7 @@ $mod = $params['modelo'];
 		                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO,
 		                'data-acao' => 'carregar-form',
 		                'data-acao-param-html' => 'admin/grupos-de-usuarios/novo',
-		                'data-acao-param-func' => "CarregarSelect($('#sel-info-grupo'), 'admin/grupos-de-usuarios/carregar-select')"
+		                'data-acao-param-func' => "carregarSelect($('#sel-info-grupo'), 'admin/grupos-de-usuarios/carregar-select')"
 	                ]);
                 endif; ?>
             </p>
@@ -189,7 +189,7 @@ $mod = $params['modelo'];
 
     $('.alt-mask-fone').on('change',
 	    { msk8: '<?php echo MASK_TELEFONE_CELULAR_8; ?>', msk9: '<?php echo MASK_TELEFONE_CELULAR_9; ?>' },
-	    AlternarMaskFone
+	    alternarMaskFone
     );
 
     $('#form-foto-perfil')._formulario({

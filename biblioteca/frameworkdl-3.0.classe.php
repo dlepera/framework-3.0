@@ -125,7 +125,7 @@ class FrameworkDL3{
 	public static $autor_nome = 'Diego Lepera', $autor_email = 'dlepera88@gmail.com', $autor_site = 'http://diegolepera.com.br/';
 
     # Diretórios usados para montar as páginas HTML
-    public static $dir_temas = 'web/temas/', $dir_js = 'web/js/', $dir_imgs = 'web/imgs/', $dir_relativo = '';
+    public static $dir_temas = 'web/temas/', $dir_js = 'web/js/min/', $dir_imgs = 'web/imgs/', $dir_relativo = '';
 
     # Configurações do banco de dados
     private $bd_ativar = false, $bd_driver = 'mysql', $bd_host = 'localhost', $bd_porta = 3306,

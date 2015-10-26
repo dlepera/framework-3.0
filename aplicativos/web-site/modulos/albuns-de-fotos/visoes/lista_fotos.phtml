@@ -11,20 +11,25 @@
 
 ?>
 [DL3-CONTEUDO]
-    <div id="album" class="widget"></div>
+    <div id="album"></div>
 [/DL3-CONTEUDO]
 
 [DL3-SCRIPTS]
 <script>
-    //<![CDATA[
-    $('#album')._dlgaleria({
-        minis: true,
-        naveg: true,
-        fotos: [
-            <?php foreach( $params['fotos'] as $f ): ?>
-            { src: './<?php echo $f['foto_album_imagem']; ?>', titulo: '<?php echo $f['foto_album_titulo']; ?>', descr: '<?php echo $f['foto_album_descr']; ?>' },
-            <?php endforeach; ?>
-        ]
-    });
+	//<![CDATA[
+	$('#album')._galeria({
+		minis: true,
+		naveg: true,
+		indicador: true,
+		fotos: [
+			<?php foreach( $params['fotos'] as $f ): ?>
+			{
+				src: '<?php echo \DL3::$dir_relativo . $f['foto_album_imagem']; ?>',
+				titulo: '<?php echo $f['foto_album_titulo']; ?>',
+				descr: '<?php echo $f['foto_album_descr']; ?>'
+			},
+			<?php endforeach; ?>
+		]
+	});
 </script>
 [/DL3-SCRIPTS]

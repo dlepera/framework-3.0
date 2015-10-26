@@ -1,0 +1,65 @@
+
+@import '../../../_ajuda/compatibilidade';
+
+
+$numeros: 'uma' 1, 'duas' 2, 'tres' 3, 'quatro' 4, 'cinco' 5, 'seis' 6, 'sete' 7, 'oito' 8, 'nove' 9, 'dez' 10, 'onze' 11, 'doze' 12;
+
+// Funções ---------------------------------------------------------------------------------------------------------- //
+@mixin _colunas($qtde, $padding, $espaco, $total) {
+	$uma_coluna: 100% / $total;
+	$qtde_espacos: ($total / $qtde) - 1;
+	$n_colunas: if($qtde_espacos % 2 == 0,
+			(($uma_coluna * $qtde) - $espaco),
+			(($uma_coluna * $qtde) - (($qtde_espacos * $espaco) / ($total / $qtde)))
+	);
+
+	// Flex
+	@include _flex($n_colunas);
+
+	// Tamanho
+	max-width: $n_colunas;
+
+	// Margens
+	padding-left: $padding;
+	padding-right: $padding;
+	margin-left: $espaco;
+
+	// Tamanho
+	@include _box-sizing();
+}
+
+@mixin _primeira_coluna(){
+	// Margens
+	margin-left: 0;
+}
+
+@mixin _gerar-colunas($qtde, $padding, $espaco) {
+	@for $i from 1 through $qtde {
+		$n: nth($numeros, $i);
+		$txt: nth($n, 1);
+		$num: nth($n, 2);
+		$smg: ceil($qtde / $i);
+
+		// Criar as colunas
+		.#{$txt}-col {
+			@include _colunas($num, $padding, $espaco, $qtde);
+		}
+
+		// Remover a margem esquerda das colunas que não precisam
+		.#{$txt}-col:nth-child(#{$smg}n + 1) {
+			@include _primeira_coluna;
+		}
+	}
+}
+
+
+// Definir os tamanhos dos componentes da página: topo, menu, conteúdo e rodapé
+@mixin _componentes-pg($classe, $qtde-cols, $padding, $margem, $total-cols) {
+	.#{$classe} {
+		// Flex
+		@include _colunas($qtde-cols, $padding, $margem, $total-cols);
+		@include _primeira_coluna;
+
+		@content;
+	}
+}

@@ -30,7 +30,7 @@ $mod = $params['modelo'];
                 echo $this->aux_links->_link('inserir', 'javascript:', sprintf(TXT_LINK_NOVO, TXT_MODELO_TIPODADOCONTATO), null, true, [
 	                'data-acao' => 'carregar-form',
 	                'data-acao-param-html' => 'website/tipos-de-dados/novo',
-                    'data-acao-param-func' => "CarregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select')",
+                    'data-acao-param-func' => "carregarSelect($('#sel-tipo'), 'website/tipos-de-dados/carregar-select')",
 	                'data-ajax' => true,
 	                'data-ajax-msg' => TXT_AJAX_CARREGANDO_CONTEUDO
                 ]);

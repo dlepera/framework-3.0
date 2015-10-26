@@ -171,7 +171,7 @@ HTML;
 			'name' => '',
 			'id' => 'txt-',
 			'value' => '',
-			'data-vld-func' => 'ValidaCPF',
+			'data-vld-func' => 'validaCPF',
 			'data-vld-msg' => TXT_VALIDACAO_CPF_INVALIDO,
 			'pattern' => EXPREG_CPF,
 			'class' => 'form-controle form-controle-cpf'
@@ -181,7 +181,7 @@ HTML;
 			'type' => 'text',
 			'name' => '',
 			'id' => 'txt-',
-			'data-vld-func' => 'ValidaCNPJ',
+			'data-vld-func' => 'validaCNPJ',
 			'data-vld-msg' => TXT_VALIDACAO_CNPJ_INVALIDO,
 			'pattern' => EXPREG_CNPJ,
 			'class' => 'form-controle form-controle-cnpj'
@@ -191,7 +191,7 @@ HTML;
 			'type' => 'text',
 			'name' => '',
 			'id' => 'txt-',
-			'data-vld-func' => 'ValidaEAN',
+			'data-vld-func' => 'validaEAN',
 			'data-vld-msg' => TXT_VALIDACAO_GTIN,
 			'class' => 'form-controle form-controle-gtin'
 		],
@@ -297,7 +297,7 @@ HTML;
 
 		return $this->_campo_geral('arquivo', $nm, $id, '', $rtl, sprintf(TXT_DICA_INFO_UPLOAD, $ex, $mx),
 			array_merge([
-				'data-vld-func' => 'ValidaUpload',
+				'data-vld-func' => 'validaUpload',
 				'data-vld-msg' => sprintf(TXT_VALIDACAO_ARQUIVO_UPLOAD, $ex, $mx),
 				'data-vld-exts' => $ex,
 				'data-vld-max' => $mx

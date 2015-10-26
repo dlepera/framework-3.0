@@ -24,10 +24,7 @@ $mod = $params['modelo'];
         </p>
 
         <p class="form-paragr">
-	        <?php echo $this->aux_form->_campo_geral('email', 'email', 'email', $mod->email, TXT_ROTULO_EMAIL, null, [
-		        'required' => 'required',
-		        'data-verificar-alteracao' => true, 'data-alterado' => 0
-	        ]); ?>
+	        <?php echo $this->aux_form->_campo_geral('email', 'email', 'email', $mod->email, TXT_ROTULO_EMAIL, null, ['required' => 'required']); ?>
         </p>
 
         <p class="form-paragr">

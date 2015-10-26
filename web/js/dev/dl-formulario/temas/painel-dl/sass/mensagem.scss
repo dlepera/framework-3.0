@@ -1,0 +1,300 @@
+/**
+ * @Autor	: Diego Lepera
+ * @E-mail	: dlepera88@gmail.com
+ * @Projeto	: FrameworkDL
+ * @Data   	: 12/05/2015 17:20:21
+ */
+
+@import '../../../../../../temas/painel-dl3/_ajuda/config';
+@import '../../../../../../temas/_ajuda/compatibilidade';
+@import '../_ajuda/configuracoes';
+@import '../_ajuda/animacoes';
+
+$tema: 'painel-dl';
+$msgs: 'sucesso' green '\e710',
+		'erro' red '\e70f',
+		'info' #069 '\e708',
+		'atencao' #FFA500 '\e707';
+
+.__msg-plugin {
+	&.#{$tema} {
+		// Posicionamento
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 1;
+
+		// Visual
+		background: rgba(0, 0, 0, .5);
+		border: none;
+
+		// Tamanho
+		width: 100%;
+		height: 100%;
+
+		// Margens
+		padding: 1rem 0;
+		margin: 0;
+
+		> .#{$tema}-paragr {
+			// Visual
+			background-color: #FFF;
+
+			// Posicionamento
+			position: absolute;
+			top: 50%;
+
+			// Transformar
+			@include _transform(translateY(-60%));
+		}
+	}
+
+	// Alerta ------------------------------------------------------------------------------------------------------- //
+	&.#{$tema}.__msg-alerta {
+		> .#{$tema}-paragr {
+			// Tamanho
+			width: 100%;
+			max-height: 90%;
+
+			// Texto
+			font-size: x-large;
+			text-align: center;
+
+			// Posicionamento
+			left: 0;
+
+			// Animação
+			@include _animation(para-direita-passando .7s);
+
+			> .#{$tema}-texto {
+				// Texto
+				font-size: inherit;
+			}
+
+			> .#{$tema}-botoes {
+				// Posicionamento
+				position: absolute;
+				top: 0;
+				right: 15%;
+
+				// Transformar
+				@include _transform(translateY(-50%));
+
+				> .#{$tema}-botao {
+					$tm: 2.75em;
+
+					// Tamanho
+					width: $tm;
+					height: $tm;
+
+					// Visual
+					display: inline-block;
+					border: 2px solid #FFF;
+					border-radius: 50%;
+
+					// Texto
+					color: #FFF;
+					line-height: $tm - .25em;
+
+					&:not(first-child) {
+						// Margens
+						margin-left: 1rem;
+					}
+				}
+			}
+
+			&::before {
+				// Visual
+				display: inline-block;
+				opacity: .3;
+
+				// Texto
+				font-family: 'icones';
+				font-size: 3.5em;
+				text-align: center;
+			}
+		}
+
+		> .#{$tema}-tempo {
+			// Texto
+			color: #FFF;
+			text-align: center;
+
+			// Visual
+			display: inline-block;
+
+			// Tamanho
+			width: 100%;
+		}
+	}
+
+	// Confirmação -------------------------------------------------------------------------------------------------- //
+	&.#{$tema}.__msg-confirmacao {
+		> .#{$tema}-paragr {
+			// Margens
+			padding: .75rem 2rem;
+
+			// Visual
+			border-radius: 5px;
+			display: block;
+
+			// Posicionamento
+			left: 50%;
+
+			// Transformar
+			@include _transform(translateY(-60%) translateX(-50%));
+
+			// Animação
+			@include _animation(para-baixo .5s);
+
+			> .#{$tema}-texto {
+				> .#{$tema}-titulo {
+					// Texto
+					font-variant: small-caps;
+					font-size: 1.5em;
+					line-height: 2em;
+					font-weight: normal;
+					color: #6a8397;
+
+					// Margens
+					border-bottom: 1px solid #EEE;
+					margin-bottom: 1.25rem;
+
+					// Visual
+					display: block;
+				}
+			}
+
+			> .#{$tema}-botoes {
+				// Texto
+				text-align: center;
+
+				// Margens
+				margin-top: 1.25rem;
+
+				> .#{$tema}-botao {
+					// Margens
+					padding: .5rem 2rem;
+
+					// Visual
+					border: none;
+					border-radius: 8px;
+
+					// Texto
+					color: #FFF;
+
+					&:not(first-child) {
+						// Margens
+						margin-left: 1rem;
+					}
+
+					&.btn-sim {
+						// Visual
+						background-color: green;
+					}
+
+					&.btn-nao {
+						// Visual
+						background-color: red;
+					}
+				}
+			}
+		}
+	}
+
+	// Tipos de mensagens ------------------------------------------------------------------------------------------- //
+	@each $tp, $co, $tx in $msgs{
+		&.__msg-#{$tp} {
+			.#{$tema}-paragr {
+				// Texto
+				color: $co;
+			}
+
+			.#{$tema}-paragr::before {
+				// Texto
+				content: $tx;
+			}
+
+			.#{$tema}-botao {
+				// Visual
+				background: $co;
+			}
+		}
+	}
+}
+
+
+
+// Desktop ---------------------------------------------------------------------------------------------------------- //
+@include _tela-desktops {
+	.__msg-plugin {
+		&.#{$tema}.__msg-alerta {
+			> .#{$tema}-paragr {
+				// Margens
+				padding: 2rem 15% 2rem 15%;
+				
+				// Visual
+				display: table;
+				
+				> .#{$tema}-texto {
+					// Visual
+					display: table-cell;
+					
+					// Texto
+					vertical-align: middle;
+					text-align: left;
+				}
+
+				&::before {
+					// Visual
+					display: table-cell;
+					
+					// Alinhamento
+					vertical-align: middle;
+
+					// Margens
+					padding-right: 1rem;
+
+					// Texto
+					text-align: right;
+				}
+			}
+		}
+
+		&.#{$tema}.__msg-confirmacao {
+			> .#{$tema}-paragr {
+				// Tamanho
+				width: 50%;
+			}
+		}
+	}
+}
+
+
+
+// Dispositivos móveis ---------------------------------------------------------------------------------------------- //
+@include _tela-disp-moveis {
+	.__msg-plugin {
+		&.#{$tema}.__msg-alerta {
+			> .#{$tema}-paragr {
+				// Margens
+				padding: 2rem 5% 2rem 5%;
+
+				&::before {
+					// Visual
+					display: block;
+
+					// Margens
+					margin-bottom: 1rem;
+				}
+			}
+		}
+
+		&.#{$tema}.__msg-confirmacao {
+			> .#{$tema}-paragr {
+				// Tamanho
+				width: 90%;
+			}
+		}
+	}
+}

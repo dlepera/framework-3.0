@@ -7,11 +7,6 @@
  *  @data: 27/05/2015 16:01:32
  */
 
-/*
- * TAREFA #1: incluir link nas redes sociais
- * TAREFA #2: incluir mídias sociais
- */
-
 # Parâmetros passados para a página
 $params = $this->_obterparams();
 
@@ -132,17 +127,17 @@ $params = $this->_obterparams();
 
     <!-- Javascripts -->
     <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-galeria/dl-galeria-2.0.plugin.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-galeria/dl-galeria-2.2.plugin-min.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
+    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes-min.js"></script>
 
     <!-- Google Analytics -->
     <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/google_analytics.phtml'; ?>
 
     <script>
         // Identificar navegador e versão
-        var nav = Navegador();
+        var nav = navegador();
 
         if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
             $('#ie-incompativel').removeAttr('style');
