@@ -154,7 +154,7 @@ class Funcoes{
         $acentuacao['C'] = ['Ç'];
 
         # Verificar se o encoding precisa ser ajustado
-        $ajustar_encode = $content_type != 'multipart/form-data' && !empty($encode);
+        $ajustar_encode = $content_type != 'multipart/form-data' && isset($encode);
 
         $string = $ajustar_encode && mb_detect_encoding($string) != $encode ?
             mb_convert_encoding($string, $encode) : $string;
@@ -317,4 +317,23 @@ class Funcoes{
             return "{$k}={$a}{$vl}{$a}";
         }, array_keys($v)));
     } // Fim do método _array_serialize
+
+
+
+
+	/**
+	 * Limitar uma string a um tamanho específico
+	 *
+	 * @param string $string  String a ser limitada
+	 * @param int    $tamanho [opcional] Tamanho máximo permitido para essa string
+	 * @param string $break   [opcional] String a ser usada na quebra da string
+	 *
+	 * @return string
+	 */
+	public static function _limitar_string($string, $tamanho = 75, $break = ''){
+		return substr(
+			wordwrap($string, $tamanho, $break),
+			0, ($tamanho + strlen($break)) - 1
+		);
+	} // Fim do método _limitar_string
 } // Fim da classe Funções
