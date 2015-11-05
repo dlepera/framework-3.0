@@ -39,70 +39,72 @@ $params = $this->_obterparams();
 	[DL3-HEAD/]
 </head>
 <body>
-[DL3-CARREGANDO/]
+	[DL3-CARREGANDO/]
 
-<!-- Verificar JavaScript -->
-<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
+	<!-- Verificar JavaScript -->
+	<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
 
-<!-- Verificar versão do IE -->
-<p class="incompativel" id="ie-incompativel" style="display: none;"><?php echo TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
+	<!-- Verificar versão do IE -->
+	<p class="incompativel" id="ie-incompativel" style="display: none;"><?php echo TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
 
-<div id="dl3-grid">
-	<header class="dl3-topo">
-		<a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
-	</header>
+	<div id="dl3-grid">
+		<header class="dl3-topo">
+			<a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
+		</header>
 
-	<nav class="dl3-menu">
-		<a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
+		<nav class="dl3-menu">
+			<a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
 
-		<ul class="menu-principal">
-			<li class="menu-item">
-				<a href="" class="menu-texto ico-home">
-					<?php echo TXT_LINK_HOME; ?>
-				</a>
-			</li>
+			<ul class="menu-principal">
+				<li class="menu-item">
+					<a href="" class="menu-texto ico-home">
+						<?php echo TXT_LINK_HOME; ?>
+					</a>
+				</li>
 
-			<li class="menu-item">
-				<a href="sobre" class="menu-texto ico-sobre">
-					<?php echo TXT_LINK_SOBRE; ?>
-				</a>
-			</li>
+				<li class="menu-item">
+					<a href="sobre" class="menu-texto ico-sobre">
+						<?php echo TXT_LINK_SOBRE; ?>
+					</a>
+				</li>
 
-			<li class="menu-item">
-				<a href="albuns-de-fotos" class="menu-texto ico-fotos">
-					<?php echo TXT_LINK_ALBUNS_FOTOS; ?>
-				</a>
-			</li>
+				<li class="menu-item">
+					<a href="albuns-de-fotos" class="menu-texto ico-fotos">
+						<?php echo TXT_LINK_ALBUNS_FOTOS; ?>
+					</a>
+				</li>
 
-			<li class="menu-item">
-				<a href="contato" class="menu-texto ico-contato">
-					<?php echo TXT_LINK_CONTATO; ?>
-				</a>
-			</li>
-		</ul>
-	</nav>
+				<li class="menu-item">
+					<a href="contato" class="menu-texto ico-contato">
+						<?php echo TXT_LINK_CONTATO; ?>
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-	<section class="dl3-conteudo">
-		<h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
+		<section class="dl3-conteudo">
+			<h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
 
-		[DL3-CONTEUDO/]
-	</section>
+			[DL3-CONTEUDO/]
+		</section>
 
-	<footer class="dl3-rodape">
-		<p class="copyright"><?php echo \DL3::$ap_titulo .' &copy; '. date('Y'); ?></p>
-	</footer>
+		<footer class="dl3-rodape">
+			<p class="copyright"><?php echo \DL3::$ap_titulo .' &copy; '. date('Y'); ?></p>
+		</footer>
 
-	<a href="http://diegolepera.com.br/" target="_blank" class="dl3-link">
-		<img src="http://diegolepera.com.br/aplicacao/imgs/logotipo.png" alt="diegolepera.com.br"/>
-		<span><?php echo TXT_DIVERSOS_SITE_DESENVOLVIDO_POR; ?></span>
-	</a>
-</div>
+		<a href="http://diegolepera.com.br/" target="_blank" class="dl3-link">
+			<img src="http://diegolepera.com.br/aplicacao/imgs/logotipo.png" alt="diegolepera.com.br"/>
+			<span><?php echo TXT_DIVERSOS_SITE_DESENVOLVIDO_POR; ?></span>
+		</a>
+	</div>
 
-<!-- Sombra / silhueta de dançarinos -->
-<img id="silhueta" src="<?php echo $params['silhueta']; ?>" class="v-desk"/>
+	<!-- Sombra / silhueta de dançarinos -->
+	<img id="silhueta" src="<?php echo $params['silhueta']; ?>" class="v-desk"/>
 
-<!-- Carregando -->
-<div id="dl3-carregando"></div>
+	<!-- Carregando -->
+	<div id="dl3-carregando"></div>
+</body>
+</html>
 
 <!-- Aplicar o tema CSS da página -->
 <?php echo \DL3::_carregartema($params['conf-site']['tema_diretorio']); ?>
@@ -129,5 +131,3 @@ $params = $this->_obterparams();
 </script>
 
 [DL3-SCRIPTS/]
-</body>
-</html>

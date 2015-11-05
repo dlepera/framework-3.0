@@ -186,55 +186,55 @@ $params = $this->_obterparams();
 
     <!-- Carregando -->
     <div id="dl3-carregando"></div>
-
-	<!-- Aplicar o tema da página -->
-	<?php echo \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
-
-	<!-- CSS personalizados -->
-	[DL3-CSS/]
-
-    <!-- Javascripts -->
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.2.plugin-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>painel-dl-min.js"></script>
-
-    <script>
-        //<![CDATA[
-        $logout = $('#form-logout')._formulario({
-            depois: function(){ window.location = $('base').attr('href'); },
-            aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
-        });
-
-        // Identificar navegador e versão
-        var nav = navegador();
-
-        if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
-	        $('#ie-incompativel').removeAttr('style');
-
-        <?php if( $params['mostrar-filtro-menu?'] ): ?>
-        $('#form-filtro-modulos #bus-bm').on('input', function(){
-            var $th = $(this);
-            var $mf = $('#menu-filtro');
-            var vlr = $th.val();
-
-            if( !(vlr === '' || vlr === false) )
-                $mf.slideDown('fast');
-            else
-                $mf.slideUp('fast');
-
-            $mf.find('> *, .menu-item, .sm-item').css({ display: 'none' });
-            $mf.find('.sm-item:contains('+ vlr +')').css({ display: 'block' }).parents('.menu-item').css({ display: 'block' });
-        }).on('blur', function(){
-            var $mf = $('#menu-filtro');
-            $mf.slideUp('slow');
-        });
-        <?php endif; ?>
-        //]]>
-    </script>
-
-    [DL3-SCRIPTS/]
 </body>
 </html>
+
+<!-- Aplicar o tema da página -->
+<?php echo \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
+
+<!-- CSS personalizados -->
+[DL3-CSS/]
+
+<!-- Javascripts -->
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-paginacao/dl-paginacao-2.2.plugin-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>painel-dl-min.js"></script>
+
+<script>
+	//<![CDATA[
+	$logout = $('#form-logout')._formulario({
+		depois: function(){ window.location = $('base').attr('href'); },
+		aparencia: { tema: '<?php echo \DL3::$plugin_formulario_tema; ?>', estilo: null }
+	});
+
+	// Identificar navegador e versão
+	var nav = navegador();
+
+	if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
+		$('#ie-incompativel').removeAttr('style');
+
+	<?php if( $params['mostrar-filtro-menu?'] ): ?>
+	$('#form-filtro-modulos #bus-bm').on('input', function(){
+		var $th = $(this);
+		var $mf = $('#menu-filtro');
+		var vlr = $th.val();
+
+		if( !(vlr === '' || vlr === false) )
+			$mf.slideDown('fast');
+		else
+			$mf.slideUp('fast');
+
+		$mf.find('> *, .menu-item, .sm-item').css({ display: 'none' });
+		$mf.find('.sm-item:contains('+ vlr +')').css({ display: 'block' }).parents('.menu-item').css({ display: 'block' });
+	}).on('blur', function(){
+		var $mf = $('#menu-filtro');
+		$mf.slideUp('slow');
+	});
+	<?php endif; ?>
+	//]]>
+</script>
+
+[DL3-SCRIPTS/]
