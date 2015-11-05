@@ -7,6 +7,11 @@
  *  @data: 27/05/2015 16:01:32
  */
 
+/*
+ * TAREFA #1: incluir link nas redes sociais
+ * TAREFA #2: incluir mídias sociais
+ */
+
 # Parâmetros passados para a página
 $params = $this->_obterparams();
 
@@ -15,134 +20,114 @@ $params = $this->_obterparams();
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php echo "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
-    <meta charset="<?php echo \DL3::$ap_charset; ?>">
+	<title><?php echo "{$params['titulo']} || ". \DL3::$ap_titulo; ?></title>
+	<meta charset="<?php echo \DL3::$ap_charset; ?>">
 
-    <!-- Setar a base do HTML -->
-    <base href="<?php echo \DL3::$ap_base_html; ?>"/>
+	<!-- Setar a base do HTML -->
+	<base href="<?php echo \DL3::$ap_base_html; ?>"/>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
-    <!-- Tamanho do dispositivo -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Tamanho do dispositivo -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Compatibilidade IE -->
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" >
 
-    <!-- Aplicar o tema da página -->
-    <?php echo \DL3::_carregartema($params['conf-site']['tema_diretorio']); ?>
-
-    <!-- Conteúdo personalizado -->
-    [DL3-HEAD/]
+	<!-- Conteúdo personalizado -->
+	[DL3-HEAD/]
 </head>
 <body>
-	<!-- Verificar JavaScript -->
-	<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
+[DL3-CARREGANDO/]
 
-	<!-- Verificar versão do IE -->
-	<p class="incompativel" id="ie-incompativel" style="display: none;"><?php echo TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
+<!-- Verificar JavaScript -->
+<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
 
-    <div id="dl3-grid">
-        <header class="dl3-topo">
-            <a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
-        </header>
+<!-- Verificar versão do IE -->
+<p class="incompativel" id="ie-incompativel" style="display: none;"><?php echo TXT_DIVERSOS_IE_INCOMPATIVEL; ?></p>
 
-        <nav class="dl3-menu">
-	        <a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
+<div id="dl3-grid">
+	<header class="dl3-topo">
+		<a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
+	</header>
 
-            <ul class="menu-principal">
-                <li class="menu-item">
-                    <a href="" class="menu-texto ico-home">
-                        <?php echo TXT_LINK_HOME; ?>
-                    </a>
-                </li>
+	<nav class="dl3-menu">
+		<a href="javascript:" class="a-mostrar-menu v-smart v-tablet"></a>
 
-                <li class="menu-item">
-                    <a href="sobre" class="menu-texto ico-sobre">
-                        <?php echo TXT_LINK_SOBRE; ?>
-                    </a>
-                </li>
+		<ul class="menu-principal">
+			<li class="menu-item">
+				<a href="" class="menu-texto ico-home">
+					<?php echo TXT_LINK_HOME; ?>
+				</a>
+			</li>
 
-                <li class="menu-item">
-                    <a href="albuns-de-fotos" class="menu-texto ico-fotos">
-                        <?php echo TXT_LINK_ALBUNS_FOTOS; ?>
-                    </a>
-                </li>
+			<li class="menu-item">
+				<a href="sobre" class="menu-texto ico-sobre">
+					<?php echo TXT_LINK_SOBRE; ?>
+				</a>
+			</li>
 
-                <li class="menu-item">
-                    <a href="contato" class="menu-texto ico-contato">
-                        <?php echo TXT_LINK_CONTATO; ?>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+			<li class="menu-item">
+				<a href="albuns-de-fotos" class="menu-texto ico-fotos">
+					<?php echo TXT_LINK_ALBUNS_FOTOS; ?>
+				</a>
+			</li>
 
-        <section class="dl3-conteudo">
-            <h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
+			<li class="menu-item">
+				<a href="contato" class="menu-texto ico-contato">
+					<?php echo TXT_LINK_CONTATO; ?>
+				</a>
+			</li>
+		</ul>
+	</nav>
 
-            [DL3-CONTEUDO/]
-        </section>
+	<section class="dl3-conteudo">
+		<h1 class="titulo-h1"><?php echo $params['titulo']; ?></h1>
 
-        <footer class="dl3-rodape">
-            <p class="copyright"><?php echo \DL3::$ap_titulo .' &copy; '. date('Y'); ?></p>
+		[DL3-CONTEUDO/]
+	</section>
 
-            <ul class="dados-contato sem-marcadores">
-                <?php foreach( $params['dados-contato'] as $dc ): ?>
-                <li class="item-contato">
-                    <?php if( empty($dc['tipo_dado_icone']) ):
-                        echo "<b>{$dc['tipo_dado_descr']}:</b> ";
-                    else: ?>
-                    <img src=".<?php echo $dc['tipo_dado_icone']; ?>" alt="<?php echo $dc['tipo_dado_descr']; ?>" class="icone-contato"/>
-                    <?php endif;
+	<footer class="dl3-rodape">
+		<p class="copyright"><?php echo \DL3::$ap_titulo .' &copy; '. date('Y'); ?></p>
+	</footer>
 
-                    echo $dc['dado_contato_descr']; ?>
-                </li>
-                <?php endforeach; ?>
-            </ul>
+	<a href="http://diegolepera.com.br/" target="_blank" class="dl3-link">
+		<img src="http://diegolepera.com.br/aplicacao/imgs/logotipo.png" alt="diegolepera.com.br"/>
+		<span><?php echo TXT_DIVERSOS_SITE_DESENVOLVIDO_POR; ?></span>
+	</a>
+</div>
 
-            <ul class="redes-sociais sem-marcadores">
-                <?php foreach( $params['redes-sociais'] as $rs ): ?>
-                <li class="item-contato">
-                    <?php if( empty($rs['tipo_dado_icone']) ):
-                        echo "<b>{$rs['tipo_dado_descr']}:</b> ";
-                    else: ?>
-                    <img src=".<?php echo $rs['tipo_dado_icone']; ?>" alt="<?php echo $rs['tipo_dado_descr']; ?>" class="icone-contato"/>
-                    <?php endif;
+<!-- Sombra / silhueta de dançarinos -->
+<img id="silhueta" src="<?php echo $params['silhueta']; ?>" class="v-desk"/>
 
-                    echo $rs['dado_contato_descr']; ?>
-                </li>
-                <?php endforeach; ?>
-            </ul>
+<!-- Carregando -->
+<div id="dl3-carregando"></div>
 
-	        <a href="http://diegolepera.com.br/" target="_blank" class="dl3-link">
-		        <img src="http://diegolepera.com.br/aplicacao/imgs/logotipo.png" alt="diegolepera.com.br"/>
-		        <span><?php echo TXT_DIVERSOS_SITE_DESENVOLVIDO_POR; ?></span>
-	        </a>
-        </footer>
-    </div>
+<!-- Aplicar o tema CSS da página -->
+<?php echo \DL3::_carregartema($params['conf-site']['tema_diretorio']); ?>
 
-    <!-- Carregando -->
-    <div id="dl3-carregando"></div>
+<!-- CSS`s customizados -->
+[DL3-CSS/]
 
-    <!-- Javascripts -->
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-galeria/dl-galeria-2.2.plugin-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
-    <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes-min.js"></script>
+<!-- Javascripts -->
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-galeria/dl-galeria-2.2.plugin-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>validacoes-min.js"></script>
 
-    <!-- Google Analytics -->
-    <?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/google_analytics.phtml'; ?>
+<!-- Google Analytics -->
+<?php include_once 'aplicativos/'. DL3_APLICATIVO .'/comum/visoes/google_analytics.phtml'; ?>
 
-    <script>
-        // Identificar navegador e versão
-        var nav = navegador();
+<script>
+	// Identificar navegador e versão
+	var nav = navegador();
 
-        if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
-            $('#ie-incompativel').removeAttr('style');
-    </script>
+	if( nav.nome === 'Internet Explorer' && parseInt(nav.versao) < 11 )
+		$('#ie-incompativel').removeAttr('style');
+</script>
 
-    [DL3-SCRIPTS/]
+[DL3-SCRIPTS/]
 </body>
 </html>

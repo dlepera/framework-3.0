@@ -30,13 +30,12 @@ $params = $this->_obterparams();
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
-    <!-- Aplicar o tema da página -->
-    <?php echo \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
-
     <!-- <head> Conteúdo personalizado </head> -->
     [DL3-HEAD/]
 </head>
 <body>
+	[DL3-CARREGANDO/]
+
 	<!-- Verificar JavaScript -->
 	<noscript class="incompativel"><?php echo TXT_DIVERSOS_JS_DESATIVADO; ?></noscript>
 
@@ -187,6 +186,12 @@ $params = $this->_obterparams();
 
     <!-- Carregando -->
     <div id="dl3-carregando"></div>
+
+	<!-- Aplicar o tema da página -->
+	<?php echo \DL3::_carregartema($_SESSION['tema_diretorio']); ?>
+
+	<!-- CSS personalizados -->
+	[DL3-CSS/]
 
     <!-- Javascripts -->
     <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>

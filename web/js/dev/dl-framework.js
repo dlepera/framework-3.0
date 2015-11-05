@@ -5,6 +5,8 @@
  * @Data	: 20/05/2014 11:43:08
  */
 
+/*global dir_relativo, console, $el*/
+
 var plugin_formulario_tema = 'painel-dl';
 
 /**
@@ -15,7 +17,7 @@ var plugin_formulario_tema = 'painel-dl';
  * @returns {bool}
  */
 function carregarCSS(arquivo_css){
-    if( /null.css$/.test(arquivo_css) ) return true;
+    if( /null.css$/.test(arquivo_css) ){ return true; }
     
     // Tratar o nome do arquivo CSS
     arquivo_css = dir_relativo + arquivo_css.replace(/^\//, '');
@@ -24,8 +26,9 @@ function carregarCSS(arquivo_css){
         // Verificar se o arquivo CSS já não foi carregado
         var $css_carregado = $('link[rel="stylesheet"][href="'+ arquivo_css +'"]');
 
-        if( $css_carregado.length > 0 )
-            return true; // Arquivo já carregado
+        if( $css_carregado.length > 0 ){
+			return true; // Arquivo já carregado
+		} // Fim if( $css_carregado.length > 0 )
 
         // - Criar o novo link de ligação ao CSS
         // - Incluir a TAG na sessão HEAD da página
@@ -71,9 +74,10 @@ function selecionarLinha(obj, u){
     $linha.addClass('tr-selec');
     
     // Remover a seleção das outras linhas
-    if( u === true )
-        $linha.parents('tbody').find(':checkbox').prop('checked', false);
-    
+	if( u === true ){
+		$linha.parents('tbody').find(':checkbox').prop('checked', false);
+	} // Fim if( u === true )
+
     if( obj.type !== 'checkbox' ){
         // Selecionar o checkbox dentro da linha
         $linha.find('td:first-child :checkbox, :checkbox.bd-registro-id').each(function() {
@@ -161,8 +165,9 @@ function carregarForm(form, id_html, func_depois){
 				$(this).remove();
 			});
 
-			if( typeof func_depois === 'function')
+			if( typeof func_depois === 'function'){
 				func_depois();
+			} // Fim if( typeof func_depois === 'function')
 		},
 		aparencia: { tema: plugin_formulario_tema }
 	});
@@ -207,8 +212,9 @@ function carregarSelect($s, c){
                 // com excessão do primeiro
                 $s.find('option:not(:first-child)').remove();
 
-                for(var i=0; i < qtde; i++)
-                    $(document.createElement('option')).val(json[i].VALOR).text(json[i].TEXTO).appendTo($s);
+                for(var i=0; i < qtde; i++){
+					$(document.createElement('option')).val(json[i].VALOR).text(json[i].TEXTO).appendTo($s);
+				} // Fim for( i )
             } // Fim if( qtde > 0 )
         } // Fim success
     });
@@ -231,11 +237,11 @@ function mostrarCampo(cbx, $j){
 		if( cbx.checked ){
 			$th.fadeIn('fast');
 
-			if( tag === 'input' ) $th.focus();
+			if( tag === 'input' ){ $th.focus(); }
 		} else {
 			$th.fadeOut('fast');
 
-			if( tag === 'input' ) $th.val('');
+			if( tag === 'input' ){ $th.val(''); }
 		} // Fim if( cbx.checked )
 	});
 } // Fim function mostrarCampo(cbx, $j)
@@ -245,9 +251,11 @@ function mostrarCampo(cbx, $j){
 // Adicionar o suporte ao trim
 // Necessário para o IE (óbvio!!) 8 ou mais antigo
 if( typeof String.prototype.trim !== 'function' ){
-    String.prototype.trim = function() {
-        return this.replace(/^\s+|\s+$/g, ''); 
-    };
+	Object.defineProperty(String.prototype, 'trim', {
+		value: function(){
+			return this.replace(/^\s+|\s+$/g, '');
+		}
+	});
 }
 
 
@@ -285,7 +293,7 @@ function navegador(){
         v = cf[2];
     } // Fim if( ie ) ( ff || op )
 
-    return { nome: n, versao: parseFloat(v) }
+    return { nome: n, versao: parseFloat(v) };
 } // Fim da função navegador
 
 
@@ -345,12 +353,14 @@ $.ajaxSetup({
 			$ajax_contexto.addClass('nao-clicavel');
 
 			// Incluir o ícone de carregamento
-			if( $ajax_contexto.is(':button, :submit, :reset, a') )
+			if( $ajax_contexto.is(':button, :submit, :reset, a') ){
 				$ajax_contexto.addClass('ico-carregando');
+			} // Fim if( $ajax_contexto.is(':button, :submit, :reset, a') )
 
 			// Desabilitar o botão
-			if( $ajax_contexto.is(':button, :submit, :reset') )
+			if( $ajax_contexto.is(':button, :submit, :reset') ){
 				$ajax_contexto.prop('disabled', true);
+			} // Fim if( $ajax_contexto.is(':button, :submit, :reset') )
 		} // Fim if( $ajax_contexto !== undefined )
 
         $(document.createElement('p')).addClass('msg-carregando')

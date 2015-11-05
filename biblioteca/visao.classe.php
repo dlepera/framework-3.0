@@ -14,7 +14,7 @@ class Visao{
 	const CONF_EXTENSAO_MESTRA  = 'mestra';
 	const CONF_EXTENSAO_TPL     = 'phtml';
 
-	private $diretorio, $pg_mestra = 'padrao', $templates = [], $conteudo, $dl3_areas = ['DL3-HEAD', 'DL3-CONTEUDO', 'DL3-RODAPE', 'DL3-SCRIPTS'];
+	private $diretorio, $pg_mestra = 'padrao', $templates = [], $conteudo, $dl3_areas = ['DL3-HEAD', 'DL3-CONTEUDO', 'DL3-RODAPE', 'DL3-SCRIPTS', 'DL3-CARREGANDO', 'DL3-CSS'];
 
 	# Parâmetros da página
 	private $params = [], $exibir_auto = true;
@@ -27,7 +27,12 @@ class Visao{
 
 
 
-	public function __construct($nm, $pgm=null){
+
+	/**
+	 * @param string      $nm  Nome do módulo a ser carregado
+	 * @param string|null $pgm Nome da página mestra a ser utilizada para renderização
+	 */
+	public function __construct($nm, $pgm = null){
 		$this->_diretorio(sprintf(\DL3::DIR_MODULOS, DL3_APLICATIVO, $nm) . \DL3::DIR_VISOES);
 		$this->_pg_mestra($pgm);
 
@@ -66,10 +71,10 @@ class Visao{
 	public function _titulo($v = null){
 		$this->titulo = filter_var(!isset($v) ? $this->titulo : $v, FILTER_SANITIZE_STRING);
 
-		if( isset($v) ):
+		if( isset($v) ){
 			# Incluir parâmetros padrões
 			$this->_adparam('titulo', $this->titulo);
-		endif;
+		} // Fim if( isset($v) )
 
 		return $this->titulo;
 	} // Fim do método _titulo
@@ -96,7 +101,7 @@ class Visao{
 
 		$tpl_a = "{$tpl}." . self::CONF_EXTENSAO_TPL;
 
-		if( !is_file($tpl_a) ){
+		if( !is_file("{$this->diretorio}{$tpl_a}") ){
 			if( $p && ($tpl = $this->_procurartemplate($tpl_a)) !== false ) $this->templates[$o] = $tpl;
 			else $this->_status_http(404);
 		} else
@@ -160,6 +165,7 @@ class Visao{
 
 		# Ordenar os templates
 		ksort($this->templates);
+		$this->templates = array_unique($this->templates);
 
 		# Iniciar buffer
 		ob_start();
@@ -241,7 +247,7 @@ class Visao{
 
 		# Verificar se o parâmetro solicitado existe
 		if( !array_key_exists($n, $this->params) )
-			return '<span style="color:red;">Parâmetro não encontrado!</span>';
+			return '<span style="color: red;">Parâmetro não encontrado!</span>';
 
 		return $this->params[$n];
 	} // Fim do método _obterparams
@@ -257,7 +263,7 @@ class Visao{
 	 *
 	 * @return bool|string String com o caminho para o template ou false caso o template não seja localizado
 	 */
-	public function _procurartemplate($tpl, $num = 5){
+	public function _procurartemplate($tpl, $num = 10){
 		$qtde = 0;
 		$diretorio = $this->diretorio;
 		$arquivo = $tpl;

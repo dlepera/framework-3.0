@@ -16,7 +16,7 @@ abstract class Principal{
 	 * 'Gets' e 'Sets' das propriedades
 	 */
 	public function __get($n){ return m_get($this, $n); } // Fim do método __get
-	public function __set($n,$v){ return m_set($this, $n, $v); } // Fim do método __set
+	public function __set($n, $v){ return m_set($this, $n, $v); } // Fim do método __set
 
 
 
@@ -27,6 +27,7 @@ abstract class Principal{
 	 * @param object $m  Instância do modelo referente a esse controle
 	 * @param string $nm Nome do diretório a ser considerado para a visão
 	 * @param string $nc Nome do modelo / controle
+	 *
 	 */
 	public function __construct($m, $nm, $nc){
 		$this->visao    = new \Visao($nm);
@@ -54,7 +55,15 @@ abstract class Principal{
 	 * @param string $mst Nome da página mestra a ser utilizada
 	 * @param int    $o   Ordem de exibição do template na compilação final
 	 */
-	protected function _carregarhtml($tpl, $mst = null, $o=0){
+	protected function _carregarhtml($tpl, $mst = null, $o = 0){
+		/*
+		 * O primeiro template a ser incluído é o da mensagem "Carregando conteúdo"
+		 */
+		if( count($this->visao->templates) === 0 ){
+			$carregando = 'comum/visoes/carregando_' . preg_replace('~[\s\_\-\/]+~', '', isset($_SESSION['tema_diretorio']) ? $_SESSION['tema_diretorio'] : $this->visao->_obterparams('conf-site')['tema_diretorio']);
+			$this->visao->_adtemplate($carregando, true, 0);
+		} // Fim if( empty($this->visao->templates) )
+
 		$this->visao->_adtemplate($tpl, true, $o);
 		$this->visao->pg_mestra = !$mst ? null : $mst;
 	} // Fim do método _carregarhtml
@@ -147,7 +156,7 @@ abstract class Principal{
 
 		# Parâmetros
 		$this->visao->_adparam('form-id', $form_id);
-		$this->visao->_adparam('form-action', \DL3::$modulo_atual .'/'. ($inc ? $form_ia : $form_ea));
+		$this->visao->_adparam('form-action', \DL3::$modulo_atual . '/' . ($inc ? $form_ia : $form_ea));
 		$this->visao->_adparam('url-depois', $url);
 
 		return $inc;
