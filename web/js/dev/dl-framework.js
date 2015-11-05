@@ -35,7 +35,7 @@ function carregarCSS(arquivo_css){
             rel     : 'stylesheet',
             media   : 'all',
             href    : arquivo_css
-        }).insertAfter('html head link:last-of-type');
+        }).insertAfter('link[rel="stylesheet"]:last-of-type');
     });
 
     return true;
