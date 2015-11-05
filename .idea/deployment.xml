@@ -11,7 +11,6 @@
             <excludedPath local="true" path="$PROJECT_DIR$/_padroes" />
             <excludedPath local="true" path="$PROJECT_DIR$/bd" />
             <excludedPath local="true" path="$PROJECT_DIR$/bkp" />
-            <excludedPath local="true" path="$PROJECT_DIR$/teste" />
             <excludedPath local="true" path="$PROJECT_DIR$/web/js/dev" />
             <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/_ajuda" />
             <excludedPath local="true" path="$PROJECT_DIR$/web/temas/painel-dl3/config.codekit" />
@@ -40,6 +39,7 @@
             <excludedPath local="true" path="$PROJECT_DIR$/web/uploads/*" />
             <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
             <excludedPath local="true" path="$PROJECT_DIR$/web/.codekit-cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web/js/dev" />
           </excludedPaths>
         </serverdata>
       </paths>

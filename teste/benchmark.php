@@ -188,5 +188,7 @@ function _echo_vs_print(){
 // _concatenacao();
 // _echo_vs_print();
 
-setlocale(LC_ALL, 'pt_BR');
-echo date('D');
+require_once '../biblioteca/funcoes.classe.php';
+$string = 'TESTE 123';
+$numero = 15;
+$break = '...';

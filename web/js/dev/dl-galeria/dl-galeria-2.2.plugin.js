@@ -18,11 +18,12 @@
 		var $indic = $galeria.find(seletor_indic);
 		var ultima = $foto.length - 1;
 		var display = $foto.filter(':visible').css('display');
+		loop = loop || false;
 
 		if( foto < 0 || foto > ultima ){
 			if( loop ){
 				if( foto < 0 ){ foto = ultima; }
-				else if( foto === ultima ){ foto = 0; }
+				else if( foto > ultima ){ foto = 0; }
 			} else {
 				return null;
 			} // Fim if( loop )
