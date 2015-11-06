@@ -62,7 +62,7 @@ abstract class Principal{
 		if( count($this->visao->templates) === 0 ){
 			$tema = isset($_SESSION['tema_diretorio'])
 				? $_SESSION['tema_diretorio']
-				: $this->visao->_paramexiste('conf-site');
+				: $this->visao->_obterparams('conf-site')['tema_diretorio'];
 
 			!isset($_SESSION['tema_diretorio']) && !$this->visao->_paramexiste('conf-site') and $tema = 'painel-dl3';
 
