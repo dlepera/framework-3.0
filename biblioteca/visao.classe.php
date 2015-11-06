@@ -302,4 +302,18 @@ class Visao{
 		$this->_adparam('erro-titulo', $this->titulo);
 		$this->_adparam('erro-texto', constant("TXT_DIVERSOS_ERRO_{$s}"));
 	} // Fim do método _status_http
+
+
+
+
+	/**
+	 * Verificar se um determinado parâmetro existe
+	 *
+	 * @param string $param Nome do parâmetro a ser verificado
+	 *
+	 * @return bool
+	 */
+	public function _paramexiste($param){
+		return array_key_exists($param, $this->params);
+	} // Fim _paramexiste
 } // Fim da classe Visao

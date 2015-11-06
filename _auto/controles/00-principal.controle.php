@@ -62,9 +62,10 @@ abstract class Principal{
 		if( count($this->visao->templates) === 0 ){
 			$tema = isset($_SESSION['tema_diretorio'])
 				? $_SESSION['tema_diretorio']
-				: isset($this->visao->_obterparams('conf-site')['tema_diretorio'])
-					? isset($this->visao->_obterparams('conf-site')['tema_diretorio'])
-					: 'painel-dl3';
+				: $this->visao->_paramexiste('conf-site');
+
+			!isset($_SESSION['tema_diretorio']) && !$this->visao->_paramexiste('conf-site') and $tema = 'painel-dl3';
+
 			$carregando = 'comum/visoes/carregando_' . preg_replace('~[\s\_\-\/]+~', '', $tema);
 			$this->visao->_adtemplate($carregando, true, 0);
 
