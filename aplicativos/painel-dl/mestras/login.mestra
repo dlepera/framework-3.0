@@ -30,13 +30,12 @@ $params = $this->_obterparams();
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo \DL3::$dir_relativo . \DL3::$dir_imgs . \DL3::$ap_favicon; ?>"/>
 
-    <!-- Aplicar o tema da página -->
-    <?php echo \DL3::_carregartema($params['tema']); ?>
-
     <!-- Conteúdo personalizado -->
     [DL3-HEAD/]
 </head>
 <body>
+	[DL3-CARREGANDO/]
+
     <div id="dl3-grid" class="grid-login">
         <header class="dl3-topo">
             <a href="" class="logotipo"><?php echo \DL3::$ap_titulo; ?></a>
@@ -60,9 +59,12 @@ $params = $this->_obterparams();
 </body>
 </html>
 
+<!-- Aplicar o tema da página -->
+<?php echo \DL3::_carregartema($params['tema']); ?>
+
 <!-- Javascripts -->
 <script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>jquery-<?php echo \DL3::$ap_versao_jquery; ?>-min.js"></script>
-<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin.js"></script>
-<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-formulario/dl-formulario-2.2.plugin-min.js"></script>
+<script src="<?php echo \DL3::$dir_relativo . \DL3::$dir_js; ?>dl-framework-min.js"></script>
 
 [DL3-SCRIPTS/]

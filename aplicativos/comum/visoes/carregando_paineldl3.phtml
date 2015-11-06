@@ -14,7 +14,7 @@
 	<!-- Carregando Conteúdo -->
 	<div id="dl3-carregando-conteudo" style="position: fixed; top: 0; left: 0; z-index: 3; width: 100%; height: 100%; background: #F4F7FB; text-align: center;">
 		<div style="position: absolute; top: 50%; left: 50%; transform: translateY(-75%) translateX(-50%); width: 40%;">
-			<img src="<?php echo \DL3::$dir_relativo . \DL3::$dir_temas . (isset($_SESSION['tema_diretorio']) ? $_SESSION['tema_diretorio'] : $params['conf-site']['tema_diretorio']); ?>/css/imagens/logotipo.png" style="max-width: 20%; display: inline-block; vertical-align: middle;"/>
+			<img src="<?php echo \DL3::$dir_relativo . \DL3::$dir_temas . $params['carregando-tema']; ?>/css/imagens/logotipo.png" style="max-width: 20%; display: inline-block; vertical-align: middle;"/>
 
 			<p style="display: inline-block; color: #6A8397; font-size: large;">
 				Carregando o conteúdo!<br/>
