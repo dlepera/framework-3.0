@@ -60,8 +60,15 @@ abstract class Principal{
 		 * O primeiro template a ser incluído é o da mensagem "Carregando conteúdo"
 		 */
 		if( count($this->visao->templates) === 0 ){
-			$carregando = 'comum/visoes/carregando_' . preg_replace('~[\s\_\-\/]+~', '', isset($_SESSION['tema_diretorio']) ? $_SESSION['tema_diretorio'] : $this->visao->_obterparams('conf-site')['tema_diretorio']);
+			$tema = isset($_SESSION['tema_diretorio'])
+				? $_SESSION['tema_diretorio']
+				: isset($this->visao->_obterparams('conf-site')['tema_diretorio'])
+					? isset($this->visao->_obterparams('conf-site')['tema_diretorio'])
+					: 'painel-dl3';
+			$carregando = 'comum/visoes/carregando_' . preg_replace('~[\s\_\-\/]+~', '', $tema);
 			$this->visao->_adtemplate($carregando, true, 0);
+
+			$this->visao->_adparam('carregando-tema', $tema);
 		} // Fim if( empty($this->visao->templates) )
 
 		$this->visao->_adtemplate($tpl, true, $o);
